@@ -112,8 +112,6 @@ button{
  margin:auto;
 }
 
-/* HEADER */
-
 header{
  position:sticky;
  top:0;
@@ -189,8 +187,6 @@ nav a:hover{
  color:#aeb8ca;
  font-size:12px;
 }
-
-/* HERO */
 
 .hero{
  padding:80px 0 55px;
@@ -286,8 +282,6 @@ h1{
  font-size:14px;
 }
 
-/* SECCIONES */
-
 section{
  padding:70px 0;
 }
@@ -305,8 +299,6 @@ section{
  color:#929db1;
  margin-top:8px;
 }
-
-/* CARDS */
 
 .grid{
  display:grid;
@@ -342,8 +334,6 @@ section{
  font-size:14px;
  margin-bottom:15px;
 }
-
-/* GENERADOR */
 
 .generator{
  background:linear-gradient(145deg,rgba(15,26,44,.95),rgba(7,12,21,.95));
@@ -385,8 +375,6 @@ section{
  width:100%;
 }
 
-/* RESULTADO */
-
 .result{
  margin-top:25px;
  display:none;
@@ -423,8 +411,6 @@ section{
 .exercise-result small{
  color:#7e8aa0;
 }
-
-/* EJERCICIOS */
 
 .search{
  width:100%;
@@ -471,8 +457,6 @@ section{
  margin-top:4px;
 }
 
-/* PROGRAMAS */
-
 .program{
  display:flex;
  flex-direction:column;
@@ -482,8 +466,6 @@ section{
 .program .btn{
  margin-top:auto;
 }
-
-/* TIENDA */
 
 .shop-section{
  position:relative;
@@ -674,8 +656,6 @@ section{
  color:#b9c4d7;
 }
 
-/* PERFIL */
-
 .profile-section{
  display:none;
 }
@@ -780,8 +760,6 @@ section{
  color:#7f8ba0;
 }
 
-/* FAQ */
-
 .faq{
  border-top:1px solid rgba(255,255,255,.08);
 }
@@ -800,8 +778,6 @@ details p{
  color:#8f9aaf;
  margin-top:12px;
 }
-
-/* FOOTER */
 
 footer{
  margin-top:50px;
@@ -830,8 +806,6 @@ footer a{
 footer a:hover{
  color:#65ff9a;
 }
-
-/* MODAL */
 
 .modal{
  position:fixed;
@@ -878,8 +852,6 @@ footer a:hover{
  background:#18243c;
  color:#65ff9a;
 }
-
-/* FORMULARIO DE CUENTA */
 
 .auth-tabs{
  display:flex;
@@ -953,8 +925,6 @@ footer a:hover{
  color:#65ff9a;
 }
 
-/* TIMER */
-
 .timer-display{
  font-size:70px;
  text-align:center;
@@ -972,8 +942,6 @@ footer a:hover{
 .timer-buttons button{
  flex:1;
 }
-
-/* RESPONSIVE */
 
 @media(max-width:1000px){
 
@@ -1241,8 +1209,6 @@ Explorar ejercicios
 
 </section>
 
-<!-- PERFIL -->
-
 <section id="perfil" class="profile-section">
 
 <div class="container">
@@ -1350,8 +1316,6 @@ Todavía no tienes entrenamientos registrados.
 
 </section>
 
-<!-- GENERADOR -->
-
 <section id="generador">
 
 <div class="container">
@@ -1455,8 +1419,6 @@ GENERAR MI RUTINA
 </div>
 
 </section>
-
-<!-- RUTINAS -->
 
 <section id="rutinas">
 
@@ -1605,8 +1567,6 @@ Crear rutina
 
 </section>
 
-<!-- EJERCICIOS -->
-
 <section id="ejercicios">
 
 <div class="container">
@@ -1626,7 +1586,7 @@ hombros y cuerpo completo.
 class="search"
 id="search"
 placeholder="Buscar ejercicio..."
-oninput="searchExercises()">
+oninput="searchExercises">
 
 <div id="exerciseGrid" class="exercise-grid">
 </div>
@@ -1634,8 +1594,6 @@ oninput="searchExercises()">
 </div>
 
 </section>
-
-<!-- PROGRAMAS -->
 
 <section id="programas">
 
@@ -1718,8 +1676,6 @@ Comenzar
 </div>
 
 </section>
-
-<!-- TIENDA -->
 
 <section id="tienda" class="shop-section">
 
@@ -1819,8 +1775,6 @@ adicional para ti.
 
 </section>
 
-<!-- SEO -->
-
 <section>
 
 <div class="container">
@@ -1870,8 +1824,6 @@ modificar tu entrenamiento.
 </div>
 
 </section>
-
-<!-- FAQ -->
 
 <section id="faq">
 
@@ -2018,8 +1970,6 @@ tu entrenamiento.
 
 </footer>
 
-<!-- MODAL -->
-
 <div id="modal" class="modal">
 
 <div class="modal-box">
@@ -2040,10 +1990,6 @@ aria-label="Cerrar">
 </div>
 
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
 "https://oouxazqyavahwlntrhku.supabase.co";
@@ -2066,11 +2012,6 @@ if(
  );
 
 }
-
-
-/* =====================================================
-   BASE DE EJERCICIOS
-===================================================== */
 
 const exercises = [
 
@@ -2116,11 +2057,6 @@ const exercises = [
 ["Caminata rápida","Cardio","condicion"]
 
 ];
-
-
-/* =====================================================
-   PRODUCTOS
-===================================================== */
 
 const products = [
 
@@ -2234,21 +2170,11 @@ const products = [
 
 ];
 
-
-/* =====================================================
-   ESTADO
-===================================================== */
-
 let currentUser = null;
-
 let currentRoutine = null;
-
 let timerInterval = null;
-
 let timerSeconds = 30;
-
 let timerRunning = false;
-
 let savingWorkout = false;
 
 
@@ -2448,6 +2374,11 @@ async function registerUser(event){
 
  }
 
+ /*
+  * IMPORTANTE:
+  * Indicamos explícitamente a Supabase dónde debe
+  * regresar después de confirmar el correo.
+  */
  const {
   data,
   error
@@ -2460,7 +2391,11 @@ async function registerUser(event){
   options:{
    data:{
     name:name || "Usuario FitLab"
-   }
+   },
+
+   emailRedirectTo:
+    "https://cberroteran400-spec.github.io/fitlab/"
+
   }
 
  });
@@ -2715,7 +2650,7 @@ function updateAuthUI(){
 
 
 /* =====================================================
-   PERFIL EN SUPABASE
+   PERFIL
 ===================================================== */
 
 async function ensureUserProfile(){
@@ -2847,10 +2782,6 @@ async function ensureUserProgress(){
 }
 
 
-/*
- * Convierte una fecha a YYYY-MM-DD usando
- * la zona horaria de Ciudad de México.
- */
 function getDateKey(value){
 
  try{
@@ -2888,10 +2819,6 @@ function getDateKey(value){
 }
 
 
-/*
- * Convierte YYYY-MM-DD a número para
- * poder calcular diferencias entre días.
- */
 function dateKeyToNumber(key){
 
  const parts =
@@ -2916,13 +2843,6 @@ function dateKeyToNumber(key){
 }
 
 
-/*
- * Calcula todo el progreso a partir del historial
- * completo de entrenamientos.
- *
- * Esto evita que los datos se desincronicen si,
- * por ejemplo, el usuario tiene muchos entrenamientos.
- */
 function calculateProgressFromHistory(history){
 
  const safeHistory =
@@ -2978,10 +2898,6 @@ function calculateProgressFromHistory(history){
     )
   : null;
 
-  /*
-   * Una racha sigue activa si entrenó hoy
-   * o ayer.
-   */
   if(
    daysFromToday===0 ||
    daysFromToday===1
@@ -3024,9 +2940,6 @@ function calculateProgressFromHistory(history){
 
   }
 
-  /*
-   * Calculamos la racha histórica más larga.
-   */
   let streak=1;
 
   for(let i=1;i<sortedDates.length;i++){
@@ -3097,9 +3010,6 @@ function calculateProgressFromHistory(history){
 }
 
 
-/*
- * Sincroniza la tabla progress con el historial real.
- */
 async function syncProgressFromHistory(history){
 
  if(!supabaseClient || !currentUser){
@@ -3156,10 +3066,6 @@ async function syncProgressFromHistory(history){
 }
 
 
-/*
- * Después de completar un entrenamiento,
- * reconstruimos el progreso desde el historial.
- */
 async function updateProgressAfterWorkout(){
 
  if(!supabaseClient || !currentUser){
@@ -3312,10 +3218,6 @@ async function completeWorkout(){
 
  }
 
- /*
-  * Evita que un doble toque registre
-  * dos entrenamientos.
-  */
  if(savingWorkout){
 
   return false;
@@ -3383,9 +3285,6 @@ async function completeWorkout(){
 
  }
 
- /*
-  * Recalculamos desde todo el historial.
-  */
  await updateProgressAfterWorkout();
 
  savingWorkout=false;
@@ -3496,15 +3395,9 @@ async function loadProfile(){
  const history =
  historyResult.data || [];
 
- /*
-  * El progreso se calcula usando todo el historial.
-  */
  const calculated =
  calculateProgressFromHistory(history);
 
- /*
-  * También dejamos sincronizada la tabla progress.
-  */
  await syncProgressFromHistory(history);
 
  const routineCount =
@@ -3545,10 +3438,6 @@ async function loadProfile(){
 
 }
 
-
-/* =====================================================
-   RUTINAS GUARDADAS
-===================================================== */
 
 function renderSavedRoutines(routines){
 
@@ -3646,10 +3535,6 @@ function renderActivity(history){
 }
 
 
-/*
- * Formato de fecha para la actividad.
- * También utiliza la zona horaria de México.
- */
 function formatActivityDate(value){
 
  try{
@@ -3719,7 +3604,7 @@ function escapeHtml(value){
 
 
 /* =====================================================
-   MOSTRAR PRODUCTOS
+   PRODUCTOS
 ===================================================== */
 
 function renderProducts(list=products){
@@ -3851,10 +3736,6 @@ function filterProducts(category,button){
 
 }
 
-
-/* =====================================================
-   PRODUCTO
-===================================================== */
 
 function showProduct(index){
 
@@ -4134,12 +4015,6 @@ async function generateRoutine(){
   }))
  };
 
- /*
-  * Las preferencias se guardan en segundo plano.
-  * Si la tabla todavía no tiene alguna columna opcional,
-  * no se rompe el generador.
-  */
-
  if(currentUser && supabaseClient){
 
   supabaseClient
@@ -4283,10 +4158,6 @@ function saveCurrentRoutine(){
 
 }
 
-
-/* =====================================================
-   SELECTORES
-===================================================== */
 
 function setGoal(value){
 
@@ -4719,10 +4590,6 @@ async function finishTimer(){
  const recorded =
  await completeWorkout();
 
- /*
-  * Si no hay sesión, completeWorkout()
-  * abre el login y dejamos ese modal abierto.
-  */
  if(recorded){
 
   closeModal();
@@ -4744,10 +4611,6 @@ function stopTimer(){
 
 }
 
-
-/* =====================================================
-   MODAL
-===================================================== */
 
 function closeModal(){
 
