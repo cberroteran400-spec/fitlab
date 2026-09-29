@@ -8,16 +8,8 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
- <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
- <meta name='impact-site-verification' value='e3ca7829-24f8-4b27-92ea-1d873a851e3d'>
 
-
-<title>FitLab | Rutinas de ejercicio, entrenamiento y productos fitness</title>
-
-
+<meta name="impact-site-verification" value="e3ca7829-24f8-4b27-92ea-1d873a851e3d">
 
 <title>FitLab | Rutinas de ejercicio, entrenamiento y productos fitness</title>
 
@@ -678,134 +670,52 @@ section{
  0 18px 45px rgba(0,0,0,.25);
 }
 
-.product-image{
- height:190px;
 
- position:relative;
+/* ESPACIO SIN IMAGEN */
 
- overflow:hidden;
-
- background:
- linear-gradient(
- 135deg,
- #101827,
- #18243c
- );
-
- cursor:pointer;
-}
-
-.product-image img{
- width:100%;
- height:100%;
-
- object-fit:cover;
-
- display:block;
-
- transition:.35s;
-}
-
-.product-image:hover img{
- transform:scale(1.06);
-}
-
-.product-image:active{
- transform:scale(.99);
-}
-
-.product-category{
- position:absolute;
-
- top:11px;
- left:11px;
-
- background:rgba(4,7,12,.78);
-
- backdrop-filter:blur(8px);
-
- color:#65ff9a;
-
- border:1px solid rgba(101,255,154,.2);
-
- padding:5px 9px;
-
- border-radius:999px;
-
- font-size:10px;
- font-weight:800;
-
- z-index:2;
-}
-
-.image-view-badge{
- position:absolute;
-
- right:10px;
- bottom:10px;
-
- background:rgba(0,0,0,.72);
-
- color:#fff;
-
- padding:6px 9px;
-
- border-radius:8px;
-
- font-size:10px;
- font-weight:800;
-
- opacity:.9;
-
- z-index:2;
-
- pointer-events:none;
-}
-
-.image-fallback-content{
- position:absolute;
-
- inset:0;
+.product-image-placeholder{
+ height:150px;
 
  display:flex;
-
  flex-direction:column;
 
  align-items:center;
-
  justify-content:center;
 
  text-align:center;
 
- padding:20px;
-
- color:#fff;
-
  background:
  radial-gradient(
   circle at center,
-  #1b2942,
-  #0d1523
+  #18243c,
+  #0b111d
  );
+
+ border-bottom:1px solid rgba(255,255,255,.06);
+
+ color:#7f8ba0;
 }
 
-.image-fallback-content span{
- font-size:50px;
+.product-image-placeholder .placeholder-icon{
+ font-size:42px;
  margin-bottom:8px;
 }
 
-.image-fallback-content strong{
- font-size:14px;
+.product-image-placeholder strong{
  color:#65ff9a;
+ font-size:13px;
 }
 
+
+/* CONTENIDO */
+
 .product-content{
- padding:17px;
+ padding:18px;
 }
 
 .product-content h3{
  font-size:17px;
- margin-bottom:6px;
+ margin-bottom:7px;
 }
 
 .product-content p{
@@ -816,6 +726,25 @@ section{
  min-height:58px;
 }
 
+.product-category-label{
+ display:inline-block;
+
+ padding:5px 9px;
+
+ border-radius:999px;
+
+ background:rgba(101,255,154,.1);
+
+ color:#65ff9a;
+
+ border:1px solid rgba(101,255,154,.2);
+
+ font-size:10px;
+ font-weight:800;
+
+ margin-bottom:10px;
+}
+
 .product-info{
  display:flex;
  align-items:center;
@@ -823,7 +752,7 @@ section{
 
  gap:10px;
 
- margin-top:13px;
+ margin-top:15px;
 }
 
 .product-type{
@@ -1044,61 +973,6 @@ footer a:hover{
 
 
 /* =====================================================
-   IMAGEN GRANDE
-===================================================== */
-
-.modal-product-image{
- width:100%;
-
- height:280px;
-
- object-fit:cover;
-
- border-radius:16px;
-
- display:block;
-
- cursor:pointer;
-
- background:#101827;
-}
-
-.full-image-container{
- text-align:center;
-}
-
-.full-image-container h2{
- margin-bottom:18px;
-}
-
-.full-image{
- width:100%;
-
- max-height:65vh;
-
- object-fit:contain;
-
- display:block;
-
- margin:auto;
-
- border-radius:16px;
-
- background:#080e19;
-}
-
-.image-help{
- color:#778398;
-
- font-size:12px;
-
- margin-top:12px;
-
- text-align:center;
-}
-
-
-/* =====================================================
    RESPONSIVE
 ===================================================== */
 
@@ -1177,8 +1051,8 @@ footer a:hover{
   gap:11px;
  }
 
- .product-image{
-  height:145px;
+ .product-image-placeholder{
+  height:130px;
  }
 
  .product-content{
@@ -1207,10 +1081,6 @@ footer a:hover{
   padding:22px;
  }
 
- .modal-product-image{
-  height:220px;
- }
-
  section{
   padding:50px 0;
  }
@@ -1223,8 +1093,8 @@ footer a:hover{
   grid-template-columns:1fr;
  }
 
- .product-image{
-  height:190px;
+ .product-image-placeholder{
+  height:160px;
  }
 
 }
@@ -1922,8 +1792,8 @@ tu entrenamiento en casa o gimnasio.
 
 <div class="shop-note">
 
-ℹ️ Catálogo visual informativo.
-Los productos mostrados no se pueden comprar desde FitLab.
+ℹ️ Próximamente encontrarás aquí productos reales
+de tiendas y marcas mediante enlaces de afiliado.
 
 </div>
 
@@ -1985,13 +1855,12 @@ No se encontraron productos en esta categoría.
 
 <div>
 
-<strong>Información importante</strong><br>
+<strong>Enlaces de afiliado</strong><br>
 
-Este catálogo tiene únicamente fines informativos y visuales.
-Las imágenes representan ejemplos de productos relacionados con
-fitness y entrenamiento. FitLab no realiza ventas, no procesa
-pagos y no garantiza disponibilidad, características o precios
-de los productos mostrados.
+FitLab puede incluir enlaces de afiliado a productos de
+terceros. Si realizas una compra mediante uno de estos
+enlaces, FitLab podría recibir una comisión, sin costo
+adicional para ti.
 
 </div>
 
@@ -2162,9 +2031,9 @@ garantiza resultados físicos específicos.
 </summary>
 
 <p>
-No. La sección de productos funciona únicamente como un
-catálogo visual informativo. No incluye carrito, pagos ni
-procesamiento de compras.
+No. Los productos que aparezcan en FitLab podrán dirigir
+al usuario a tiendas externas. FitLab no procesa pagos
+ni gestiona directamente las compras.
 </p>
 
 </details>
@@ -2359,6 +2228,20 @@ const exercises = [
    CATÁLOGO FITNESS
 ===================================================== */
 
+/*
+   AQUÍ VAMOS A PONER LOS PRODUCTOS REALES
+   DE LOS PROGRAMAS DE AFILIADOS.
+
+   Por ahora no usamos imágenes externas.
+
+   Cuando te aprueben Awin o iHerb,
+   podremos agregar:
+
+   image: "URL-DE-IMAGEN-AUTORIZADA",
+   affiliateUrl: "TU-ENLACE-DE-AFILIADO"
+
+*/
+
 const products = [
 
 {
@@ -2366,10 +2249,8 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Proteína",
-
- image:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=900&q=80",
-
- description:"Producto utilizado por algunas personas como complemento de su alimentación y entrenamiento."
+ icon:"🥤",
+ description:"Productos de nutrición deportiva que pueden utilizarse como complemento de la alimentación."
 },
 
 {
@@ -2377,10 +2258,8 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Creatina",
-
- image:"https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80",
-
- description:"Suplemento deportivo comúnmente utilizado dentro de programas de entrenamiento de fuerza."
+ icon:"🥤",
+ description:"Productos de suplementación deportiva relacionados con el entrenamiento de fuerza."
 },
 
 {
@@ -2388,10 +2267,8 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Shaker",
-
- image:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=80",
-
- description:"Botella mezcladora práctica para preparar bebidas antes o después del entrenamiento."
+ icon:"🥤",
+ description:"Accesorio para preparar y transportar bebidas durante o después del entrenamiento."
 },
 
 {
@@ -2399,10 +2276,8 @@ const products = [
  category:"hidratacion",
  label:"Hidratación",
  type:"Botella",
-
- image:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=80",
-
- description:"Accesorio pensado para llevar agua durante tus sesiones de actividad física."
+ icon:"💧",
+ description:"Botellas y recipientes diseñados para transportar agua durante la actividad física."
 },
 
 {
@@ -2410,10 +2285,8 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Pesas",
-
- image:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
-
- description:"Equipo básico que puede utilizarse para diferentes ejercicios de fuerza."
+ icon:"🏋️",
+ description:"Equipamiento utilizado para diferentes ejercicios de entrenamiento de fuerza."
 },
 
 {
@@ -2421,10 +2294,8 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Resistencia",
-
- image:"https://images.unsplash.com/photo-1598971639058-999c1f8d9f16?auto=format&fit=crop&w=900&q=80",
-
- description:"Bandas elásticas utilizadas para ejercicios de resistencia, movilidad y activación."
+ icon:"💪",
+ description:"Bandas elásticas utilizadas en ejercicios de resistencia, movilidad y activación."
 },
 
 {
@@ -2432,10 +2303,8 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Mat",
-
- image:"https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=900&q=80",
-
- description:"Superficie acolchada para ejercicios en el suelo, movilidad y entrenamiento en casa."
+ icon:"🧘",
+ description:"Superficie utilizada para ejercicios en el suelo, movilidad y entrenamiento en casa."
 },
 
 {
@@ -2443,10 +2312,8 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Cardio",
-
- image:"https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80",
-
- description:"Accesorio utilizado en diferentes sesiones de acondicionamiento y trabajo cardiovascular."
+ icon:"🪢",
+ description:"Accesorio utilizado para diferentes sesiones de acondicionamiento cardiovascular."
 },
 
 {
@@ -2454,10 +2321,8 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Entrenamiento",
-
- image:"https://images.unsplash.com/photo-1586401100295-7a8096fd231a?auto=format&fit=crop&w=900&q=80",
-
- description:"Accesorio que algunas personas utilizan durante ejercicios con pesas."
+ icon:"🥊",
+ description:"Accesorios utilizados por algunas personas durante ejercicios con pesas."
 },
 
 {
@@ -2465,10 +2330,8 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Recuperación",
-
- image:"https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=900&q=80",
-
- description:"Accesorio utilizado por algunas personas dentro de sus rutinas de movilidad y recuperación."
+ icon:"🔵",
+ description:"Accesorio utilizado dentro de rutinas de movilidad y recuperación."
 },
 
 {
@@ -2476,10 +2339,8 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Hidratación",
-
- image:"https://images.unsplash.com/photo-1553530666-ba11a90a0868?auto=format&fit=crop&w=900&q=80",
-
- description:"Productos destinados a complementar la ingesta de líquidos y electrolitos."
+ icon:"💧",
+ description:"Productos relacionados con la hidratación y reposición de electrolitos."
 },
 
 {
@@ -2487,118 +2348,11 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Medición",
-
- image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=900&q=80",
-
- description:"Dispositivo que algunas personas utilizan para llevar un registro de determinadas medidas corporales."
+ icon:"⚖️",
+ description:"Dispositivos utilizados para registrar determinadas medidas corporales."
 }
 
 ];
-
-
-/* =====================================================
-   ICONOS PARA FALLBACK
-===================================================== */
-
-function getProductIcon(category){
-
- if(category==="suplementos"){
-  return "🥤";
- }
-
- if(category==="equipamiento"){
-  return "🏋️";
- }
-
- if(category==="accesorios"){
-  return "🎒";
- }
-
- if(category==="hidratacion"){
-  return "💧";
- }
-
- return "📦";
-
-}
-
-
-/* =====================================================
-   ERROR DE IMAGEN
-===================================================== */
-
-function handleImageError(img){
-
- if(!img || img.dataset.failed==="true"){
-  return;
- }
-
- img.dataset.failed="true";
- img.style.display="none";
-
- const wrapper=img.parentElement;
-
- if(!wrapper){
-  return;
- }
-
- const name=img.dataset.productName || "Producto fitness";
- const category=img.dataset.category || "";
-
- if(wrapper.querySelector(".image-fallback-content")){
-  return;
- }
-
- const fallback=document.createElement("div");
-
- fallback.className="image-fallback-content";
-
- fallback.innerHTML=`
-
-  <span>
-   ${getProductIcon(category)}
-  </span>
-
-  <strong>
-   ${name}
-  </strong>
-
- `;
-
- wrapper.appendChild(fallback);
-
-}
-
-
-/* =====================================================
-   ERROR IMAGEN MODAL
-===================================================== */
-
-function handleModalImageError(img){
-
- if(!img){
-  return;
- }
-
- img.style.display="none";
-
- const fallback=document.createElement("div");
-
- fallback.className="image-fallback-content";
-
- fallback.innerHTML=`
-
-  <span>📦</span>
-
-  <strong>
-   Imagen no disponible
-  </strong>
-
- `;
-
- img.parentElement.appendChild(fallback);
-
-}
 
 
 /* =====================================================
@@ -2639,37 +2393,27 @@ function renderProducts(list = products){
 
   card.innerHTML=`
 
-   <div
-    class="product-image"
-    onclick="openProductImage(${productIndex})"
-    role="button"
-    tabindex="0"
-    aria-label="Abrir imagen de ${product.name}"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductImage(${productIndex})}"
-   >
+   <div class="product-image-placeholder">
 
-    <img
-     src="${product.image}"
-     alt="${product.name}"
-     data-product-name="${product.name}"
-     data-category="${product.category}"
-     loading="lazy"
-     decoding="async"
-     referrerpolicy="no-referrer"
-     onerror="handleImageError(this)"
-    >
+    <div class="placeholder-icon">
+     ${product.icon}
+    </div>
 
-    <span class="product-category">
-     ${product.label}
-    </span>
+    <strong>
+     Producto fitness
+    </strong>
 
-    <span class="image-view-badge">
-     🔍 Ver imagen
+    <span style="font-size:11px;margin-top:3px">
+     Próximamente producto real
     </span>
 
    </div>
 
    <div class="product-content">
+
+    <span class="product-category-label">
+     ${product.label}
+    </span>
 
     <h3>
      ${product.name}
@@ -2746,60 +2490,6 @@ function filterProducts(category,button){
 
 
 /* =====================================================
-   IMAGEN GRANDE DEL PRODUCTO
-===================================================== */
-
-function openProductImage(index){
-
- const product=products[index];
-
- if(!product){
-  return;
- }
-
- document
- .getElementById("modalContent")
- .innerHTML=`
-
-  <div class="full-image-container">
-
-   <h2>
-    ${product.name}
-   </h2>
-
-   <img
-    class="full-image"
-    src="${product.image}"
-    alt="${product.name}"
-    referrerpolicy="no-referrer"
-    onerror="handleModalImageError(this)"
-   >
-
-   <p class="image-help">
-    Imagen de referencia del producto.
-   </p>
-
-   <button
-    class="btn btn-secondary"
-    style="margin-top:18px"
-    onclick="showProduct(${index})">
-
-    ← Ver información
-
-   </button>
-
-  </div>
-
- `;
-
- document
- .getElementById("modal")
- .classList.add("show");
-
-}
-
-
-/* =====================================================
    INFORMACIÓN DEL PRODUCTO
 ===================================================== */
 
@@ -2815,38 +2505,30 @@ function showProduct(index){
  .getElementById("modalContent")
  .innerHTML=`
 
-  <div
-   style="
-    overflow:hidden;
-    border-radius:15px;
-    margin-bottom:20px;
-    height:220px;
-    background:#111a2b;
-    cursor:pointer;
-   "
-   onclick="openProductImage(${index})"
-  >
+  <div style="
+   width:100%;
+   height:180px;
+   border-radius:16px;
+   background:radial-gradient(circle at center,#18243c,#0b111d);
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   flex-direction:column;
+   margin-bottom:20px;
+  ">
 
-   <img
-    class="modal-product-image"
-    src="${product.image}"
-    alt="${product.name}"
-    data-product-name="${product.name}"
-    data-category="${product.category}"
-    referrerpolicy="no-referrer"
-    onerror="handleModalImageError(this)"
-   >
+   <div style="font-size:60px">
+    ${product.icon}
+   </div>
+
+   <strong style="
+    color:#65ff9a;
+    margin-top:8px;
+   ">
+    Producto fitness
+   </strong>
 
   </div>
-
-  <p style="
-   color:#65ff9a;
-   font-size:11px;
-   font-weight:800;
-   margin-bottom:7px;
-  ">
-   🔍 Toca la imagen para verla en grande
-  </p>
 
   <span style="
    display:inline-block;
@@ -2897,9 +2579,8 @@ function showProduct(index){
    font-size:12px;
   ">
 
-   ℹ️ Este producto se muestra únicamente como referencia
-   dentro del catálogo de FitLab. Actualmente no está
-   disponible para compra desde esta página.
+   Este producto se añadirá al catálogo de FitLab
+   cuando tengamos un enlace autorizado de afiliado.
 
   </div>
 
