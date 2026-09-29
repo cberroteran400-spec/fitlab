@@ -1,145 +1,2238 @@
 <!DOCTYPE html>
 <html lang="es-MX">
+
 <head>
 <link rel="icon" href="favicon.png" type="image/png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FitLab | Rutinas de ejercicio personalizadas, ejercicios y entrenamiento</title>
-<meta name="description" content="FitLab te ayuda a crear rutinas de ejercicio personalizadas para entrenar en casa o gimnasio. Descubre ejercicios, programas de entrenamiento y consejos para mejorar tu fuerza, condición y hábitos.">
-<meta name="theme-color" content="#070b14">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+FitLab | Rutinas de ejercicio personalizadas, ejercicios y entrenamiento
+</title>
+
+<meta name="description"
+content="FitLab te ayuda a crear rutinas de ejercicio personalizadas para entrenar en casa o gimnasio. Descubre ejercicios, programas de entrenamiento y consejos para mejorar tu fuerza, condición y hábitos.">
+
+<meta name="keywords"
+content="rutinas de ejercicio, ejercicios en casa, rutina gimnasio, entrenamiento, fitness, ganar músculo, fuerza, ejercicios principiantes, rutina personalizada">
+
+<meta name="author"
+content="FitLab">
+
+<meta name="robots"
+content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+<meta name="googlebot"
+content="index, follow">
+
+<link rel="canonical"
+href="https://cberroteran400-spec.github.io/fitlab/">
+
+ <!-- OPEN GRAPH -->
+
+<meta property="og:type"
+content="website">
+
+<meta property="og:site_name"
+content="FitLab">
+
+<meta property="og:title"
+content="FitLab | Rutinas de ejercicio y entrenamiento">
+
+<meta property="og:description"
+content="Crea rutinas personalizadas, descubre ejercicios y organiza tus entrenamientos con FitLab.">
+
+<meta property="og:url"
+content="https://cberroteran400-spec.github.io/fitlab/">
+<meta property="og:locale"
+content="es_MX">
+
+<!-- TWITTER -->
+
+<meta name="twitter:card"
+content="summary_large_image">
+
+<meta name="twitter:title"
+content="FitLab | Rutinas de ejercicio">
+
+<meta name="twitter:description"
+content="Crea tu rutina personalizada y descubre ejercicios para entrenar.">
+
+<!-- THEME -->
+
+<meta name="theme-color"
+content="#070b14">
+
+
+<!-- DATOS ESTRUCTURADOS -->
+
+<script type="application/ld+json">
+
+{
+ "@context":"https://schema.org",
+ "@graph":[
+
+  {
+   "@type":"Organization",
+   "@id":"https://tudominio.com/#organization",
+   "name":"FitLab",
+   "url":"https://tudominio.com/"
+  },
+
+  {
+   "@type":"WebSite",
+   "@id":"https://tudominio.com/#website",
+   "url":"https://tudominio.com/",
+   "name":"FitLab",
+   "description":"Plataforma web de rutinas y ejercicios.",
+   "inLanguage":"es-MX",
+   "publisher":{
+    "@id":"https://tudominio.com/#organization"
+   }
+  },
+
+  {
+   "@type":"WebApplication",
+   "@id":"https://tudominio.com/#application",
+   "name":"FitLab",
+   "url":"https://tudominio.com/",
+   "applicationCategory":"HealthApplication",
+   "operatingSystem":"Web",
+   "description":"Aplicación web para crear rutinas de ejercicio personalizadas."
+  }
+
+ ]
+
+}
+
+</script>
+
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at top,#18243c 0,#070b14 45%,#04060b 100%);color:#fff;min-height:100vh;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button,select,input{font:inherit}
-button{cursor:pointer}
-.container{width:min(1150px,92%);margin:auto}
-header{position:sticky;top:0;z-index:1000;background:rgba(5,8,15,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
-.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:25px;font-weight:900;letter-spacing:-1px}
-.logo span{color:#65ff9a}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-nav a{padding:9px 13px;border-radius:10px;color:#b7c0d4;font-size:14px}
-nav a:hover{background:#111a2b;color:#fff}
-.hero{padding:80px 0 55px}
-.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:center}
-.badge{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(101,255,154,.1);color:#65ff9a;border:1px solid rgba(101,255,154,.25);font-size:13px;font-weight:700;margin-bottom:20px}
-h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-3px;margin-bottom:20px}
-.hero p{color:#aeb8ca;font-size:18px;max-width:680px;margin-bottom:30px}
-.buttons{display:flex;flex-wrap:wrap;gap:12px}
-.btn{border:0;border-radius:13px;padding:14px 20px;font-weight:800;transition:.2s}
-.btn:hover{transform:translateY(-2px)}
-.btn-primary{background:#65ff9a;color:#031108}
-.btn-secondary{background:#111a2b;color:#fff;border:1px solid #26334b}
-.hero-card{background:linear-gradient(145deg,#111a2b,#0a0f19);border:1px solid rgba(255,255,255,.09);border-radius:25px;padding:25px;box-shadow:0 25px 80px rgba(0,0,0,.35)}
-.stat{padding:17px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.stat:last-child{border-bottom:0}
-.stat strong{display:block;font-size:28px;color:#65ff9a}
-.stat span{color:#8e99ad;font-size:14px}
-section{padding:70px 0}
-.section-title{margin-bottom:30px}
-.section-title h2{font-size:clamp(30px,5vw,48px);letter-spacing:-1.5px}
-.section-title p{color:#929db1;margin-top:8px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:rgba(13,19,31,.9);border:1px solid rgba(255,255,255,.08);border-radius:19px;padding:22px;transition:.2s}
-.card:hover{transform:translateY(-4px);border-color:rgba(101,255,154,.3)}
-.card-icon{font-size:32px;margin-bottom:12px}
-.card h3{margin-bottom:8px;font-size:20px}
-.card p{color:#8f9aaf;font-size:14px;margin-bottom:15px}
-.generator{background:linear-gradient(145deg,rgba(15,26,44,.95),rgba(7,12,21,.95));border:1px solid rgba(101,255,154,.15);border-radius:25px;padding:30px}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:17px}
-.field label{display:block;color:#9da8bc;font-size:13px;font-weight:700;margin-bottom:7px}
-.field select{width:100%;background:#080e19;color:white;border:1px solid #26334b;border-radius:12px;padding:13px;outline:none}
-.field select:focus{border-color:#65ff9a}
-.generate{margin-top:20px;width:100%}
-.result{margin-top:25px;display:none}
-.result.show{display:block}
-.result-box{background:#080e19;border-radius:18px;padding:22px;border:1px solid rgba(255,255,255,.08)}
-.exercise-result{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.exercise-result:last-child{border-bottom:0}
-.exercise-result strong{display:block}
-.exercise-result small{color:#7e8aa0}
-.search{width:100%;padding:15px;background:#080e19;color:#fff;border:1px solid #26334b;border-radius:12px;margin-bottom:20px;outline:none}
-.exercise-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.exercise{background:#0c1422;border:1px solid rgba(255,255,255,.07);border-radius:15px;padding:17px;cursor:pointer}
-.exercise:hover{border-color:rgba(101,255,154,.35)}
-.exercise h3{font-size:16px}
-.exercise p{color:#7f8ba0;font-size:12px;margin-top:4px}
-.program{display:flex;flex-direction:column;min-height:230px}
-.program .btn{margin-top:auto}
-.faq{border-top:1px solid rgba(255,255,255,.08)}
-details{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.08)}
-summary{cursor:pointer;font-weight:800}
-details p{color:#8f9aaf;margin-top:12px}
-footer{margin-top:50px;border-top:1px solid rgba(255,255,255,.08);padding:40px 0;color:#788398}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
-footer h3{color:#fff;margin-bottom:10px}
-footer a{display:block;margin:6px 0;color:#8994a8}
-footer a:hover{color:#65ff9a}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
-.modal.show{display:flex}
-.modal-box{max-width:500px;width:100%;background:#0d1523;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:30px}
-.close{float:right;background:none;color:#fff;border:0;font-size:24px}
-@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.exercise-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){nav{display:none}.hero{padding-top:50px}h1{letter-spacing:-2px}.grid,.form-grid,.footer-grid{grid-template-columns:1fr}.exercise-grid{grid-template-columns:repeat(2,1fr)}section{padding:50px 0}}
+
+/* =====================================================
+   FITLAB
+   TODO EL CSS ESTÁ AQUÍ
+===================================================== */
+
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+html{
+ scroll-behavior:smooth;
+}
+
+body{
+ font-family:
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ Roboto,
+ Arial,
+ sans-serif;
+
+ background:
+ radial-gradient(
+  circle at top,
+  #18243c 0,
+  #070b14 45%,
+  #04060b 100%
+ );
+
+ color:#fff;
+ min-height:100vh;
+ line-height:1.6;
+}
+
+a{
+ color:inherit;
+ text-decoration:none;
+}
+
+button,
+select,
+input{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.container{
+ width:min(1150px,92%);
+ margin:auto;
+}
+
+
+/* HEADER */
+
+header{
+ position:sticky;
+ top:0;
+ z-index:1000;
+
+ background:
+ rgba(5,8,15,.88);
+
+ backdrop-filter:
+ blur(18px);
+
+ border-bottom:
+ 1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+ min-height:70px;
+
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+}
+
+.logo{
+ font-size:25px;
+ font-weight:900;
+ letter-spacing:-1px;
+}
+
+.logo span{
+ color:#65ff9a;
+}
+
+nav{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+}
+
+nav a{
+ padding:9px 13px;
+ border-radius:10px;
+ color:#b7c0d4;
+ font-size:14px;
+}
+
+nav a:hover{
+ background:#111a2b;
+ color:#fff;
+}
+
+
+/* HERO */
+
+.hero{
+ padding:
+ 80px 0
+ 55px;
+}
+
+.hero-grid{
+ display:grid;
+ grid-template-columns:
+ 1.2fr .8fr;
+
+ gap:45px;
+ align-items:center;
+}
+
+.badge{
+ display:inline-flex;
+ padding:7px 12px;
+ border-radius:999px;
+
+ background:
+ rgba(101,255,154,.1);
+
+ color:#65ff9a;
+
+ border:
+ 1px solid rgba(101,255,154,.25);
+
+ font-size:13px;
+ font-weight:700;
+
+ margin-bottom:20px;
+}
+
+h1{
+ font-size:
+ clamp(40px,7vw,76px);
+
+ line-height:1.02;
+
+ letter-spacing:-3px;
+
+ margin-bottom:20px;
+}
+
+.hero p{
+ color:#aeb8ca;
+ font-size:18px;
+ max-width:680px;
+ margin-bottom:30px;
+}
+
+.buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:12px;
+}
+
+.btn{
+ border:0;
+ border-radius:13px;
+ padding:14px 20px;
+ font-weight:800;
+ transition:.2s;
+}
+
+.btn:hover{
+ transform:translateY(-2px);
+}
+
+.btn-primary{
+ background:#65ff9a;
+ color:#031108;
+}
+
+.btn-secondary{
+ background:#111a2b;
+ color:#fff;
+ border:1px solid #26334b;
+}
+
+
+/* HERO CARD */
+
+.hero-card{
+ background:
+ linear-gradient(
+ 145deg,
+ #111a2b,
+ #0a0f19
+ );
+
+ border:
+ 1px solid rgba(255,255,255,.09);
+
+ border-radius:25px;
+ padding:25px;
+
+ box-shadow:
+ 0 25px 80px
+ rgba(0,0,0,.35);
+}
+
+.stat{
+ padding:17px 0;
+ border-bottom:
+ 1px solid rgba(255,255,255,.07);
+}
+
+.stat:last-child{
+ border-bottom:0;
+}
+
+.stat strong{
+ display:block;
+ font-size:28px;
+ color:#65ff9a;
+}
+
+.stat span{
+ color:#8e99ad;
+ font-size:14px;
+}
+
+
+/* SECTIONS */
+
+section{
+ padding:70px 0;
+}
+
+.section-title{
+ margin-bottom:30px;
+}
+
+.section-title h2{
+ font-size:
+ clamp(30px,5vw,48px);
+
+ letter-spacing:-1.5px;
+}
+
+.section-title p{
+ color:#929db1;
+ margin-top:8px;
+}
+
+
+/* CARDS */
+
+.grid{
+ display:grid;
+ grid-template-columns:
+ repeat(3,1fr);
+
+ gap:18px;
+}
+
+.card{
+ background:
+ rgba(13,19,31,.9);
+
+ border:
+ 1px solid rgba(255,255,255,.08);
+
+ border-radius:19px;
+
+ padding:22px;
+
+ transition:.2s;
+}
+
+.card:hover{
+ transform:translateY(-4px);
+
+ border-color:
+ rgba(101,255,154,.3);
+}
+
+.card-icon{
+ font-size:32px;
+ margin-bottom:12px;
+}
+
+.card h3{
+ margin-bottom:8px;
+ font-size:20px;
+}
+
+.card p{
+ color:#8f9aaf;
+ font-size:14px;
+ margin-bottom:15px;
+}
+
+
+/* GENERADOR */
+
+.generator{
+ background:
+ linear-gradient(
+ 145deg,
+ rgba(15,26,44,.95),
+ rgba(7,12,21,.95)
+ );
+
+ border:
+ 1px solid rgba(101,255,154,.15);
+
+ border-radius:25px;
+
+ padding:30px;
+}
+
+.form-grid{
+ display:grid;
+
+ grid-template-columns:
+ repeat(2,1fr);
+
+ gap:17px;
+}
+
+.field label{
+ display:block;
+
+ color:#9da8bc;
+
+ font-size:13px;
+
+ font-weight:700;
+
+ margin-bottom:7px;
+}
+
+.field select{
+ width:100%;
+
+ background:#080e19;
+
+ color:white;
+
+ border:
+ 1px solid #26334b;
+
+ border-radius:12px;
+
+ padding:13px;
+
+ outline:none;
+}
+
+.field select:focus{
+ border-color:#65ff9a;
+}
+
+.generate{
+ margin-top:20px;
+ width:100%;
+}
+
+
+/* RESULTADO */
+
+.result{
+ margin-top:25px;
+ display:none;
+}
+
+.result.show{
+ display:block;
+}
+
+.result-box{
+ background:#080e19;
+
+ border-radius:18px;
+
+ padding:22px;
+
+ border:
+ 1px solid rgba(255,255,255,.08);
+}
+
+.exercise-result{
+ display:flex;
+
+ align-items:center;
+
+ justify-content:space-between;
+
+ gap:15px;
+
+ padding:15px 0;
+
+ border-bottom:
+ 1px solid rgba(255,255,255,.06);
+}
+
+.exercise-result:last-child{
+ border-bottom:0;
+}
+
+.exercise-result strong{
+ display:block;
+}
+
+.exercise-result small{
+ color:#7e8aa0;
+}
+
+
+/* EXERCISES */
+
+.search{
+ width:100%;
+
+ padding:15px;
+
+ background:#080e19;
+
+ color:#fff;
+
+ border:
+ 1px solid #26334b;
+
+ border-radius:12px;
+
+ margin-bottom:20px;
+
+ outline:none;
+}
+
+.exercise-grid{
+ display:grid;
+
+ grid-template-columns:
+ repeat(4,1fr);
+
+ gap:13px;
+}
+
+.exercise{
+ background:#0c1422;
+
+ border:
+ 1px solid rgba(255,255,255,.07);
+
+ border-radius:15px;
+
+ padding:17px;
+
+ cursor:pointer;
+}
+
+.exercise:hover{
+ border-color:
+ rgba(101,255,154,.35);
+}
+
+.exercise h3{
+ font-size:16px;
+}
+
+.exercise p{
+ color:#7f8ba0;
+ font-size:12px;
+ margin-top:4px;
+}
+
+
+/* PROGRAMAS */
+
+.program{
+ display:flex;
+
+ flex-direction:column;
+
+ min-height:230px;
+}
+
+.program .btn{
+ margin-top:auto;
+}
+
+
+/* FAQ */
+
+.faq{
+ border-top:
+ 1px solid rgba(255,255,255,.08);
+}
+
+details{
+ padding:20px 0;
+
+ border-bottom:
+ 1px solid rgba(255,255,255,.08);
+}
+
+summary{
+ cursor:pointer;
+ font-weight:800;
+}
+
+details p{
+ color:#8f9aaf;
+ margin-top:12px;
+}
+
+
+/* FOOTER */
+
+footer{
+ margin-top:50px;
+
+ border-top:
+ 1px solid rgba(255,255,255,.08);
+
+ padding:40px 0;
+
+ color:#788398;
+}
+
+.footer-grid{
+ display:grid;
+
+ grid-template-columns:
+ 2fr 1fr 1fr;
+
+ gap:30px;
+}
+
+footer h3{
+ color:#fff;
+ margin-bottom:10px;
+}
+
+footer a{
+ display:block;
+ margin:6px 0;
+ color:#8994a8;
+}
+
+footer a:hover{
+ color:#65ff9a;
+}
+
+
+/* MODAL */
+
+.modal{
+ position:fixed;
+
+ inset:0;
+
+ background:
+ rgba(0,0,0,.75);
+
+ display:none;
+
+ align-items:center;
+
+ justify-content:center;
+
+ z-index:2000;
+
+ padding:20px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modal-box{
+ max-width:500px;
+
+ width:100%;
+
+ background:#0d1523;
+
+ border:
+ 1px solid rgba(255,255,255,.1);
+
+ border-radius:22px;
+
+ padding:30px;
+}
+
+.close{
+ float:right;
+
+ background:none;
+
+ color:#fff;
+
+ border:0;
+
+ font-size:24px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+ .hero-grid{
+  grid-template-columns:1fr;
+ }
+
+ .grid{
+  grid-template-columns:
+  repeat(2,1fr);
+ }
+
+ .exercise-grid{
+  grid-template-columns:
+  repeat(2,1fr);
+ }
+
+ .footer-grid{
+  grid-template-columns:1fr 1fr;
+ }
+
+}
+
+@media(max-width:600px){
+
+ nav{
+  display:none;
+ }
+
+ .hero{
+  padding-top:50px;
+ }
+
+ h1{
+  letter-spacing:-2px;
+ }
+
+ .grid,
+ .form-grid,
+ .footer-grid{
+  grid-template-columns:1fr;
+ }
+
+ .exercise-grid{
+  grid-template-columns:
+  repeat(2,1fr);
+ }
+
+ section{
+  padding:50px 0;
+ }
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <header>
+
 <div class="container nav">
-<a href="#inicio" class="logo">Fit<span>Lab</span></a>
+
+<a href="#inicio"
+class="logo">
+Fit<span>Lab</span>
+</a>
+
 <nav>
-<a href="#rutinas">Rutinas</a>
-<a href="#ejercicios">Ejercicios</a>
-<a href="#programas">Programas</a>
-<a href="#suplementos">Suplementos</a>
-<a href="#faq">Preguntas</a>
+
+<a href="#rutinas">
+Rutinas
+</a>
+
+<a href="#ejercicios">
+Ejercicios
+</a>
+
+<a href="#programas">
+Programas
+</a>
+
+<a href="#faq">
+Preguntas
+</a>
+
 </nav>
+
 </div>
+
 </header>
+
+
+
 <main>
-<section id="inicio" class="hero">
+
+
+<!-- =====================================================
+     HERO SEO
+===================================================== -->
+
+<section
+id="inicio"
+class="hero">
+
 <div class="container hero-grid">
+
 <div>
-<div class="badge">ENTRENAMIENTO PERSONALIZADO</div>
-<h1>Rutinas de ejercicio y entrenamiento personalizado</h1>
-<p>FitLab te permite crear rutinas de ejercicio personalizadas según tu objetivo, nivel, tiempo disponible y lugar donde entrenas. Encuentra ejercicios y entrenamientos para casa o gimnasio y mejora tu fuerza, condición física y hábitos.</p>
+
+<div class="badge">
+ENTRENAMIENTO PERSONALIZADO
+</div>
+
+<h1>
+Rutinas de ejercicio y entrenamiento personalizado
+</h1>
+
+<p>
+FitLab te permite crear rutinas de ejercicio personalizadas según
+tu objetivo, nivel, tiempo disponible y lugar donde entrenas.
+Encuentra ejercicios y entrenamientos para casa o gimnasio y mejora
+tu fuerza, condición física y hábitos.
+</p>
+
 <div class="buttons">
-<a href="#generador" class="btn btn-primary">Crear mi rutina</a>
-<a href="#ejercicios" class="btn btn-secondary">Explorar ejercicios</a>
+
+<a
+href="#generador"
+class="btn btn-primary">
+
+Crear mi rutina
+
+</a>
+
+<a
+href="#ejercicios"
+class="btn btn-secondary">
+
+Explorar ejercicios
+
+</a>
+
 </div>
+
 </div>
+
+
 <div class="hero-card">
-<div class="stat"><strong>1,000+</strong><span>Combinaciones de entrenamiento</span></div>
-<div class="stat"><strong>Casa + Gym</strong><span>Entrena donde quieras</span></div>
-<div class="stat"><strong>15–60 min</strong><span>Adapta tu sesión a tu tiempo</span></div>
+
+<div class="stat">
+
+<strong>
+1,000+
+</strong>
+
+<span>
+Combinaciones de entrenamiento
+</span>
+
 </div>
+
+<div class="stat">
+
+<strong>
+Casa + Gym
+</strong>
+
+<span>
+Entrena donde quieras
+</span>
+
 </div>
+
+<div class="stat">
+
+<strong>
+15–60 min
+</strong>
+
+<span>
+Adapta tu sesión a tu tiempo
+</span>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="generador">
+
+
+<!-- =====================================================
+     GENERADOR
+===================================================== -->
+
+<section
+id="generador">
+
 <div class="container">
-<div class="section-title"><h2>Crea tu rutina personalizada</h2><p>Selecciona tus características y FitLab generará una sesión de entrenamiento.</p></div>
+
+<div class="section-title">
+
+<h2>
+Crea tu rutina personalizada
+</h2>
+
+<p>
+Selecciona tus características y FitLab generará una sesión
+de entrenamiento.
+</p>
+
+</div>
+
+
 <div class="generator">
+
 <div class="form-grid">
-<div class="field"><label>Objetivo</label><select id="goal"><option value="fuerza">Ganar fuerza</option><option value="musculo">Ganar músculo</option><option value="condicion">Mejorar condición</option><option value="movilidad">Mejorar movilidad</option><option value="grasa">Apoyar la pérdida de grasa</option></select></div>
-<div class="field"><label>Nivel</label><select id="level"><option>Principiante</option><option>Intermedio</option><option>Avanzado</option></select></div>
-<div class="field"><label>Lugar</label><select id="place"><option value="casa">Casa</option><option value="gym">Gimnasio</option><option value="exterior">Exterior</option></select></div>
-<div class="field"><label>Duración</label><select id="time"><option value="15">15 minutos</option><option value="20">20 minutos</option><option value="30" selected>30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option></select></div>
+
+
+<div class="field">
+
+<label>
+Objetivo
+</label>
+
+<select id="goal">
+
+<option value="fuerza">
+Ganar fuerza
+</option>
+
+<option value="musculo">
+Ganar músculo
+</option>
+
+<option value="condicion">
+Mejorar condición
+</option>
+
+<option value="movilidad">
+Mejorar movilidad
+</option>
+
+<option value="grasa">
+Apoyar la pérdida de grasa
+</option>
+
+</select>
+
 </div>
-<button class="btn btn-primary generate" onclick="generateRoutine()">GENERAR MI RUTINA</button>
-<div id="result" class="result"><div id="resultContent" class="result-box"></div></div>
+
+
+<div class="field">
+
+<label>
+Nivel
+</label>
+
+<select id="level">
+
+<option>
+Principiante
+</option>
+
+<option>
+Intermedio
+</option>
+
+<option>
+Avanzado
+</option>
+
+</select>
+
 </div>
+
+
+<div class="field">
+
+<label>
+Lugar
+</label>
+
+<select id="place">
+
+<option value="casa">
+Casa
+</option>
+
+<option value="gym">
+Gimnasio
+</option>
+
+<option value="exterior">
+Exterior
+</option>
+
+</select>
+
 </div>
+
+
+<div class="field">
+
+<label>
+Duración
+</label>
+
+<select id="time">
+
+<option value="15">
+15 minutos
+</option>
+
+<option value="20">
+20 minutos
+</option>
+
+<option value="30" selected>
+30 minutos
+</option>
+
+<option value="45">
+45 minutos
+</option>
+
+<option value="60">
+60 minutos
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<button
+class="btn btn-primary generate"
+onclick="generateRoutine()">
+
+GENERAR MI RUTINA
+
+</button>
+
+
+<div
+id="result"
+class="result">
+
+<div
+id="resultContent"
+class="result-box">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
+
+
+
+<!-- =====================================================
+     RUTINAS
+===================================================== -->
 
 <section id="rutinas">
+
 <div class="container">
-<div class="section-title"><h2>Rutinas de entrenamiento</h2><p>Encuentra ideas para diferentes objetivos y lugares de entrenamiento.</p></div>
+
+<div class="section-title">
+
+<h2>
+Rutinas de entrenamiento
+</h2>
+
+<p>
+Encuentra ideas para diferentes objetivos y lugares de entrenamiento.
+</p>
+
+</div>
+
+
 <div class="grid">
-<article class="card"><div class="card-icon">🏠</div><h3>Rutinas en casa</h3><p>Entrenamientos que puedes realizar en casa utilizando poco o ningún equipamiento.</p><button class="btn btn-secondary" onclick="setPlace('casa')">Crear rutina</button></article>
-<article class="card"><div class="card-icon">🏋️</div><h3>Rutinas de gimnasio</h3><p>Organiza sesiones utilizando mancuernas, barras, máquinas y otros equipos.</p><button class="btn btn-secondary" onclick="setPlace('gym')">Crear rutina</button></article>
-<article class="card"><div class="card-icon">🌱</div><h3>Principiantes</h3><p>Una forma sencilla de comenzar a familiarizarte con ejercicios básicos.</p><button class="btn btn-secondary" onclick="setLevel('Principiante')">Empezar</button></article>
-<article class="card"><div class="card-icon">💪</div><h3>Fuerza</h3><p>Ejercicios orientados al desarrollo de fuerza muscular.</p><button class="btn btn-secondary" onclick="setGoal('fuerza')">Crear rutina</button></article>
-<article class="card"><div class="card-icon">🔥</div>
+
+
+<article class="card">
+
+<div class="card-icon">
+🏠
+</div>
+
+<h3>
+Rutinas en casa
+</h3>
+
+<p>
+Entrenamientos que puedes realizar en casa utilizando
+poco o ningún equipamiento.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setPlace('casa')">
+
+Crear rutina
+
+</button>
+
+</article>
+
+
+<article class="card">
+
+<div class="card-icon">
+🏋️
+</div>
+
+<h3>
+Rutinas de gimnasio
+</h3>
+
+<p>
+Organiza sesiones utilizando mancuernas, barras,
+máquinas y otros equipos.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setPlace('gym')">
+
+Crear rutina
+
+</button>
+
+</article>
+
+
+<article class="card">
+
+<div class="card-icon">
+🌱
+</div>
+
+<h3>
+Principiantes
+</h3>
+
+<p>
+Una forma sencilla de comenzar a familiarizarte
+con ejercicios básicos.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setLevel('Principiante')">
+
+Empezar
+
+</button>
+
+</article>
+
+
+<article class="card">
+
+<div class="card-icon">
+💪
+</div>
+
+<h3>
+Fuerza
+</h3>
+
+<p>
+Ejercicios orientados al desarrollo de fuerza muscular.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setGoal('fuerza')">
+
+Crear rutina
+
+</button>
+
+</article>
+
+
+<article class="card">
+
+<div class="card-icon">
+🔥
+</div>
+
+<h3>
+Condición física
+</h3>
+
+<p>
+Combina ejercicios dinámicos para trabajar tu resistencia
+y capacidad cardiovascular.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setGoal('condicion')">
+
+Crear rutina
+
+</button>
+
+</article>
+
+
+<article class="card">
+
+<div class="card-icon">
+📈
+</div>
+
+<h3>
+Ganar músculo
+</h3>
+
+<p>
+Organiza entrenamientos de resistencia para trabajar
+diferentes grupos musculares.
+</p>
+
+<button
+class="btn btn-secondary"
+onclick="setGoal('musculo')">
+
+Crear rutina
+
+</button>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     EJERCICIOS
+===================================================== -->
+
+<section id="ejercicios">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Biblioteca de ejercicios
+</h2>
+
+<p>
+Explora ejercicios para piernas, pecho, espalda, abdomen,
+hombros y cuerpo completo.
+</p>
+
+</div>
+
+
+<input
+class="search"
+id="search"
+placeholder="Buscar ejercicio..."
+oninput="searchExercises()">
+
+
+<div
+id="exerciseGrid"
+class="exercise-grid">
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROGRAMAS
+===================================================== -->
+
+<section id="programas">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Programas de entrenamiento
+</h2>
+
+<p>
+Ideas para organizar tus sesiones durante diferentes periodos.
+</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<article class="card program">
+
+<div class="card-icon">
+📅
+</div>
+
+<h3>
+Programa 7 días
+</h3>
+
+<p>
+Una semana para comenzar a crear una rutina de entrenamiento.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="startProgram(7)">
+
+Comenzar
+
+</button>
+
+</article>
+
+
+<article class="card program">
+
+<div class="card-icon">
+📆
+</div>
+
+<h3>
+Programa 14 días
+</h3>
+
+<p>
+Dos semanas de entrenamiento progresivo y organización.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="startProgram(14)">
+
+Comenzar
+
+</button>
+
+</article>
+
+
+<article class="card program">
+
+<div class="card-icon">
+🏆
+</div>
+
+<h3>
+Programa 30 días
+</h3>
+
+<p>
+Un mes para establecer constancia y registrar tus sesiones.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="startProgram(30)">
+
+Comenzar
+
+</button>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INFORMACIÓN SEO
+===================================================== -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Entrenamiento y fitness
+</h2>
+
+</div>
+
+
+<div class="card">
+
+<p>
+
+<p>
+Entrenar de manera constante puede ayudarte a mantener un estilo de vida activo.
+FitLab está diseñado para ayudarte a organizar tus sesiones, explorar ejercicios
+y crear rutinas de entrenamiento según tus objetivos, nivel y preferencias.
+</p>
+
+<br>
+
+<p>
+Puedes utilizar FitLab para explorar ejercicios, crear rutinas personalizadas
+y organizar diferentes programas de entrenamiento para casa o gimnasio.
+El contenido tiene fines informativos y de actividad física general y no sustituye
+la evaluación de un entrenador cualificado o profesional sanitario.
+</p>
+
+<br>
+
+<p>
+Si tienes una lesión, una enfermedad, estás embarazada o tienes alguna condición
+que pueda afectar tu capacidad para hacer ejercicio, consulta con un profesional
+cualificado antes de comenzar o modificar tu entrenamiento.
+</p>
+</p>
+
+<br>
+
+<p>
+
+Si tienes una lesión, una enfermedad, estás embarazada
+o tienes alguna condición que pueda afectar tu capacidad
+para hacer ejercicio, consulta con un profesional
+cualificado antes de comenzar o modificar tu entrenamiento.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section
+id="faq">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Preguntas frecuentes
+</h2>
+
+</div>
+
+
+<div class="faq">
+
+
+<details>
+
+<summary>
+¿Qué es FitLab?
+</summary>
+
+<p>
+FitLab es una plataforma web que ayuda a organizar rutinas
+de ejercicio y explorar diferentes ejercicios de entrenamiento.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+¿Puedo utilizar FitLab para entrenar en casa?
+</summary>
+
+<p>
+Sí. Puedes seleccionar casa como lugar de entrenamiento
+y generar rutinas utilizando ejercicios que requieren
+poco o ningún equipamiento.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+¿FitLab sirve para principiantes?
+</summary>
+
+<p>
+Sí. Puedes seleccionar el nivel principiante para obtener
+una rutina adaptada a una sesión básica.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+¿Cuánto tiempo debo entrenar?
+</summary>
+
+<p>
+La duración depende de tu objetivo, nivel, disponibilidad
+y recuperación. FitLab permite seleccionar sesiones de
+15, 20, 30, 45 o 60 minutos.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+¿FitLab garantiza perder peso o ganar músculo?
+</summary>
+
+<p>
+No. Los resultados del entrenamiento pueden variar entre
+personas y dependen de numerosos factores. FitLab no
+garantiza resultados físicos específicos.
+</p>
+
+</details>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="container footer-grid">
+
+
+<div>
+
+<h3>
+FitLab
+</h3>
+
+<p>
+Rutinas, ejercicios y herramientas para organizar
+tu entrenamiento.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>
+Explorar
+</h3>
+
+<a href="#rutinas">
+Rutinas
+</a>
+
+<a href="#ejercicios">
+Ejercicios
+</a>
+
+<a href="#programas">
+Programas
+</a>
+
+</div>
+
+
+<div>
+
+<h3>
+Información
+</h3>
+
+<a href="#">
+Sobre FitLab
+</a>
+
+<a href="#">
+Contacto
+</a>
+
+<a href="#">
+Privacidad
+</a>
+
+</div>
+
+
+</div>
+
+
+<div class="container"
+style="margin-top:30px">
+
+© 2026 FitLab. Todos los derechos reservados.
+
+</div>
+
+</footer>
+
+
+
+<!-- MODAL -->
+
+<div
+id="modal"
+class="modal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal()">
+
+×
+</button>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   BASE DE EJERCICIOS
+===================================================== */
+
+const exercises = [
+
+["Sentadilla corporal","Piernas","fuerza musculo condicion"],
+["Sentadilla con salto","Piernas","condicion fuerza"],
+["Sentadilla sumo","Piernas","fuerza musculo"],
+["Sentadilla isométrica","Piernas","fuerza"],
+["Sentadilla goblet","Piernas","fuerza musculo"],
+["Zancadas alternas","Piernas","fuerza musculo condicion"],
+["Zancada hacia atrás","Piernas","fuerza"],
+["Zancada lateral","Piernas","fuerza movilidad"],
+["Puente de glúteos","Glúteos","fuerza musculo"],
+["Elevación de pantorrillas","Pantorrillas","fuerza"],
+["Peso muerto con mancuernas","Piernas","fuerza musculo"],
+["Peso muerto rumano","Piernas","fuerza musculo"],
+["Flexiones","Pecho","fuerza musculo condicion"],
+["Flexiones diamante","Pecho","fuerza musculo"],
+["Flexiones inclinadas","Pecho","fuerza"],
+["Flexiones abiertas","Pecho","fuerza musculo"],
+["Press con mancuernas","Pecho","fuerza musculo"],
+["Press banca","Pecho","fuerza musculo"],
+["Press inclinado","Pecho","musculo fuerza"],
+["Remo con mancuerna","Espalda","fuerza musculo"],
+["Remo con banda","Espalda","fuerza musculo"],
+["Remo con barra","Espalda","fuerza musculo"],
+["Dominadas","Espalda","fuerza musculo"],
+["Jalón al pecho","Espalda","fuerza musculo"],
+["Face pull","Espalda","fuerza movilidad"],
+["Press de hombros","Hombros","fuerza musculo"],
+["Elevaciones laterales","Hombros","musculo"],
+["Pike push-up","Hombros","fuerza"],
+["Plancha","Abdomen","fuerza"],
+["Plancha lateral","Abdomen","fuerza movilidad"],
+["Dead bug","Abdomen","fuerza"],
+["Bicicleta abdominal","Abdomen","condicion fuerza"],
+["Russian twist","Abdomen","fuerza"],
+["Mountain climbers","Cuerpo completo","condicion"],
+["Burpees","Cuerpo completo","condicion"],
+["Jumping jacks","Cuerpo completo","condicion"],
+["Rodillas altas","Cuerpo completo","condicion"],
+["Superman","Espalda","fuerza"],
+["Bird dog","Core","fuerza movilidad"],
+["Caminata rápida","Cardio","condicion"]
+
+];
+
+
+/* =====================================================
+   MOSTRAR EJERCICIOS
+===================================================== */
+
+function renderExercises(list = exercises){
+
+ const grid =
+ document.getElementById("exerciseGrid");
+
+ grid.innerHTML="";
+
+ list.forEach((ex,index)=>{
+
+  const card =
+  document.createElement("article");
+
+  card.className="exercise";
+
+  card.onclick=()=>showExercise(ex);
+
+  card.innerHTML=`
+
+   <h3>
+   ${ex[0]}
+   </h3>
+
+   <p>
+   ${ex[1]} · ${ex[2]}
+   </p>
+
+  `;
+
+  grid.appendChild(card);
+
+ });
+
+}
+
+
+/* =====================================================
+   BUSCADOR
+===================================================== */
+
+function searchExercises(){
+
+ const query =
+ document
+ .getElementById("search")
+ .value
+ .toLowerCase();
+
+ const filtered =
+ exercises.filter(ex=>
+  ex[0].toLowerCase().includes(query) ||
+  ex[1].toLowerCase().includes(query)
+ );
+
+ renderExercises(filtered);
+
+}
+
+
+/* =====================================================
+   DETALLE EJERCICIO
+===================================================== */
+
+function showExercise(ex){
+
+ document
+ .getElementById("modalContent")
+ .innerHTML=`
+
+ <h2>
+ ${ex[0]}
+ </h2>
+
+ <p style="color:#65ff9a;margin:10px 0">
+ ${ex[1]}
+ </p>
+
+ <p style="color:#9ba6b9">
+ Este ejercicio puede formar parte de diferentes
+ sesiones de entrenamiento dependiendo de tu objetivo,
+ nivel y programación.
+ </p>
+
+ <br>
+
+ <strong>
+ Consejos generales
+ </strong>
+
+ <p style="color:#9ba6b9;margin-top:8px">
+
+ Mantén una técnica controlada, utiliza un rango de
+ movimiento que puedas realizar correctamente y evita
+ aumentar la dificultad demasiado rápido.
+
+ </p>
+
+ <br>
+
+ <button
+ class="btn btn-primary"
+ onclick="closeModal()">
+
+ Cerrar
+
+ </button>
+
+ `;
+
+ document
+ .getElementById("modal")
+ .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+ document
+ .getElementById("modal")
+ .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   GENERADOR
+===================================================== */
+
+function generateRoutine(){
+
+ const goal =
+ document.getElementById("goal").value;
+
+ const level =
+ document.getElementById("level").value;
+
+ const place =
+ document.getElementById("place").value;
+
+ const time =
+ document.getElementById("time").value;
+
+
+ let pool =
+ exercises.filter(ex=>
+  ex[2].includes(goal)
+ );
+
+
+ if(pool.length<5){
+
+  pool=exercises;
+
+ }
+
+
+ pool=[...pool]
+ .sort(()=>Math.random()-.5);
+
+
+ let count=5;
+
+ if(time==="15") count=4;
+ if(time==="20") count=5;
+ if(time==="30") count=6;
+ if(time==="45") count=8;
+ if(time==="60") count=10;
+
+
+ const selected =
+ pool.slice(0,count);
+
+
+ let html=`
+
+ <h2 style="margin-bottom:5px">
+ Tu rutina FitLab
+ </h2>
+
+ <p style="color:#7f8ba0;margin-bottom:15px">
+
+ ${level} ·
+ ${time} minutos ·
+ ${place}
+
+ </p>
+
+ `;
+
+
+ selected.forEach((ex,i)=>{
+
+  html+=`
+
+  <div class="exercise-result">
+
+   <div>
+
+    <strong>
+    ${i+1}. ${ex[0]}
+    </strong>
+
+    <small>
+    ${ex[1]}
+    </small>
+
+   </div>
+
+   <strong>
+   ${level==="Principiante"?"2":"3"} × 10
+   </strong>
+
+  </div>
+
+  `;
+
+ });
+
+
+ html+=`
+
+ <button
+ class="btn btn-primary"
+ style="margin-top:20px"
+ onclick="startTimer()">
+
+ INICIAR TEMPORIZADOR
+
+ </button>
+
+ `;
+
+
+ document
+ .getElementById("resultContent")
+ .innerHTML=html;
+
+ document
+ .getElementById("result")
+ .classList.add("show");
+
+ document
+ .getElementById("result")
+ .scrollIntoView({
+  behavior:"smooth",
+  block:"center"
+ });
+
+}
+
+
+/* =====================================================
+   SELECTORES RÁPIDOS
+===================================================== */
+
+function setGoal(value){
+
+ document
+ .getElementById("goal")
+ .value=value;
+
+ document
+ .getElementById("generador")
+ .scrollIntoView({
+  behavior:"smooth"
+ });
+
+}
+
+
+function setPlace(value){
+
+ document
+ .getElementById("place")
+ .value=value;
+
+ document
+ .getElementById("generador")
+ .scrollIntoView({
+  behavior:"smooth"
+ });
+
+}
+
+
+function setLevel(value){
+
+ document
+ .getElementById("level")
+ .value=value;
+
+ document
+ .getElementById("generador")
+ .scrollIntoView({
+  behavior:"smooth"
+ });
+
+}
+
+
+/* =====================================================
+   PROGRAMAS
+===================================================== */
+
+function startProgram(days){
+
+ document
+ .getElementById("modalContent")
+ .innerHTML=`
+
+ <h2>
+ Programa de ${days} días
+ </h2>
+
+ <p style="color:#9ba6b9;margin-top:12px">
+
+ Programa orientativo para organizar tus sesiones.
+ Ajusta la carga y la dificultad a tu nivel.
+
+ </p>
+
+ <div style="margin-top:20px">
+
+ ${Array.from(
+  {length:Math.min(days,10)},
+  (_,i)=>`
+
+   <div style="
+    padding:12px 0;
+    border-bottom:1px solid #202b3d;
+   ">
+
+   <strong>
+   Día ${i+1}
+   </strong>
+
+   <span style="
+    color:#7f8ba0;
+    margin-left:10px;
+   ">
+
+   ${i%3===0?
+    "Fuerza":
+    i%3===1?
+    "Tren inferior":
+    "Core y condición"}
+
+   </span>
+
+   </div>
+
+  `
+ ).join("")}
+
+ </div>
+
+ <br>
+
+ <button
+ class="btn btn-primary"
+ onclick="closeModal()">
+
+ Comenzar
+
+ </button>
+
+ `;
+
+ document
+ .getElementById("modal")
+ .classList.add("show");
+
+}
+
+
+/* =====================================================
+   TEMPORIZADOR
+===================================================== */
+
+let timerInterval;
+let timerSeconds=30;
+
+
+function startTimer(){
+
+ document
+ .getElementById("modalContent")
+ .innerHTML=`
+
+ <h2>
+ Temporizador
+ </h2>
+
+ <div id="timer"
+ style="
+  font-size:70px;
+  text-align:center;
+  font-weight:900;
+  margin:30px 0;
+  color:#65ff9a;
+ ">
+
+ 30
+
+ </div>
+
+ <button
+ class="btn btn-secondary"
+ onclick="stopTimer()">
+
+ Detener
+
+ </button>
+
+ `;
+
+ document
+ .getElementById("modal")
+ .classList.add("show");
+
+ timerSeconds=30;
+
+ clearInterval(timerInterval);
+
+ timerInterval=setInterval(()=>{
+
+  timerSeconds--;
+
+  const el=
+  document.getElementById("timer");
+
+  if(el){
+   el.textContent=timerSeconds;
+  }
+
+  if(timerSeconds<=0){
+
+   clearInterval(timerInterval);
+
+   if(el){
+    el.textContent="¡LISTO!";
+   }
+
+  }
+
+ },1000);
+
+}
+
+
+function stopTimer(){
+
+ clearInterval(timerInterval);
+
+ closeModal();
+
+}
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+renderExercises();
+
+</script>
+
+
+</body>
+</html>
+
+
