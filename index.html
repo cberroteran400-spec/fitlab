@@ -1308,7 +1308,7 @@ Cerrar sesión
 </div>
 
 <div class="progress-stat">
-<span>❤️ Favoritos</span>
+<span>⏱️ Minutos</span>
 <strong id="favoriteCount">0</strong>
 </div>
 
@@ -1626,7 +1626,7 @@ hombros y cuerpo completo.
 class="search"
 id="search"
 placeholder="Buscar ejercicio..."
-oninput="searchExercises">
+oninput="searchExercises()">
 
 <div id="exerciseGrid" class="exercise-grid">
 </div>
@@ -2045,33 +2045,18 @@ aria-label="Cerrar">
    SUPABASE
 ===================================================== */
 
-/*
-   PEGA AQUÍ LOS DATOS DE TU PROYECTO SUPABASE.
+const SUPABASE_URL =
+"https://oouxazqyavahwlntrhku.supabase.co";
 
-   Ejemplo:
-
-   const SUPABASE_URL =
-   "https://xxxxxxxxxxxx.supabase.co";
-
-   const SUPABASE_KEY =
-   "eyJhbGciOiJIUzI1NiIs...";
-
-   IMPORTANTE:
-   Usa la Publishable Key / anon key.
-
-   NUNCA pongas aquí una service_role key.
-*/
-
-const SUPABASE_URL = "PON_AQUI_TU_SUPABASE_URL";
-
-const SUPABASE_KEY = "PON_AQUI_TU_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_KEY =
+"sb_publishable_QRqzRxkvcuW5k4ywB9Hb7Q_2tyKAa7w";
 
 let supabaseClient = null;
 
 if(
+ window.supabase &&
  SUPABASE_URL.startsWith("https://") &&
- !SUPABASE_URL.includes("PON_AQUI") &&
- !SUPABASE_KEY.includes("PON_AQUI")
+ SUPABASE_KEY
 ){
 
  supabaseClient =
@@ -2420,13 +2405,10 @@ async function registerUser(event){
 
  event.preventDefault();
 
- const message =
- document.getElementById("authMessage");
-
  if(!supabaseClient){
 
   showAuthMessage(
-   "Primero debes conectar FitLab con Supabase.",
+   "No se pudo conectar con Supabase.",
    "error"
   );
 
@@ -2490,22 +2472,28 @@ async function registerUser(event){
 
  }
 
- if(data.session){
+ if(data.session && data.user){
 
   currentUser=data.user;
 
   await ensureUserProfile();
 
+  await ensureUserProgress();
+
   closeModal();
 
   updateAuthUI();
 
-  loadProfile();
+  document
+  .getElementById("perfil")
+  .classList.add("show");
+
+  await loadProfile();
 
  }else{
 
   showAuthMessage(
-   "Cuenta creada. Revisa tu correo si Supabase solicita confirmación.",
+   "Cuenta creada. Revisa tu correo para confirmar tu cuenta antes de iniciar sesión.",
    "success"
   );
 
@@ -2521,7 +2509,7 @@ async function loginUser(event){
  if(!supabaseClient){
 
   showAuthMessage(
-   "Primero debes conectar FitLab con Supabase.",
+   "No se pudo conectar con Supabase.",
    "error"
   );
 
@@ -2566,15 +2554,17 @@ async function loginUser(event){
 
  await ensureUserProfile();
 
+ await ensureUserProgress();
+
  closeModal();
 
  updateAuthUI();
 
- loadProfile();
-
  document
  .getElementById("perfil")
  .classList.add("show");
+
+ await loadProfile();
 
 }
 
@@ -2635,9 +2625,7 @@ async function checkAuth(){
  await supabaseClient.auth.getSession();
 
  currentUser =
- data.session
- ? data.session.user
- : null;
+ data.session?.user || null;
 
  updateAuthUI();
 
@@ -2645,25 +2633,37 @@ async function checkAuth(){
 
   await ensureUserProfile();
 
-  loadProfile();
+  await ensureUserProgress();
+
+  await loadProfile();
 
  }
 
  supabaseClient.auth.onAuthStateChange(
-  async(event,session)=>{
+  (event,session)=>{
 
    currentUser =
-   session
-   ? session.user
-   : null;
+   session?.user || null;
 
    updateAuthUI();
 
    if(currentUser){
 
-    await ensureUserProfile();
+    setTimeout(async()=>{
 
-    loadProfile();
+     await ensureUserProfile();
+
+     await ensureUserProgress();
+
+     await loadProfile();
+
+    },0);
+
+   }else{
+
+    document
+    .getElementById("perfil")
+    .classList.remove("show");
 
    }
 
@@ -2681,7 +2681,7 @@ function updateAuthUI(){
  const nameElement =
  document.getElementById("headerUserName");
 
- if(!button){
+ if(!button || !nameElement){
   return;
  }
 
@@ -2721,7 +2721,8 @@ async function ensureUserProfile(){
  }
 
  const {
-  data
+  data,
+  error
  } =
  await supabaseClient
  .from("profiles")
@@ -2729,8 +2730,22 @@ async function ensureUserProfile(){
  .eq("id",currentUser.id)
  .maybeSingle();
 
+ if(error){
+
+  console.error(
+   "Error consultando perfil:",
+   error
+  );
+
+  return;
+
+ }
+
  if(!data){
 
+  const {
+   error:insertError
+  } =
   await supabaseClient
   .from("profiles")
   .insert({
@@ -2739,14 +2754,243 @@ async function ensureUserProfile(){
 
    name:
    currentUser.user_metadata?.name ||
-   "Usuario FitLab"
+   "Usuario FitLab",
+
+   email:
+   currentUser.email || null
 
   });
+
+  if(insertError){
+
+   console.error(
+    "Error creando perfil:",
+    insertError
+   );
+
+  }
 
  }
 
 }
 
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+async function ensureUserProgress(){
+
+ if(!supabaseClient || !currentUser){
+  return;
+ }
+
+ const {
+  data,
+  error
+ } =
+ await supabaseClient
+ .from("progress")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .maybeSingle();
+
+ if(error){
+
+  console.error(
+   "Error consultando progreso:",
+   error
+  );
+
+  return;
+
+ }
+
+ if(!data){
+
+  const {
+   error:insertError
+  } =
+  await supabaseClient
+  .from("progress")
+  .insert({
+
+   user_id:currentUser.id,
+
+   completed_workouts:0,
+
+   total_minutes:0,
+
+   current_streak:0,
+
+   longest_streak:0
+
+  });
+
+  if(insertError){
+
+   console.error(
+    "Error creando progreso:",
+    insertError
+   );
+
+  }
+
+ }
+
+}
+
+
+async function updateProgressAfterWorkout(duration){
+
+ if(!supabaseClient || !currentUser){
+  return;
+ }
+
+ const {
+  data:progressData,
+  error:progressError
+ } =
+ await supabaseClient
+ .from("progress")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .maybeSingle();
+
+ if(progressError){
+
+  console.error(
+   "Error obteniendo progreso:",
+   progressError
+  );
+
+  return;
+
+ }
+
+ const currentProgress =
+ progressData || {
+
+  completed_workouts:0,
+  total_minutes:0,
+  current_streak:0,
+  longest_streak:0,
+  last_workout_date:null
+
+ };
+
+ const completed =
+ Number(
+  currentProgress.completed_workouts || 0
+ ) + 1;
+
+ const totalMinutes =
+ Number(
+  currentProgress.total_minutes || 0
+ ) + Number(duration || 0);
+
+ const today =
+ new Date();
+
+ const todayString =
+ today.toISOString().slice(0,10);
+
+ let currentStreak =
+ Number(
+  currentProgress.current_streak || 0
+ );
+
+ let longestStreak =
+ Number(
+  currentProgress.longest_streak || 0
+ );
+
+ const lastDate =
+ currentProgress.last_workout_date;
+
+ if(!lastDate){
+
+  currentStreak=1;
+
+ }else{
+
+  const last =
+  new Date(lastDate+"T00:00:00Z");
+
+  const current =
+  new Date(todayString+"T00:00:00Z");
+
+  const difference =
+  Math.round(
+   (current-last)/(1000*60*60*24)
+  );
+
+  if(difference===0){
+
+   /*
+    Ya entrenó hoy.
+    Conservamos la racha actual.
+   */
+
+   currentStreak =
+   Math.max(currentStreak,1);
+
+  }else if(difference===1){
+
+   currentStreak += 1;
+
+  }else{
+
+   currentStreak=1;
+
+  }
+
+ }
+
+ longestStreak =
+ Math.max(
+  longestStreak,
+  currentStreak
+ );
+
+ const {
+  error:updateError
+ } =
+ await supabaseClient
+ .from("progress")
+ .upsert({
+
+  user_id:currentUser.id,
+
+  completed_workouts:completed,
+
+  total_minutes:totalMinutes,
+
+  current_streak:currentStreak,
+
+  longest_streak:longestStreak,
+
+  last_workout_date:todayString
+
+ },{
+  onConflict:"user_id"
+ });
+
+ if(updateError){
+
+  console.error(
+   "Error actualizando progreso:",
+   updateError
+  );
+
+ }
+
+}
+
+
+/* =====================================================
+   GUARDAR RUTINA
+===================================================== */
 
 async function saveRoutine(routine){
 
@@ -2760,9 +3004,34 @@ async function saveRoutine(routine){
 
  if(!supabaseClient){
 
+  alert(
+   "No se pudo conectar con Supabase."
+  );
+
   return;
 
  }
+
+ const goalNames={
+
+  fuerza:"Fuerza",
+
+  musculo:"Ganar músculo",
+
+  condicion:"Condición",
+
+  movilidad:"Movilidad",
+
+  grasa:"Pérdida de grasa"
+
+ };
+
+ const title =
+ "Rutina "+
+ (goalNames[routine.goal] || "FitLab")+
+ " · "+
+ routine.duration+
+ " min";
 
  const {
   error
@@ -2772,6 +3041,8 @@ async function saveRoutine(routine){
  .insert({
 
   user_id:currentUser.id,
+
+  title:title,
 
   goal:routine.goal,
 
@@ -2787,7 +3058,10 @@ async function saveRoutine(routine){
 
  if(error){
 
-  console.error(error);
+  console.error(
+   "Error guardando rutina:",
+   error
+  );
 
   alert(
    "No se pudo guardar la rutina."
@@ -2801,7 +3075,7 @@ async function saveRoutine(routine){
   "✅ Rutina guardada en tu cuenta."
  );
 
- loadProfile();
+ await loadProfile();
 
 }
 
@@ -2820,6 +3094,16 @@ async function completeWorkout(){
   return;
  }
 
+ const duration =
+ currentRoutine
+ ? Number(currentRoutine.duration || 30)
+ : 30;
+
+ const routineName =
+ currentRoutine?.goal
+ ? "Rutina de "+getGoalName(currentRoutine.goal)
+ : "Entrenamiento FitLab";
+
  const {
   error
  } =
@@ -2829,32 +3113,62 @@ async function completeWorkout(){
 
   user_id:currentUser.id,
 
-  duration:
-  currentRoutine
-  ? currentRoutine.duration
-  : 30,
+  duration:duration,
 
-  routine_name:
-  "Entrenamiento FitLab"
+  routine_name:routineName
 
  });
 
  if(error){
 
-  console.error(error);
+  console.error(
+   "Error registrando entrenamiento:",
+   error
+  );
+
+  alert(
+   "No se pudo registrar el entrenamiento."
+  );
 
   return;
 
  }
 
+ await updateProgressAfterWorkout(duration);
+
  alert(
   "🔥 Entrenamiento registrado."
  );
 
- loadProfile();
+ await loadProfile();
 
 }
 
+
+function getGoalName(goal){
+
+ const names={
+
+  fuerza:"Fuerza",
+
+  musculo:"Ganar músculo",
+
+  condicion:"Condición",
+
+  movilidad:"Movilidad",
+
+  grasa:"Pérdida de grasa"
+
+ };
+
+ return names[goal] || "FitLab";
+
+}
+
+
+/* =====================================================
+   CARGAR PERFIL
+===================================================== */
 
 async function loadProfile(){
 
@@ -2867,30 +3181,67 @@ async function loadProfile(){
  currentUser.email?.split("@")[0] ||
  "Usuario FitLab";
 
- document
- .getElementById("profileName")
- .textContent=name;
+ const profileName =
+ document.getElementById("profileName");
 
- document
- .getElementById("profileEmail")
- .textContent=
- currentUser.email || "";
+ const profileEmail =
+ document.getElementById("profileEmail");
 
- const routinesResult =
- await supabaseClient
- .from("saved_routines")
- .select("*")
- .eq("user_id",currentUser.id)
- .order("created_at",{ascending:false})
- .limit(20);
+ if(profileName){
+  profileName.textContent=name;
+ }
 
- const historyResult =
- await supabaseClient
- .from("workout_history")
- .select("*")
- .eq("user_id",currentUser.id)
- .order("created_at",{ascending:false})
- .limit(20);
+ if(profileEmail){
+  profileEmail.textContent=
+  currentUser.email || "";
+ }
+
+ const [
+  routinesResult,
+  historyResult,
+  progressResult
+ ] =
+ await Promise.all([
+
+  supabaseClient
+  .from("saved_routines")
+  .select("*")
+  .eq("user_id",currentUser.id)
+  .order("created_at",{ascending:false})
+  .limit(50),
+
+  supabaseClient
+  .from("workout_history")
+  .select("*")
+  .eq("user_id",currentUser.id)
+  .order("created_at",{ascending:false})
+  .limit(50),
+
+  supabaseClient
+  .from("progress")
+  .select("*")
+  .eq("user_id",currentUser.id)
+  .maybeSingle()
+
+ ]);
+
+ if(routinesResult.error){
+
+  console.error(
+   "Error cargando rutinas:",
+   routinesResult.error
+  );
+
+ }
+
+ if(historyResult.error){
+
+  console.error(
+   "Error cargando historial:",
+   historyResult.error
+  );
+
+ }
 
  const routines =
  routinesResult.data || [];
@@ -2898,13 +3249,22 @@ async function loadProfile(){
  const history =
  historyResult.data || [];
 
- document
- .getElementById("routineCount")
- .textContent=routines.length;
+ const progress =
+ progressResult.data || null;
 
- document
- .getElementById("workoutCount")
- .textContent=history.length;
+ const workoutCount =
+ progress
+ ? Number(progress.completed_workouts || 0)
+ : history.length;
+
+ const totalMinutes =
+ progress
+ ? Number(progress.total_minutes || 0)
+ : history.reduce(
+    (total,item)=>
+    total+Number(item.duration || 0),
+    0
+   );
 
  const dates =
  new Set(
@@ -2915,8 +3275,24 @@ async function loadProfile(){
  );
 
  document
+ .getElementById("routineCount")
+ .textContent=
+ routines.length;
+
+ document
+ .getElementById("workoutCount")
+ .textContent=
+ workoutCount;
+
+ document
  .getElementById("activeDays")
- .textContent=dates.size;
+ .textContent=
+ dates.size;
+
+ document
+ .getElementById("favoriteCount")
+ .textContent=
+ totalMinutes;
 
  renderSavedRoutines(routines);
 
@@ -2934,6 +3310,10 @@ function renderSavedRoutines(routines){
  const container =
  document.getElementById("savedRoutines");
 
+ if(!container){
+  return;
+ }
+
  if(!routines.length){
 
   container.innerHTML=`
@@ -2947,23 +3327,34 @@ function renderSavedRoutines(routines){
  }
 
  container.innerHTML=
- routines.map(routine=>`
+ routines.map(routine=>{
+
+  const title =
+  routine.title ||
+  (
+   "Rutina "+
+   getGoalName(routine.goal)
+  );
+
+  return `
 
   <div class="saved-item">
 
    <strong>
-    ${routine.goal || "Rutina FitLab"}
+    💾 ${escapeHtml(title)}
    </strong>
 
    <small>
     ${routine.duration || 30} minutos ·
-    ${routine.level || "Principiante"} ·
-    ${routine.place || "Casa"}
+    ${escapeHtml(routine.level || "Principiante")} ·
+    ${escapeHtml(formatPlace(routine.place))}
    </small>
 
   </div>
 
- `).join("");
+  `;
+
+ }).join("");
 
 }
 
@@ -2972,6 +3363,10 @@ function renderActivity(history){
 
  const container =
  document.getElementById("activityList");
+
+ if(!container){
+  return;
+ }
 
  if(!history.length){
 
@@ -2991,7 +3386,7 @@ function renderActivity(history){
   <div class="saved-item">
 
    <strong>
-    🔥 ${item.routine_name || "Entrenamiento"}
+    🔥 ${escapeHtml(item.routine_name || "Entrenamiento")}
    </strong>
 
    <small>
@@ -3007,6 +3402,44 @@ function renderActivity(history){
 }
 
 
+function formatPlace(place){
+
+ const places={
+
+  casa:"Casa",
+
+  gym:"Gimnasio",
+
+  exterior:"Exterior",
+
+  FitLab:"FitLab"
+
+ };
+
+ return places[place] || place || "Casa";
+
+}
+
+
+function formatGoal(goal){
+
+ return getGoalName(goal);
+
+}
+
+
+function escapeHtml(value){
+
+ return String(value ?? "")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+
+
 /* =====================================================
    MOSTRAR PRODUCTOS
 ===================================================== */
@@ -3018,6 +3451,10 @@ function renderProducts(list=products){
 
  const noProducts =
  document.getElementById("noProducts");
+
+ if(!grid || !noProducts){
+  return;
+ }
 
  grid.innerHTML="";
 
@@ -3254,6 +3691,10 @@ function renderExercises(list=exercises){
  const grid=
  document.getElementById("exerciseGrid");
 
+ if(!grid){
+  return;
+ }
+
  grid.innerHTML="";
 
  list.forEach(ex=>{
@@ -3365,7 +3806,7 @@ function showExercise(ex){
    GENERADOR
 ===================================================== */
 
-function generateRoutine(){
+async function generateRoutine(){
 
  const goal=
  document.getElementById("goal").value;
@@ -3415,6 +3856,44 @@ function generateRoutine(){
   }))
  };
 
+ /*
+   Guardamos las preferencias del usuario.
+   Esto no impide generar rutinas si no hay sesión.
+ */
+
+ if(currentUser && supabaseClient){
+
+  const {
+   error
+  } =
+  await supabaseClient
+  .from("profiles")
+  .update({
+
+   goal:goal,
+
+   level:level,
+
+   place:place,
+
+   preferred_duration:time,
+
+   updated_at:new Date().toISOString()
+
+  })
+  .eq("id",currentUser.id);
+
+  if(error){
+
+   console.error(
+    "No se pudieron guardar las preferencias:",
+    error
+   );
+
+  }
+
+ }
+
  let html=`
 
  <h2 style="margin-bottom:5px">
@@ -3428,7 +3907,7 @@ function generateRoutine(){
 
   ${level} ·
   ${time} minutos ·
-  ${place}
+  ${formatPlace(place)}
 
  </p>
 
@@ -3668,7 +4147,7 @@ function startProgramTimer(days){
 
 
 /* =====================================================
-   TEMPORIZADOR CORREGIDO
+   TEMPORIZADOR
 ===================================================== */
 
 function formatTime(seconds){
@@ -3680,24 +4159,13 @@ function formatTime(seconds){
  seconds%60;
 
  return String(minutes).padStart(2,"0")
- +" : "
+ +":"
  +String(secs).padStart(2,"0");
 
 }
 
 
 function startTimer(minutes){
-
- /*
-   AQUÍ ESTABA EL ERROR.
-
-   Antes:
-   timerSeconds = 30;
-
-   Ahora utilizamos el valor recibido.
-   Si no se recibe ninguno, usamos la duración
-   de la rutina actual o 30 como último recurso.
- */
 
  let selectedMinutes=
  Number(minutes);
@@ -3708,6 +4176,23 @@ function startTimer(minutes){
   currentRoutine?.duration ||
   Number(document.getElementById("time")?.value) ||
   30;
+
+ }
+
+ if(!currentRoutine){
+
+  currentRoutine={
+   goal:"Entrenamiento FitLab",
+   level:"General",
+   place:"FitLab",
+   duration:selectedMinutes,
+   exercises:[]
+  };
+
+ }else{
+
+  currentRoutine.duration=
+  selectedMinutes;
 
  }
 
@@ -3837,7 +4322,9 @@ function updateTimerDisplay(){
  if(timer){
 
   timer.textContent=
-  formatTime(Math.max(timerSeconds,0));
+  timerSeconds>0
+  ?formatTime(Math.max(timerSeconds,0))
+  :"¡LISTO!";
 
  }
 
