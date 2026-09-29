@@ -2,7 +2,9 @@
 <html lang="es-MX">
 
 <head>
+
 <link rel="icon" href="favicon.png" type="image/png">
+
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +18,9 @@ content="FitLab te ayuda a crear rutinas de ejercicio personalizadas, descubrir 
 content="rutinas de ejercicio, ejercicios en casa, rutina gimnasio, entrenamiento, fitness, ganar músculo, fuerza, suplementos, proteína, creatina, accesorios gimnasio">
 
 <meta name="author" content="FitLab">
+
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
 <meta name="googlebot" content="index, follow">
 
 <link rel="canonical" href="https://cberroteran400-spec.github.io/fitlab/">
@@ -492,6 +496,10 @@ section{
  outline:none;
 }
 
+.search:focus{
+ border-color:#65ff9a;
+}
+
 .exercise-grid{
  display:grid;
  grid-template-columns:repeat(4,1fr);
@@ -508,10 +516,13 @@ section{
  padding:17px;
 
  cursor:pointer;
+
+ transition:.2s;
 }
 
 .exercise:hover{
  border-color:rgba(101,255,154,.35);
+ transform:translateY(-2px);
 }
 
 .exercise h3{
@@ -664,7 +675,14 @@ section{
 
  overflow:hidden;
 
- background:#101827;
+ background:
+ linear-gradient(
+ 135deg,
+ #101827,
+ #18243c
+ );
+
+ cursor:pointer;
 }
 
 .product-image img{
@@ -678,8 +696,12 @@ section{
  transition:.35s;
 }
 
-.product-card:hover .product-image img{
+.product-image:hover img{
  transform:scale(1.06);
+}
+
+.product-image:active{
+ transform:scale(.99);
 }
 
 .product-category{
@@ -702,6 +724,69 @@ section{
 
  font-size:10px;
  font-weight:800;
+
+ z-index:2;
+}
+
+.image-view-badge{
+ position:absolute;
+
+ right:10px;
+ bottom:10px;
+
+ background:rgba(0,0,0,.72);
+
+ color:#fff;
+
+ padding:6px 9px;
+
+ border-radius:8px;
+
+ font-size:10px;
+ font-weight:800;
+
+ opacity:.9;
+
+ z-index:2;
+
+ pointer-events:none;
+}
+
+.image-fallback-content{
+ position:absolute;
+
+ inset:0;
+
+ display:flex;
+
+ flex-direction:column;
+
+ align-items:center;
+
+ justify-content:center;
+
+ text-align:center;
+
+ padding:20px;
+
+ color:#fff;
+
+ background:
+ radial-gradient(
+  circle at center,
+  #1b2942,
+  #0d1523
+ );
+}
+
+.image-fallback-content span{
+ font-size:50px;
+ margin-bottom:8px;
+}
+
+.image-fallback-content strong{
+ font-size:14px;
+ color:#65ff9a;
 }
 
 .product-content{
@@ -757,7 +842,9 @@ section{
 }
 
 
-/* MENSAJE SIN PRODUCTOS */
+/* =====================================================
+   MENSAJE SIN PRODUCTOS
+===================================================== */
 
 .no-products{
  display:none;
@@ -878,7 +965,7 @@ footer a:hover{
 
  inset:0;
 
- background:rgba(0,0,0,.75);
+ background:rgba(0,0,0,.82);
 
  display:none;
 
@@ -889,6 +976,8 @@ footer a:hover{
  z-index:2000;
 
  padding:20px;
+
+ backdrop-filter:blur(8px);
 }
 
 .modal.show{
@@ -896,7 +985,7 @@ footer a:hover{
 }
 
 .modal-box{
- max-width:500px;
+ max-width:550px;
 
  width:100%;
 
@@ -911,6 +1000,9 @@ footer a:hover{
  border-radius:22px;
 
  padding:30px;
+
+ box-shadow:
+ 0 30px 100px rgba(0,0,0,.5);
 }
 
 .close{
@@ -922,7 +1014,77 @@ footer a:hover{
 
  border:0;
 
- font-size:24px;
+ font-size:28px;
+
+ line-height:1;
+
+ padding:4px 8px;
+
+ border-radius:8px;
+
+ position:relative;
+
+ z-index:10;
+}
+
+.close:hover{
+ background:#18243c;
+ color:#65ff9a;
+}
+
+
+/* =====================================================
+   IMAGEN GRANDE
+===================================================== */
+
+.modal-product-image{
+ width:100%;
+
+ height:280px;
+
+ object-fit:cover;
+
+ border-radius:16px;
+
+ display:block;
+
+ cursor:pointer;
+
+ background:#101827;
+}
+
+.full-image-container{
+ text-align:center;
+}
+
+.full-image-container h2{
+ margin-bottom:18px;
+}
+
+.full-image{
+ width:100%;
+
+ max-height:65vh;
+
+ object-fit:contain;
+
+ display:block;
+
+ margin:auto;
+
+ border-radius:16px;
+
+ background:#080e19;
+}
+
+.image-help{
+ color:#778398;
+
+ font-size:12px;
+
+ margin-top:12px;
+
+ text-align:center;
 }
 
 
@@ -1029,6 +1191,14 @@ footer a:hover{
 
  .product-btn{
   width:100%;
+ }
+
+ .modal-box{
+  padding:22px;
+ }
+
+ .modal-product-image{
+  height:220px;
  }
 
  section{
@@ -1590,7 +1760,7 @@ hombros y cuerpo completo.
 class="search"
 id="search"
 placeholder="Buscar ejercicio..."
-oninput="searchExercises">
+oninput="searchExercises()">
 
 
 <div id="exerciseGrid" class="exercise-grid">
@@ -1710,7 +1880,7 @@ Comenzar
 
 
 <!-- =====================================================
-     NUEVO CATÁLOGO FITNESS
+     CATÁLOGO FITNESS
 ===================================================== -->
 
 <section id="tienda" class="shop-section">
@@ -2108,7 +2278,10 @@ Contacto
 
 <div class="modal-box">
 
-<button class="close" onclick="closeModal()">
+<button
+class="close"
+onclick="closeModal()"
+aria-label="Cerrar">
 ×
 </button>
 
@@ -2183,7 +2356,9 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Proteína",
+
  image:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=900&q=80",
+
  description:"Producto utilizado por algunas personas como complemento de su alimentación y entrenamiento."
 },
 
@@ -2192,7 +2367,9 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Creatina",
+
  image:"https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80",
+
  description:"Suplemento deportivo comúnmente utilizado dentro de programas de entrenamiento de fuerza."
 },
 
@@ -2201,7 +2378,9 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Shaker",
+
  image:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=80",
+
  description:"Botella mezcladora práctica para preparar bebidas antes o después del entrenamiento."
 },
 
@@ -2210,7 +2389,9 @@ const products = [
  category:"hidratacion",
  label:"Hidratación",
  type:"Botella",
- image:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=80",
+
+ image:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=80",
+
  description:"Accesorio pensado para llevar agua durante tus sesiones de actividad física."
 },
 
@@ -2219,7 +2400,9 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Pesas",
+
  image:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
+
  description:"Equipo básico que puede utilizarse para diferentes ejercicios de fuerza."
 },
 
@@ -2228,7 +2411,9 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Resistencia",
+
  image:"https://images.unsplash.com/photo-1598971639058-999c1f8d9f16?auto=format&fit=crop&w=900&q=80",
+
  description:"Bandas elásticas utilizadas para ejercicios de resistencia, movilidad y activación."
 },
 
@@ -2237,7 +2422,9 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Mat",
+
  image:"https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=900&q=80",
+
  description:"Superficie acolchada para ejercicios en el suelo, movilidad y entrenamiento en casa."
 },
 
@@ -2246,7 +2433,9 @@ const products = [
  category:"equipamiento",
  label:"Equipamiento",
  type:"Cardio",
+
  image:"https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80",
+
  description:"Accesorio utilizado en diferentes sesiones de acondicionamiento y trabajo cardiovascular."
 },
 
@@ -2255,7 +2444,9 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Entrenamiento",
+
  image:"https://images.unsplash.com/photo-1586401100295-7a8096fd231a?auto=format&fit=crop&w=900&q=80",
+
  description:"Accesorio que algunas personas utilizan durante ejercicios con pesas."
 },
 
@@ -2264,7 +2455,9 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Recuperación",
+
  image:"https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=900&q=80",
+
  description:"Accesorio utilizado por algunas personas dentro de sus rutinas de movilidad y recuperación."
 },
 
@@ -2273,7 +2466,9 @@ const products = [
  category:"suplementos",
  label:"Suplemento",
  type:"Hidratación",
+
  image:"https://images.unsplash.com/photo-1553530666-ba11a90a0868?auto=format&fit=crop&w=900&q=80",
+
  description:"Productos destinados a complementar la ingesta de líquidos y electrolitos."
 },
 
@@ -2282,11 +2477,118 @@ const products = [
  category:"accesorios",
  label:"Accesorio",
  type:"Medición",
+
  image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=900&q=80",
+
  description:"Dispositivo que algunas personas utilizan para llevar un registro de determinadas medidas corporales."
 }
 
 ];
+
+
+/* =====================================================
+   ICONOS PARA FALLBACK
+===================================================== */
+
+function getProductIcon(category){
+
+ if(category==="suplementos"){
+  return "🥤";
+ }
+
+ if(category==="equipamiento"){
+  return "🏋️";
+ }
+
+ if(category==="accesorios"){
+  return "🎒";
+ }
+
+ if(category==="hidratacion"){
+  return "💧";
+ }
+
+ return "📦";
+
+}
+
+
+/* =====================================================
+   ERROR DE IMAGEN
+===================================================== */
+
+function handleImageError(img){
+
+ if(!img || img.dataset.failed==="true"){
+  return;
+ }
+
+ img.dataset.failed="true";
+ img.style.display="none";
+
+ const wrapper=img.parentElement;
+
+ if(!wrapper){
+  return;
+ }
+
+ const name=img.dataset.productName || "Producto fitness";
+ const category=img.dataset.category || "";
+
+ if(wrapper.querySelector(".image-fallback-content")){
+  return;
+ }
+
+ const fallback=document.createElement("div");
+
+ fallback.className="image-fallback-content";
+
+ fallback.innerHTML=`
+
+  <span>
+   ${getProductIcon(category)}
+  </span>
+
+  <strong>
+   ${name}
+  </strong>
+
+ `;
+
+ wrapper.appendChild(fallback);
+
+}
+
+
+/* =====================================================
+   ERROR IMAGEN MODAL
+===================================================== */
+
+function handleModalImageError(img){
+
+ if(!img){
+  return;
+ }
+
+ img.style.display="none";
+
+ const fallback=document.createElement("div");
+
+ fallback.className="image-fallback-content";
+
+ fallback.innerHTML=`
+
+  <span>📦</span>
+
+  <strong>
+   Imagen no disponible
+  </strong>
+
+ `;
+
+ img.parentElement.appendChild(fallback);
+
+}
 
 
 /* =====================================================
@@ -2315,6 +2617,8 @@ function renderProducts(list = products){
 
  list.forEach((product,index)=>{
 
+  const productIndex=products.indexOf(product);
+
   const card =
   document.createElement("article");
 
@@ -2325,16 +2629,32 @@ function renderProducts(list = products){
 
   card.innerHTML=`
 
-   <div class="product-image">
+   <div
+    class="product-image"
+    onclick="openProductImage(${productIndex})"
+    role="button"
+    tabindex="0"
+    aria-label="Abrir imagen de ${product.name}"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductImage(${productIndex})}"
+   >
 
     <img
      src="${product.image}"
      alt="${product.name}"
+     data-product-name="${product.name}"
+     data-category="${product.category}"
      loading="lazy"
-     onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#101827,#18243c)'">
+     decoding="async"
+     referrerpolicy="no-referrer"
+     onerror="handleImageError(this)"
+    >
 
     <span class="product-category">
      ${product.label}
+    </span>
+
+    <span class="image-view-badge">
+     🔍 Ver imagen
     </span>
 
    </div>
@@ -2357,7 +2677,7 @@ function renderProducts(list = products){
 
      <button
       class="product-btn"
-      onclick="showProduct(${products.indexOf(product)})">
+      onclick="showProduct(${productIndex})">
 
       Ver información
 
@@ -2397,7 +2717,6 @@ function filterProducts(category,button){
 
  }
 
-
  renderProducts(filtered);
 
 
@@ -2417,6 +2736,60 @@ function filterProducts(category,button){
 
 
 /* =====================================================
+   IMAGEN GRANDE DEL PRODUCTO
+===================================================== */
+
+function openProductImage(index){
+
+ const product=products[index];
+
+ if(!product){
+  return;
+ }
+
+ document
+ .getElementById("modalContent")
+ .innerHTML=`
+
+  <div class="full-image-container">
+
+   <h2>
+    ${product.name}
+   </h2>
+
+   <img
+    class="full-image"
+    src="${product.image}"
+    alt="${product.name}"
+    referrerpolicy="no-referrer"
+    onerror="handleModalImageError(this)"
+   >
+
+   <p class="image-help">
+    Imagen de referencia del producto.
+   </p>
+
+   <button
+    class="btn btn-secondary"
+    style="margin-top:18px"
+    onclick="showProduct(${index})">
+
+    ← Ver información
+
+   </button>
+
+  </div>
+
+ `;
+
+ document
+ .getElementById("modal")
+ .classList.add("show");
+
+}
+
+
+/* =====================================================
    INFORMACIÓN DEL PRODUCTO
 ===================================================== */
 
@@ -2424,29 +2797,46 @@ function showProduct(index){
 
  const product=products[index];
 
+ if(!product){
+  return;
+ }
+
  document
  .getElementById("modalContent")
  .innerHTML=`
 
-  <div style="
-   overflow:hidden;
-   border-radius:15px;
-   margin-bottom:20px;
-   height:220px;
-   background:#111a2b;
-  ">
+  <div
+   style="
+    overflow:hidden;
+    border-radius:15px;
+    margin-bottom:20px;
+    height:220px;
+    background:#111a2b;
+    cursor:pointer;
+   "
+   onclick="openProductImage(${index})"
+  >
 
    <img
+    class="modal-product-image"
     src="${product.image}"
     alt="${product.name}"
-    style="
-     width:100%;
-     height:100%;
-     object-fit:cover;
-    "
+    data-product-name="${product.name}"
+    data-category="${product.category}"
+    referrerpolicy="no-referrer"
+    onerror="handleModalImageError(this)"
    >
 
   </div>
+
+  <p style="
+   color:#65ff9a;
+   font-size:11px;
+   font-weight:800;
+   margin-bottom:7px;
+  ">
+   🔍 Toca la imagen para verla en grande
+  </p>
 
   <span style="
    display:inline-block;
@@ -2503,10 +2893,9 @@ function showProduct(index){
 
   </div>
 
-  <br>
-
   <button
    class="btn btn-primary"
+   style="margin-top:18px"
    onclick="closeModal()">
 
    Cerrar
@@ -2567,16 +2956,22 @@ function renderExercises(list = exercises){
 
 function searchExercises(){
 
+ const input=document.getElementById("search");
+
+ if(!input){
+  return;
+ }
+
  const query =
- document
- .getElementById("search")
- .value
- .toLowerCase();
+ input.value
+ .toLowerCase()
+ .trim();
 
  const filtered =
  exercises.filter(ex=>
   ex[0].toLowerCase().includes(query) ||
-  ex[1].toLowerCase().includes(query)
+  ex[1].toLowerCase().includes(query) ||
+  ex[2].toLowerCase().includes(query)
  );
 
  renderExercises(filtered);
@@ -2643,7 +3038,13 @@ function showExercise(ex){
 }
 
 
+/* =====================================================
+   CERRAR MODAL
+===================================================== */
+
 function closeModal(){
+
+ clearInterval(timerInterval);
 
  document
  .getElementById("modal")
@@ -2921,7 +3322,8 @@ function startTimer(){
  Temporizador
  </h2>
 
- <div id="timer"
+ <div
+ id="timer"
  style="
   font-size:70px;
   text-align:center;
@@ -2997,6 +3399,21 @@ document
 
  if(e.target===this){
   closeModal();
+ }
+
+});
+
+
+/* =====================================================
+   ESC PARA CERRAR MODAL
+===================================================== */
+
+document.addEventListener("keydown",function(e){
+
+ if(e.key==="Escape"){
+
+  closeModal();
+
  }
 
 });
