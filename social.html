@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>FitLab Social | Comunidad Fitness</title>
+
+<meta name="description" content="FitLab Social: comparte entrenamientos, fotos y videos, sigue atletas y conecta con la comunidad fitness.">
+
+<style>
+:root{
+    --bg:#050709;
+    --bg2:#0b0f12;
+    --card:#11171b;
+    --card2:#151d21;
+    --green:#65ff9a;
+    --green2:#2ee66d;
+    --white:#ffffff;
+    --muted:#9ba6ad;
+    --border:rgba(255,255,255,.08);
+    --danger:#ff496b;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at top right, rgba(101,255,154,.08), transparent 35%),
+        #050709;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:62px;
+    background:rgba(5,7,9,.92);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:var(--green);
+}
+
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    background:#11161a;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+/* ================= APP ================= */
+
+.app{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+/* ================= SECTIONS ================= */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-cover{
+    height:145px;
+    background:
+        linear-gradient(135deg,rgba(101,255,154,.25),transparent),
+        linear-gradient(135deg,#15221b,#07100c);
+    position:relative;
+}
+
+.profile-cover:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(45deg,transparent 48%,rgba(101,255,154,.08) 50%,transparent 52%);
+    background-size:35px 35px;
+}
+
+.profile-main{
+    padding:0 16px 20px;
+    position:relative;
+}
+
+.profile-photo-wrap{
+    margin-top:-52px;
+    position:relative;
+    width:104px;
+}
+
+.profile-photo{
+    width:104px;
+    height:104px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #050709;
+    background:#172025;
+}
+
+.photo-edit{
+    position:absolute;
+    right:1px;
+    bottom:5px;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:3px solid #050709;
+    background:var(--green);
+    color:#031007;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+.profile-name{
+    margin-top:12px;
+    font-size:25px;
+    font-weight:900;
+}
+
+.username{
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.bio{
+    color:#d7dde0;
+    margin-top:12px;
+    line-height:1.5;
+}
+
+.profile-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+}
+
+.primary-btn,
+.secondary-btn{
+    flex:1;
+    height:43px;
+    border-radius:12px;
+    border:none;
+    font-weight:800;
+}
+
+.primary-btn{
+    background:var(--green);
+    color:#041108;
+}
+
+.secondary-btn{
+    background:#151b1f;
+    border:1px solid var(--border);
+    color:white;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    margin-top:20px;
+    background:#0c1114;
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.stat{
+    padding:15px 5px;
+    text-align:center;
+    border-right:1px solid var(--border);
+}
+
+.stat:last-child{
+    border-right:none;
+}
+
+.stat strong{
+    display:block;
+    font-size:20px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+    display:block;
+}
+
+/* ================= PROFILE TABS ================= */
+
+.profile-tabs{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    margin-top:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.profile-tab{
+    padding:15px 5px;
+    text-align:center;
+    color:var(--muted);
+    border:none;
+    background:none;
+    border-bottom:2px solid transparent;
+}
+
+.profile-tab.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+}
+
+/* ================= POST GRID ================= */
+
+.post-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+    margin-top:3px;
+}
+
+.grid-item{
+    aspect-ratio:1/1;
+    background:#101518;
+    overflow:hidden;
+    position:relative;
+}
+
+.grid-item img,
+.grid-item video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.video-mark{
+    position:absolute;
+    top:8px;
+    right:8px;
+    background:rgba(0,0,0,.7);
+    padding:5px 7px;
+    border-radius:8px;
+}
+
+/* ================= FEED ================= */
+
+.feed{
+    padding-bottom:15px;
+}
+
+.feed-header{
+    padding:18px 16px 10px;
+}
+
+.feed-title{
+    font-size:25px;
+    font-weight:900;
+}
+
+.feed-subtitle{
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.post{
+    background:#0d1215;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    margin-bottom:12px;
+}
+
+.post-user{
+    display:flex;
+    align-items:center;
+    padding:13px 14px;
+    gap:10px;
+}
+
+.avatar{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#172025;
+}
+
+.user-info{
+    flex:1;
+}
+
+.user-name{
+    font-weight:800;
+}
+
+.user-handle{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:2px;
+}
+
+.more{
+    color:#aaa;
+    font-size:22px;
+    background:none;
+    border:none;
+}
+
+.post-text{
+    padding:0 14px 12px;
+    line-height:1.5;
+}
+
+.post-media{
+    width:100%;
+    max-height:650px;
+    background:#000;
+    position:relative;
+}
+
+.post-media img,
+.post-media video{
+    width:100%;
+    display:block;
+    max-height:650px;
+    object-fit:cover;
+}
+
+.post-actions{
+    display:flex;
+    align-items:center;
+    padding:11px 14px 5px;
+    gap:17px;
+}
+
+.post-action{
+    background:none;
+    border:none;
+    color:#dce2e5;
+    font-size:22px;
+}
+
+.post-action.like.active{
+    color:var(--danger);
+}
+
+.likes{
+    padding:3px 14px;
+    font-weight:800;
+    font-size:13px;
+}
+
+.post-time{
+    color:var(--muted);
+    font-size:11px;
+    padding:2px 14px 12px;
+}
+
+/* ================= COMMENTS ================= */
+
+.comments{
+    border-top:1px solid var(--border);
+    padding:10px 14px;
+}
+
+.comment{
+    display:flex;
+    gap:8px;
+    margin-bottom:9px;
+}
+
+.comment img{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.comment-body{
+    background:#151b1f;
+    border-radius:12px;
+    padding:7px 10px;
+    font-size:13px;
+}
+
+.comment-body strong{
+    display:block;
+    margin-bottom:2px;
+}
+
+.comment-form{
+    display:flex;
+    gap:7px;
+    margin-top:10px;
+}
+
+.comment-input{
+    flex:1;
+    height:38px;
+    background:#151b1f;
+    border:1px solid var(--border);
+    color:white;
+    border-radius:20px;
+    padding:0 14px;
+    outline:none;
+}
+
+.comment-send{
+    width:40px;
+    height:38px;
+    border:none;
+    border-radius:20px;
+    background:var(--green);
+}
+
+/* ================= DISCOVER ================= */
+
+.discover{
+    padding:18px 16px;
+}
+
+.search{
+    width:100%;
+    height:45px;
+    background:#11171b;
+    border:1px solid var(--border);
+    color:white;
+    border-radius:14px;
+    padding:0 15px;
+    outline:none;
+}
+
+.discover-title{
+    margin-top:24px;
+    margin-bottom:13px;
+    font-size:21px;
+}
+
+.user-card{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    background:#101518;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:12px;
+    margin-bottom:9px;
+}
+
+.user-card-info{
+    flex:1;
+}
+
+.user-card-name{
+    font-weight:800;
+}
+
+.user-card-description{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:3px;
+}
+
+.follow-btn{
+    border:none;
+    background:var(--green);
+    color:#041108;
+    border-radius:10px;
+    padding:9px 12px;
+    font-weight:800;
+}
+
+.follow-btn.following{
+    background:#1a2327;
+    color:white;
+    border:1px solid var(--border);
+}
+
+/* ================= CREATE ================= */
+
+.create{
+    padding:18px 16px;
+}
+
+.create-title{
+    font-size:26px;
+    font-weight:900;
+}
+
+.create-subtitle{
+    color:var(--muted);
+    margin-top:5px;
+    margin-bottom:20px;
+}
+
+.upload-box{
+    min-height:220px;
+    border:2px dashed #344047;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+    background:#0c1114;
+}
+
+.upload-icon{
+    font-size:48px;
+    margin-bottom:12px;
+}
+
+.upload-box h3{
+    margin-bottom:7px;
+}
+
+.upload-box p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+}
+
+.upload-button{
+    margin-top:17px;
+    background:var(--green);
+    border:none;
+    border-radius:12px;
+    padding:12px 20px;
+    font-weight:900;
+}
+
+textarea.post-caption{
+    width:100%;
+    min-height:100px;
+    margin-top:15px;
+    background:#11171b;
+    border:1px solid var(--border);
+    border-radius:14px;
+    color:white;
+    padding:13px;
+    resize:none;
+    outline:none;
+}
+
+.publish-btn{
+    width:100%;
+    margin-top:12px;
+    height:46px;
+    background:var(--green);
+    color:#031007;
+    border:none;
+    border-radius:13px;
+    font-weight:900;
+}
+
+.preview{
+    margin-top:15px;
+    border-radius:14px;
+    overflow:hidden;
+    display:none;
+}
+
+.preview img,
+.preview video{
+    width:100%;
+    max-height:450px;
+    object-fit:cover;
+    display:block;
+}
+
+/* ================= RECOMMENDATIONS ================= */
+
+.recommend{
+    padding:18px 16px;
+}
+
+.rating{
+    color:#ffd84d;
+    letter-spacing:2px;
+}
+
+.rate-box{
+    background:#101518;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px;
+    margin-top:15px;
+}
+
+.stars{
+    display:flex;
+    gap:7px;
+    margin-top:10px;
+}
+
+.star{
+    border:none;
+    background:none;
+    font-size:28px;
+    color:#4d565b;
+}
+
+.star.selected{
+    color:#ffd84d;
+}
+
+/* ================= BOTTOM NAV ================= */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:73px;
+    background:rgba(7,10,12,.96);
+    backdrop-filter:blur(18px);
+    border-top:1px solid var(--border);
+    z-index:200;
+    display:flex;
+    justify-content:center;
+}
+
+.bottom-inner{
+    width:100%;
+    max-width:650px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+}
+
+.nav-btn{
+    border:none;
+    background:none;
+    color:#7e898f;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    font-size:20px;
+}
+
+.nav-btn span{
+    font-size:10px;
+}
+
+.nav-btn.active{
+    color:var(--green);
+}
+
+.create-nav{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:var(--green);
+    color:#041108;
+    font-size:26px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    background:#101518;
+    border-radius:22px 22px 0 0;
+    padding:20px;
+    border-top:1px solid var(--border);
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-header h2{
+    font-size:21px;
+}
+
+.close{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#1a2226;
+    border:1px solid var(--border);
+    color:white;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    color:#cbd2d5;
+    font-size:13px;
+}
+
+.form-control{
+    width:100%;
+    height:44px;
+    background:#080d10;
+    border:1px solid var(--border);
+    color:white;
+    border-radius:11px;
+    padding:0 13px;
+    outline:none;
+}
+
+textarea.form-control{
+    height:90px;
+    padding-top:12px;
+    resize:none;
+}
+
+.save-profile{
+    width:100%;
+    height:45px;
+    background:var(--green);
+    color:#031007;
+    border:none;
+    border-radius:12px;
+    font-weight:900;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:90px;
+    transform:translateX(-50%) translateY(20px);
+    background:#e9fff0;
+    color:#041108;
+    padding:11px 17px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:1000;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* ================= DESKTOP ================= */
+
+@media(min-width:700px){
+
+    body{
+        padding-bottom:90px;
+    }
+
+    .app{
+        border-left:1px solid var(--border);
+        border-right:1px solid var(--border);
+        min-height:100vh;
+    }
+
+    .bottom-nav{
+        background:rgba(5,7,9,.94);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        Fit<span>Lab</span>
+    </div>
+
+    <div class="header-actions">
+        <button class="icon-btn" onclick="showSection('discover')">⌕</button>
+        <button class="icon-btn" onclick="showToast('Las notificaciones estarán disponibles al conectar el backend')">♡</button>
+    </div>
+
+</header>
+
+
+<main class="app">
+
+<!-- =====================================================
+     FEED
+===================================================== -->
+
+<section id="feed" class="section active">
+
+    <div class="feed">
+
+        <div class="feed-header">
+            <div class="feed-title">Para ti</div>
+            <div class="feed-subtitle">Entrenamientos de la comunidad FitLab</div>
+        </div>
+
+        <div id="feedContainer"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISCOVER
+===================================================== -->
+
+<section id="discover" class="section">
+
+    <div class="discover">
+
+        <h1>Descubrir</h1>
+
+        <p style="color:var(--muted);margin-top:5px;">
+            Encuentra personas y atletas de la comunidad.
+        </p>
+
+        <input
+            id="searchUsers"
+            class="search"
+            style="margin-top:17px;"
+            placeholder="Buscar personas..."
+            oninput="filterUsers()"
+        >
+
+        <h2 class="discover-title">Personas recomendadas</h2>
+
+        <div id="usersContainer"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CREATE
+===================================================== -->
+
+<section id="create" class="section">
+
+    <div class="create">
+
+        <div class="create-title">
+            Crear publicación
+        </div>
+
+        <div class="create-subtitle">
+            Comparte tu entrenamiento con la comunidad.
+        </div>
+
+        <div class="upload-box">
+
+            <div class="upload-icon">＋</div>
+
+            <h3>Sube una foto o video</h3>
+
+            <p>
+                Comparte tus progresos, ejercicios,
+                entrenamientos o momentos fitness.
+            </p>
+
+            <button
+                class="upload-button"
+                onclick="document.getElementById('mediaInput').click()"
+            >
+                Seleccionar archivo
+            </button>
+
+            <input
+                id="mediaInput"
+                type="file"
+                accept="image/*,video/*"
+                style="display:none"
+                onchange="previewMedia(event)"
+            >
+
+        </div>
+
+        <div id="preview" class="preview"></div>
+
+        <textarea
+            id="caption"
+            class="post-caption"
+            placeholder="¿Qué estás entrenando hoy?"
+        ></textarea>
+
+        <button
+            class="publish-btn"
+            onclick="publishPost()"
+        >
+            Publicar
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section id="profile" class="section">
+
+    <div class="profile-cover"></div>
+
+    <div class="profile-main">
+
+        <div class="profile-photo-wrap">
+
+            <img
+                id="profileImage"
+                class="profile-photo"
+                src="https://i.pravatar.cc/300?img=12"
+                alt="Foto de perfil"
+            >
+
+            <button
+                class="photo-edit"
+                onclick="document.getElementById('profilePhotoInput').click()"
+            >
+                ✎
+            </button>
+
+            <input
+                id="profilePhotoInput"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                onchange="changeProfilePhoto(event)"
+            >
+
+        </div>
+
+        <div id="profileName" class="profile-name">
+            Carlos Berroteran
+        </div>
+
+        <div id="profileUsername" class="username">
+            @carlosfit
+        </div>
+
+        <div id="profileBio" class="bio">
+            Entrenamiento • Fitness • Disciplina
+            <br>
+            Construyendo una mejor versión cada día.
+        </div>
+
+        <div class="profile-actions">
+
+            <button
+                class="primary-btn"
+                onclick="openEditProfile()"
+            >
+                Editar perfil
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="showToast('Compartir perfil próximamente')"
+            >
+                Compartir
+            </button>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="postCount">3</strong>
+                <span>Publicaciones</span>
+            </div>
+
+            <div class="stat">
+                <strong>128</strong>
+                <span>Seguidores</span>
+            </div>
+
+            <div class="stat">
+                <strong>74</strong>
+                <span>Siguiendo</span>
+            </div>
+
+        </div>
+
+        <div class="profile-tabs">
+
+            <button
+                class="profile-tab active"
+                onclick="profileTab(this,'posts')"
+            >
+                ▦
+            </button>
+
+            <button
+                class="profile-tab"
+                onclick="profileTab(this,'videos')"
+            >
+                ▶
+            </button>
+
+            <button
+                class="profile-tab"
+                onclick="profileTab(this,'likes')"
+            >
+                ♡
+            </button>
+
+        </div>
+
+        <div id="profileContent" class="post-grid">
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RECOMMENDATIONS
+===================================================== -->
+
+<section id="recommend" class="section">
+
+    <div class="recommend">
+
+        <h1>Comunidad</h1>
+
+        <p style="color:var(--muted);margin-top:5px;">
+            Descubre perfiles y comparte tu experiencia.
+        </p>
+
+        <div class="rate-box">
+
+            <h3>Califica tu experiencia</h3>
+
+            <p style="color:var(--muted);margin-top:6px;">
+                Tu opinión ayudará a mejorar la comunidad.
+            </p>
+
+            <div class="stars">
+
+                <button class="star" onclick="rate(1)">★</button>
+                <button class="star" onclick="rate(2)">★</button>
+                <button class="star" onclick="rate(3)">★</button>
+                <button class="star" onclick="rate(4)">★</button>
+                <button class="star" onclick="rate(5)">★</button>
+
+            </div>
+
+        </div>
+
+        <div class="rate-box">
+
+            <h3>Funciones de comunidad</h3>
+
+            <div style="margin-top:14px;color:#cdd4d7;line-height:1.8;font-size:14px;">
+
+                ✓ Perfiles personalizados<br>
+                ✓ Seguidores y seguidos<br>
+                ✓ Fotos y videos<br>
+                ✓ Comentarios<br>
+                ✓ Reacciones<br>
+                ✓ Recomendaciones<br>
+                ✓ Calificaciones<br>
+                ✓ Feed personalizado
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <div class="bottom-inner">
+
+        <button
+            class="nav-btn active"
+            data-section="feed"
+            onclick="showSection('feed')"
+        >
+            ⌂
+            <span>Inicio</span>
+        </button>
+
+        <button
+            class="nav-btn"
+            data-section="discover"
+            onclick="showSection('discover')"
+        >
+            ⌕
+            <span>Descubrir</span>
+        </button>
+
+        <button
+            class="nav-btn"
+            data-section="create"
+            onclick="showSection('create')"
+        >
+            <div class="create-nav">＋</div>
+            <span>Crear</span>
+        </button>
+
+        <button
+            class="nav-btn"
+            data-section="recommend"
+            onclick="showSection('recommend')"
+        >
+            ★
+            <span>Comunidad</span>
+        </button>
+
+        <button
+            class="nav-btn"
+            data-section="profile"
+            onclick="showSection('profile')"
+        >
+            ◉
+            <span>Perfil</span>
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     EDIT PROFILE MODAL
+===================================================== -->
+
+<div id="editModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>Editar perfil</h2>
+
+            <button
+                class="close"
+                onclick="closeEditProfile()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Nombre</label>
+
+            <input
+                id="editName"
+                class="form-control"
+                type="text"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Nombre de usuario</label>
+
+            <input
+                id="editUsername"
+                class="form-control"
+                type="text"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Biografía</label>
+
+            <textarea
+                id="editBio"
+                class="form-control"
+            ></textarea>
+
+        </div>
+
+        <button
+            class="save-profile"
+            onclick="saveProfile()"
+        >
+            Guardar cambios
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   DATOS
+===================================================== */
+
+const users = [
+
+    {
+        id:1,
+        name:"Carlos Berroteran",
+        username:"@carlosfit",
+        image:"https://i.pravatar.cc/150?img=12",
+        description:"Fitness • Entrenamiento"
+    },
+
+    {
+        id:2,
+        name:"Ana Fitness",
+        username:"@anafitness",
+        image:"https://i.pravatar.cc/150?img=47",
+        description:"Fuerza • Glúteos"
+    },
+
+    {
+        id:3,
+        name:"Marco Gym",
+        username:"@marcogym",
+        image:"https://i.pravatar.cc/150?img=11",
+        description:"Musculación • Gym"
+    },
+
+    {
+        id:4,
+        name:"Sofia Runner",
+        username:"@sofiarunner",
+        image:"https://i.pravatar.cc/150?img=32",
+        description:"Running • Cardio"
+    },
+
+    {
+        id:5,
+        name:"Diego Strong",
+        username:"@diegostrong",
+        image:"https://i.pravatar.cc/150?img=68",
+        description:"Powerlifting • Fuerza"
+    }
+
+];
+
+
+let posts = [
+
+    {
+        id:1,
+        user:"Ana Fitness",
+        username:"@anafitness",
+        avatar:"https://i.pravatar.cc/150?img=47",
+        text:"Entrenamiento de piernas terminado 🔥 ¿Quién entrenó hoy?",
+        image:"https://images.unsplash.com/photo-1517838277536-f5f99be5019c?auto=format&fit=crop&w=900&q=85",
+        likes:247,
+        liked:false,
+        comments:[
+            {
+                name:"Carlos",
+                text:"Buen entrenamiento 💪",
+                image:"https://i.pravatar.cc/100?img=12"
+            }
+        ]
+    },
+
+    {
+        id:2,
+        user:"Marco Gym",
+        username:"@marcogym",
+        avatar:"https://i.pravatar.cc/150?img=11",
+        text:"Día de pecho. Poco a poco seguimos mejorando.",
+        image:"https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=85",
+        likes:183,
+        liked:false,
+        comments:[]
+    },
+
+    {
+        id:3,
+        user:"Sofia Runner",
+        username:"@sofiarunner",
+        avatar:"https://i.pravatar.cc/150?img=32",
+        text:"5 km completados. La constancia es la clave.",
+        image:"https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=85",
+        likes:96,
+        liked:false,
+        comments:[]
+    }
+
+];
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+function loadData(){
+
+    const savedProfile =
+        localStorage.getItem("fitlab_profile");
+
+    if(savedProfile){
+
+        const profile =
+            JSON.parse(savedProfile);
+
+        document.getElementById("profileName").textContent =
+            profile.name;
+
+        document.getElementById("profileUsername").textContent =
+            profile.username;
+
+        document.getElementById("profileBio").innerHTML =
+            profile.bio.replace(/\n/g,"<br>");
+
+        if(profile.image){
+
+            document.getElementById("profileImage").src =
+                profile.image;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
+function showSection(section){
+
+    document.querySelectorAll(".section")
+        .forEach(el => el.classList.remove("active"));
+
+    const target =
+        document.getElementById(section);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+            if(btn.dataset.section === section){
+
+                btn.classList.add("active");
+
+            }
+
+        });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   FEED
+===================================================== */
+
+function renderFeed(){
+
+    const container =
+        document.getElementById("feedContainer");
+
+    container.innerHTML = "";
+
+    posts.forEach(post => {
+
+        const article =
+            document.createElement("article");
+
+        article.className = "post";
+
+        let commentsHTML = "";
+
+        post.comments.forEach(comment => {
+
+            commentsHTML += `
+
+                <div class="comment">
+
+                    <img src="${comment.image}">
+
+                    <div class="comment-body">
+
+                        <strong>${comment.name}</strong>
+
+                        ${escapeHTML(comment.text)}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+
+        article.innerHTML = `
+
+            <div class="post-user">
+
+                <img
+                    class="avatar"
+                    src="${post.avatar}"
+                >
+
+                <div class="user-info">
+
+                    <div class="user-name">
+                        ${post.user}
+                    </div>
+
+                    <div class="user-handle">
+                        ${post.username}
+                    </div>
+
+                </div>
+
+                <button class="more">
+                    •••
+                </button>
+
+            </div>
+
+            <div class="post-text">
+                ${escapeHTML(post.text)}
+            </div>
+
+            <div class="post-media">
+
+                <img
+                    src="${post.image}"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <div class="post-actions">
+
+                <button
+                    class="post-action like ${post.liked ? "active":""}"
+                    onclick="toggleLike(${post.id})"
+                >
+                    ${post.liked ? "♥":"♡"}
+                </button>
+
+                <button
+                    class="post-action"
+                    onclick="focusComment(${post.id})"
+                >
+                    ♡
+                </button>
+
+                <button
+                    class="post-action"
+                    onclick="sharePost(${post.id})"
+                >
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="likes">
+                ${post.likes} Me gusta
+            </div>
+
+            <div class="post-time">
+                Hace un momento
+            </div>
+
+            <div class="comments">
+
+                ${commentsHTML}
+
+                <div class="comment-form">
+
+                    <input
+                        id="comment-${post.id}"
+                        class="comment-input"
+                        placeholder="Escribe un comentario..."
+                    >
+
+                    <button
+                        class="comment-send"
+                        onclick="addComment(${post.id})"
+                    >
+                        ➤
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        container.appendChild(article);
+
+    });
+
+}
+
+
+/* =====================================================
+   LIKES
+===================================================== */
+
+function toggleLike(id){
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    post.liked =
+        !post.liked;
+
+    if(post.liked){
+
+        post.likes++;
+
+    }else{
+
+        post.likes--;
+
+    }
+
+    renderFeed();
+
+}
+
+
+/* =====================================================
+   COMENTARIOS
+===================================================== */
+
+function addComment(id){
+
+    const input =
+        document.getElementById("comment-" + id);
+
+    if(!input) return;
+
+    const text =
+        input.value.trim();
+
+    if(!text){
+
+        showToast("Escribe un comentario");
+
+        return;
+
+    }
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    post.comments.push({
+
+        name:"Carlos",
+
+        text:text,
+
+        image:
+            document.getElementById("profileImage").src
+
+    });
+
+    input.value = "";
+
+    renderFeed();
+
+    showToast("Comentario publicado");
+
+}
+
+
+function focusComment(id){
+
+    setTimeout(() => {
+
+        const input =
+            document.getElementById("comment-" + id);
+
+        if(input){
+
+            input.focus();
+
+        }
+
+    },200);
+
+}
+
+
+/* =====================================================
+   COMPARTIR
+===================================================== */
+
+async function sharePost(id){
+
+    const post =
+        posts.find(p => p.id === id);
+
+    if(!post) return;
+
+    const shareData = {
+
+        title:"FitLab",
+
+        text:
+            post.text +
+            " — FitLab Social",
+
+        url:window.location.href
+
+    };
+
+    try{
+
+        if(navigator.share){
+
+            await navigator.share(shareData);
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                window.location.href
+            );
+
+            showToast("Enlace copiado");
+
+        }
+
+    }catch(error){}
+
+}
+
+
+/* =====================================================
+   DESCUBRIR USUARIOS
+===================================================== */
+
+function renderUsers(list = users){
+
+    const container =
+        document.getElementById("usersContainer");
+
+    container.innerHTML = "";
+
+    list.forEach(user => {
+
+        if(user.id === 1) return;
+
+        const card =
+            document.createElement("div");
+
+        card.className = "user-card";
+
+        const following =
+            localStorage.getItem(
+                "follow_" + user.id
+            ) === "true";
+
+        card.innerHTML = `
+
+            <img
+                class="avatar"
+                src="${user.image}"
+            >
+
+            <div class="user-card-info">
+
+                <div class="user-card-name">
+                    ${user.name}
+                </div>
+
+                <div class="user-handle">
+                    ${user.username}
+                </div>
+
+                <div class="user-card-description">
+                    ${user.description}
+                </div>
+
+            </div>
+
+            <button
+                class="follow-btn ${following ? "following":""}"
+                onclick="toggleFollow(${user.id},this)"
+            >
+                ${following ? "Siguiendo":"Seguir"}
+            </button>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+function filterUsers(){
+
+    const value =
+        document.getElementById("searchUsers")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtered =
+        users.filter(user =>
+
+            user.name
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            user.username
+                .toLowerCase()
+                .includes(value)
+
+        );
+
+    renderUsers(filtered);
+
+}
+
+
+function toggleFollow(id,button){
+
+    const key =
+        "follow_" + id;
+
+    const current =
+        localStorage.getItem(key) === "true";
+
+    localStorage.setItem(
+        key,
+        String(!current)
+    );
+
+    button.classList.toggle(
+        "following",
+        !current
+    );
+
+    button.textContent =
+        !current
+        ? "Siguiendo"
+        : "Seguir";
+
+    showToast(
+        !current
+        ? "Ahora sigues este perfil"
+        : "Dejaste de seguir este perfil"
+    );
+
+}
+
+
+/* =====================================================
+   SUBIR PUBLICACIÓN
+===================================================== */
+
+let selectedMedia = null;
+let selectedMediaType = null;
+
+
+function previewMedia(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    selectedMedia = file;
+
+    selectedMediaType =
+        file.type.startsWith("video")
+        ? "video"
+        : "image";
+
+    const preview =
+        document.getElementById("preview");
+
+    preview.innerHTML = "";
+
+    const url =
+        URL.createObjectURL(file);
+
+    if(selectedMediaType === "video"){
+
+        preview.innerHTML = `
+            <video
+                src="${url}"
+                controls
+            ></video>
+        `;
+
+    }else{
+
+        preview.innerHTML = `
+            <img src="${url}">
+        `;
+
+    }
+
+    preview.style.display = "block";
+
+}
+
+
+/* =====================================================
+   PUBLICAR
+===================================================== */
+
+function publishPost(){
+
+    if(!selectedMedia){
+
+        showToast("Selecciona una foto o video");
+
+        return;
+
+    }
+
+    const caption =
+        document.getElementById("caption")
+        .value
+        .trim();
+
+    if(!caption){
+
+        showToast("Escribe algo para la publicación");
+
+        return;
+
+    }
+
+
+    const url =
+        URL.createObjectURL(selectedMedia);
+
+    const profileImage =
+        document.getElementById("profileImage").src;
+
+    posts.unshift({
+
+        id:Date.now(),
+
+        user:
+            document.getElementById("profileName")
+            .textContent,
+
+        username:
+            document.getElementById("profileUsername")
+            .textContent,
+
+        avatar:profileImage,
+
+        text:caption,
+
+        image:url,
+
+        likes:0,
+
+        liked:false,
+
+        comments:[]
+
+    });
+
+
+    document.getElementById("caption").value = "";
+
+    document.getElementById("mediaInput").value = "";
+
+    document.getElementById("preview").innerHTML = "";
+
+    document.getElementById("preview").style.display = "none";
+
+    selectedMedia = null;
+
+    selectedMediaType = null;
+
+
+    document.getElementById("postCount")
+        .textContent =
+        parseInt(
+            document.getElementById("postCount")
+            .textContent
+        ) + 1;
+
+
+    renderFeed();
+
+    showToast("Publicación creada");
+
+    setTimeout(() => {
+
+        showSection("feed");
+
+    },700);
+
+}
+
+
+/* =====================================================
+   PERFIL
+===================================================== */
+
+function openEditProfile(){
+
+    document.getElementById("editName").value =
+        document.getElementById("profileName")
+        .textContent;
+
+    document.getElementById("editUsername").value =
+        document.getElementById("profileUsername")
+        .textContent;
+
+    document.getElementById("editBio").value =
+        document.getElementById("profileBio")
+        .innerText;
+
+    document.getElementById("editModal")
+        .classList.add("show");
+
+}
+
+
+function closeEditProfile(){
+
+    document.getElementById("editModal")
+        .classList.remove("show");
+
+}
+
+
+function saveProfile(){
+
+    const name =
+        document.getElementById("editName")
+        .value
+        .trim();
+
+    const username =
+        document.getElementById("editUsername")
+        .value
+        .trim();
+
+    const bio =
+        document.getElementById("editBio")
+        .value
+        .trim();
+
+
+    if(!name){
+
+        showToast("Escribe tu nombre");
+
+        return;
+
+    }
+
+
+    document.getElementById("profileName")
+        .textContent = name;
+
+    document.getElementById("profileUsername")
+        .textContent =
+        username.startsWith("@")
+        ? username
+        : "@" + username;
+
+    document.getElementById("profileBio")
+        .innerHTML =
+        bio.replace(/\n/g,"<br>");
+
+
+    const saved = {
+
+        name:name,
+
+        username:
+            document.getElementById("profileUsername")
+            .textContent,
+
+        bio:bio,
+
+        image:
+            document.getElementById("profileImage")
+            .src
+
+    };
+
+
+    localStorage.setItem(
+        "fitlab_profile",
+        JSON.stringify(saved)
+    );
+
+
+    closeEditProfile();
+
+    showToast("Perfil actualizado");
+
+}
+
+
+function changeProfilePhoto(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(e){
+
+        const image =
+            e.target.result;
+
+        document.getElementById("profileImage")
+            .src = image;
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "fitlab_profile"
+                ) || "{}"
+            );
+
+        saved.image = image;
+
+        localStorage.setItem(
+            "fitlab_profile",
+            JSON.stringify(saved)
+        );
+
+        showToast("Foto de perfil actualizada");
+
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   PROFILE TABS
+===================================================== */
+
+function profileTab(button,type){
+
+    document.querySelectorAll(".profile-tab")
+        .forEach(tab =>
+            tab.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    const content =
+        document.getElementById("profileContent");
+
+    if(type === "posts"){
+
+        content.innerHTML = `
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=700&q=80">
+            </div>
+
+        `;
+
+    }
+
+    if(type === "videos"){
+
+        content.innerHTML = `
+
+            <div class="grid-item">
+
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80">
+
+                <div class="video-mark">
+                    ▶
+                </div>
+
+            </div>
+
+            <div class="grid-item">
+
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&w=700&q=80">
+
+                <div class="video-mark">
+                    ▶
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    if(type === "likes"){
+
+        content.innerHTML = `
+
+            <div style="
+                grid-column:1/-1;
+                padding:40px 20px;
+                text-align:center;
+                color:var(--muted);
+            ">
+
+                Aquí aparecerán las publicaciones
+                que te gustan.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   ESTRELLAS
+===================================================== */
+
+function rate(number){
+
+    const stars =
+        document.querySelectorAll(".star");
+
+    stars.forEach((star,index) => {
+
+        star.classList.toggle(
+            "selected",
+            index < number
+        );
+
+    });
+
+    showToast(
+        "Calificación: " +
+        number +
+        " estrellas"
+    );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        },2500);
+
+}
+
+
+/* =====================================================
+   SEGURIDAD BÁSICA
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   INICIO
+===================================================== */
+
+loadData();
+
+renderFeed();
+
+renderUsers();
+
+</script>
+
+</body>
+</html>
