@@ -68,7 +68,9 @@ a{
   display:none!important;
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .topbar{
   position:sticky;
@@ -139,7 +141,9 @@ a{
   gap:6px;
 }
 
-/* APP */
+/* =========================================================
+   APP
+========================================================= */
 
 .app{
   width:min(760px,100%);
@@ -167,7 +171,9 @@ a{
   margin-bottom:16px;
 }
 
-/* STORIES */
+/* =========================================================
+   STORIES
+========================================================= */
 
 .stories{
   display:flex;
@@ -217,7 +223,9 @@ a{
   text-overflow:ellipsis;
 }
 
-/* CARDS */
+/* =========================================================
+   CARDS
+========================================================= */
 
 .card{
   background:linear-gradient(145deg,rgba(15,27,20,.97),rgba(8,15,11,.97));
@@ -232,7 +240,9 @@ a{
   padding:15px;
 }
 
-/* PROFILE MINI */
+/* =========================================================
+   PROFILE MINI
+========================================================= */
 
 .user-mini{
   display:flex;
@@ -270,7 +280,9 @@ a{
   margin-top:2px;
 }
 
-/* CREATE */
+/* =========================================================
+   CREATE
+========================================================= */
 
 .create-box{
   padding:15px;
@@ -289,6 +301,7 @@ a{
   border-radius:25px;
   padding:12px 15px;
   color:#8fa194;
+  text-align:left;
 }
 
 .create-actions{
@@ -307,7 +320,9 @@ a{
   font-weight:700;
 }
 
-/* POST */
+/* =========================================================
+   POST
+========================================================= */
 
 .post-header{
   display:flex;
@@ -443,7 +458,9 @@ a{
   font-size:11px;
 }
 
-/* COMMENTS */
+/* =========================================================
+   COMMENTS
+========================================================= */
 
 .comments{
   border-top:1px solid rgba(255,255,255,.04);
@@ -506,7 +523,9 @@ a{
   font-weight:900;
 }
 
-/* BUTTONS */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .btn{
   border:0;
@@ -532,7 +551,9 @@ a{
   color:#ff858b;
 }
 
-/* DISCOVER */
+/* =========================================================
+   DISCOVER
+========================================================= */
 
 .search-box{
   display:flex;
@@ -570,7 +591,9 @@ a{
   min-width:85px;
 }
 
-/* PROFILE */
+/* =========================================================
+   PROFILE
+========================================================= */
 
 .profile-cover{
   height:120px;
@@ -606,12 +629,22 @@ a{
 
 .profile-stats{
   display:flex;
-  gap:22px;
+  gap:10px;
   margin-top:15px;
 }
 
 .stat{
+  flex:1;
   text-align:center;
+  padding:10px 5px;
+  border:1px solid rgba(101,255,154,.10);
+  background:rgba(101,255,154,.03);
+  border-radius:13px;
+  cursor:pointer;
+}
+
+.stat:active{
+  transform:scale(.98);
 }
 
 .stat strong{
@@ -623,6 +656,10 @@ a{
   color:var(--muted);
   font-size:11px;
 }
+
+/* =========================================================
+   PROFILE TABS
+========================================================= */
 
 .profile-tabs{
   display:flex;
@@ -645,7 +682,64 @@ a{
   border-bottom:2px solid var(--green);
 }
 
-/* RECOMMENDATIONS */
+/* =========================================================
+   FOLLOW MODAL
+========================================================= */
+
+.follow-search{
+  margin-bottom:12px;
+}
+
+.follow-search input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  background:#08100b;
+  color:white;
+  outline:none;
+}
+
+.follow-list{
+  display:grid;
+  gap:4px;
+}
+
+.follow-person{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 4px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.follow-person:last-child{
+  border-bottom:0;
+}
+
+.follow-person-info{
+  flex:1;
+  min-width:0;
+}
+
+.follow-person-name{
+  font-weight:800;
+  font-size:14px;
+}
+
+.follow-person-location{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.follow-person button{
+  min-width:80px;
+}
+
+/* =========================================================
+   RECOMMENDATIONS
+========================================================= */
 
 .recommend-card{
   padding:15px;
@@ -675,7 +769,9 @@ a{
   margin-left:6px;
 }
 
-/* FORM */
+/* =========================================================
+   FORM
+========================================================= */
 
 .form-group{
   margin-bottom:13px;
@@ -717,7 +813,9 @@ textarea.form-control{
   padding:15px;
 }
 
-/* BOTTOM NAV */
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
 
 .bottom-nav{
   position:fixed;
@@ -762,7 +860,9 @@ textarea.form-control{
   color:var(--green);
 }
 
-/* MODAL */
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
   position:fixed;
@@ -813,7 +913,9 @@ textarea.form-control{
   padding:17px;
 }
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 .auth-logo{
   text-align:center;
@@ -849,7 +951,9 @@ textarea.form-control{
   color:var(--green);
 }
 
-/* YOUTUBE */
+/* =========================================================
+   YOUTUBE
+========================================================= */
 
 .youtube-frame{
   width:100%;
@@ -859,7 +963,20 @@ textarea.form-control{
   background:#000;
 }
 
-/* TOAST */
+.youtube-card-title{
+  font-weight:800;
+  line-height:1.35;
+}
+
+.youtube-channel{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toast{
   position:fixed;
@@ -885,7 +1002,9 @@ textarea.form-control{
   transform:translateX(-50%) translateY(0);
 }
 
-/* LOADING */
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
   padding:35px 15px;
@@ -907,7 +1026,9 @@ textarea.form-control{
   to{transform:rotate(360deg)}
 }
 
-/* EMPTY */
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
   text-align:center;
@@ -920,9 +1041,12 @@ textarea.form-control{
   margin-bottom:10px;
 }
 
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:500px){
+
   .home-btn{
     padding:0 10px;
     font-size:12px;
@@ -940,6 +1064,11 @@ textarea.form-control{
     padding-left:9px;
     padding-right:9px;
   }
+
+  .profile-stats{
+    gap:6px;
+  }
+
 }
 </style>
 </head>
@@ -955,12 +1084,13 @@ textarea.form-control{
 
   <div class="header-actions">
 
-    <!-- REGRESAR A FITLAB PRINCIPAL -->
     <a class="home-btn" href="index.html">
       🏠 <span>Rutinas</span>
     </a>
 
-    <button class="icon-btn" onclick="openAuth()" title="Cuenta">
+    <button class="icon-btn"
+            onclick="openAuth()"
+            title="Cuenta">
       👤
     </button>
 
@@ -971,13 +1101,14 @@ textarea.form-control{
 
 <main class="app">
 
-  <!-- =========================
+  <!-- =====================================================
        FEED
-  ========================== -->
+  ====================================================== -->
 
   <section id="feedSection" class="section active">
 
     <h1 class="section-title">FitLab Social</h1>
+
     <p class="section-subtitle">
       Entrena, comparte y descubre a la comunidad fitness.
     </p>
@@ -1022,22 +1153,30 @@ textarea.form-control{
     </div>
 
     <div id="feed">
+
       <div class="loading">
+
         <div class="spinner"></div>
+
         Cargando publicaciones...
+
       </div>
+
     </div>
 
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        DESCUBRIR
-  ========================== -->
+  ====================================================== -->
 
   <section id="discoverSection" class="section">
 
-    <h1 class="section-title">Descubrir</h1>
+    <h1 class="section-title">
+      Descubrir
+    </h1>
+
     <p class="section-subtitle">
       Encuentra personas de la comunidad FitLab.
     </p>
@@ -1047,30 +1186,38 @@ textarea.form-control{
       <input
         id="discoverSearch"
         type="search"
-        placeholder="Buscar personas..."
-        oninput="searchProfiles()"
-      >
+        placeholder="🔎 Buscar personas..."
+        oninput="searchProfiles()">
 
     </div>
 
     <div class="card">
+
       <div id="profilesResults">
+
         <div class="loading">
+
           Cargando perfiles...
+
         </div>
+
       </div>
+
     </div>
 
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        VIDEOS
-  ========================== -->
+  ====================================================== -->
 
   <section id="videosSection" class="section">
 
-    <h1 class="section-title">Videos</h1>
+    <h1 class="section-title">
+      Videos
+    </h1>
+
     <p class="section-subtitle">
       Descubre contenido de entrenamiento.
     </p>
@@ -1080,7 +1227,7 @@ textarea.form-control{
       <div class="form-group">
 
         <label class="form-label">
-          Buscar videos de YouTube
+          🎥 Buscar videos de YouTube
         </label>
 
         <div class="search-box">
@@ -1088,8 +1235,9 @@ textarea.form-control{
           <input
             id="youtubeSearch"
             type="search"
+            value="entrenamiento fitness gimnasio"
             placeholder="Ej. pecho gimnasio"
-          >
+            onkeydown="if(event.key==='Enter') searchYouTube()">
 
           <button class="btn btn-green"
                   onclick="searchYouTube()">
@@ -1102,18 +1250,30 @@ textarea.form-control{
 
     </div>
 
-    <div id="youtubeResults"></div>
+    <div id="youtubeResults">
+
+      <div class="loading">
+
+        <div class="spinner"></div>
+
+        Cargando videos...
+
+      </div>
+
+    </div>
 
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        RECOMENDACIONES
-  ========================== -->
+  ====================================================== -->
 
   <section id="recommendSection" class="section">
 
-    <h1 class="section-title">Comunidad</h1>
+    <h1 class="section-title">
+      Comunidad
+    </h1>
 
     <p class="section-subtitle">
       Descubre perfiles y comparte recomendaciones.
@@ -1121,7 +1281,9 @@ textarea.form-control{
 
     <div class="card recommend-card">
 
-      <h3>⭐ Recomienda FitLab</h3>
+      <h3>
+        ⭐ Recomienda FitLab
+      </h3>
 
       <p style="color:var(--muted);margin-top:7px;font-size:14px;">
         Puedes valorar la experiencia de la comunidad.
@@ -1129,11 +1291,30 @@ textarea.form-control{
 
       <div class="stars" id="mainStars">
 
-        <button class="star" onclick="setMainRating(1)">★</button>
-        <button class="star" onclick="setMainRating(2)">★</button>
-        <button class="star" onclick="setMainRating(3)">★</button>
-        <button class="star" onclick="setMainRating(4)">★</button>
-        <button class="star" onclick="setMainRating(5)">★</button>
+        <button class="star"
+                onclick="setMainRating(1)">
+          ★
+        </button>
+
+        <button class="star"
+                onclick="setMainRating(2)">
+          ★
+        </button>
+
+        <button class="star"
+                onclick="setMainRating(3)">
+          ★
+        </button>
+
+        <button class="star"
+                onclick="setMainRating(4)">
+          ★
+        </button>
+
+        <button class="star"
+                onclick="setMainRating(5)">
+          ★
+        </button>
 
         <span class="rating-value"
               id="ratingValue">
@@ -1160,9 +1341,9 @@ textarea.form-control{
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        PERFIL
-  ========================== -->
+  ====================================================== -->
 
   <section id="profileSection" class="section">
 
@@ -1178,8 +1359,7 @@ textarea.form-control{
             id="profileAvatar"
             class="avatar big"
             src=""
-            alt="Avatar"
-          >
+            alt="Avatar">
 
           <button class="btn btn-dark"
                   onclick="openEditProfile()">
@@ -1200,19 +1380,42 @@ textarea.form-control{
 
         <div class="profile-stats">
 
-          <div class="stat">
-            <strong id="profilePostsCount">0</strong>
-            <span>Publicaciones</span>
+          <div class="stat"
+               onclick="openFollowList('followers')">
+
+            <strong id="profileFollowers">
+              0
+            </strong>
+
+            <span>
+              Seguidores
+            </span>
+
+          </div>
+
+          <div class="stat"
+               onclick="openFollowList('following')">
+
+            <strong id="profileFollowing">
+              0
+            </strong>
+
+            <span>
+              Siguiendo
+            </span>
+
           </div>
 
           <div class="stat">
-            <strong id="profileFollowers">0</strong>
-            <span>Seguidores</span>
-          </div>
 
-          <div class="stat">
-            <strong id="profileFollowing">0</strong>
-            <span>Siguiendo</span>
+            <strong id="profilePostsCount">
+              0
+            </strong>
+
+            <span>
+              Publicaciones
+            </span>
+
           </div>
 
         </div>
@@ -1242,9 +1445,9 @@ textarea.form-control{
 </main>
 
 
-<!-- =========================
+<!-- =========================================================
      BOTTOM NAV
-========================== -->
+========================================================= -->
 
 <nav class="bottom-nav">
 
@@ -1252,32 +1455,57 @@ textarea.form-control{
 
     <button class="nav-item active"
             onclick="showSection('feed',this)">
-      <span class="nav-icon">🏠</span>
+
+      <span class="nav-icon">
+        🏠
+      </span>
+
       Inicio
+
     </button>
 
     <button class="nav-item"
             onclick="showSection('discover',this)">
-      <span class="nav-icon">🔎</span>
+
+      <span class="nav-icon">
+        🔎
+      </span>
+
       Descubrir
+
     </button>
 
     <button class="nav-item"
             onclick="openCreateModal()">
-      <span class="nav-icon">➕</span>
+
+      <span class="nav-icon">
+        ➕
+      </span>
+
       Crear
+
     </button>
 
     <button class="nav-item"
             onclick="showSection('videos',this)">
-      <span class="nav-icon">🎥</span>
+
+      <span class="nav-icon">
+        🎥
+      </span>
+
       Videos
+
     </button>
 
     <button class="nav-item"
             onclick="showSection('profile',this)">
-      <span class="nav-icon">👤</span>
+
+      <span class="nav-icon">
+        👤
+      </span>
+
       Perfil
+
     </button>
 
   </div>
@@ -1285,9 +1513,9 @@ textarea.form-control{
 </nav>
 
 
-<!-- =========================
+<!-- =========================================================
      AUTH MODAL
-========================== -->
+========================================================= -->
 
 <div id="authModal" class="modal hidden">
 
@@ -1335,8 +1563,7 @@ textarea.form-control{
             id="authEmail"
             class="form-control"
             type="email"
-            placeholder="correo@ejemplo.com"
-          >
+            placeholder="correo@ejemplo.com">
 
         </div>
 
@@ -1350,12 +1577,12 @@ textarea.form-control{
             id="authPassword"
             class="form-control"
             type="password"
-            placeholder="••••••••"
-          >
+            placeholder="••••••••">
 
         </div>
 
-        <div id="registerFields" class="hidden">
+        <div id="registerFields"
+             class="hidden">
 
           <div class="form-group">
 
@@ -1367,8 +1594,7 @@ textarea.form-control{
               id="authName"
               class="form-control"
               type="text"
-              placeholder="Tu nombre"
-            >
+              placeholder="Tu nombre">
 
           </div>
 
@@ -1383,8 +1609,8 @@ textarea.form-control{
 
       </div>
 
-
-      <div id="loggedInAuth" class="hidden">
+      <div id="loggedInAuth"
+           class="hidden">
 
         <div style="text-align:center;">
 
@@ -1427,9 +1653,9 @@ textarea.form-control{
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      CREATE MODAL
-========================== -->
+========================================================= -->
 
 <div id="createModal" class="modal hidden">
 
@@ -1459,8 +1685,7 @@ textarea.form-control{
         <textarea
           id="postContent"
           class="form-control"
-          placeholder="Cuéntale a la comunidad qué estás entrenando..."
-        ></textarea>
+          placeholder="Cuéntale a la comunidad qué estás entrenando..."></textarea>
 
       </div>
 
@@ -1489,8 +1714,7 @@ textarea.form-control{
             type="file"
             accept="image/*,video/*"
             style="display:none"
-            onchange="previewPostFile(event)"
-          >
+            onchange="previewPostFile(event)">
 
         </label>
 
@@ -1515,9 +1739,9 @@ textarea.form-control{
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      EDIT PROFILE MODAL
-========================== -->
+========================================================= -->
 
 <div id="editProfileModal" class="modal hidden">
 
@@ -1547,8 +1771,7 @@ textarea.form-control{
         <input
           id="editName"
           class="form-control"
-          type="text"
-        >
+          type="text">
 
       </div>
 
@@ -1561,8 +1784,7 @@ textarea.form-control{
         <textarea
           id="editBio"
           class="form-control"
-          placeholder="Cuéntanos algo sobre ti..."
-        ></textarea>
+          placeholder="Cuéntanos algo sobre ti..."></textarea>
 
       </div>
 
@@ -1576,8 +1798,7 @@ textarea.form-control{
           id="editLocation"
           class="form-control"
           type="text"
-          placeholder="Ciudad"
-        >
+          placeholder="Ciudad">
 
       </div>
 
@@ -1592,8 +1813,7 @@ textarea.form-control{
             type="file"
             accept="image/*"
             style="display:none"
-            onchange="previewAvatar(event)"
-          >
+            onchange="previewAvatar(event)">
 
         </label>
 
@@ -1617,11 +1837,67 @@ textarea.form-control{
 </div>
 
 
-<!-- =========================
-     YOUTUBE MODAL
-========================== -->
+<!-- =========================================================
+     FOLLOWERS / FOLLOWING MODAL
+========================================================= -->
 
-<div id="youtubeModal" class="modal hidden">
+<div id="followListModal"
+     class="modal hidden">
+
+  <div class="modal-card">
+
+    <div class="modal-head">
+
+      <div class="modal-title"
+           id="followListTitle">
+        Seguidores
+      </div>
+
+      <button class="close"
+              onclick="closeModal('followListModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="follow-search">
+
+        <input
+          id="followListSearch"
+          type="search"
+          placeholder="🔎 Buscar en esta lista..."
+          oninput="filterFollowList()">
+
+      </div>
+
+      <div id="followList"
+           class="follow-list">
+
+        <div class="loading">
+
+          <div class="spinner"></div>
+
+          Cargando...
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     YOUTUBE MODAL
+========================================================= -->
+
+<div id="youtubeModal"
+     class="modal hidden">
 
   <div class="modal-card">
 
@@ -1655,11 +1931,13 @@ textarea.form-control{
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      TOAST
-========================== -->
+========================================================= -->
 
-<div id="toast" class="toast"></div>
+<div id="toast"
+     class="toast">
+</div>
 
 
 <script>
@@ -1680,7 +1958,6 @@ const supabaseClient =
     SUPABASE_KEY
   );
 
-
 const EDGE_FUNCTION =
   "https://ouunfknxeiouwuzyhsqr.supabase.co/functions/v1/hyper-worker";
 
@@ -1698,6 +1975,9 @@ let authMode = "login";
 let selectedPostFile = null;
 let selectedAvatarFile = null;
 
+let currentFollowListType = "followers";
+let currentFollowProfiles = [];
+
 
 /* =========================================================
    UTILIDADES
@@ -1705,7 +1985,8 @@ let selectedAvatarFile = null;
 
 function toast(message){
 
-  const el = document.getElementById("toast");
+  const el =
+    document.getElementById("toast");
 
   el.textContent = message;
 
@@ -1722,18 +2003,24 @@ function toast(message){
 
 function closeModal(id){
 
-  document
-    .getElementById(id)
-    .classList.add("hidden");
+  const el =
+    document.getElementById(id);
+
+  if(el){
+    el.classList.add("hidden");
+  }
 
 }
 
 
 function openModal(id){
 
-  document
-    .getElementById(id)
-    .classList.remove("hidden");
+  const el =
+    document.getElementById(id);
+
+  if(el){
+    el.classList.remove("hidden");
+  }
 
 }
 
@@ -1759,7 +2046,8 @@ function formatDate(date){
     return "";
   }
 
-  const d = new Date(date);
+  const d =
+    new Date(date);
 
   return d.toLocaleDateString(
     "es-MX",
@@ -1786,7 +2074,7 @@ function getAvatar(profile){
    NAVEGACIÓN
 ========================================================= */
 
-function showSection(section, button){
+function showSection(section,button){
 
   document
     .querySelectorAll(".section")
@@ -1795,7 +2083,9 @@ function showSection(section, button){
     });
 
   const target =
-    document.getElementById(section + "Section");
+    document.getElementById(
+      section + "Section"
+    );
 
   if(target){
     target.classList.add("active");
@@ -1827,6 +2117,25 @@ function showSection(section, button){
   if(section === "feed"){
     loadPosts();
   }
+
+  /*
+    CORRECCIÓN IMPORTANTE:
+    Cada vez que se entra a Videos,
+    se cargan automáticamente los videos.
+  */
+
+  if(section === "videos"){
+
+    const input =
+      document.getElementById("youtubeSearch");
+
+    if(input && !input.value.trim()){
+      input.value =
+        "entrenamiento fitness gimnasio";
+    }
+
+    loadDefaultYouTubeVideos();
+  }
 }
 
 
@@ -1847,6 +2156,31 @@ function openAuth(){
   }
 
   openModal("authModal");
+}
+
+
+function updateAuthModal(){
+
+  if(!currentUser){
+    return;
+  }
+
+  document
+    .getElementById("accountName")
+    .textContent =
+      currentProfile?.full_name ||
+      currentUser.email ||
+      "Usuario";
+
+  document
+    .getElementById("accountEmail")
+    .textContent =
+      currentUser.email || "";
+
+  document
+    .getElementById("accountAvatar")
+    .src =
+      getAvatar(currentProfile);
 }
 
 
@@ -1892,17 +2226,21 @@ function setAuthMode(mode){
 async function submitAuth(){
 
   const email =
-    document.getElementById("authEmail")
+    document
+      .getElementById("authEmail")
       .value
       .trim();
 
   const password =
-    document.getElementById("authPassword")
+    document
+      .getElementById("authPassword")
       .value;
 
   if(!email || !password){
 
-    toast("Completa correo y contraseña.");
+    toast(
+      "Completa correo y contraseña."
+    );
 
     return;
   }
@@ -1912,7 +2250,8 @@ async function submitAuth(){
 
   submit.disabled = true;
 
-  submit.textContent = "Procesando...";
+  submit.textContent =
+    "Procesando...";
 
   try{
 
@@ -1928,18 +2267,23 @@ async function submitAuth(){
         throw error;
       }
 
-      toast("Sesión iniciada.");
+      toast(
+        "Sesión iniciada."
+      );
 
     }else{
 
       const name =
-        document.getElementById("authName")
+        document
+          .getElementById("authName")
           .value
           .trim();
 
       if(!name){
 
-        toast("Escribe tu nombre.");
+        toast(
+          "Escribe tu nombre."
+        );
 
         return;
       }
@@ -1962,7 +2306,8 @@ async function submitAuth(){
             user_id:data.user.id,
             full_name:name,
             Email:email,
-            updated_at:new Date().toISOString()
+            updated_at:
+              new Date().toISOString()
           },{
             onConflict:"user_id"
           });
@@ -2008,7 +2353,9 @@ async function logout(){
 
   closeModal("authModal");
 
-  toast("Sesión cerrada.");
+  toast(
+    "Sesión cerrada."
+  );
 
   updateUI();
 
@@ -2023,7 +2370,9 @@ async function logout(){
 async function loadSession(){
 
   const {data} =
-    await supabaseClient.auth.getSession();
+    await supabaseClient
+      .auth
+      .getSession();
 
   currentUser =
     data.session
@@ -2075,40 +2424,52 @@ function updateUI(){
   const avatar =
     getAvatar(currentProfile);
 
-  document.getElementById("createAvatar")
+  document
+    .getElementById("createAvatar")
     .src = avatar;
 
-  document.getElementById("profileAvatar")
+  document
+    .getElementById("profileAvatar")
     .src = avatar;
 
-  document.getElementById("accountAvatar")
+  document
+    .getElementById("accountAvatar")
     .src = avatar;
 
-  document.getElementById("accountName")
+  document
+    .getElementById("accountName")
     .textContent =
       currentProfile?.full_name ||
       currentUser?.email ||
       "Usuario";
 
-  document.getElementById("accountEmail")
+  document
+    .getElementById("accountEmail")
     .textContent =
       currentUser?.email || "";
 
   const loggedOut =
-    document.getElementById("loggedOutAuth");
+    document.getElementById(
+      "loggedOutAuth"
+    );
 
   const loggedIn =
-    document.getElementById("loggedInAuth");
+    document.getElementById(
+      "loggedInAuth"
+    );
 
   if(currentUser){
 
     loggedOut.classList.add("hidden");
+
     loggedIn.classList.remove("hidden");
 
   }else{
 
     loggedOut.classList.remove("hidden");
+
     loggedIn.classList.add("hidden");
+
   }
 
   loadMyProfile();
@@ -2130,11 +2491,6 @@ async function loadPosts(){
       Cargando publicaciones...
     </div>
   `;
-
-  /*
-    IMPORTANTE:
-    El feed público solo trae publicaciones públicas.
-  */
 
   const {data,error} =
     await supabaseClient
@@ -2174,9 +2530,11 @@ async function loadPosts(){
   }
 
   const userIds =
-    [...new Set(
-      data.map(post=>post.user_id)
-    )];
+    [
+      ...new Set(
+        data.map(post=>post.user_id)
+      )
+    ];
 
   let profiles = [];
 
@@ -2200,16 +2558,22 @@ async function loadPosts(){
   });
 
   container.innerHTML =
-    data.map(post=>
-      renderPost(
-        post,
-        profileMap[post.user_id]
+    data
+      .map(post=>
+        renderPost(
+          post,
+          profileMap[post.user_id]
+        )
       )
-    ).join("");
+      .join("");
 }
 
 
-function renderPost(post,profile,ownProfile=false){
+function renderPost(
+  post,
+  profile,
+  ownProfile=false
+){
 
   const name =
     profile?.full_name ||
@@ -2240,12 +2604,15 @@ function renderPost(post,profile,ownProfile=false){
 
     comments =
       JSON.parse(
-        localStorage.getItem(commentsKey) || "[]"
+        localStorage.getItem(
+          commentsKey
+        ) || "[]"
       );
 
   }catch(e){
 
     comments = [];
+
   }
 
   const privateBadge =
@@ -2282,6 +2649,7 @@ function renderPost(post,profile,ownProfile=false){
           alt="Publicación FitLab"
           loading="lazy">
       `;
+
     }
   }
 
@@ -2293,10 +2661,6 @@ function renderPost(post,profile,ownProfile=false){
   ){
 
     if(post.is_private){
-
-      /*
-        AHORA SÍ SE PUEDE VOLVER A HACER PÚBLICA.
-      */
 
       menu = `
         <div class="post-menu">
@@ -2359,33 +2723,44 @@ function renderPost(post,profile,ownProfile=false){
 
         </div>
       `;
+
     }
   }
 
   const commentsHTML =
-    comments.map(comment=>`
+    comments
+      .map(comment=>`
 
-      <div class="comment">
+        <div class="comment">
 
-        <img
-          src="${escapeHTML(comment.avatar || getAvatar(null))}"
-          alt="">
+          <img
+            src="${escapeHTML(
+              comment.avatar ||
+              getAvatar(null)
+            )}"
+            alt="">
 
-        <div class="comment-body">
+          <div class="comment-body">
 
-          <div class="comment-name">
-            ${escapeHTML(comment.name || "Usuario")}
-          </div>
+            <div class="comment-name">
+              ${escapeHTML(
+                comment.name ||
+                "Usuario"
+              )}
+            </div>
 
-          <div class="comment-text">
-            ${escapeHTML(comment.text)}
+            <div class="comment-text">
+              ${escapeHTML(
+                comment.text
+              )}
+            </div>
+
           </div>
 
         </div>
 
-      </div>
-
-    `).join("");
+      `)
+      .join("");
 
   return `
     <article class="card"
@@ -2420,7 +2795,9 @@ function renderPost(post,profile,ownProfile=false){
         post.content
         ? `
           <div class="post-content">
-            ${escapeHTML(post.content)}
+            ${escapeHTML(
+              post.content
+            )}
           </div>
         `
         : ""
@@ -2435,7 +2812,10 @@ function renderPost(post,profile,ownProfile=false){
           onclick="toggleLike('${post.id}')">
 
           ${liked ? "❤️" : "🤍"}
-          <span>${likeCount}</span>
+
+          <span>
+            ${likeCount}
+          </span>
 
         </button>
 
@@ -2444,7 +2824,10 @@ function renderPost(post,profile,ownProfile=false){
           onclick="toggleComments('${post.id}')">
 
           💬
-          <span>${comments.length}</span>
+
+          <span>
+            ${comments.length}
+          </span>
 
         </button>
 
@@ -2457,7 +2840,13 @@ function renderPost(post,profile,ownProfile=false){
         </button>
 
         <span class="post-time">
-          ${post.media_type === "video" ? "🎥" : post.media_url ? "📷" : "✍️"}
+          ${
+            post.media_type === "video"
+            ? "🎥"
+            : post.media_url
+              ? "📷"
+              : "✍️"
+          }
         </span>
 
       </div>
@@ -2493,7 +2882,7 @@ function renderPost(post,profile,ownProfile=false){
 
 
 /* =========================================================
-   MENÚ DE PUBLICACIÓN
+   MENÚ POST
 ========================================================= */
 
 function togglePostMenu(id){
@@ -2508,11 +2897,15 @@ function togglePostMenu(id){
   }
 
   document
-    .querySelectorAll(".post-menu-dropdown")
+    .querySelectorAll(
+      ".post-menu-dropdown"
+    )
     .forEach(el=>{
+
       if(el !== menu){
         el.classList.add("hidden");
       }
+
     });
 
   menu.classList.toggle("hidden");
@@ -2520,14 +2913,16 @@ function togglePostMenu(id){
 
 
 /* =========================================================
-   PONER PRIVADA
+   PRIVACIDAD
 ========================================================= */
 
 async function makePostPrivate(id){
 
   if(!currentUser){
 
-    toast("Debes iniciar sesión.");
+    toast(
+      "Debes iniciar sesión."
+    );
 
     return;
   }
@@ -2572,19 +2967,18 @@ async function makePostPrivate(id){
     toast(
       "No se pudo poner en privado."
     );
+
   }
 }
 
-
-/* =========================================================
-   VOLVER A HACER PÚBLICA
-========================================================= */
 
 async function makePostPublic(id){
 
   if(!currentUser){
 
-    toast("Debes iniciar sesión.");
+    toast(
+      "Debes iniciar sesión."
+    );
 
     return;
   }
@@ -2600,10 +2994,6 @@ async function makePostPublic(id){
   }
 
   try{
-
-    /*
-      Solo el dueño puede modificar su publicación.
-    */
 
     const {data,error} =
       await supabaseClient
@@ -2644,6 +3034,7 @@ async function makePostPublic(id){
       error.message ||
       "No se pudo hacer pública."
     );
+
   }
 }
 
@@ -2656,7 +3047,9 @@ async function deletePost(id){
 
   if(!currentUser){
 
-    toast("Debes iniciar sesión.");
+    toast(
+      "Debes iniciar sesión."
+    );
 
     return;
   }
@@ -2676,7 +3069,9 @@ async function deletePost(id){
     const {data,error:findError} =
       await supabaseClient
         .from("posts")
-        .select("id,user_id,media_url")
+        .select(
+          "id,user_id,media_url"
+        )
         .eq("id",id)
         .eq("user_id",currentUser.id)
         .maybeSingle();
@@ -2694,12 +3089,10 @@ async function deletePost(id){
       return;
     }
 
-    /*
-      Intentar eliminar el archivo de Storage.
-    */
-
     const path =
-      getPostStoragePath(data.media_url);
+      getPostStoragePath(
+        data.media_url
+      );
 
     if(path){
 
@@ -2710,16 +3103,14 @@ async function deletePost(id){
           .remove([path]);
 
       if(storageError){
+
         console.warn(
           "No se pudo eliminar archivo:",
           storageError
         );
+
       }
     }
-
-    /*
-      Eliminar publicación.
-    */
 
     const {error:deleteError} =
       await supabaseClient
@@ -2737,14 +3128,18 @@ async function deletePost(id){
     );
 
     localStorage.removeItem(
-      "fitlab_likes_" + id + "_count"
+      "fitlab_likes_" +
+      id +
+      "_count"
     );
 
     localStorage.removeItem(
       "fitlab_comments_" + id
     );
 
-    toast("🗑️ Publicación eliminada.");
+    toast(
+      "🗑️ Publicación eliminada."
+    );
 
     loadPosts();
     loadMyPosts();
@@ -2757,6 +3152,7 @@ async function deletePost(id){
       error.message ||
       "No se pudo eliminar la publicación."
     );
+
   }
 }
 
@@ -2786,12 +3182,8 @@ function getPostStoragePath(url){
           index + marker.length
         )
       );
-    }
 
-    /*
-      También soportar URLs de Supabase
-      en otro formato.
-    */
+    }
 
     const marker2 =
       `/storage/v1/object/`;
@@ -2810,7 +3202,9 @@ function getPostStoragePath(url){
         after.split("/");
 
       const bucketIndex =
-        pieces.indexOf(STORAGE_BUCKET);
+        pieces.indexOf(
+          STORAGE_BUCKET
+        );
 
       if(bucketIndex !== -1){
 
@@ -2819,12 +3213,14 @@ function getPostStoragePath(url){
             .slice(bucketIndex + 1)
             .join("/")
         );
+
       }
     }
 
   }catch(error){
 
     console.warn(error);
+
   }
 
   return null;
@@ -2848,7 +3244,9 @@ function toggleLike(id){
 
   let count =
     Number(
-      localStorage.getItem(countKey) || 0
+      localStorage.getItem(
+        countKey
+      ) || 0
     );
 
   if(liked){
@@ -2856,13 +3254,20 @@ function toggleLike(id){
     localStorage.removeItem(key);
 
     count =
-      Math.max(0,count - 1);
+      Math.max(
+        0,
+        count - 1
+      );
 
   }else{
 
-    localStorage.setItem(key,"1");
+    localStorage.setItem(
+      key,
+      "1"
+    );
 
     count++;
+
   }
 
   localStorage.setItem(
@@ -2895,7 +3300,9 @@ function addComment(id){
 
   if(!currentUser){
 
-    toast("Inicia sesión para comentar.");
+    toast(
+      "Inicia sesión para comentar."
+    );
 
     return;
   }
@@ -2925,24 +3332,32 @@ function addComment(id){
 
     comments =
       JSON.parse(
-        localStorage.getItem(key) || "[]"
+        localStorage.getItem(
+          key
+        ) || "[]"
       );
 
   }catch(e){
 
     comments = [];
+
   }
 
   comments.push({
+
     name:
       currentProfile?.full_name ||
       currentUser.email ||
       "Usuario",
+
     avatar:
       getAvatar(currentProfile),
+
     text,
+
     created_at:
       new Date().toISOString()
+
   });
 
   localStorage.setItem(
@@ -2955,14 +3370,18 @@ function addComment(id){
   loadPosts();
 
   setTimeout(()=>{
+
     const commentsBox =
       document.getElementById(
         "comments-" + id
       );
 
     if(commentsBox){
-      commentsBox.classList.remove("hidden");
+      commentsBox.classList.remove(
+        "hidden"
+      );
     }
+
   },100);
 }
 
@@ -2991,16 +3410,20 @@ async function sharePost(id){
 
     }else{
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(
+        url
+      );
 
       toast(
         "Enlace copiado."
       );
+
     }
 
   }catch(error){
 
     console.log(error);
+
   }
 }
 
@@ -3022,39 +3445,41 @@ function openCreateModal(type){
     return;
   }
 
-  document.getElementById("postContent")
+  document
+    .getElementById("postContent")
     .value = "";
 
-  document.getElementById("postFile")
+  document
+    .getElementById("postFile")
     .value = "";
 
-  document.getElementById("filePreview")
+  document
+    .getElementById("filePreview")
     .innerHTML = "";
 
-  document.getElementById("filePreview")
+  document
+    .getElementById("filePreview")
     .classList.add("hidden");
 
   selectedPostFile = null;
 
-  openModal("createModal");
+  openModal(
+    "createModal"
+  );
 
-  if(type === "image"){
+  if(
+    type === "image" ||
+    type === "video"
+  ){
 
     setTimeout(()=>{
+
       document
         .getElementById("postFile")
         .click();
+
     },150);
 
-  }
-
-  if(type === "video"){
-
-    setTimeout(()=>{
-      document
-        .getElementById("postFile")
-        .click();
-    },150);
   }
 }
 
@@ -3071,9 +3496,13 @@ function previewPostFile(event){
   selectedPostFile = file;
 
   const preview =
-    document.getElementById("filePreview");
+    document.getElementById(
+      "filePreview"
+    );
 
-  preview.classList.remove("hidden");
+  preview.classList.remove(
+    "hidden"
+  );
 
   const url =
     URL.createObjectURL(file);
@@ -3095,6 +3524,7 @@ function previewPostFile(event){
         src="${url}"
         style="width:100%;max-height:300px;object-fit:cover;border-radius:15px;">
     `;
+
   }
 }
 
@@ -3103,17 +3533,23 @@ async function publishPost(){
 
   if(!currentUser){
 
-    toast("Inicia sesión primero.");
+    toast(
+      "Inicia sesión primero."
+    );
 
     return;
   }
 
   const content =
-    document.getElementById("postContent")
+    document
+      .getElementById("postContent")
       .value
       .trim();
 
-  if(!content && !selectedPostFile){
+  if(
+    !content &&
+    !selectedPostFile
+  ){
 
     toast(
       "Escribe algo o selecciona una foto/video."
@@ -3123,7 +3559,9 @@ async function publishPost(){
   }
 
   const button =
-    document.getElementById("publishBtn");
+    document.getElementById(
+      "publishBtn"
+    );
 
   button.disabled = true;
 
@@ -3185,7 +3623,9 @@ async function publishPost(){
         supabaseClient
           .storage
           .from(STORAGE_BUCKET)
-          .getPublicUrl(fileName);
+          .getPublicUrl(
+            fileName
+          );
 
       mediaUrl =
         urlData.publicUrl;
@@ -3196,18 +3636,17 @@ async function publishPost(){
           : "image";
     }
 
-    /*
-      TODA PUBLICACIÓN NUEVA NACE PÚBLICA.
-    */
-
     const {error} =
       await supabaseClient
         .from("posts")
         .insert({
           user_id:currentUser.id,
-          content:content || null,
-          media_url:mediaUrl,
-          media_type:mediaType,
+          content:
+            content || null,
+          media_url:
+            mediaUrl,
+          media_type:
+            mediaType,
           is_private:false
         });
 
@@ -3219,7 +3658,9 @@ async function publishPost(){
       "✅ Publicación creada."
     );
 
-    closeModal("createModal");
+    closeModal(
+      "createModal"
+    );
 
     loadPosts();
     loadMyPosts();
@@ -3239,6 +3680,7 @@ async function publishPost(){
 
     button.textContent =
       "Publicar";
+
   }
 }
 
@@ -3251,12 +3693,23 @@ async function loadMyProfile(){
 
   if(!currentUser){
 
-    document.getElementById("profileName")
-      .textContent = "Inicia sesión";
+    document
+      .getElementById("profileName")
+      .textContent =
+        "Inicia sesión";
 
-    document.getElementById("profileBio")
+    document
+      .getElementById("profileBio")
       .textContent =
         "Inicia sesión para ver tu perfil.";
+
+    document
+      .getElementById("profileFollowers")
+      .textContent = "0";
+
+    document
+      .getElementById("profileFollowing")
+      .textContent = "0";
 
     return;
   }
@@ -3270,55 +3723,77 @@ async function loadMyProfile(){
   const profile =
     currentProfile || {};
 
-  document.getElementById("profileAvatar")
-    .src = getAvatar(profile);
+  document
+    .getElementById("profileAvatar")
+    .src =
+      getAvatar(profile);
 
-  document.getElementById("profileName")
+  document
+    .getElementById("profileName")
     .textContent =
       profile.full_name ||
       "Usuario FitLab";
 
-  document.getElementById("profileBio")
+  document
+    .getElementById("profileBio")
     .textContent =
       profile.Bio ||
       profile.bio ||
       "Sin biografía todavía.";
 
-  const following =
-    JSON.parse(
-      localStorage.getItem(
-        "fitlab_following"
-      ) || "[]"
-    );
-
-  const followers =
-    JSON.parse(
-      localStorage.getItem(
-        "fitlab_followers"
-      ) || "[]"
-    );
-
-  document.getElementById("profileFollowing")
-    .textContent =
-      following.length;
-
-  document.getElementById("profileFollowers")
-    .textContent =
-      followers.length;
+  updateFollowCounters();
 
   loadMyPosts();
 }
 
 
-async function loadMyPosts(mode="all"){
+/* =========================================================
+   MIS PUBLICACIONES
+   UNA SOLA FUNCIÓN
+========================================================= */
+
+async function loadMyPosts(
+  mode="all",
+  button=null
+){
 
   if(!currentUser){
-
     return;
   }
 
+  document
+    .querySelectorAll(".profile-tab")
+    .forEach(tab=>{
+      tab.classList.remove(
+        "active"
+      );
+    });
+
+  if(button){
+
+    button.classList.add(
+      "active"
+    );
+
+  }else{
+
+    const first =
+      document.querySelector(
+        ".profile-tab"
+      );
+
+    if(first){
+      first.classList.add(
+        "active"
+      );
+    }
+
+  }
+
   const container =
-    document.getElementById("profilePosts");
+    document.getElementById(
+      "profilePosts"
+    );
 
   container.innerHTML = `
     <div class="loading">
@@ -3331,20 +3806,23 @@ async function loadMyPosts(mode="all"){
     supabaseClient
       .from("posts")
       .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{ascending:false});
-
-  /*
-    En "all" mostramos absolutamente todas,
-    incluyendo privadas.
-
-    En "private" mostramos únicamente privadas.
-  */
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      );
 
   if(mode === "private"){
 
     query =
-      query.eq("is_private",true);
+      query.eq(
+        "is_private",
+        true
+      );
+
   }
 
   const {data,error} =
@@ -3363,16 +3841,28 @@ async function loadMyPosts(mode="all"){
     return;
   }
 
-  document.getElementById("profilePostsCount")
-    .textContent =
-      data?.length || 0;
+  if(mode === "all"){
+
+    document
+      .getElementById(
+        "profilePostsCount"
+      )
+      .textContent =
+        data?.length || 0;
+
+  }
 
   if(!data || !data.length){
 
     container.innerHTML = `
       <div class="card empty">
+
         <div class="empty-icon">
-          ${mode === "private" ? "🔒" : "📷"}
+          ${
+            mode === "private"
+            ? "🔒"
+            : "📷"
+          }
         </div>
 
         <div>
@@ -3382,6 +3872,7 @@ async function loadMyPosts(mode="all"){
             : "Todavía no tienes publicaciones."
           }
         </div>
+
       </div>
     `;
 
@@ -3392,176 +3883,22 @@ async function loadMyPosts(mode="all"){
     await supabaseClient
       .from("profiles")
       .select("*")
-      .eq("user_id",currentUser.id)
+      .eq(
+        "user_id",
+        currentUser.id
+      )
       .maybeSingle();
 
   container.innerHTML =
-    data.map(post=>
-      renderPost(
-        post,
-        profile,
-        true
-      )
-    ).join("");
-}
-
-
-function loadMyPostsMode(mode){
-
-  loadMyPosts(mode);
-}
-
-
-/* =========================================================
-   TABS PERFIL
-========================================================= */
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    const tab =
-      event.target.closest(
-        ".profile-tab"
-      );
-
-    if(!tab){
-      return;
-    }
-
-    const tabs =
-      document.querySelectorAll(
-        ".profile-tab"
-      );
-
-    tabs.forEach(t=>{
-      t.classList.remove("active");
-    });
-
-    tab.classList.add("active");
-
-  }
-);
-
-
-/*
-  Reemplazar comportamiento de los botones
-  de pestañas de perfil.
-*/
-
-function loadMyPosts(mode="all",button=null){
-
-  if(!currentUser){
-    return;
-  }
-
-  document
-    .querySelectorAll(".profile-tab")
-    .forEach(tab=>{
-      tab.classList.remove("active");
-    });
-
-  if(button){
-    button.classList.add("active");
-  }else{
-
-    const first =
-      document.querySelector(
-        ".profile-tab"
-      );
-
-    if(first){
-      first.classList.add("active");
-    }
-  }
-
-  const container =
-    document.getElementById("profilePosts");
-
-  container.innerHTML = `
-    <div class="loading">
-      <div class="spinner"></div>
-      Cargando...
-    </div>
-  `;
-
-  let query =
-    supabaseClient
-      .from("posts")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{ascending:false});
-
-  if(mode === "private"){
-
-    query =
-      query.eq("is_private",true);
-  }
-
-  query.then(async result=>{
-
-    const {data,error} = result;
-
-    if(error){
-
-      console.error(error);
-
-      container.innerHTML = `
-        <div class="card empty">
-          No se pudieron cargar tus publicaciones.
-        </div>
-      `;
-
-      return;
-    }
-
-    if(mode === "all"){
-
-      document.getElementById("profilePostsCount")
-        .textContent =
-          data?.length || 0;
-    }
-
-    if(!data || !data.length){
-
-      container.innerHTML = `
-        <div class="card empty">
-
-          <div class="empty-icon">
-            ${mode === "private" ? "🔒" : "📷"}
-          </div>
-
-          <div>
-            ${
-              mode === "private"
-              ? "No tienes publicaciones privadas."
-              : "Todavía no tienes publicaciones."
-            }
-          </div>
-
-        </div>
-      `;
-
-      return;
-    }
-
-    const {data:profile} =
-      await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("user_id",currentUser.id)
-        .maybeSingle();
-
-    container.innerHTML =
-      data.map(post=>
+    data
+      .map(post=>
         renderPost(
           post,
           profile,
           true
         )
-      ).join("");
-
-  });
+      )
+      .join("");
 }
 
 
@@ -3573,7 +3910,9 @@ function openEditProfile(){
 
   if(!currentUser){
 
-    toast("Inicia sesión primero.");
+    toast(
+      "Inicia sesión primero."
+    );
 
     openAuth();
 
@@ -3583,17 +3922,20 @@ function openEditProfile(){
   const profile =
     currentProfile || {};
 
-  document.getElementById("editName")
+  document
+    .getElementById("editName")
     .value =
       profile.full_name || "";
 
-  document.getElementById("editBio")
+  document
+    .getElementById("editBio")
     .value =
       profile.Bio ||
       profile.bio ||
       "";
 
-  document.getElementById("editLocation")
+  document
+    .getElementById("editLocation")
     .value =
       profile.Location ||
       profile.location ||
@@ -3601,16 +3943,23 @@ function openEditProfile(){
 
   selectedAvatarFile = null;
 
-  document.getElementById("avatarFile")
+  document
+    .getElementById("avatarFile")
     .value = "";
 
-  document.getElementById("avatarPreview")
+  document
+    .getElementById("avatarPreview")
     .innerHTML = "";
 
-  document.getElementById("avatarPreview")
-    .classList.add("hidden");
+  document
+    .getElementById("avatarPreview")
+    .classList.add(
+      "hidden"
+    );
 
-  openModal("editProfileModal");
+  openModal(
+    "editProfileModal"
+  );
 }
 
 
@@ -3633,7 +3982,9 @@ function previewAvatar(event){
       "avatarPreview"
     );
 
-  preview.classList.remove("hidden");
+  preview.classList.remove(
+    "hidden"
+  );
 
   preview.innerHTML = `
     <img
@@ -3648,29 +3999,36 @@ async function saveProfile(){
 
   if(!currentUser){
 
-    toast("Inicia sesión primero.");
+    toast(
+      "Inicia sesión primero."
+    );
 
     return;
   }
 
   const name =
-    document.getElementById("editName")
+    document
+      .getElementById("editName")
       .value
       .trim();
 
   const bio =
-    document.getElementById("editBio")
+    document
+      .getElementById("editBio")
       .value
       .trim();
 
   const location =
-    document.getElementById("editLocation")
+    document
+      .getElementById("editLocation")
       .value
       .trim();
 
   if(!name){
 
-    toast("El nombre es obligatorio.");
+    toast(
+      "El nombre es obligatorio."
+    );
 
     return;
   }
@@ -3718,7 +4076,9 @@ async function saveProfile(){
         supabaseClient
           .storage
           .from(STORAGE_BUCKET)
-          .getPublicUrl(path);
+          .getPublicUrl(
+            path
+          );
 
       avatarUrl =
         data.publicUrl;
@@ -3728,16 +4088,23 @@ async function saveProfile(){
       await supabaseClient
         .from("profiles")
         .upsert({
-          user_id:currentUser.id,
-          full_name:name,
-          Bio:bio,
-          Location:location,
-          Email:currentUser.email,
-          avatar_url:avatarUrl,
+          user_id:
+            currentUser.id,
+          full_name:
+            name,
+          Bio:
+            bio,
+          Location:
+            location,
+          Email:
+            currentUser.email,
+          avatar_url:
+            avatarUrl,
           updated_at:
             new Date().toISOString()
         },{
-          onConflict:"user_id"
+          onConflict:
+            "user_id"
         })
         .select()
         .maybeSingle();
@@ -3755,7 +4122,9 @@ async function saveProfile(){
         avatar_url:avatarUrl
       };
 
-    closeModal("editProfileModal");
+    closeModal(
+      "editProfileModal"
+    );
 
     updateUI();
 
@@ -3771,7 +4140,513 @@ async function saveProfile(){
       error.message ||
       "No se pudo actualizar el perfil."
     );
+
   }
+}
+
+
+/* =========================================================
+   SEGUIDORES / SIGUIENDO
+   SISTEMA FAKE CON LOCALSTORAGE
+========================================================= */
+
+function getFollowing(){
+
+  if(!currentUser){
+    return [];
+  }
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "fitlab_following_" +
+        currentUser.id
+      ) || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+}
+
+
+function saveFollowing(list){
+
+  if(!currentUser){
+    return;
+  }
+
+  localStorage.setItem(
+    "fitlab_following_" +
+    currentUser.id,
+    JSON.stringify(list)
+  );
+}
+
+
+function getFollowers(){
+
+  if(!currentUser){
+    return [];
+  }
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "fitlab_followers_" +
+        currentUser.id
+      ) || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+}
+
+
+function saveFollowers(list){
+
+  if(!currentUser){
+    return;
+  }
+
+  localStorage.setItem(
+    "fitlab_followers_" +
+    currentUser.id,
+    JSON.stringify(list)
+  );
+}
+
+
+function isFollowing(id){
+
+  return getFollowing()
+    .includes(id);
+}
+
+
+/*
+  En este modo fake:
+  cuando sigues a alguien también guardamos
+  el seguimiento localmente para simular
+  la experiencia de una red social.
+*/
+
+function toggleFollow(id){
+
+  if(!currentUser){
+
+    toast(
+      "Inicia sesión para seguir perfiles."
+    );
+
+    openAuth();
+
+    return;
+  }
+
+  if(id === currentUser.id){
+
+    toast(
+      "No puedes seguirte a ti mismo."
+    );
+
+    return;
+  }
+
+  let following =
+    getFollowing();
+
+  if(following.includes(id)){
+
+    following =
+      following.filter(
+        item=>item !== id
+      );
+
+    saveFollowing(
+      following
+    );
+
+    toast(
+      "Dejaste de seguir."
+    );
+
+  }else{
+
+    following.push(id);
+
+    saveFollowing(
+      following
+    );
+
+    toast(
+      "💚 Ahora sigues este perfil."
+    );
+
+  }
+
+  searchProfiles();
+
+  updateFollowCounters();
+
+  if(
+    currentFollowListType ===
+    "following" &&
+    !document
+      .getElementById(
+        "followListModal"
+      )
+      .classList.contains("hidden")
+  ){
+
+    loadFollowList(
+      "following"
+    );
+
+  }
+}
+
+
+/* =========================================================
+   CONTADORES
+========================================================= */
+
+function updateFollowCounters(){
+
+  if(!currentUser){
+    return;
+  }
+
+  const following =
+    getFollowing();
+
+  const followers =
+    getFollowers();
+
+  document
+    .getElementById(
+      "profileFollowing"
+    )
+    .textContent =
+      following.length;
+
+  document
+    .getElementById(
+      "profileFollowers"
+    )
+    .textContent =
+      followers.length;
+}
+
+
+/* =========================================================
+   MODAL SEGUIDORES / SIGUIENDO
+========================================================= */
+
+async function openFollowList(type){
+
+  if(!currentUser){
+
+    toast(
+      "Inicia sesión para ver tus listas."
+    );
+
+    openAuth();
+
+    return;
+  }
+
+  currentFollowListType =
+    type;
+
+  const title =
+    document.getElementById(
+      "followListTitle"
+    );
+
+  const search =
+    document.getElementById(
+      "followListSearch"
+    );
+
+  search.value = "";
+
+  title.textContent =
+    type === "following"
+      ? "Personas que sigues"
+      : "Tus seguidores";
+
+  openModal(
+    "followListModal"
+  );
+
+  await loadFollowList(
+    type
+  );
+}
+
+
+async function loadFollowList(type){
+
+  const container =
+    document.getElementById(
+      "followList"
+    );
+
+  container.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      Cargando personas...
+    </div>
+  `;
+
+  let ids = [];
+
+  if(type === "following"){
+
+    ids =
+      getFollowing();
+
+  }else{
+
+    ids =
+      getFollowers();
+
+  }
+
+  /*
+    Como esta versión es fake,
+    los IDs se guardan localmente.
+  */
+
+  if(!ids.length){
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">
+          ${
+            type === "following"
+            ? "👥"
+            : "🙋"
+          }
+        </div>
+
+        <div>
+          ${
+            type === "following"
+            ? "Todavía no sigues a nadie."
+            : "Todavía no tienes seguidores."
+          }
+        </div>
+
+      </div>
+    `;
+
+    currentFollowProfiles = [];
+
+    return;
+  }
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .in(
+        "user_id",
+        ids
+      );
+
+  if(error){
+
+    console.error(error);
+
+    container.innerHTML = `
+      <div class="empty">
+        No se pudieron cargar los perfiles.
+      </div>
+    `;
+
+    return;
+  }
+
+  const profiles =
+    data || [];
+
+  const ordered =
+    ids
+      .map(id=>
+        profiles.find(
+          profile =>
+            profile.user_id === id
+        )
+      )
+      .filter(Boolean);
+
+  currentFollowProfiles =
+    ordered;
+
+  renderFollowList(
+    ordered,
+    type
+  );
+}
+
+
+function renderFollowList(
+  profiles,
+  type
+){
+
+  const container =
+    document.getElementById(
+      "followList"
+    );
+
+  const search =
+    document
+      .getElementById(
+        "followListSearch"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+
+  const filtered =
+    profiles.filter(profile=>{
+
+      const name =
+        (
+          profile.full_name ||
+          ""
+        ).toLowerCase();
+
+      const location =
+        (
+          profile.Location ||
+          ""
+        ).toLowerCase();
+
+      return (
+        !search ||
+        name.includes(search) ||
+        location.includes(search)
+      );
+
+    });
+
+  if(!filtered.length){
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">
+          🔎
+        </div>
+
+        No encontramos personas.
+
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    filtered
+      .map(profile=>{
+
+        const following =
+          isFollowing(
+            profile.user_id
+          );
+
+        return `
+          <div class="follow-person">
+
+            <img
+              class="avatar"
+              src="${escapeHTML(
+                getAvatar(profile)
+              )}"
+              alt="">
+
+            <div class="follow-person-info">
+
+              <div class="follow-person-name">
+                ${escapeHTML(
+                  profile.full_name ||
+                  "Usuario FitLab"
+                )}
+              </div>
+
+              <div class="follow-person-location">
+                ${escapeHTML(
+                  profile.Location ||
+                  "Comunidad FitLab"
+                )}
+              </div>
+
+            </div>
+
+            ${
+              profile.user_id !==
+              currentUser.id
+              ? `
+                <button
+                  class="btn ${
+                    following
+                    ? "btn-dark"
+                    : "btn-green"
+                  }"
+                  onclick="toggleFollowFromList('${profile.user_id}')">
+
+                  ${
+                    following
+                    ? "Siguiendo"
+                    : "Seguir"
+                  }
+
+                </button>
+              `
+              : ""
+            }
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+
+function filterFollowList(){
+
+  renderFollowList(
+    currentFollowProfiles,
+    currentFollowListType
+  );
+}
+
+
+function toggleFollowFromList(id){
+
+  toggleFollow(id);
+
+  setTimeout(()=>{
+
+    loadFollowList(
+      currentFollowListType
+    );
+
+  },100);
 }
 
 
@@ -3807,8 +4682,11 @@ async function searchProfiles(){
     query =
       query.ilike(
         "full_name",
-        "%" + search + "%"
+        "%" +
+        search +
+        "%"
       );
+
   }
 
   const {data,error} =
@@ -3831,8 +4709,31 @@ async function searchProfiles(){
 
     container.innerHTML = `
       <div class="empty">
-        <div class="empty-icon">🔎</div>
+
+        <div class="empty-icon">
+          🔎
+        </div>
+
         No encontramos perfiles.
+
+      </div>
+    `;
+
+    return;
+  }
+
+  const profiles =
+    data.filter(profile=>
+      !currentUser ||
+      profile.user_id !==
+      currentUser.id
+    );
+
+  if(!profiles.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        No hay otros perfiles todavía.
       </div>
     `;
 
@@ -3840,11 +4741,7 @@ async function searchProfiles(){
   }
 
   container.innerHTML =
-    data
-      .filter(profile=>
-        !currentUser ||
-        profile.user_id !== currentUser.id
-      )
+    profiles
       .map(profile=>{
 
         const following =
@@ -3857,7 +4754,9 @@ async function searchProfiles(){
 
             <img
               class="avatar"
-              src="${escapeHTML(getAvatar(profile))}"
+              src="${escapeHTML(
+                getAvatar(profile)
+              )}"
               alt="">
 
             <div class="profile-result-info">
@@ -3879,7 +4778,11 @@ async function searchProfiles(){
             </div>
 
             <button
-              class="btn ${following ? "btn-dark" : "btn-green"} follow-btn"
+              class="btn ${
+                following
+                ? "btn-dark"
+                : "btn-green"
+              } follow-btn"
               onclick="toggleFollow('${profile.user_id}')">
 
               ${
@@ -3893,88 +4796,171 @@ async function searchProfiles(){
           </div>
         `;
 
-      }).join("");
-}
-
-
-/* =========================================================
-   SEGUIR
-========================================================= */
-
-function getFollowing(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        "fitlab_following"
-      ) || "[]"
-    );
-
-  }catch(e){
-
-    return [];
-  }
-}
-
-
-function saveFollowing(list){
-
-  localStorage.setItem(
-    "fitlab_following",
-    JSON.stringify(list)
-  );
-}
-
-
-function isFollowing(id){
-
-  return getFollowing()
-    .includes(id);
-}
-
-
-function toggleFollow(id){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para seguir perfiles.");
-
-    openAuth();
-
-    return;
-  }
-
-  let list =
-    getFollowing();
-
-  if(list.includes(id)){
-
-    list =
-      list.filter(
-        item=>item !== id
-      );
-
-    toast("Dejaste de seguir.");
-
-  }else{
-
-    list.push(id);
-
-    toast("Ahora sigues este perfil.");
-  }
-
-  saveFollowing(list);
-
-  searchProfiles();
-
-  loadMyProfile();
+      })
+      .join("");
 }
 
 
 /* =========================================================
    YOUTUBE
+   CORREGIDO
 ========================================================= */
+
+function getYouTubeId(video){
+
+  if(!video){
+    return null;
+  }
+
+  if(video.id?.videoId){
+    return video.id.videoId;
+  }
+
+  if(
+    typeof video.id === "string" &&
+    video.id.length
+  ){
+
+    return video.id;
+
+  }
+
+  if(video.videoId){
+    return video.videoId;
+  }
+
+  if(video.video_id){
+    return video.video_id;
+  }
+
+  return null;
+}
+
+
+function getYouTubeTitle(video){
+
+  return (
+    video?.snippet?.title ||
+    video?.title ||
+    "Video de entrenamiento"
+  );
+}
+
+
+function getYouTubeThumbnail(video){
+
+  return (
+    video?.snippet?.thumbnails?.high?.url ||
+    video?.snippet?.thumbnails?.medium?.url ||
+    video?.snippet?.thumbnails?.default?.url ||
+    video?.thumbnail ||
+    ""
+  );
+}
+
+
+function getYouTubeChannel(video){
+
+  return (
+    video?.snippet?.channelTitle ||
+    video?.channelTitle ||
+    "YouTube"
+  );
+}
+
+
+/*
+  Esta es la función que carga automáticamente
+  el contenido inicial.
+*/
+
+async function loadDefaultYouTubeVideos(){
+
+  const container =
+    document.getElementById(
+      "youtubeResults"
+    );
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="loading">
+
+      <div class="spinner"></div>
+
+      🎥 Cargando videos de YouTube...
+
+    </div>
+  `;
+
+  const query =
+    "entrenamiento fitness gimnasio";
+
+  try{
+
+    const response =
+      await fetch(
+        EDGE_FUNCTION +
+        "?q=" +
+        encodeURIComponent(query)
+      );
+
+    if(!response.ok){
+
+      throw new Error(
+        "No se pudo consultar YouTube."
+      );
+
+    }
+
+    const result =
+      await response.json();
+
+    const videos =
+      result.items ||
+      result.videos ||
+      [];
+
+    renderYouTubeVideos(
+      videos,
+      container
+    );
+
+  }catch(error){
+
+    console.error(
+      "YouTube automático:",
+      error
+    );
+
+    container.innerHTML = `
+      <div class="card empty">
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        <div>
+          No se pudieron cargar los videos de YouTube.
+        </div>
+
+        <button
+          class="btn btn-green"
+          style="margin-top:12px;"
+          onclick="loadDefaultYouTubeVideos()">
+
+          🔄 Intentar de nuevo
+
+        </button>
+
+      </div>
+    `;
+
+  }
+}
+
 
 async function searchYouTube(){
 
@@ -3993,15 +4979,20 @@ async function searchYouTube(){
 
   if(!query){
 
-    toast("Escribe algo para buscar.");
+    toast(
+      "Escribe algo para buscar."
+    );
 
     return;
   }
 
   container.innerHTML = `
     <div class="loading">
+
       <div class="spinner"></div>
-      Buscando videos...
+
+      🔎 Buscando videos...
+
     </div>
   `;
 
@@ -4019,6 +5010,7 @@ async function searchYouTube(){
       throw new Error(
         "No se pudo consultar YouTube."
       );
+
     }
 
     const result =
@@ -4029,69 +5021,10 @@ async function searchYouTube(){
       result.videos ||
       [];
 
-    if(!videos.length){
-
-      container.innerHTML = `
-        <div class="card empty">
-          No encontramos videos.
-        </div>
-      `;
-
-      return;
-    }
-
-    container.innerHTML =
-      videos.map(video=>{
-
-        const id =
-          video.id?.videoId ||
-          video.videoId ||
-          video.id;
-
-        const title =
-          video.snippet?.title ||
-          video.title ||
-          "Video";
-
-        const thumbnail =
-          video.snippet?.thumbnails?.medium?.url ||
-          video.thumbnail ||
-          "";
-
-        return `
-          <div class="card"
-               style="overflow:hidden;">
-
-            ${
-              thumbnail
-              ? `
-                <img
-                  src="${escapeHTML(thumbnail)}"
-                  style="width:100%;display:block;"
-                  alt="">
-              `
-              : ""
-            }
-
-            <div class="card-padding">
-
-              <div style="font-weight:800;">
-                ${escapeHTML(title)}
-              </div>
-
-              <button
-                class="btn btn-green"
-                style="margin-top:10px;"
-                onclick="openYouTube('${escapeHTML(id)}','${escapeHTML(title)}')">
-                ▶️ Ver video
-              </button>
-
-            </div>
-
-          </div>
-        `;
-
-      }).join("");
+    renderYouTubeVideos(
+      videos,
+      container
+    );
 
   }catch(error){
 
@@ -4099,35 +5032,225 @@ async function searchYouTube(){
 
     container.innerHTML = `
       <div class="card empty">
-        <div class="empty-icon">⚠️</div>
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
         No se pudieron buscar videos.
+
+        <button
+          class="btn btn-green"
+          style="margin-top:12px;"
+          onclick="searchYouTube()">
+
+          🔄 Reintentar
+
+        </button>
+
       </div>
     `;
+
   }
 }
 
 
-function openYouTube(id,title){
+function renderYouTubeVideos(
+  videos,
+  container
+){
 
-  document.getElementById("youtubeTitle")
-    .textContent = title;
+  if(!videos || !videos.length){
 
-  document.getElementById("youtubeFrame")
+    container.innerHTML = `
+      <div class="card empty">
+
+        <div class="empty-icon">
+          🎥
+        </div>
+
+        No encontramos videos.
+
+      </div>
+    `;
+
+    return;
+  }
+
+  const validVideos =
+    videos
+      .map(video=>{
+
+        return {
+          raw:video,
+          id:getYouTubeId(video),
+          title:getYouTubeTitle(video),
+          thumbnail:getYouTubeThumbnail(video),
+          channel:getYouTubeChannel(video)
+        };
+
+      })
+      .filter(video=>
+        video.id
+      );
+
+  if(!validVideos.length){
+
+    container.innerHTML = `
+      <div class="card empty">
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        YouTube no devolvió videos reproducibles.
+
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    validVideos
+      .map(video=>{
+
+        const encodedId =
+          encodeURIComponent(
+            video.id
+          );
+
+        const encodedTitle =
+          encodeURIComponent(
+            video.title
+          );
+
+        return `
+          <div class="card"
+               style="overflow:hidden;">
+
+            ${
+              video.thumbnail
+              ? `
+                <img
+                  src="${escapeHTML(
+                    video.thumbnail
+                  )}"
+                  style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;"
+                  alt="${escapeHTML(
+                    video.title
+                  )}"
+                  loading="lazy">
+              `
+              : ""
+            }
+
+            <div class="card-padding">
+
+              <div class="youtube-card-title">
+
+                ${escapeHTML(
+                  video.title
+                )}
+
+              </div>
+
+              <div class="youtube-channel">
+
+                ${escapeHTML(
+                  video.channel
+                )}
+
+              </div>
+
+              <button
+                class="btn btn-green"
+                style="margin-top:10px;width:100%;"
+                onclick="openYouTubeEncoded('${encodedId}','${encodedTitle}')">
+
+                ▶️ Ver video
+
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+
+/*
+  Se usan valores codificados para evitar
+  que títulos de YouTube rompan el onclick.
+*/
+
+function openYouTubeEncoded(
+  encodedId,
+  encodedTitle
+){
+
+  const id =
+    decodeURIComponent(
+      encodedId
+    );
+
+  const title =
+    decodeURIComponent(
+      encodedTitle
+    );
+
+  openYouTube(
+    id,
+    title
+  );
+}
+
+
+function openYouTube(
+  id,
+  title
+){
+
+  if(!id){
+    return;
+  }
+
+  document
+    .getElementById(
+      "youtubeTitle"
+    )
+    .textContent =
+      title || "Video";
+
+  document
+    .getElementById(
+      "youtubeFrame"
+    )
     .src =
       "https://www.youtube.com/embed/" +
       encodeURIComponent(id) +
-      "?autoplay=1";
+      "?autoplay=1&rel=0";
 
-  openModal("youtubeModal");
+  openModal(
+    "youtubeModal"
+  );
 }
 
 
 function closeYouTube(){
 
-  document.getElementById("youtubeFrame")
+  document
+    .getElementById(
+      "youtubeFrame"
+    )
     .src = "";
 
-  closeModal("youtubeModal");
+  closeModal(
+    "youtubeModal"
+  );
 }
 
 
@@ -4164,23 +5287,94 @@ function updateMainRating(){
       "#mainStars .star"
     );
 
-  stars.forEach((star,index)=>{
+  stars.forEach(
+    (star,index)=>{
 
-    if(index < value){
+      if(index < value){
 
-      star.classList.add("active");
+        star.classList.add(
+          "active"
+        );
 
-    }else{
+      }else{
 
-      star.classList.remove("active");
+        star.classList.remove(
+          "active"
+        );
+
+      }
+
     }
-  });
+  );
 
-  document.getElementById("ratingValue")
+  document
+    .getElementById(
+      "ratingValue"
+    )
     .textContent =
       value
       ? value + "/5"
       : "Sin valoración";
+}
+
+
+/* =========================================================
+   STORIES
+========================================================= */
+
+async function loadStories(){
+
+  const container =
+    document.getElementById(
+      "stories"
+    );
+
+  if(!container){
+    return;
+  }
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .limit(12);
+
+  if(error || !data){
+
+    container.innerHTML = "";
+
+    return;
+  }
+
+  container.innerHTML =
+    data
+      .map(profile=>`
+
+        <div class="story">
+
+          <div class="story-avatar">
+
+            <img
+              src="${escapeHTML(
+                getAvatar(profile)
+              )}"
+              alt="">
+
+          </div>
+
+          <div class="story-name">
+
+            ${escapeHTML(
+              profile.full_name ||
+              "FitLab"
+            )}
+
+          </div>
+
+        </div>
+
+      `)
+      .join("");
 }
 
 
@@ -4193,7 +5387,9 @@ document.addEventListener(
   function(event){
 
     if(
-      !event.target.closest(".post-menu")
+      !event.target.closest(
+        ".post-menu"
+      )
     ){
 
       document
@@ -4201,8 +5397,11 @@ document.addEventListener(
           ".post-menu-dropdown"
         )
         .forEach(el=>{
-          el.classList.add("hidden");
+          el.classList.add(
+            "hidden"
+          );
         });
+
     }
 
   }
@@ -4221,16 +5420,27 @@ document
       "click",
       function(event){
 
-        if(event.target === modal){
+        if(
+          event.target === modal
+        ){
 
-          modal.classList.add("hidden");
+          modal.classList.add(
+            "hidden"
+          );
 
-          if(modal.id === "youtubeModal"){
+          if(
+            modal.id ===
+            "youtubeModal"
+          ){
 
             document
-              .getElementById("youtubeFrame")
+              .getElementById(
+                "youtubeFrame"
+              )
               .src = "";
+
           }
+
         }
 
       }
@@ -4256,11 +5466,17 @@ supabaseClient.auth.onAuthStateChange(
     }else{
 
       currentProfile = null;
+
     }
 
     updateUI();
 
     loadPosts();
+
+    searchProfiles();
+
+    loadStories();
+
   }
 );
 
@@ -4275,11 +5491,21 @@ document.addEventListener(
 
     updateMainRating();
 
+    /*
+      Cargar videos desde el inicio.
+      Aunque el usuario todavía esté en Inicio,
+      el contenido queda preparado.
+    */
+
+    loadDefaultYouTubeVideos();
+
     await loadSession();
 
     loadPosts();
 
     searchProfiles();
+
+    loadStories();
 
   }
 );
