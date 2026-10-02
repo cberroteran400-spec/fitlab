@@ -2,4578 +2,1755 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FitLab Social | Comunidad Fitness</title>
+<title>FitLab | Rutinas de ejercicio, entrenamiento y productos fitness</title>
 
-<meta name="description" content="FitLab Social: comparte entrenamientos, fotos y videos, sigue perfiles fitness y descubre contenido de la comunidad.">
-<meta name="theme-color" content="#07110d">
+<meta name="description" content="FitLab: crea rutinas de ejercicio personalizadas para casa, gimnasio o exterior. Descubre ejercicios, programas fitness, productos y comparte tu progreso con la comunidad.">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="keywords" content="rutinas de ejercicio, ejercicios, gimnasio, entrenamiento, fitness, rutina personalizada, ejercicios en casa, ganar músculo, perder grasa, fuerza, FitLab">
+
+<meta name="author" content="FitLab">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://cberroteran400-spec.github.io/fitlab/">
+
+<meta property="og:title" content="FitLab | Entrena. Comparte. Evoluciona.">
+<meta property="og:description" content="Crea tu rutina personalizada, descubre ejercicios y forma parte de la comunidad FitLab.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cberroteran400-spec.github.io/fitlab/">
+
+<link rel="icon" href="favicon.png">
 
 <style>
+
+:root{
+    --green:#65ff9a;
+    --green2:#32d878;
+    --dark:#050807;
+    --dark2:#09110d;
+    --card:#0d1712;
+    --card2:#101d17;
+    --text:#f4fff7;
+    --muted:#9aa9a0;
+    --border:rgba(101,255,154,.16);
+    --shadow:0 15px 50px rgba(0,0,0,.35);
+}
+
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  margin:0;
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  color:#f5fff8;
-  background:
-    radial-gradient(circle at top right,rgba(101,255,154,.09),transparent 30%),
-    radial-gradient(circle at bottom left,rgba(0,255,150,.05),transparent 35%),
-    #050907;
-  min-height:100vh;
-}
-
-button,
-input,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-img,
-video{
-  max-width:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(101,255,154,.09),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(0,255,130,.06),transparent 30%),
+        linear-gradient(180deg,#030605,#07100b 50%,#030605);
+    color:var(--text);
+    line-height:1.6;
 }
 
 a{
-  color:inherit;
-  text-decoration:none;
+    color:inherit;
+    text-decoration:none;
 }
 
-/* =========================
-   ICONOS
-========================= */
-
-.icon{
-  width:22px;
-  height:22px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  flex:none;
+button,
+select,
+input{
+    font:inherit;
 }
 
-.icon svg{
-  width:100%;
-  height:100%;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+button{
+    cursor:pointer;
 }
 
-.brand-mark{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:linear-gradient(145deg,#72ff9f,#25d979);
-  color:#031108;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 28px rgba(101,255,154,.2);
+.container{
+    width:min(1180px,92%);
+    margin:auto;
 }
 
-.brand-mark svg{
-  width:27px;
-  height:27px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2.4;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,7,5,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
 }
 
-/* =========================
-   HEADER
-========================= */
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  height:68px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:10px 15px;
-  background:rgba(4,9,7,.9);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.07);
+.nav{
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.45rem;
+    font-weight:900;
+    letter-spacing:-1px;
 }
 
-.brand-text{
-  line-height:1;
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--green),#20bb68);
+    color:#031008;
+    font-weight:1000;
+    box-shadow:0 0 25px rgba(101,255,154,.22);
 }
 
-.brand-name{
-  font-size:20px;
-  font-weight:950;
-  letter-spacing:-.8px;
+.logo span{
+    color:var(--green);
 }
 
-.brand-name span{
-  color:#65ff9a;
+nav{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
 }
 
-.brand-sub{
-  font-size:9px;
-  color:#7f9589;
-  margin-top:4px;
-  letter-spacing:1.4px;
-  text-transform:uppercase;
+nav a{
+    color:#dce9e1;
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:.91rem;
+    transition:.2s;
 }
 
-.header-actions{
-  display:flex;
-  gap:7px;
+nav a:hover{
+    color:var(--green);
+    background:rgba(101,255,154,.07);
 }
 
-.circle-btn{
-  width:42px;
-  height:42px;
-  border:1px solid rgba(255,255,255,.09);
-  background:#0d1611;
-  color:#dfffea;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.nav-social{
+    color:#061009!important;
+    background:var(--green);
+    font-weight:800;
 }
 
-.circle-btn:hover{
-  border-color:#65ff9a;
-  color:#65ff9a;
+.nav-social:hover{
+    color:#061009!important;
+    background:#8affa9!important;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
-.page{
-  width:min(680px,100%);
-  margin:auto;
-  padding:16px 13px 105px;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-  animation:fadeIn .18s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(5px)}
-  to{opacity:1;transform:none}
-}
-
-.section-title{
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:-1px;
-  margin:5px 0 4px;
-}
-
-.section-subtitle{
-  color:#82958a;
-  font-size:13px;
-  margin-bottom:17px;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.card{
-  background:linear-gradient(145deg,#0d1711,#09100c);
-  border:1px solid rgba(255,255,255,.075);
-  border-radius:21px;
-  padding:15px;
-  margin-bottom:13px;
-  box-shadow:0 14px 45px rgba(0,0,0,.18);
-}
-
-.card-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.user{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
-}
-
-.avatar{
-  width:45px;
-  height:45px;
-  border-radius:15px;
-  object-fit:cover;
-  background:linear-gradient(145deg,#18251c,#0a100c);
-  border:1px solid rgba(101,255,154,.18);
-  flex:none;
-}
-
-.avatar.big{
-  width:82px;
-  height:82px;
-  border-radius:25px;
-}
-
-.user-name{
-  font-weight:850;
-  font-size:14px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.user-meta{
-  color:#728278;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.more-btn{
-  border:0;
-  background:transparent;
-  color:#85968b;
-  font-size:23px;
-  width:35px;
-  height:35px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-  border:0;
-  border-radius:13px;
-  min-height:43px;
-  padding:0 16px;
-  font-weight:850;
-  color:#061009;
-  background:#65ff9a;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
-
-.btn:hover{
-  filter:brightness(1.05);
-}
-
-.btn.dark{
-  background:#142019;
-  color:#dcffe8;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.btn.outline{
-  background:transparent;
-  color:#65ff9a;
-  border:1px solid rgba(101,255,154,.4);
-}
-
-.btn.small{
-  min-height:36px;
-  padding:0 12px;
-  font-size:12px;
-}
-
-.btn.full{
-  width:100%;
-}
-
-/* =========================
-   HOME / FEED
-========================= */
+/* HERO */
 
 .hero{
-  padding:8px 2px 14px;
+    min-height:690px;
+    display:grid;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 10px;
-  border-radius:100px;
-  color:#65ff9a;
-  background:rgba(101,255,154,.07);
-  border:1px solid rgba(101,255,154,.13);
-  font-size:11px;
-  font-weight:800;
+.hero:before{
+    content:"";
+    position:absolute;
+    width:480px;
+    height:480px;
+    border-radius:50%;
+    background:rgba(101,255,154,.07);
+    filter:blur(90px);
+    right:-160px;
+    top:80px;
 }
 
-.hero h1{
-  margin:12px 0 6px;
-  font-size:30px;
-  line-height:1.05;
-  letter-spacing:-1.5px;
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:820px;
+    padding:90px 0 70px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(101,255,154,.25);
+    background:rgba(101,255,154,.06);
+    color:var(--green);
+    padding:8px 13px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.85rem;
+    margin-bottom:20px;
+}
+
+.badge-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+h1{
+    font-size:clamp(3rem,8vw,6.6rem);
+    line-height:.92;
+    letter-spacing:-5px;
+    margin-bottom:25px;
+}
+
+h1 span{
+    color:var(--green);
 }
 
 .hero p{
-  margin:0;
-  color:#87988e;
-  line-height:1.5;
-  font-size:13px;
+    max-width:690px;
+    font-size:1.18rem;
+    color:#b8c7be;
+    margin-bottom:30px;
 }
 
-.quick-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin:14px 0;
+.hero-buttons{
+    display:flex;
+    gap:13px;
+    flex-wrap:wrap;
 }
 
-.quick{
-  border:1px solid rgba(255,255,255,.07);
-  background:#0b140f;
-  border-radius:17px;
-  padding:14px;
-  color:white;
-  text-align:left;
+.btn{
+    border:0;
+    border-radius:13px;
+    padding:14px 20px;
+    font-weight:800;
+    transition:.2s;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.quick .q-icon{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#65ff9a;
-  background:rgba(101,255,154,.08);
-  margin-bottom:10px;
+.btn-primary{
+    background:var(--green);
+    color:#041008;
+    box-shadow:0 10px 35px rgba(101,255,154,.15);
 }
 
-.quick strong{
-  display:block;
-  font-size:13px;
+.btn-primary:hover{
+    transform:translateY(-2px);
+    background:#8bffad;
 }
 
-.quick small{
-  display:block;
-  color:#718077;
-  margin-top:3px;
-  font-size:10px;
+.btn-secondary{
+    background:#101b15;
+    border:1px solid var(--border);
+    color:white;
 }
 
-/* =========================
-   POST
-========================= */
-
-.post-text{
-  white-space:pre-wrap;
-  color:#e8f2eb;
-  font-size:14px;
-  line-height:1.55;
-  margin:13px 2px;
+.btn-secondary:hover{
+    border-color:rgba(101,255,154,.45);
+    color:var(--green);
 }
 
-.post-media{
-  width:100%;
-  max-height:570px;
-  object-fit:cover;
-  border-radius:17px;
-  background:#020403;
-  display:block;
-}
+/* STATS */
 
-.post-actions{
-  display:flex;
-  align-items:center;
-  gap:3px;
-  margin-top:8px;
-  border-top:1px solid rgba(255,255,255,.055);
-  padding-top:8px;
-}
-
-.post-action{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#84938a;
-  min-height:38px;
-  border-radius:10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  font-weight:750;
-}
-
-.post-action:hover{
-  background:#101a14;
-  color:#dfffea;
-}
-
-.post-action.liked{
-  color:#65ff9a;
-}
-
-.post-action.delete{
-  color:#ff7474;
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile-cover{
-  height:125px;
-  border-radius:24px 24px 0 0;
-  background:
-    radial-gradient(circle at 75% 25%,rgba(101,255,154,.35),transparent 25%),
-    linear-gradient(135deg,#102219,#07100b);
-  border:1px solid rgba(255,255,255,.07);
-}
-
-.profile-card{
-  margin-top:-1px;
-  background:#0b130f;
-  border:1px solid rgba(255,255,255,.07);
-  border-top:0;
-  border-radius:0 0 24px 24px;
-  padding:0 16px 17px;
-}
-
-.profile-top{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  margin-top:-42px;
-  gap:10px;
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:950;
-  margin-top:10px;
-}
-
-.profile-bio{
-  color:#87978d;
-  font-size:13px;
-  line-height:1.45;
-  margin-top:6px;
-}
-
-.profile-stats{
-  display:flex;
-  gap:8px;
-  margin-top:17px;
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:50px;
 }
 
 .stat{
-  flex:1;
-  background:#101a14;
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:14px;
-  padding:10px;
-  text-align:center;
-  cursor:pointer;
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:rgba(10,18,14,.72);
 }
 
 .stat strong{
-  display:block;
-  font-size:18px;
+    display:block;
+    color:var(--green);
+    font-size:1.45rem;
 }
 
 .stat span{
-  display:block;
-  color:#738279;
-  font-size:10px;
-  margin-top:2px;
+    color:var(--muted);
+    font-size:.82rem;
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* SECTIONS */
+
+section{
+    padding:85px 0;
+}
+
+.section-head{
+    margin-bottom:35px;
+}
+
+.section-head .mini{
+    color:var(--green);
+    text-transform:uppercase;
+    font-weight:800;
+    font-size:.8rem;
+    letter-spacing:1.5px;
+}
+
+.section-head h2{
+    font-size:clamp(2rem,5vw,3.5rem);
+    line-height:1;
+    margin:8px 0 13px;
+    letter-spacing:-2px;
+}
+
+.section-head p{
+    color:var(--muted);
+    max-width:700px;
+}
+
+/* GENERATOR */
+
+.generator{
+    background:
+        linear-gradient(135deg,rgba(101,255,154,.08),rgba(0,0,0,.1)),
+        #09120d;
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:28px;
+    box-shadow:var(--shadow);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.field label{
+    display:block;
+    color:#c6d4cc;
+    font-size:.82rem;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.field select{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #20382b;
+    outline:none;
+    color:white;
+    background:#07100b;
+}
+
+.field select:focus{
+    border-color:var(--green);
+}
+
+.generator-actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.routine-result{
+    display:none;
+    margin-top:25px;
+    padding:22px;
+    border-radius:18px;
+    background:#07100b;
+    border:1px solid rgba(101,255,154,.2);
+}
+
+.routine-result.show{
+    display:block;
+}
+
+.routine-result h3{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+.routine-list{
+    display:grid;
+    gap:9px;
+    margin-top:15px;
+}
+
+.routine-item{
+    padding:13px 15px;
+    border-radius:12px;
+    background:#0e1a14;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:linear-gradient(145deg,#0d1812,#08100c);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(101,255,154,.35);
+}
+
+.card-image{
+    height:190px;
+    display:grid;
+    place-items:center;
+    font-size:4rem;
+    background:
+        radial-gradient(circle at center,rgba(101,255,154,.15),transparent 50%),
+        #08110c;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.card-body h3{
+    margin-bottom:7px;
+}
+
+.card-body p{
+    color:var(--muted);
+    font-size:.91rem;
+}
+
+.tag{
+    display:inline-block;
+    margin-top:14px;
+    color:var(--green);
+    background:rgba(101,255,154,.07);
+    border:1px solid rgba(101,255,154,.14);
+    padding:5px 9px;
+    border-radius:8px;
+    font-size:.75rem;
+    font-weight:800;
+}
+
+/* EXERCISES */
 
 .search-box{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  background:#0b140f;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:15px;
-  padding:0 12px;
-  height:49px;
-  margin-bottom:12px;
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
 }
 
 .search-box input{
-  flex:1;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:white;
-  min-width:0;
+    flex:1;
+    padding:15px 17px;
+    border-radius:13px;
+    border:1px solid #20382b;
+    outline:none;
+    background:#07100b;
+    color:white;
 }
 
-.search-box input::placeholder{
-  color:#637269;
+.search-box input:focus{
+    border-color:var(--green);
 }
 
-/* =========================
-   DISCOVER
-========================= */
-
-.profile-result{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.055);
+.exercise-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
 }
 
-.profile-result:last-child{
-  border-bottom:0;
+.exercise{
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:17px;
+    background:#0a130e;
 }
 
-.profile-result-info{
-  flex:1;
-  min-width:0;
+.exercise-icon{
+    font-size:2rem;
+    margin-bottom:9px;
 }
 
-.profile-result-name{
-  font-weight:850;
-  font-size:13px;
+.exercise h3{
+    font-size:1rem;
+    margin-bottom:4px;
 }
 
-.profile-result-bio{
-  color:#738279;
-  font-size:11px;
-  margin-top:3px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.exercise p{
+    color:var(--muted);
+    font-size:.8rem;
 }
 
-/* =========================
-   YOUTUBE
-========================= */
+/* PROGRAMS */
 
-.youtube-search{
-  display:flex;
-  gap:8px;
-  margin:13px 0;
+.program{
+    padding:24px;
 }
 
-.youtube-search input{
-  flex:1;
-  height:48px;
-  min-width:0;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.08);
-  background:#0b140f;
-  color:white;
-  outline:0;
-  padding:0 13px;
+.program-number{
+    font-size:2.4rem;
+    font-weight:1000;
+    color:var(--green);
 }
 
-.youtube-search button{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  border:0;
-  background:#65ff9a;
-  color:#051009;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.program h3{
+    margin:8px 0;
 }
 
-.categories{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding-bottom:4px;
-  scrollbar-width:none;
+.program ul{
+    list-style:none;
+    margin-top:14px;
 }
 
-.categories::-webkit-scrollbar{
-  display:none;
+.program li{
+    color:#aebdb4;
+    padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);
 }
 
-.category-btn{
-  flex:none;
-  border:1px solid rgba(255,255,255,.08);
-  background:#0c1510;
-  color:#829189;
-  border-radius:100px;
-  padding:9px 12px;
-  font-size:11px;
-  font-weight:800;
+.program li:before{
+    content:"✓";
+    color:var(--green);
+    font-weight:900;
+    margin-right:8px;
 }
 
-.category-btn.active,
-.category-btn:hover{
-  background:rgba(101,255,154,.1);
-  color:#65ff9a;
-  border-color:rgba(101,255,154,.3);
+/* SHOP */
+
+.shop-card{
+    position:relative;
 }
 
-.youtube-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+.shop-card .card-image{
+    font-size:4.5rem;
 }
 
-.youtube-card{
-  overflow:hidden;
-  border-radius:16px;
-  background:#0b130f;
-  border:1px solid rgba(255,255,255,.06);
-  cursor:pointer;
+.shop-name{
+    font-size:1.08rem;
+    font-weight:900;
 }
 
-.youtube-thumb-wrap{
-  position:relative;
-  aspect-ratio:16/9;
-  background:#020403;
+.shop-note{
+    color:var(--muted);
+    font-size:.82rem;
+    margin-top:5px;
 }
 
-.youtube-thumb{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+/* COMMUNITY */
+
+.community{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    border:1px solid rgba(101,255,154,.22);
+    background:
+        radial-gradient(circle at 80% 20%,rgba(101,255,154,.14),transparent 30%),
+        linear-gradient(135deg,#0b1911,#07100b);
+    padding:50px;
 }
 
-.youtube-play{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(101,255,154,.94);
-  color:#041008;
-  font-size:15px;
-  padding-left:2px;
+.community h2{
+    max-width:650px;
+    font-size:clamp(2rem,5vw,4rem);
+    line-height:1;
+    letter-spacing:-2px;
 }
 
-.youtube-info{
-  padding:9px;
+.community p{
+    color:#aebdb4;
+    max-width:620px;
+    margin:17px 0 25px;
 }
 
-.youtube-title{
-  font-size:12px;
-  font-weight:850;
-  line-height:1.35;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+/* FAQ */
+
+.faq{
+    display:grid;
+    gap:10px;
 }
 
-.youtube-channel{
-  color:#728078;
-  font-size:10px;
-  margin-top:5px;
+details{
+    background:#0a130e;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:17px 19px;
 }
 
-.youtube-source{
-  color:#65ff9a;
-  font-size:9px;
-  margin-top:4px;
+summary{
+    cursor:pointer;
+    font-weight:800;
 }
 
-.video-loading,
-.video-error{
-  padding:45px 15px;
-  text-align:center;
-  color:#7e8f85;
+details p{
+    color:var(--muted);
+    margin-top:12px;
 }
 
-/* =========================
-   CREATE
-========================= */
+/* FOOTER */
 
-.create-type{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-bottom:13px;
+footer{
+    padding:45px 0 25px;
+    border-top:1px solid var(--border);
+    background:#020504;
 }
 
-.type-option{
-  border:1px solid rgba(255,255,255,.08);
-  background:#0b140f;
-  color:#829087;
-  padding:15px 8px;
-  border-radius:15px;
-  text-align:center;
-  font-weight:800;
-  font-size:12px;
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:30px;
 }
 
-.type-option.active{
-  color:#65ff9a;
-  border-color:rgba(101,255,154,.4);
-  background:rgba(101,255,154,.07);
+.footer-brand p{
+    color:var(--muted);
+    max-width:430px;
+    margin-top:12px;
 }
 
-textarea,
-.input{
-  width:100%;
-  border:1px solid rgba(255,255,255,.08);
-  background:#07100b;
-  color:white;
-  border-radius:14px;
-  outline:0;
-  padding:13px;
+.footer-col h4{
+    margin-bottom:10px;
 }
 
-textarea{
-  min-height:120px;
-  resize:vertical;
+.footer-col a{
+    display:block;
+    color:var(--muted);
+    padding:4px 0;
 }
 
-.file-box{
-  border:1px dashed rgba(101,255,154,.3);
-  background:rgba(101,255,154,.035);
-  border-radius:16px;
-  padding:18px;
-  text-align:center;
-  margin:10px 0;
+.footer-col a:hover{
+    color:var(--green);
 }
 
-.file-box input{
-  width:100%;
-  margin-top:10px;
+.copyright{
+    margin-top:35px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.05);
+    color:#68756d;
+    font-size:.8rem;
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+/* MOBILE */
 
-.bottom-nav{
-  position:fixed;
-  z-index:200;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(680px,100%);
-  height:72px;
-  background:rgba(5,10,7,.95);
-  backdrop-filter:blur(18px);
-  border-top:1px solid rgba(255,255,255,.07);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:7px 7px 9px;
+@media(max-width:900px){
+
+    .form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .exercise-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
-.nav-btn{
-  border:0;
-  background:transparent;
-  color:#65746b;
-  border-radius:13px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-  font-size:9px;
-  font-weight:800;
+@media(max-width:650px){
+
+    header{
+        position:relative;
+    }
+
+    .nav{
+        padding:12px 0;
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    nav{
+        width:100%;
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        padding-bottom:3px;
+    }
+
+    nav a{
+        white-space:nowrap;
+        font-size:.82rem;
+    }
+
+    .hero{
+        min-height:auto;
+    }
+
+    .hero-content{
+        padding:70px 0 50px;
+    }
+
+    h1{
+        font-size:3.6rem;
+        letter-spacing:-3px;
+    }
+
+    .hero p{
+        font-size:1rem;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    section{
+        padding:60px 0;
+    }
+
+    .generator{
+        padding:18px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .exercise-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .community{
+        padding:30px 22px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
 }
 
-.nav-btn .icon{
-  width:21px;
-  height:21px;
-}
-
-.nav-btn.active{
-  color:#65ff9a;
-  background:rgba(101,255,154,.06);
-}
-
-/* =========================
-   MODALES
-========================= */
-
-.modal{
-  position:fixed;
-  z-index:500;
-  inset:0;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(5px);
-}
-
-.modal.open{
-  display:flex;
-}
-
-.modal-box{
-  width:min(680px,100%);
-  max-height:92vh;
-  overflow:auto;
-  background:#0a120e;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:25px 25px 0 0;
-  padding:18px;
-  animation:up .18s ease;
-}
-
-@keyframes up{
-  from{transform:translateY(30px);opacity:0}
-  to{transform:none;opacity:1}
-}
-
-.modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
-}
-
-.modal-title{
-  font-size:19px;
-  font-weight:950;
-}
-
-.close{
-  border:0;
-  background:#131d17;
-  color:#9aaa9f;
-  width:37px;
-  height:37px;
-  border-radius:12px;
-  font-size:20px;
-}
-
-.form-group{
-  margin-bottom:12px;
-}
-
-.form-label{
-  display:block;
-  color:#87978d;
-  font-size:11px;
-  margin:0 0 6px 2px;
-  font-weight:800;
-}
-
-.form-actions{
-  display:flex;
-  gap:8px;
-  margin-top:14px;
-}
-
-.form-actions>*{
-  flex:1;
-}
-
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-bottom:14px;
-}
-
-.auth-tab{
-  border:0;
-  border-radius:12px;
-  padding:11px;
-  background:#101a14;
-  color:#74837a;
-  font-weight:800;
-}
-
-.auth-tab.active{
-  background:rgba(101,255,154,.1);
-  color:#65ff9a;
-}
-
-.comment-row{
-  display:flex;
-  gap:8px;
-  margin-top:9px;
-}
-
-.comment-row input{
-  flex:1;
-  min-width:0;
-}
-
-.comment{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-.comment-body{
-  background:#101913;
-  border-radius:12px;
-  padding:8px 10px;
-  flex:1;
-  font-size:12px;
-}
-
-.comment-body strong{
-  display:block;
-  margin-bottom:3px;
-}
-
-.follow-list{
-  max-height:60vh;
-  overflow:auto;
-}
-
-.empty{
-  padding:35px 12px;
-  text-align:center;
-  color:#68786e;
-  font-size:13px;
-}
-
-.toast{
-  position:fixed;
-  z-index:1000;
-  left:50%;
-  bottom:86px;
-  transform:translateX(-50%) translateY(15px);
-  opacity:0;
-  pointer-events:none;
-  background:#dfffea;
-  color:#071009;
-  border-radius:13px;
-  padding:11px 15px;
-  font-size:12px;
-  font-weight:850;
-  transition:.2s;
-  max-width:90%;
-  text-align:center;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:440px){
-  .youtube-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .hero h1{
-    font-size:27px;
-  }
-}
-
-@media(min-width:681px){
-  .bottom-nav{
-    border-left:1px solid rgba(255,255,255,.07);
-    border-right:1px solid rgba(255,255,255,.07);
-  }
-}
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<header>
 
-<header class="topbar">
+<div class="container nav">
 
-  <div class="brand">
-    <div class="brand-mark">
-      <svg viewBox="0 0 24 24">
-        <path d="M7 4v16"/>
-        <path d="M17 4v16"/>
-        <path d="M4 8h6"/>
-        <path d="M14 8h6"/>
-        <path d="M4 16h6"/>
-        <path d="M14 16h6"/>
-      </svg>
-    </div>
+<a href="#inicio" class="logo">
+    <div class="logo-icon">F</div>
+    <div>Fit<span>Lab</span></div>
+</a>
 
-    <div class="brand-text">
-      <div class="brand-name">Fit<span>Lab</span></div>
-      <div class="brand-sub">Social Fitness</div>
-    </div>
-  </div>
+<nav>
+    <a href="#rutinas">Rutinas</a>
+    <a href="#ejercicios">Ejercicios</a>
+    <a href="#programas">Programas</a>
+    <a href="#tienda">🛍️ Tienda</a>
+    <a href="#preguntas">Preguntas</a>
+    <a href="social.html" class="nav-social">👥 Comunidad</a>
+</nav>
 
-  <div class="header-actions">
-
-    <button class="circle-btn" onclick="goHome()" title="Crear rutina">
-      <span class="icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 10.5 12 3l9 7.5"/>
-          <path d="M5 9.5V21h14V9.5"/>
-          <path d="M9 21v-6h6v6"/>
-        </svg>
-      </span>
-    </button>
-
-    <button class="circle-btn" onclick="openAuth()" title="Cuenta">
-      <span class="icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="3.5"/>
-          <path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/>
-        </svg>
-      </span>
-    </button>
-
-  </div>
+</div>
 
 </header>
 
 
-<main class="page">
+<main>
 
-<!-- =========================
-     INICIO
-========================= -->
+<!-- HERO -->
 
-<section id="feedSection" class="section active">
+<section class="hero" id="inicio">
 
-  <div class="hero">
+<div class="container">
 
-    <div class="hero-badge">
-      <span class="icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 3v18"/>
-          <path d="M3 12h18"/>
-          <path d="M5 5l14 14"/>
-          <path d="M19 5 5 19"/>
-        </svg>
-      </span>
-      COMUNIDAD FITLAB
-    </div>
+<div class="hero-content">
 
-    <h1>Entrena.<br>Comparte. Conecta.</h1>
+<div class="badge">
+    <span class="badge-dot"></span>
+    FITNESS PARA TU ESTILO DE VIDA
+</div>
 
-    <p>
-      Comparte tus progresos, descubre atletas y encuentra
-      contenido para llevar tu entrenamiento al siguiente nivel.
-    </p>
+<h1>
+    Entrena.<br>
+    <span>Comparte.</span><br>
+    Evoluciona.
+</h1>
 
-  </div>
+<p>
+    Crea una rutina de entrenamiento personalizada según tu objetivo,
+    nivel, lugar y tiempo disponible. Descubre ejercicios, programas
+    y una comunidad que también está trabajando para mejorar.
+</p>
 
+<div class="hero-buttons">
 
-  <div class="quick-actions">
+<a href="#rutinas" class="btn btn-primary">
+    ⚡ Crear mi rutina
+</a>
 
-    <button class="quick" onclick="openCreate()">
-      <div class="q-icon">
-        <span class="icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 5v14"/>
-            <path d="M5 12h14"/>
-          </svg>
-        </span>
-      </div>
-      <strong>Crear publicación</strong>
-      <small>Foto, video o texto</small>
-    </button>
+<a href="#ejercicios" class="btn btn-secondary">
+    💪 Explorar ejercicios
+</a>
 
-    <button class="quick" onclick="showSection('videos')">
-      <div class="q-icon">
-        <span class="icon">
-          <svg viewBox="0 0 24 24">
-            <path d="m9 7 8 5-8 5z"/>
-            <rect x="3" y="4" width="18" height="16" rx="3"/>
-          </svg>
-        </span>
-      </div>
-      <strong>Videos fitness</strong>
-      <small>Descubre entrenamientos</small>
-    </button>
+<a href="social.html" class="btn btn-secondary">
+    👥 Entrar a FitLab Social
+</a>
 
-  </div>
+</div>
 
+<div class="stats">
 
-  <div id="feedList"></div>
+<div class="stat">
+    <strong>1,000+</strong>
+    <span>combinaciones</span>
+</div>
 
-</section>
+<div class="stat">
+    <strong>15–60</strong>
+    <span>minutos</span>
+</div>
 
+<div class="stat">
+    <strong>Casa + Gym</strong>
+    <span>donde entrenes</span>
+</div>
 
-<!-- =========================
-     DESCUBRIR
-========================= -->
+<div class="stat">
+    <strong>100%</strong>
+    <span>personalizable</span>
+</div>
 
-<section id="discoverSection" class="section">
+</div>
 
-  <div class="section-title">Descubrir</div>
+</div>
 
-  <div class="section-subtitle">
-    Encuentra personas y atletas dentro de FitLab.
-  </div>
-
-  <div class="search-box">
-
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="6.5"/>
-        <path d="m16 16 5 5"/>
-      </svg>
-    </span>
-
-    <input
-      id="profileSearch"
-      placeholder="Buscar perfiles..."
-      oninput="searchProfiles()"
-    >
-
-  </div>
-
-  <div class="card">
-    <div id="profilesList"></div>
-  </div>
+</div>
 
 </section>
 
 
-<!-- =========================
-     CREAR
-========================= -->
+<!-- RUTINAS -->
 
-<section id="createSection" class="section">
+<section id="rutinas">
 
-  <div class="section-title">Crear</div>
+<div class="container">
 
-  <div class="section-subtitle">
-    Comparte algo con la comunidad FitLab.
-  </div>
+<div class="section-head">
 
-  <div class="card">
+<div class="mini">Generador FitLab</div>
 
-    <div class="create-type">
+<h2>Tu entrenamiento empieza aquí.</h2>
 
-      <button
-        id="typeText"
-        class="type-option active"
-        onclick="selectCreateType('text')">
-        Texto
-      </button>
+<p>
+Selecciona tus preferencias y crea una propuesta de entrenamiento
+adaptada a lo que buscas.
+</p>
 
-      <button
-        id="typeMedia"
-        class="type-option"
-        onclick="selectCreateType('media')">
-        Foto / Video
-      </button>
-
-    </div>
-
-    <textarea
-      id="postContent"
-      placeholder="¿Qué estás entrenando hoy?"
-    ></textarea>
-
-    <div id="mediaArea" class="file-box" style="display:none">
-
-      <strong>Agregar contenido</strong>
-
-      <div style="font-size:11px;color:#708077;margin-top:4px">
-        Selecciona una foto o video desde tu teléfono.
-      </div>
-
-      <input
-        id="postFile"
-        type="file"
-        accept="image/*,video/*"
-        onchange="previewPostFile()"
-      >
-
-      <div id="filePreview"></div>
-
-    </div>
-
-    <button class="btn full" onclick="createPost()">
-      <span class="icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M22 2 11 13"/>
-          <path d="m22 2-7 20-4-9-9-4z"/>
-        </svg>
-      </span>
-      Publicar
-    </button>
-
-  </div>
-
-</section>
+</div>
 
 
-<!-- =========================
-     VIDEOS
-========================= -->
+<div class="generator">
 
-<section id="videosSection" class="section">
+<div class="form-grid">
 
-  <div class="section-title">Videos fitness</div>
+<div class="field">
 
-  <div class="section-subtitle">
-    Encuentra videos de entrenamiento directamente desde YouTube.
-  </div>
+<label for="objetivo">Objetivo</label>
 
-  <div class="youtube-search">
+<select id="objetivo">
 
-    <input
-      id="youtubeSearch"
-      type="search"
-      placeholder="Buscar entrenamiento, pecho, pierna..."
-      onkeydown="if(event.key==='Enter') searchYouTube()"
-    >
+<option value="fuerza">💪 Ganar fuerza</option>
+<option value="musculo">🏋️ Ganar músculo</option>
+<option value="condicion">🔥 Mejorar condición</option>
+<option value="movilidad">🧘 Movilidad</option>
+<option value="grasa">⚡ Perder grasa</option>
 
-    <button onclick="searchYouTube()">
-      <span class="icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="6.5"/>
-          <path d="m16 16 5 5"/>
-        </svg>
-      </span>
-    </button>
+</select>
 
-  </div>
+</div>
 
-  <div class="categories">
 
-    <button class="category-btn active"
-      onclick="searchYouTube('fitness entrenamiento gimnasio ejercicios')">
-      Fitness
-    </button>
+<div class="field">
 
-    <button class="category-btn"
-      onclick="searchYouTube('pecho gimnasio entrenamiento')">
-      Pecho
-    </button>
+<label for="nivel">Nivel</label>
 
-    <button class="category-btn"
-      onclick="searchYouTube('pierna gimnasio entrenamiento')">
-      Pierna
-    </button>
+<select id="nivel">
 
-    <button class="category-btn"
-      onclick="searchYouTube('espalda gimnasio entrenamiento')">
-      Espalda
-    </button>
+<option value="principiante">Principiante</option>
+<option value="intermedio">Intermedio</option>
+<option value="avanzado">Avanzado</option>
 
-    <button class="category-btn"
-      onclick="searchYouTube('abdomen ejercicios')">
-      Abdomen
-    </button>
+</select>
 
-    <button class="category-btn"
-      onclick="searchYouTube('perder grasa cardio')">
-      Cardio
-    </button>
+</div>
 
-  </div>
 
-  <div id="youtubeContent" class="youtube-grid" style="margin-top:12px"></div>
+<div class="field">
+
+<label for="lugar">Lugar</label>
+
+<select id="lugar">
+
+<option value="casa">🏠 Casa</option>
+<option value="gimnasio">🏋️ Gimnasio</option>
+<option value="exterior">🌳 Exterior</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="duracion">Duración</label>
+
+<select id="duracion">
+
+<option value="15">15 minutos</option>
+<option value="20">20 minutos</option>
+<option value="30" selected>30 minutos</option>
+<option value="45">45 minutos</option>
+<option value="60">60 minutos</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="generator-actions">
+
+<button class="btn btn-primary" onclick="crearRutina()">
+    ⚡ Crear mi rutina
+</button>
+
+<button class="btn btn-secondary" onclick="document.getElementById('rutinaResultado').scrollIntoView({behavior:'smooth'})">
+    👀 Ver resultado
+</button>
+
+</div>
+
+
+<div id="rutinaResultado" class="routine-result">
+
+<h3 id="routineTitle">Tu rutina FitLab</h3>
+
+<p id="routineDescription"></p>
+
+<div id="routineList" class="routine-list"></div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     PERFIL
-========================= -->
+<!-- EJERCICIOS -->
 
-<section id="profileSection" class="section">
+<section id="ejercicios">
 
-  <div class="profile-cover"></div>
+<div class="container">
 
-  <div class="profile-card">
+<div class="section-head">
 
-    <div class="profile-top">
+<div class="mini">Biblioteca</div>
 
-      <img
-        id="profileAvatar"
-        class="avatar big"
-        alt="Perfil"
-      >
+<h2>Explora ejercicios.</h2>
 
-      <button class="btn small" onclick="openEditProfile()">
-        Editar perfil
-      </button>
+<p>
+Encuentra movimientos para entrenar diferentes grupos musculares
+sin importar dónde estés.
+</p>
 
-    </div>
+</div>
 
-    <div id="profileName" class="profile-name">
-      Usuario FitLab
-    </div>
 
-    <div id="profileBio" class="profile-bio">
-      Tu perfil fitness.
-    </div>
+<div class="search-box">
 
-    <div class="profile-stats">
+<input
+type="search"
+id="exerciseSearch"
+placeholder="Buscar ejercicio... ejemplo: sentadilla"
+oninput="buscarEjercicios()"
+>
 
-      <div class="stat" onclick="openFollowList('followers')">
-        <strong id="profileFollowers">0</strong>
-        <span>Seguidores</span>
-      </div>
+<button class="btn btn-primary" onclick="buscarEjercicios()">
+    Buscar
+</button>
 
-      <div class="stat" onclick="openFollowList('following')">
-        <strong id="profileFollowing">0</strong>
-        <span>Siguiendo</span>
-      </div>
+</div>
 
-      <div class="stat">
-        <strong id="profilePosts">0</strong>
-        <span>Publicaciones</span>
-      </div>
 
-    </div>
+<div id="exerciseGrid" class="exercise-grid">
 
-  </div>
+<div class="exercise" data-name="sentadilla piernas gluteos">
+<div class="exercise-icon">🦵</div>
+<h3>Sentadilla</h3>
+<p>Piernas y glúteos</p>
+</div>
 
-  <div style="height:15px"></div>
+<div class="exercise" data-name="flexiones pecho brazos">
+<div class="exercise-icon">💪</div>
+<h3>Flexiones</h3>
+<p>Pecho, hombros y tríceps</p>
+</div>
 
-  <div id="myPosts"></div>
+<div class="exercise" data-name="dominadas espalda brazos">
+<div class="exercise-icon">🏋️</div>
+<h3>Dominadas</h3>
+<p>Espalda y brazos</p>
+</div>
+
+<div class="exercise" data-name="zancadas piernas gluteos">
+<div class="exercise-icon">🦵</div>
+<h3>Zancadas</h3>
+<p>Piernas y glúteos</p>
+</div>
+
+<div class="exercise" data-name="plancha abdomen core">
+<div class="exercise-icon">🔥</div>
+<h3>Plancha</h3>
+<p>Core y abdomen</p>
+</div>
+
+<div class="exercise" data-name="burpees cardio condicion">
+<div class="exercise-icon">⚡</div>
+<h3>Burpees</h3>
+<p>Cardio y condición</p>
+</div>
+
+<div class="exercise" data-name="press pecho hombros">
+<div class="exercise-icon">🏋️</div>
+<h3>Press de banca</h3>
+<p>Pecho y tríceps</p>
+</div>
+
+<div class="exercise" data-name="peso muerto espalda piernas">
+<div class="exercise-icon">💪</div>
+<h3>Peso muerto</h3>
+<p>Espalda y piernas</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROGRAMAS -->
+
+<section id="programas">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="mini">Programas</div>
+
+<h2>Entrena con un plan.</h2>
+
+<p>
+Elige una duración y mantén el enfoque. La constancia es parte
+fundamental de cualquier objetivo fitness.
+</p>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card program">
+
+<div class="program-number">07</div>
+
+<h3>Programa 7 días</h3>
+
+<p>
+Ideal para comenzar y conocer tu ritmo.
+</p>
+
+<ul>
+<li>Activación diaria</li>
+<li>Entrenamientos cortos</li>
+<li>Trabajo de cuerpo completo</li>
+<li>Recuperación incluida</li>
+</ul>
+
+</div>
+
+
+<div class="card program">
+
+<div class="program-number">14</div>
+
+<h3>Programa 14 días</h3>
+
+<p>
+Dos semanas para construir consistencia.
+</p>
+
+<ul>
+<li>Rutinas progresivas</li>
+<li>Fuerza y condición</li>
+<li>Movilidad</li>
+<li>Días de recuperación</li>
+</ul>
+
+</div>
+
+
+<div class="card program">
+
+<div class="program-number">30</div>
+
+<h3>Programa 30 días</h3>
+
+<p>
+Un mes completo para establecer una rutina.
+</p>
+
+<ul>
+<li>Entrenamiento estructurado</li>
+<li>Progresión semanal</li>
+<li>Descanso estratégico</li>
+<li>Seguimiento del progreso</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TIENDA -->
+
+<section id="tienda">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="mini">FitLab Store</div>
+
+<h2>Equipo para entrenar mejor.</h2>
+
+<p>
+Descubre algunos productos y accesorios que pueden complementar
+tu entrenamiento.
+</p>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card shop-card">
+
+<div class="card-image">🥤</div>
+
+<div class="card-body">
+
+<div class="shop-name">Proteína</div>
+
+<div class="shop-note">
+Suplementación para complementar tu alimentación.
+</div>
+
+<span class="tag">FITNESS</span>
+
+</div>
+
+</div>
+
+
+<div class="card shop-card">
+
+<div class="card-image">🏋️</div>
+
+<div class="card-body">
+
+<div class="shop-name">Mancuernas</div>
+
+<div class="shop-note">
+Entrena fuerza en casa o gimnasio.
+</div>
+
+<span class="tag">EQUIPO</span>
+
+</div>
+
+</div>
+
+
+<div class="card shop-card">
+
+<div class="card-image">🧴</div>
+
+<div class="card-body">
+
+<div class="shop-name">Shaker</div>
+
+<div class="shop-note">
+Práctico para llevar tus bebidas.
+</div>
+
+<span class="tag">ACCESORIO</span>
+
+</div>
+
+</div>
+
+
+<div class="card shop-card">
+
+<div class="card-image">🧘</div>
+
+<div class="card-body">
+
+<div class="shop-name">Tapete fitness</div>
+
+<div class="shop-note">
+Ideal para movilidad, yoga y ejercicios en casa.
+</div>
+
+<span class="tag">ENTRENAMIENTO</span>
+
+</div>
+
+</div>
+
+
+<div class="card shop-card">
+
+<div class="card-image">🪢</div>
+
+<div class="card-body">
+
+<div class="shop-name">Cuerda</div>
+
+<div class="shop-note">
+Una herramienta sencilla para mejorar tu condición.
+</div>
+
+<span class="tag">CARDIO</span>
+
+</div>
+
+</div>
+
+
+<div class="card shop-card">
+
+<div class="card-image">⌚</div>
+
+<div class="card-body">
+
+<div class="shop-name">Accesorios fitness</div>
+
+<div class="shop-note">
+Complementos para acompañar tus entrenamientos.
+</div>
+
+<span class="tag">FITLAB</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMMUNITY -->
+
+<section>
+
+<div class="container">
+
+<div class="community">
+
+<div class="mini" style="color:var(--green);font-weight:900;letter-spacing:1.5px;">
+FITLAB SOCIAL
+</div>
+
+<h2>
+No entrenes solamente.<br>
+<strong>Forma parte de la comunidad.</strong>
+</h2>
+
+<p>
+Comparte fotos y videos de tus entrenamientos, sigue perfiles,
+descubre contenido fitness y conecta con otras personas.
+</p>
+
+<a href="social.html" class="btn btn-primary">
+    👥 Entrar a FitLab Social
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="preguntas">
+
+<div class="container">
+
+<div class="section-head">
+
+<div class="mini">Preguntas frecuentes</div>
+
+<h2>Preguntas sobre FitLab.</h2>
+
+</div>
+
+
+<div class="faq">
+
+<details>
+<summary>¿FitLab sirve para entrenar en casa?</summary>
+<p>
+Sí. Puedes seleccionar Casa como lugar de entrenamiento y utilizar
+ejercicios que requieren poco o ningún equipo.
+</p>
+</details>
+
+
+<details>
+<summary>¿Puedo entrenar en gimnasio?</summary>
+<p>
+Sí. El generador también contempla entrenamientos para gimnasio
+y puedes explorar diferentes ejercicios.
+</p>
+</details>
+
+
+<details>
+<summary>¿Cuánto tiempo necesito?</summary>
+<p>
+Puedes seleccionar sesiones de 15, 20, 30, 45 o 60 minutos.
+</p>
+</details>
+
+
+<details>
+<summary>¿FitLab reemplaza a un entrenador o profesional de salud?</summary>
+<p>
+No. FitLab es una herramienta informativa y de entrenamiento general.
+Si tienes una lesión, condición médica o dudas sobre tu capacidad
+para hacer ejercicio, consulta a un profesional cualificado.
+</p>
+</details>
+
+
+<details>
+<summary>¿Qué es FitLab Social?</summary>
+<p>
+Es el espacio comunitario de FitLab donde puedes compartir contenido,
+seguir perfiles y descubrir publicaciones relacionadas con fitness.
+</p>
+</details>
+
+</div>
+
+</div>
 
 </section>
 
 </main>
 
 
-<!-- =========================
-     BOTTOM NAV
-========================= -->
+<!-- FOOTER -->
 
-<nav class="bottom-nav">
+<footer>
 
-  <button id="navFeed" class="nav-btn active"
-    onclick="showSection('feed')">
+<div class="container">
 
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <path d="M3 11 12 3l9 8"/>
-        <path d="M5 10v11h14V10"/>
-        <path d="M9 21v-6h6v6"/>
-      </svg>
-    </span>
+<div class="footer-grid">
 
-    Inicio
-  </button>
+<div class="footer-brand">
 
+<a href="#inicio" class="logo">
+<div class="logo-icon">F</div>
+<div>Fit<span>Lab</span></div>
+</a>
 
-  <button id="navDiscover" class="nav-btn"
-    onclick="showSection('discover')">
-
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="6.5"/>
-        <path d="m16 16 5 5"/>
-      </svg>
-    </span>
-
-    Descubrir
-  </button>
-
-
-  <button id="navCreate" class="nav-btn"
-    onclick="showSection('create')">
-
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 8v8"/>
-        <path d="M8 12h8"/>
-      </svg>
-    </span>
-
-    Crear
-  </button>
-
-
-  <button id="navVideos" class="nav-btn"
-    onclick="showSection('videos')">
-
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="3"/>
-        <path d="m10 9 5 3-5 3z"/>
-      </svg>
-    </span>
-
-    Videos
-  </button>
-
-
-  <button id="navProfile" class="nav-btn"
-    onclick="showSection('profile')">
-
-    <span class="icon">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="3.5"/>
-        <path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/>
-      </svg>
-    </span>
-
-    Perfil
-  </button>
-
-</nav>
-
-
-<!-- =========================
-     AUTH
-========================= -->
-
-<div id="authModal" class="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <div class="modal-title">Tu cuenta FitLab</div>
-
-      <button class="close" onclick="closeModal('authModal')">×</button>
-    </div>
-
-    <div class="auth-tabs">
-
-      <button id="loginTab"
-        class="auth-tab active"
-        onclick="setAuthMode('login')">
-        Iniciar sesión
-      </button>
-
-      <button id="registerTab"
-        class="auth-tab"
-        onclick="setAuthMode('register')">
-        Crear cuenta
-      </button>
-
-    </div>
-
-    <div class="form-group">
-
-      <label class="form-label">Correo</label>
-
-      <input
-        id="authEmail"
-        class="input"
-        type="email"
-        placeholder="correo@ejemplo.com"
-      >
-
-    </div>
-
-    <div class="form-group">
-
-      <label class="form-label">Contraseña</label>
-
-      <input
-        id="authPassword"
-        class="input"
-        type="password"
-        placeholder="••••••••"
-      >
-
-    </div>
-
-    <div id="registerNameGroup"
-         class="form-group"
-         style="display:none">
-
-      <label class="form-label">Nombre</label>
-
-      <input
-        id="authName"
-        class="input"
-        placeholder="Tu nombre"
-      >
-
-    </div>
-
-    <button class="btn full" onclick="submitAuth()">
-      Continuar
-    </button>
-
-    <div id="authStatus"
-         style="text-align:center;color:#718078;font-size:11px;margin-top:12px">
-    </div>
-
-  </div>
+<p>
+Entrena, comparte y evoluciona. FitLab reúne herramientas,
+rutinas, ejercicios y comunidad en un solo lugar.
+</p>
 
 </div>
 
 
-<!-- =========================
-     EDIT PROFILE
-========================= -->
+<div class="footer-col">
 
-<div id="editProfileModal" class="modal">
+<h4>FitLab</h4>
 
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <div class="modal-title">
-        Editar perfil
-      </div>
-
-      <button class="close"
-        onclick="closeModal('editProfileModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div class="form-group">
-
-      <label class="form-label">
-        Nombre
-      </label>
-
-      <input id="editName"
-        class="input"
-        placeholder="Tu nombre">
-
-    </div>
-
-    <div class="form-group">
-
-      <label class="form-label">
-        Biografía
-      </label>
-
-      <textarea id="editBio"
-        placeholder="Cuéntale algo a la comunidad..."></textarea>
-
-    </div>
-
-    <div class="form-group">
-
-      <label class="form-label">
-        Foto de perfil
-      </label>
-
-      <input id="editAvatar"
-        class="input"
-        type="file"
-        accept="image/*">
-
-    </div>
-
-    <button class="btn full"
-      onclick="saveProfile()">
-      Guardar cambios
-    </button>
-
-  </div>
+<a href="#rutinas">Rutinas</a>
+<a href="#ejercicios">Ejercicios</a>
+<a href="#programas">Programas</a>
+<a href="#tienda">Tienda</a>
 
 </div>
 
 
-<!-- =========================
-     COMMENTS
-========================= -->
+<div class="footer-col">
 
-<div id="commentsModal" class="modal">
+<h4>Comunidad</h4>
 
-  <div class="modal-box">
+<a href="social.html">FitLab Social</a>
+<a href="#preguntas">Preguntas</a>
+<a href="#inicio">Inicio</a>
 
-    <div class="modal-head">
-
-      <div class="modal-title">
-        Comentarios
-      </div>
-
-      <button class="close"
-        onclick="closeModal('commentsModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div id="commentsList"></div>
-
-    <div class="comment-row">
-
-      <input id="commentInput"
-        class="input"
-        placeholder="Escribe un comentario..."
-        onkeydown="if(event.key==='Enter') addComment()">
-
-      <button class="btn"
-        onclick="addComment()">
-        Enviar
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- =========================
-     FOLLOW LIST
-========================= -->
+<div class="copyright">
 
-<div id="followListModal" class="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <div id="followListTitle"
-           class="modal-title">
-        Seguidores
-      </div>
-
-      <button class="close"
-        onclick="closeModal('followListModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div id="followList"
-         class="follow-list"></div>
-
-  </div>
+© <span id="year"></span> FitLab. Todos los derechos reservados.
 
 </div>
 
-
-<!-- =========================
-     USER PROFILE
-========================= -->
-
-<div id="userProfileModal" class="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <div class="modal-title">
-        Perfil
-      </div>
-
-      <button class="close"
-        onclick="closeModal('userProfileModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div id="userProfileContent"></div>
-
-  </div>
-
 </div>
 
-
-<!-- =========================
-     YOUTUBE PLAYER
-========================= -->
-
-<div id="youtubePlayerModal" class="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <div id="youtubePlayerTitle"
-           class="modal-title">
-        Video FitLab
-      </div>
-
-      <button class="close"
-        onclick="closeYouTubePlayer()">
-        ×
-      </button>
-
-    </div>
-
-    <div style="aspect-ratio:16/9;background:#000;border-radius:15px;overflow:hidden">
-
-      <iframe
-        id="youtubePlayer"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div id="toast" class="toast"></div>
+</footer>
 
 
 <script>
+
 /* =========================================================
-   CONFIGURACIÓN SUPABASE
+   AÑO
 ========================================================= */
 
-const SUPABASE_URL =
-  "https://ouunfknxeiouwuzyhsqr.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_rOCiKFhZioX9z2BAk-jw8Q_5wRjQvrd";
-
-const SUPABASE_PUBLISHABLE_KEY =
-  SUPABASE_KEY;
-
-const EDGE_FUNCTION =
-  "https://ouunfknxeiouwuzyhsqr.supabase.co/functions/v1/hyper-worker";
-
-const HYPER_WORKER_URL =
-  EDGE_FUNCTION;
-
-const STORAGE_BUCKET =
-  "post-media";
-
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+document.getElementById("year").textContent = new Date().getFullYear();
 
 
 /* =========================================================
-   ESTADO
+   GENERADOR DE RUTINAS
 ========================================================= */
 
-let currentUser = null;
-let currentProfile = null;
-let authMode = "login";
-let createType = "text";
-let selectedPostFile = null;
-let currentCommentPost = null;
-let youtubeLoading = false;
-let youtubeLastQuery = "";
-let currentFollowListType = "";
+function crearRutina(){
+
+    const objetivo =
+        document.getElementById("objetivo").value;
+
+    const nivel =
+        document.getElementById("nivel").value;
+
+    const lugar =
+        document.getElementById("lugar").value;
+
+    const duracion =
+        document.getElementById("duracion").value;
+
+
+    const objetivoTextos = {
+
+        fuerza:"ganar fuerza",
+
+        musculo:"ganar músculo",
+
+        condicion:"mejorar tu condición física",
+
+        movilidad:"mejorar movilidad",
+
+        grasa:"trabajar tu condición y apoyar un objetivo de pérdida de grasa"
+
+    };
+
+
+    const lugarTextos = {
+
+        casa:"casa",
+
+        gimnasio:"gimnasio",
+
+        exterior:"exterior"
+
+    };
+
+
+    const nivelTextos = {
+
+        principiante:"principiante",
+
+        intermedio:"intermedio",
+
+        avanzado:"avanzado"
+
+    };
+
+
+    const ejercicios = {
+
+        fuerza:[
+            "Sentadilla — 3 × 8-12",
+            "Flexiones — 3 × 8-12",
+            "Remo — 3 × 10-12",
+            "Zancadas — 3 × 10 por pierna",
+            "Plancha — 3 × 30-45 segundos"
+        ],
+
+        musculo:[
+            "Sentadilla — 4 × 8-12",
+            "Press de pecho — 4 × 8-12",
+            "Remo — 4 × 8-12",
+            "Curl de bíceps — 3 × 10-15",
+            "Extensión de tríceps — 3 × 10-15"
+        ],
+
+        condicion:[
+            "Jumping jacks — 40 segundos",
+            "Burpees — 30 segundos",
+            "Mountain climbers — 40 segundos",
+            "Sentadillas — 40 segundos",
+            "Plancha — 30 segundos"
+        ],
+
+        movilidad:[
+            "Movilidad de hombros — 60 segundos",
+            "Rotación torácica — 60 segundos",
+            "Movilidad de cadera — 60 segundos",
+            "Estiramiento de piernas — 60 segundos",
+            "Respiración y relajación — 2 minutos"
+        ],
+
+        grasa:[
+            "Sentadillas — 40 segundos",
+            "Mountain climbers — 30 segundos",
+            "Flexiones — 30 segundos",
+            "Zancadas — 40 segundos",
+            "Burpees — 30 segundos"
+        ]
+
+    };
+
+
+    const lista =
+        ejercicios[objetivo] || ejercicios.fuerza;
+
+
+    document.getElementById("routineTitle").textContent =
+        "🔥 Tu rutina de " + duracion + " minutos";
+
+
+    document.getElementById("routineDescription").textContent =
+        "Objetivo: " +
+        objetivoTextos[objetivo] +
+        ". Nivel: " +
+        nivelTextos[nivel] +
+        ". Lugar: " +
+        lugarTextos[lugar] +
+        ".";
+
+
+    const contenedor =
+        document.getElementById("routineList");
+
+
+    contenedor.innerHTML = "";
+
+
+    lista.forEach((ejercicio,index)=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className = "routine-item";
+
+        div.innerHTML =
+            "<strong>" +
+            (index + 1) +
+            ".</strong> " +
+            ejercicio;
+
+        contenedor.appendChild(div);
+
+    });
+
+
+    document
+        .getElementById("rutinaResultado")
+        .classList.add("show");
+
+
+    document
+        .getElementById("rutinaResultado")
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+}
 
 
 /* =========================================================
-   ICONO AVATAR
+   BUSCADOR DE EJERCICIOS
 ========================================================= */
 
-function defaultAvatar(name="FitLab"){
+function buscarEjercicios(){
 
-  const letter =
-    String(name || "F")
-      .trim()
-      .charAt(0)
-      .toUpperCase() || "F";
+    const texto =
+        document
+        .getElementById("exerciseSearch")
+        .value
+        .toLowerCase()
+        .trim();
 
-  return "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg"
-           width="200"
-           height="200"
-           viewBox="0 0 200 200">
-        <rect width="200" height="200" rx="50"
-              fill="#101b14"/>
-        <circle cx="100" cy="100" r="70"
-                fill="#17251b"/>
-        <text x="100"
-              y="122"
-              text-anchor="middle"
-              font-family="Arial"
-              font-size="70"
-              font-weight="900"
-              fill="#65ff9a">${letter}</text>
-      </svg>
-    `);
+
+    const ejercicios =
+        document.querySelectorAll(".exercise");
+
+
+    ejercicios.forEach(ejercicio=>{
+
+        const nombre =
+            ejercicio
+            .getAttribute("data-name")
+            .toLowerCase();
+
+
+        if(!texto || nombre.includes(texto)){
+
+            ejercicio.style.display = "";
+
+        }else{
+
+            ejercicio.style.display = "none";
+
+        }
+
+    });
+
 }
 
 
 /* =========================================================
-   UTILIDADES
+   ANIMACIÓN SUAVE DE TARJETAS
 ========================================================= */
 
-function escapeHTML(value){
+const observer =
+    new IntersectionObserver(
+        entries=>{
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+            entries.forEach(entry=>{
 
+                if(entry.isIntersecting){
 
-function toast(message){
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
 
-  const el =
-    document.getElementById("toast");
+                }
 
-  if(!el) return;
+            });
 
-  el.textContent = message;
-  el.classList.add("show");
-
-  clearTimeout(window.__toastTimer);
-
-  window.__toastTimer =
-    setTimeout(()=>{
-      el.classList.remove("show");
-    },2600);
-}
+        },
+        {
+            threshold:.08
+        }
+    );
 
 
-function openModal(id){
+document
+.querySelectorAll(".card,.exercise,.stat,.generator")
+.forEach(element=>{
 
-  const el =
-    document.getElementById(id);
+    element.style.opacity = "0";
+    element.style.transform = "translateY(12px)";
+    element.style.transition = "opacity .5s ease, transform .5s ease";
 
-  if(el){
-    el.classList.add("open");
-  }
-}
-
-
-function closeModal(id){
-
-  const el =
-    document.getElementById(id);
-
-  if(el){
-    el.classList.remove("open");
-  }
-}
-
-
-document.querySelectorAll(".modal").forEach(modal=>{
-
-  modal.addEventListener("click",e=>{
-
-    if(e.target === modal){
-      modal.classList.remove("open");
-    }
-
-  });
+    observer.observe(element);
 
 });
 
 
 /* =========================================================
-   NAVEGACIÓN
+   ATAJO ENTER EN BUSCADOR
 ========================================================= */
 
-function showSection(name){
+document
+.getElementById("exerciseSearch")
+.addEventListener("keydown",function(e){
 
-  const sections = {
-    feed:"feedSection",
-    discover:"discoverSection",
-    create:"createSection",
-    videos:"videosSection",
-    profile:"profileSection"
-  };
+    if(e.key === "Enter"){
 
-  Object.values(sections).forEach(id=>{
+        buscarEjercicios();
 
-    const el =
-      document.getElementById(id);
-
-    if(el){
-      el.classList.remove("active");
     }
 
-  });
-
-  const target =
-    document.getElementById(sections[name]);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn")
-    .forEach(btn=>btn.classList.remove("active"));
-
-  const navMap = {
-    feed:"navFeed",
-    discover:"navDiscover",
-    create:"navCreate",
-    videos:"navVideos",
-    profile:"navProfile"
-  };
-
-  const nav =
-    document.getElementById(navMap[name]);
-
-  if(nav){
-    nav.classList.add("active");
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  if(name === "feed"){
-    loadFeed();
-  }
-
-  if(name === "discover"){
-    searchProfiles();
-  }
-
-  if(name === "profile"){
-    loadMyProfile();
-  }
-
-  if(name === "videos"){
-
-    setTimeout(()=>{
-
-      if(
-        !youtubeLoading &&
-        document.getElementById("youtubeContent") &&
-        !document.getElementById("youtubeContent").dataset.loaded
-      ){
-
-        searchYouTube(
-          "fitness entrenamiento gimnasio ejercicios"
-        );
-
-      }
-
-    },100);
-
-  }
-
-}
-
-
-function goHome(){
-
-  window.location.href =
-    "index.html";
-}
+});
 
 
 /* =========================================================
-   AUTH
+   INTERACCIÓN DE NAVEGACIÓN
 ========================================================= */
 
-function openAuth(){
+document
+.querySelectorAll('a[href^="#"]')
+.forEach(link=>{
 
-  if(currentUser){
+    link.addEventListener("click",function(){
 
-    showSection("profile");
-    return;
+        const destino =
+            document.querySelector(
+                this.getAttribute("href")
+            );
 
-  }
+        if(destino){
 
-  openModal("authModal");
-
-}
-
-
-function setAuthMode(mode){
-
-  authMode = mode;
-
-  document.getElementById("loginTab")
-    .classList.toggle("active",mode==="login");
-
-  document.getElementById("registerTab")
-    .classList.toggle("active",mode==="register");
-
-  document.getElementById("registerNameGroup")
-    .style.display =
-      mode==="register"
-      ? "block"
-      : "none";
-
-  document.getElementById("authStatus")
-    .textContent = "";
-
-}
-
-
-async function submitAuth(){
-
-  const email =
-    document.getElementById("authEmail")
-      .value.trim();
-
-  const password =
-    document.getElementById("authPassword")
-      .value;
-
-  const name =
-    document.getElementById("authName")
-      .value.trim();
-
-  if(!email || !password){
-
-    toast("Escribe tu correo y contraseña.");
-    return;
-
-  }
-
-  const status =
-    document.getElementById("authStatus");
-
-  status.textContent =
-    "Conectando...";
-
-  try{
-
-    if(authMode === "login"){
-
-      const {data,error} =
-        await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
-      if(error) throw error;
-
-      currentUser =
-        data.user;
-
-      await ensureProfile();
-
-      closeModal("authModal");
-
-      toast("Sesión iniciada.");
-
-      await loadEverything();
-
-    }else{
-
-      const {data,error} =
-        await supabaseClient.auth.signUp({
-          email,
-          password,
-          options:{
-            data:{
-              full_name:
-                name || email.split("@")[0]
-            }
-          }
-        });
-
-      if(error) throw error;
-
-      if(data.user){
-
-        currentUser =
-          data.user;
-
-        await ensureProfile();
-
-        closeModal("authModal");
-
-        toast(
-          "Cuenta creada correctamente."
-        );
-
-        await loadEverything();
-
-      }
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-    status.textContent =
-      error.message ||
-      "No se pudo completar la operación.";
-
-  }
-
-}
-
-
-/* =========================================================
-   PERFIL SUPABASE
-========================================================= */
-
-async function ensureProfile(){
-
-  if(!currentUser){
-    return null;
-  }
-
-  try{
-
-    let {data,error} =
-      await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("user_id",currentUser.id)
-        .maybeSingle();
-
-    if(error){
-      console.warn(error);
-    }
-
-    if(!data){
-
-      const fullName =
-        currentUser.user_metadata?.full_name ||
-        currentUser.email?.split("@")[0] ||
-        "Usuario FitLab";
-
-      const insertData = {
-        user_id:currentUser.id,
-        full_name:fullName,
-        Email:currentUser.email || "",
-        avatar_url:defaultAvatar(fullName),
-        Bio:"",
-        user_type:"user",
-        is_verified:false
-      };
-
-      const result =
-        await supabaseClient
-          .from("profiles")
-          .insert(insertData)
-          .select()
-          .single();
-
-      if(!result.error){
-        data = result.data;
-      }
-
-    }
-
-    currentProfile =
-      data || null;
-
-    return currentProfile;
-
-  }catch(error){
-
-    console.warn(
-      "No se pudo cargar profile:",
-      error
-    );
-
-    return null;
-
-  }
-
-}
-
-
-/* =========================================================
-   CREAR PERFIL
-========================================================= */
-
-function openEditProfile(){
-
-  if(!currentUser){
-
-    openAuth();
-    return;
-
-  }
-
-  document.getElementById("editName")
-    .value =
-      currentProfile?.full_name ||
-      currentUser.user_metadata?.full_name ||
-      "";
-
-  document.getElementById("editBio")
-    .value =
-      currentProfile?.Bio ||
-      "";
-
-  document.getElementById("editAvatar")
-    .value = "";
-
-  openModal("editProfileModal");
-
-}
-
-
-async function saveProfile(){
-
-  if(!currentUser){
-
-    toast("Inicia sesión primero.");
-    return;
-
-  }
-
-  const name =
-    document.getElementById("editName")
-      .value.trim() ||
-      "Usuario FitLab";
-
-  const bio =
-    document.getElementById("editBio")
-      .value.trim();
-
-  const file =
-    document.getElementById("editAvatar")
-      .files[0];
-
-  let avatarUrl =
-    currentProfile?.avatar_url ||
-    defaultAvatar(name);
-
-  try{
-
-    if(file){
-
-      const ext =
-        file.name.split(".").pop() || "jpg";
-
-      const path =
-        `${currentUser.id}/avatar_${Date.now()}.${ext}`;
-
-      const upload =
-        await supabaseClient
-          .storage
-          .from(STORAGE_BUCKET)
-          .upload(
-            path,
-            file,
-            {
-              upsert:true,
-              contentType:file.type
-            }
-          );
-
-      if(upload.error){
-        throw upload.error;
-      }
-
-      const publicData =
-        supabaseClient
-          .storage
-          .from(STORAGE_BUCKET)
-          .getPublicUrl(path);
-
-      avatarUrl =
-        publicData.data.publicUrl;
-
-    }
-
-    const update =
-      await supabaseClient
-        .from("profiles")
-        .update({
-          full_name:name,
-          Bio:bio,
-          avatar_url:avatarUrl,
-          updated_at:new Date().toISOString()
-        })
-        .eq("user_id",currentUser.id);
-
-    if(update.error){
-      throw update.error;
-    }
-
-    await ensureProfile();
-
-    closeModal("editProfileModal");
-
-    toast("Perfil actualizado.");
-
-    await loadMyProfile();
-    await loadFeed();
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-      "No se pudo guardar el perfil: " +
-      (error.message || "")
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CREAR PUBLICACIÓN
-========================================================= */
-
-function openCreate(){
-
-  showSection("create");
-
-}
-
-
-function selectCreateType(type){
-
-  createType = type;
-
-  document.getElementById("typeText")
-    .classList.toggle(
-      "active",
-      type==="text"
-    );
-
-  document.getElementById("typeMedia")
-    .classList.toggle(
-      "active",
-      type==="media"
-    );
-
-  document.getElementById("mediaArea")
-    .style.display =
-      type==="media"
-      ? "block"
-      : "none";
-
-}
-
-
-function previewPostFile(){
-
-  const file =
-    document.getElementById("postFile")
-      .files[0];
-
-  selectedPostFile =
-    file || null;
-
-  const preview =
-    document.getElementById("filePreview");
-
-  preview.innerHTML = "";
-
-  if(!file){
-    return;
-  }
-
-  const url =
-    URL.createObjectURL(file);
-
-  if(file.type.startsWith("image/")){
-
-    preview.innerHTML =
-      `<img
-        src="${url}"
-        style="width:100%;max-height:300px;object-fit:cover;border-radius:14px;margin-top:10px"
-      >`;
-
-  }else if(file.type.startsWith("video/")){
-
-    preview.innerHTML =
-      `<video
-        src="${url}"
-        controls
-        style="width:100%;max-height:300px;border-radius:14px;margin-top:10px"
-      ></video>`;
-
-  }
-
-}
-
-
-async function uploadPostMedia(file){
-
-  if(!currentUser){
-    throw new Error("Debes iniciar sesión.");
-  }
-
-  const ext =
-    file.name.split(".").pop() || "bin";
-
-  const path =
-    `${currentUser.id}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-
-  const result =
-    await supabaseClient
-      .storage
-      .from(STORAGE_BUCKET)
-      .upload(
-        path,
-        file,
-        {
-          upsert:false,
-          contentType:file.type
-        }
-      );
-
-  if(result.error){
-    throw result.error;
-  }
-
-  const publicData =
-    supabaseClient
-      .storage
-      .from(STORAGE_BUCKET)
-      .getPublicUrl(path);
-
-  return publicData.data.publicUrl;
-
-}
-
-
-async function createPost(){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para publicar.");
-    openAuth();
-    return;
-
-  }
-
-  const content =
-    document.getElementById("postContent")
-      .value.trim();
-
-  if(!content && !selectedPostFile){
-
-    toast(
-      "Escribe algo o selecciona una foto/video."
-    );
-
-    return;
-
-  }
-
-  try{
-
-    let mediaUrl = null;
-    let mediaType = null;
-
-    if(selectedPostFile){
-
-      toast("Subiendo publicación...");
-
-      mediaUrl =
-        await uploadPostMedia(
-          selectedPostFile
-        );
-
-      mediaType =
-        selectedPostFile.type.startsWith("video/")
-          ? "video"
-          : "image";
-
-    }
-
-    const result =
-      await supabaseClient
-        .from("posts")
-        .insert({
-          user_id:currentUser.id,
-          content:content,
-          media_url:mediaUrl,
-          media_type:mediaType,
-          is_private:false
-        });
-
-    if(result.error){
-      throw result.error;
-    }
-
-    document.getElementById("postContent")
-      .value = "";
-
-    document.getElementById("postFile")
-      .value = "";
-
-    document.getElementById("filePreview")
-      .innerHTML = "";
-
-    selectedPostFile = null;
-
-    selectCreateType("text");
-
-    toast("Publicación creada.");
-
-    showSection("feed");
-
-    await loadFeed();
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-      "No se pudo publicar: " +
-      (error.message || "")
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   POSTS
-========================================================= */
-
-async function getPosts(){
-
-  const result =
-    await supabaseClient
-      .from("posts")
-      .select("*")
-      .order("created_at",{ascending:false})
-      .limit(100);
-
-  if(result.error){
-    console.error(result.error);
-    return [];
-  }
-
-  return result.data || [];
-
-}
-
-
-async function getProfilesMap(ids){
-
-  const unique =
-    [...new Set(
-      ids.filter(Boolean)
-    )];
-
-  if(!unique.length){
-    return {};
-  }
-
-  const result =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .in("user_id",unique);
-
-  const map = {};
-
-  (result.data || [])
-    .forEach(profile=>{
-      map[profile.user_id] =
-        profile;
-    });
-
-  return map;
-
-}
-
-
-function getLikes(){
-
-  try{
-    return JSON.parse(
-      localStorage.getItem("fitlab_likes") || "{}"
-    );
-  }catch{
-    return {};
-  }
-
-}
-
-
-function saveLikes(data){
-
-  localStorage.setItem(
-    "fitlab_likes",
-    JSON.stringify(data)
-  );
-
-}
-
-
-function getComments(){
-
-  try{
-    return JSON.parse(
-      localStorage.getItem("fitlab_comments") || "{}"
-    );
-  }catch{
-    return {};
-  }
-
-}
-
-
-function saveComments(data){
-
-  localStorage.setItem(
-    "fitlab_comments",
-    JSON.stringify(data)
-  );
-
-}
-
-
-function postLiked(id){
-
-  const likes =
-    getLikes();
-
-  return !!likes[id];
-
-}
-
-
-function toggleLike(id){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para dar Me gusta.");
-    openAuth();
-    return;
-
-  }
-
-  const likes =
-    getLikes();
-
-  likes[id] =
-    !likes[id];
-
-  saveLikes(likes);
-
-  loadFeed();
-
-}
-
-
-function renderPost(post,profileMap){
-
-  const profile =
-    profileMap[post.user_id] || {};
-
-  const name =
-    profile.full_name ||
-    "Usuario FitLab";
-
-  const avatar =
-    profile.avatar_url ||
-    defaultAvatar(name);
-
-  const liked =
-    postLiked(post.id);
-
-  const comments =
-    getComments()[post.id] || [];
-
-  const isOwner =
-    currentUser &&
-    currentUser.id === post.user_id;
-
-  const date =
-    post.created_at
-      ? new Date(post.created_at)
-          .toLocaleDateString(
-            "es-MX",
-            {
-              day:"numeric",
-              month:"short"
-            }
-          )
-      : "";
-
-  let media = "";
-
-  if(post.media_url){
-
-    if(post.media_type === "video"){
-
-      media =
-        `<video
-          class="post-media"
-          src="${escapeHTML(post.media_url)}"
-          controls
-          playsinline
-        ></video>`;
-
-    }else{
-
-      media =
-        `<img
-          class="post-media"
-          src="${escapeHTML(post.media_url)}"
-          loading="lazy"
-          alt="Publicación FitLab"
-        >`;
-
-    }
-
-  }
-
-  const commentsCount =
-    comments.length;
-
-  return `
-
-    <article class="card">
-
-      <div class="card-head">
-
-        <div
-          class="user"
-          onclick="openUserProfile('${escapeHTML(post.user_id)}')"
-          style="cursor:pointer"
-        >
-
-          <img
-            class="avatar"
-            src="${escapeHTML(avatar)}"
-            alt=""
-          >
-
-          <div>
-
-            <div class="user-name">
-              ${escapeHTML(name)}
-            </div>
-
-            <div class="user-meta">
-              ${date}
-              ${post.is_private ? " · 🔒 Privada" : ""}
-            </div>
-
-          </div>
-
-        </div>
-
-        ${
-          isOwner
-          ? `
-            <button
-              class="more-btn"
-              onclick="postMenu('${post.id}',${post.is_private ? "true":"false"})">
-              ⋮
-            </button>
-          `
-          : ""
-        }
-
-      </div>
-
-      ${
-        post.content
-        ? `
-          <div class="post-text">
-            ${escapeHTML(post.content)}
-          </div>
-        `
-        : ""
-      }
-
-      ${media}
-
-      <div class="post-actions">
-
-        <button
-          class="post-action ${liked ? "liked":""}"
-          onclick="toggleLike('${post.id}')">
-
-          <span class="icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.4z"/>
-            </svg>
-          </span>
-
-          ${liked ? "Te gusta" : "Me gusta"}
-
-        </button>
-
-        <button
-          class="post-action"
-          onclick="openComments('${post.id}')">
-
-          <span class="icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M20 11.5a7.5 7.5 0 0 1-7.8 7.5H7l-4 2v-9.5A7.5 7.5 0 0 1 10.5 4h1A7.5 7.5 0 0 1 20 11.5z"/>
-            </svg>
-          </span>
-
-          ${commentsCount}
-
-        </button>
-
-        <button
-          class="post-action"
-          onclick="sharePost('${post.id}')">
-
-          <span class="icon">
-            <svg viewBox="0 0 24 24">
-              <circle cx="18" cy="5" r="2.5"/>
-              <circle cx="6" cy="12" r="2.5"/>
-              <circle cx="18" cy="19" r="2.5"/>
-              <path d="m8.2 10.8 7.6-4.6"/>
-              <path d="m8.2 13.2 7.6 4.6"/>
-            </svg>
-          </span>
-
-          Compartir
-
-        </button>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-async function loadFeed(){
-
-  const container =
-    document.getElementById("feedList");
-
-  if(!container){
-    return;
-  }
-
-  container.innerHTML =
-    `<div class="empty">Cargando publicaciones...</div>`;
-
-  const posts =
-    await getPosts();
-
-  if(!posts.length){
-
-    container.innerHTML =
-      `
-      <div class="card empty">
-        <div style="font-size:30px;margin-bottom:8px">
-          ✦
-        </div>
-        Todavía no hay publicaciones.<br>
-        Sé el primero en compartir algo.
-      </div>
-      `;
-
-    return;
-
-  }
-
-  const profileMap =
-    await getProfilesMap(
-      posts.map(p=>p.user_id)
-    );
-
-  container.innerHTML =
-    posts
-      .map(post=>
-        renderPost(post,profileMap)
-      )
-      .join("");
-
-}
-
-
-async function loadMyPosts(){
-
-  const container =
-    document.getElementById("myPosts");
-
-  if(!container || !currentUser){
-    return;
-  }
-
-  const result =
-    await supabaseClient
-      .from("posts")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{ascending:false});
-
-  if(result.error){
-
-    container.innerHTML =
-      `<div class="card empty">No se pudieron cargar tus publicaciones.</div>`;
-
-    return;
-
-  }
-
-  const posts =
-    result.data || [];
-
-  document.getElementById("profilePosts")
-    .textContent =
-      posts.length;
-
-  if(!posts.length){
-
-    container.innerHTML =
-      `<div class="card empty">
-        Todavía no has publicado nada.
-      </div>`;
-
-    return;
-
-  }
-
-  const map =
-    await getProfilesMap(
-      posts.map(p=>p.user_id)
-    );
-
-  container.innerHTML =
-    posts
-      .map(post=>
-        renderPost(post,map)
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   MENÚ DE PUBLICACIÓN
-========================================================= */
-
-async function postMenu(id,isPrivate){
-
-  if(!currentUser){
-    return;
-  }
-
-  const action =
-    prompt(
-      isPrivate
-      ? "Escribe:\n1 = Hacer pública\n2 = Eliminar"
-      : "Escribe:\n1 = Poner privada\n2 = Eliminar"
-    );
-
-  if(action === "1"){
-
-    if(isPrivate){
-
-      if(confirm("¿Quieres volver pública esta publicación?")){
-        await makePostPublic(id);
-      }
-
-    }else{
-
-      if(confirm("¿Quieres poner privada esta publicación?")){
-        await makePostPrivate(id);
-      }
-
-    }
-
-  }else if(action === "2"){
-
-    if(
-      confirm(
-        "¿Seguro que quieres eliminar esta publicación?"
-      )
-    ){
-
-      await deletePost(id);
-
-    }
-
-  }
-
-}
-
-
-async function makePostPrivate(id){
-
-  const result =
-    await supabaseClient
-      .from("posts")
-      .update({
-        is_private:true
-      })
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
-
-  if(result.error){
-
-    toast(
-      "No se pudo hacer privada."
-    );
-
-    return;
-
-  }
-
-  toast("Publicación privada.");
-
-  await loadFeed();
-  await loadMyPosts();
-
-}
-
-
-async function makePostPublic(id){
-
-  const result =
-    await supabaseClient
-      .from("posts")
-      .update({
-        is_private:false
-      })
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
-
-  if(result.error){
-
-    toast(
-      "No se pudo hacer pública."
-    );
-
-    return;
-
-  }
-
-  toast("Publicación pública.");
-
-  await loadFeed();
-  await loadMyPosts();
-
-}
-
-
-async function deletePost(id){
-
-  const result =
-    await supabaseClient
-      .from("posts")
-      .delete()
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
-
-  if(result.error){
-
-    toast(
-      "No se pudo eliminar."
-    );
-
-    return;
-
-  }
-
-  toast("Publicación eliminada.");
-
-  await loadFeed();
-  await loadMyPosts();
-
-}
-
-
-/* =========================================================
-   COMENTARIOS
-========================================================= */
-
-function openComments(postId){
-
-  currentCommentPost =
-    postId;
-
-  renderComments();
-
-  openModal("commentsModal");
-
-}
-
-
-function renderComments(){
-
-  const container =
-    document.getElementById("commentsList");
-
-  const all =
-    getComments();
-
-  const list =
-    all[currentCommentPost] || [];
-
-  if(!list.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        Todavía no hay comentarios.
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    list.map(comment=>`
-
-      <div class="comment">
-
-        <img
-          class="avatar"
-          style="width:34px;height:34px;border-radius:11px"
-          src="${escapeHTML(comment.avatar || defaultAvatar(comment.name))}"
-        >
-
-        <div class="comment-body">
-
-          <strong>
-            ${escapeHTML(comment.name)}
-          </strong>
-
-          ${escapeHTML(comment.text)}
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-function addComment(){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para comentar.");
-    openAuth();
-    return;
-
-  }
-
-  const input =
-    document.getElementById("commentInput");
-
-  const text =
-    input.value.trim();
-
-  if(!text){
-    return;
-  }
-
-  const all =
-    getComments();
-
-  if(!all[currentCommentPost]){
-    all[currentCommentPost] = [];
-  }
-
-  all[currentCommentPost].push({
-    name:
-      currentProfile?.full_name ||
-      "Usuario FitLab",
-    avatar:
-      currentProfile?.avatar_url ||
-      defaultAvatar(
-        currentProfile?.full_name
-      ),
-    text,
-    created_at:
-      new Date().toISOString()
-  });
-
-  saveComments(all);
-
-  input.value = "";
-
-  renderComments();
-
-  loadFeed();
-
-}
-
-
-/* =========================================================
-   COMPARTIR
-========================================================= */
-
-async function sharePost(id){
-
-  const url =
-    location.origin +
-    location.pathname +
-    "?post=" +
-    encodeURIComponent(id);
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share({
-        title:"FitLab Social",
-        text:"Mira esta publicación en FitLab.",
-        url
-      });
-
-    }else{
-
-      await navigator.clipboard.writeText(url);
-
-      toast("Enlace copiado.");
-
-    }
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-
-}
-
-
-/* =========================================================
-   FOLLOW
-========================================================= */
-
-function getLocalFollowing(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        "fitlab_following"
-      ) || "[]"
-    );
-
-  }catch{
-    return [];
-  }
-
-}
-
-
-function saveLocalFollowing(list){
-
-  localStorage.setItem(
-    "fitlab_following",
-    JSON.stringify(list)
-  );
-
-}
-
-
-async function getFollowingIds(){
-
-  if(!currentUser){
-    return [];
-  }
-
-  try{
-
-    const result =
-      await supabaseClient
-        .from("follows")
-        .select("following_id")
-        .eq("follower_id",currentUser.id);
-
-    if(!result.error){
-
-      return (result.data || [])
-        .map(row=>row.following_id);
-
-    }
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-  return getLocalFollowing();
-
-}
-
-
-async function isFollowing(targetId){
-
-  if(!currentUser){
-    return false;
-  }
-
-  try{
-
-    const result =
-      await supabaseClient
-        .from("follows")
-        .select("id")
-        .eq("follower_id",currentUser.id)
-        .eq("following_id",targetId)
-        .maybeSingle();
-
-    if(!result.error){
-      return !!result.data;
-    }
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-  return getLocalFollowing()
-    .includes(targetId);
-
-}
-
-
-async function toggleFollow(targetId){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para seguir perfiles.");
-    openAuth();
-    return;
-
-  }
-
-  if(targetId === currentUser.id){
-
-    toast("No puedes seguirte a ti mismo.");
-    return;
-
-  }
-
-  try{
-
-    const check =
-      await supabaseClient
-        .from("follows")
-        .select("id")
-        .eq("follower_id",currentUser.id)
-        .eq("following_id",targetId)
-        .maybeSingle();
-
-    if(!check.error){
-
-      if(check.data){
-
-        const del =
-          await supabaseClient
-            .from("follows")
-            .delete()
-            .eq("id",check.data.id);
-
-        if(del.error){
-          throw del.error;
-        }
-
-        toast("Dejaste de seguir.");
-
-      }else{
-
-        const ins =
-          await supabaseClient
-            .from("follows")
-            .insert({
-              follower_id:currentUser.id,
-              following_id:targetId
+            destino.scrollIntoView({
+                behavior:"smooth"
             });
 
-        if(ins.error){
-          throw ins.error;
         }
 
-        toast("Ahora sigues este perfil.");
+    });
 
-      }
-
-      await loadMyProfile();
-      await searchProfiles();
-
-      return;
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "Usando seguimiento local:",
-      error
-    );
-
-  }
-
-  let list =
-    getLocalFollowing();
-
-  if(list.includes(targetId)){
-
-    list =
-      list.filter(id=>id!==targetId);
-
-    toast("Dejaste de seguir.");
-
-  }else{
-
-    list.push(targetId);
-
-    toast("Ahora sigues este perfil.");
-
-  }
-
-  saveLocalFollowing(list);
-
-  await searchProfiles();
-  await loadMyProfile();
-
-}
-
-
-/* =========================================================
-   BUSCAR PERFILES
-========================================================= */
-
-async function searchProfiles(){
-
-  const container =
-    document.getElementById("profilesList");
-
-  if(!container){
-    return;
-  }
-
-  const query =
-    document.getElementById("profileSearch")
-      ?.value
-      .trim()
-      .toLowerCase() || "";
-
-  container.innerHTML =
-    `<div class="empty">Buscando perfiles...</div>`;
-
-  let result =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .limit(60);
-
-  if(result.error){
-
-    container.innerHTML =
-      `<div class="empty">
-        No se pudieron cargar los perfiles.
-      </div>`;
-
-    return;
-
-  }
-
-  let profiles =
-    result.data || [];
-
-  if(currentUser){
-
-    profiles =
-      profiles.filter(
-        profile =>
-          profile.user_id !== currentUser.id
-      );
-
-  }
-
-  if(query){
-
-    profiles =
-      profiles.filter(profile=>
-        String(profile.full_name || "")
-          .toLowerCase()
-          .includes(query)
-        ||
-        String(profile.Bio || "")
-          .toLowerCase()
-          .includes(query)
-      );
-
-  }
-
-  if(!profiles.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        No encontramos perfiles.
-      </div>`;
-
-    return;
-
-  }
-
-  const following =
-    new Set(
-      await getFollowingIds()
-    );
-
-  container.innerHTML =
-    profiles.map(profile=>`
-
-      <div class="profile-result">
-
-        <img
-          class="avatar"
-          src="${escapeHTML(
-            profile.avatar_url ||
-            defaultAvatar(profile.full_name)
-          )}"
-        >
-
-        <div
-          class="profile-result-info"
-          onclick="openUserProfile('${escapeHTML(profile.user_id)}')"
-          style="cursor:pointer"
-        >
-
-          <div class="profile-result-name">
-            ${escapeHTML(
-              profile.full_name ||
-              "Usuario FitLab"
-            )}
-          </div>
-
-          <div class="profile-result-bio">
-            ${escapeHTML(
-              profile.Bio ||
-              "Perfil fitness"
-            )}
-          </div>
-
-        </div>
-
-        <button
-          class="btn small ${following.has(profile.user_id) ? "dark":""}"
-          onclick="toggleFollow('${escapeHTML(profile.user_id)}')">
-
-          ${
-            following.has(profile.user_id)
-            ? "Siguiendo"
-            : "Seguir"
-          }
-
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* =========================================================
-   LISTA DE SEGUIDORES / SIGUIENDO
-========================================================= */
-
-async function openFollowList(type){
-
-  if(!currentUser){
-
-    toast("Inicia sesión para ver tus conexiones.");
-    openAuth();
-    return;
-
-  }
-
-  currentFollowListType =
-    type;
-
-  document.getElementById("followListTitle")
-    .textContent =
-      type === "followers"
-      ? "Tus seguidores"
-      : "Personas que sigues";
-
-  openModal("followListModal");
-
-  await loadFollowList(type);
-
-}
-
-
-async function loadFollowList(type){
-
-  const container =
-    document.getElementById("followList");
-
-  container.innerHTML =
-    `<div class="empty">Cargando...</div>`;
-
-  let rows = [];
-
-  try{
-
-    if(type === "followers"){
-
-      const result =
-        await supabaseClient
-          .from("follows")
-          .select("follower_id")
-          .eq("following_id",currentUser.id);
-
-      if(result.error){
-        throw result.error;
-      }
-
-      rows =
-        (result.data || [])
-          .map(row=>row.follower_id);
-
-    }else{
-
-      const result =
-        await supabaseClient
-          .from("follows")
-          .select("following_id")
-          .eq("follower_id",currentUser.id);
-
-      if(result.error){
-        throw result.error;
-      }
-
-      rows =
-        (result.data || [])
-          .map(row=>row.following_id);
-
-    }
-
-  }catch(error){
-
-    rows =
-      type === "following"
-      ? getLocalFollowing()
-      : [];
-
-  }
-
-  if(!rows.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        ${
-          type === "followers"
-          ? "Todavía no tienes seguidores."
-          : "Todavía no sigues a nadie."
-        }
-      </div>`;
-
-    return;
-
-  }
-
-  const result =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .in("user_id",rows);
-
-  const profiles =
-    result.data || [];
-
-  container.innerHTML =
-    profiles.map(profile=>`
-
-      <div class="profile-result">
-
-        <img
-          class="avatar"
-          src="${escapeHTML(
-            profile.avatar_url ||
-            defaultAvatar(profile.full_name)
-          )}"
-        >
-
-        <div
-          class="profile-result-info"
-          onclick="openUserProfile('${escapeHTML(profile.user_id)}')"
-        >
-
-          <div class="profile-result-name">
-            ${escapeHTML(
-              profile.full_name ||
-              "Usuario FitLab"
-            )}
-          </div>
-
-          <div class="profile-result-bio">
-            ${escapeHTML(
-              profile.Bio ||
-              "Perfil fitness"
-            )}
-          </div>
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* =========================================================
-   PERFIL PROPIO
-========================================================= */
-
-async function loadMyProfile(){
-
-  if(!currentUser){
-
-    document.getElementById("profileName")
-      .textContent =
-        "Inicia sesión";
-
-    document.getElementById("profileBio")
-      .textContent =
-        "Crea tu cuenta para tener tu perfil FitLab.";
-
-    document.getElementById("profileAvatar")
-      .src =
-        defaultAvatar("F");
-
-    return;
-
-  }
-
-  await ensureProfile();
-
-  const name =
-    currentProfile?.full_name ||
-    "Usuario FitLab";
-
-  document.getElementById("profileName")
-    .textContent =
-      name;
-
-  document.getElementById("profileBio")
-    .textContent =
-      currentProfile?.Bio ||
-      "Perfil fitness de FitLab.";
-
-  document.getElementById("profileAvatar")
-    .src =
-      currentProfile?.avatar_url ||
-      defaultAvatar(name);
-
-  let followers = 0;
-  let following = 0;
-
-  try{
-
-    const followerResult =
-      await supabaseClient
-        .from("follows")
-        .select("id",{count:"exact",head:true})
-        .eq("following_id",currentUser.id);
-
-    const followingResult =
-      await supabaseClient
-        .from("follows")
-        .select("id",{count:"exact",head:true})
-        .eq("follower_id",currentUser.id);
-
-    if(!followerResult.error){
-      followers =
-        followerResult.count || 0;
-    }
-
-    if(!followingResult.error){
-      following =
-        followingResult.count || 0;
-    }
-
-  }catch(error){
-
-    following =
-      getLocalFollowing().length;
-
-  }
-
-  document.getElementById("profileFollowers")
-    .textContent =
-      followers;
-
-  document.getElementById("profileFollowing")
-    .textContent =
-      following;
-
-  await loadMyPosts();
-
-}
-
-
-/* =========================================================
-   PERFIL DE OTRO USUARIO
-========================================================= */
-
-async function openUserProfile(userId){
-
-  const container =
-    document.getElementById(
-      "userProfileContent"
-    );
-
-  container.innerHTML =
-    `<div class="empty">Cargando perfil...</div>`;
-
-  openModal("userProfileModal");
-
-  const profileResult =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .eq("user_id",userId)
-      .maybeSingle();
-
-  if(profileResult.error ||
-     !profileResult.data){
-
-    container.innerHTML =
-      `<div class="empty">
-        No encontramos este perfil.
-      </div>`;
-
-    return;
-
-  }
-
-  const profile =
-    profileResult.data;
-
-  const following =
-    await isFollowing(userId);
-
-  const postsResult =
-    await supabaseClient
-      .from("posts")
-      .select("*")
-      .eq("user_id",userId)
-      .eq("is_private",false)
-      .order("created_at",{ascending:false});
-
-  const posts =
-    postsResult.data || [];
-
-  const map = {};
-  map[userId] = profile;
-
-  container.innerHTML = `
-
-    <div style="text-align:center">
-
-      <img
-        class="avatar big"
-        style="margin:auto"
-        src="${escapeHTML(
-          profile.avatar_url ||
-          defaultAvatar(profile.full_name)
-        )}"
-      >
-
-      <div class="profile-name">
-        ${escapeHTML(
-          profile.full_name ||
-          "Usuario FitLab"
-        )}
-      </div>
-
-      <div class="profile-bio">
-        ${escapeHTML(
-          profile.Bio ||
-          "Perfil fitness"
-        )}
-      </div>
-
-      ${
-        currentUser &&
-        currentUser.id !== userId
-        ? `
-          <button
-            class="btn"
-            style="margin-top:13px"
-            onclick="toggleFollow('${escapeHTML(userId)}');setTimeout(()=>openUserProfile('${escapeHTML(userId)}'),400)">
-
-            ${
-              following
-              ? "Siguiendo"
-              : "Seguir"
-            }
-
-          </button>
-        `
-        : ""
-      }
-
-    </div>
-
-    <div style="margin-top:20px">
-
-      ${
-        posts.length
-        ? posts
-            .map(post=>
-              renderPost(post,map)
-            )
-            .join("")
-        : `
-          <div class="empty">
-            Este perfil todavía no tiene publicaciones públicas.
-          </div>
-        `
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   YOUTUBE
-========================================================= */
-
-/* =========================================================  
-   YOUTUBE  
-========================================================= */  
-  
-/*  
-  IMPORTANTE:  
-  Esta página NO contiene la API Key de YouTube.  
-  
-  La página llama a:  
-  Supabase Edge Function  
-          ↓  
-      hyper-worker  
-          ↓  
-      YouTube API  
-          ↓  
-        videos  
-          ↓  
-      FitLab Social  
-*/  
-  
-  
-window.searchYouTube = async function(categoryQuery){  
-  
-  const input =  
-    document.getElementById(  
-      "youtubeSearch"  
-    );  
-  
-  let query =  
-    categoryQuery ||  
-    input?.value.trim() ||  
-    "";  
-  
-  if(!query){  
-  
-    query =  
-      "fitness entrenamiento gimnasio ejercicios";  
-  }  
-  
-  if(input){  
-  
-    input.value =  
-      categoryQuery || input.value;  
-  }  
-  
-  document  
-    .querySelectorAll(".category-btn")  
-    .forEach(btn=>{  
-      btn.classList.remove("active");  
-    });  
-  
-  if(categoryQuery){  
-  
-    const buttons =  
-      document.querySelectorAll(  
-        ".category-btn"  
-      );  
-  
-    buttons.forEach(btn=>{  
-  
-      if(  
-        btn.textContent  
-          .toLowerCase()  
-          .includes(  
-            categoryQuery  
-              .split(" ")[0]  
-              .toLowerCase()  
-          )  
-      ){  
-        btn.classList.add("active");  
-      }  
-    });  
-  }  
-  
-  await loadYouTubeVideos(  
-    query  
-  );  
-};  
-  
-  
-async function loadYouTubeVideos(query){  
-  
-  if(youtubeLoading){  
-    return;  
-  }  
-  
-  youtubeLoading = true;  
-  
-  youtubeLastQuery =  
-    query ||  
-    "fitness entrenamiento gimnasio ejercicios";  
-  
-  const content =  
-    document.getElementById(  
-      "youtubeContent"  
-    );  
-  
-  if(!content){  
-    youtubeLoading = false;  
-    return;  
-  }  
-  
-  content.dataset.loaded =  
-    "loading";  
-  
-  content.innerHTML = `  
-    <div class="video-loading">  
-      <div style="font-size:30px;margin-bottom:8px;">  
-        🎥  
-      </div>  
-      Buscando videos...  
-    </div>  
-  `;  
-  
-  try{  
-  
-    const url =  
-      HYPER_WORKER_URL +  
-      "?q=" +  
-      encodeURIComponent(  
-        youtubeLastQuery  
-      ) +  
-      "&maxResults=12";  
-  
-    const response =  
-      await fetch(  
-        url,  
-        {  
-          method:"GET",  
-          headers:{  
-            "apikey":  
-              SUPABASE_PUBLISHABLE_KEY,  
-  
-            "Authorization":  
-              "Bearer " +  
-              SUPABASE_PUBLISHABLE_KEY,  
-  
-            "Content-Type":  
-              "application/json"  
-          }  
-        }  
-      );  
-  
-    const rawText =  
-      await response.text();  
-  
-    let data = null;  
-  
-    try{  
-  
-      data =  
-        JSON.parse(rawText);  
-  
-    }catch{  
-  
-      data = {  
-        raw:rawText  
-      };  
-    }  
-  
-    if(!response.ok){  
-  
-      console.error(  
-        "hyper-worker:",  
-        response.status,  
-        data  
-      );  
-  
-      throw new Error(  
-        data?.error ||  
-        data?.message ||  
-        `Error ${response.status}`  
-      );  
-    }  
-  
-    /*  
-      Permitimos varias estructuras de respuesta  
-      para que el frontend sea compatible con  
-      diferentes versiones del worker.  
-    */  
-  
-    let videos = [];  
-  
-    if(Array.isArray(data)){  
-      videos = data;  
-    }  
-    else if(Array.isArray(data?.videos)){  
-      videos = data.videos;  
-    }  
-    else if(Array.isArray(data?.items)){  
-      videos = data.items;  
-    }  
-    else if(Array.isArray(data?.results)){  
-      videos = data.results;  
-    }  
-  
-    videos =  
-      videos  
-        .map(normalizeYouTubeVideo)  
-        .filter(video=>video.id);  
-  
-    if(!videos.length){  
-  
-      content.innerHTML = `  
-        <div class="video-loading">  
-          <div style="font-size:35px;margin-bottom:8px;">  
-            🔎  
-          </div>  
-  
-          <div style="font-weight:900;margin-bottom:5px;">  
-            No encontramos videos  
-          </div>  
-  
-          <div>  
-            Prueba con otra búsqueda.  
-          </div>  
-        </div>  
-      `;  
-  
-      content.dataset.loaded =  
-        "true";  
-  
-      return;  
-    }  
-  
-    renderYouTubeVideos(  
-      videos  
-    );  
-  
-    content.dataset.loaded =  
-      "true";  
-  
-  }catch(error){  
-  
-    console.error(  
-      "Error YouTube:",  
-      error  
-    );  
-  
-    content.innerHTML = `  
-      <div class="video-error">  
-  
-        <div style="font-size:30px;">  
-          ⚠️  
-        </div>  
-  
-        <div style="font-weight:900;margin-top:8px;">  
-          No se pudieron cargar los videos  
-        </div>  
-  
-        <div style="font-size:12px;margin-top:7px;">  
-          ${escapeHTML(  
-            error?.message ||  
-            "Error de conexión"  
-          )}  
-        </div>  
-  
-        <button  
-          class="secondary"  
-          onclick="loadYouTubeVideos(youtubeLastQuery)">  
-          🔄 Intentar nuevamente  
-        </button>  
-  
-      </div>  
-    `;  
-  
-    content.dataset.loaded =  
-      "error";  
-  
-  }finally{  
-  
-    youtubeLoading = false;  
-  }  
-}  
-  
-  
-function normalizeYouTubeVideo(item){  
-  
-  /*  
-    Formato 1:  
-    {  
-      id,  
-      title,  
-      channel,  
-      thumbnail  
-    }  
-  
-    Formato 2:  
-    YouTube Data API:  
-    {  
-      id:{videoId},  
-      snippet:{title,channelTitle,thumbnails}  
-    }  
-  */  
-  
-  let id = "";  
-  let title = "";  
-  let channel = "";  
-  let thumbnail = "";  
-  
-  if(typeof item === "string"){  
-  
-    id =  
-      extractYouTubeId(  
-        item  
-      );  
-  
-  }else if(item){  
-  
-    if(typeof item.id === "string"){  
-  
-      id = item.id;  
-  
-    }else if(  
-      item.id &&  
-      typeof item.id.videoId === "string"  
-    ){  
-  
-      id =  
-        item.id.videoId;  
-    }  
-  
-    title =  
-      item.title ||  
-      item.name ||  
-      item.snippet?.title ||  
-      "";  
-  
-    channel =  
-      item.channel ||  
-      item.channelTitle ||  
-      item.snippet?.channelTitle ||  
-      "";  
-  
-    thumbnail =  
-      item.thumbnail ||  
-      item.thumbnail_url ||  
-      item.snippet?.thumbnails?.high?.url ||  
-      item.snippet?.thumbnails?.medium?.url ||  
-      item.snippet?.thumbnails?.default?.url ||  
-      "";  
-  }  
-  
-  if(!thumbnail && id){  
-  
-    thumbnail =  
-      `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;  
-  }  
-  
-  return {  
-    id,  
-    title:  
-      title ||  
-      "Video de YouTube",  
-  
-    channel:  
-      channel ||  
-      "YouTube",  
-  
-    thumbnail  
-  };  
-}  
-  
-  
-function extractYouTubeId(value){  
-  
-  if(!value){  
-    return "";  
-  }  
-  
-  const text =  
-    String(value).trim();  
-  
-  if(  
-    /^[a-zA-Z0-9_-]{11}$/.test(text)  
-  ){  
-    return text;  
-  }  
-  
-  const patterns = [  
-  
-    /youtube\.com\/watch\?v=([^&]+)/i,  
-  
-    /youtu\.be\/([^?&/]+)/i,  
-  
-    /youtube\.com\/embed\/([^?&/]+)/i,  
-  
-    /youtube\.com\/shorts\/([^?&/]+)/i  
-  
-  ];  
-  
-  for(const pattern of patterns){  
-  
-    const match =  
-      text.match(pattern);  
-  
-    if(match){  
-      return match[1];  
-    }  
-  }  
-  
-  return "";  
-}  
-  
-  
-function renderYouTubeVideos(videos){  
-  
-  const content =  
-    document.getElementById(  
-      "youtubeContent"  
-    );  
-  
-  if(!content){  
-    return;  
-  }  
-  
-  content.innerHTML =  
-    videos  
-      .map(video=>`  
-  
-        <article  
-          class="youtube-card"  
-          onclick="  
-            playYouTubeVideo(  
-              '${escapeHTML(video.id)}',  
-              '${escapeHTML(video.title)}'  
-            )  
-          ">  
-  
-          <div class="youtube-thumb-wrap">  
-  
-            <img  
-              class="youtube-thumb"  
-              loading="lazy"  
-              src="${escapeHTML(video.thumbnail)}"  
-              alt="${escapeHTML(video.title)}"  
-              onerror="  
-                this.src='https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg'  
-              ">  
-  
-            <div class="youtube-play">  
-              ▶  
-            </div>  
-  
-          </div>  
-  
-          <div class="youtube-info">  
-  
-            <div class="youtube-title">  
-              ${escapeHTML(video.title)}  
-            </div>  
-  
-            <div class="youtube-channel">  
-              ${escapeHTML(video.channel)}  
-            </div>  
-  
-            <div class="youtube-source">  
-              YouTube  
-            </div>  
-  
-          </div>  
-  
-        </article>  
-  
-      `)  
-      .join("");  
-}  
-  
-  
-window.playYouTubeVideo = function(videoId,title){  
-  
-  if(!videoId){  
-    return;  
-  }  
-  
-  const iframe =  
-    document.getElementById(  
-      "youtubePlayer"  
-    );  
-  
-  const titleElement =  
-    document.getElementById(  
-      "youtubePlayerTitle"  
-    );  
-  
-  /*  
-    El video se reproduce mediante  
-    el reproductor oficial de YouTube.  
-  */  
-  
-  iframe.src =  
-    "https://www.youtube.com/embed/" +  
-    encodeURIComponent(videoId) +  
-    "?autoplay=1&rel=0&playsinline=1";  
-  
-  titleElement.textContent =  
-    title || "Video FitLab";  
-  
-  openModal(  
-    "youtubePlayerModal"  
-  );  
-};  
-  
-  
-window.closeYouTubePlayer = function(){  
-  
-  const iframe =  
-    document.getElementById(  
-      "youtubePlayer"  
-    );  
-  
-  iframe.src = "";  
-  
-  closeModal(  
-    "youtubePlayerModal"  
-  );  
-};  
-
-
-/* =========================================================
-   CARGA INICIAL
-========================================================= */
-
-async function loadEverything(){
-
-  try{
-
-    await ensureProfile();
-
-    await loadFeed();
-
-    await loadMyProfile();
-
-    await searchProfiles();
-
-  }catch(error){
-
-    console.error(
-      "Error cargando FitLab:",
-      error
-    );
-
-  }
-
-}
-
-
-async function init(){
-
-  try{
-
-    const sessionResult =
-      await supabaseClient.auth.getSession();
-
-    currentUser =
-      sessionResult.data?.session?.user ||
-      null;
-
-    if(currentUser){
-
-      await ensureProfile();
-
-    }
-
-    await loadFeed();
-
-    if(currentUser){
-
-      await loadMyProfile();
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Error inicial:",
-      error
-    );
-
-  }
-
-}
-
-
-supabaseClient.auth.onAuthStateChange(
-  async(event,session)=>{
-
-    currentUser =
-      session?.user || null;
-
-    if(currentUser){
-
-      await ensureProfile();
-
-      await loadEverything();
-
-    }else{
-
-      currentProfile = null;
-
-      await loadFeed();
-
-    }
-
-  }
-);
-
-
-init();
+});
 
 </script>
 
