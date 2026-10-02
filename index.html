@@ -2,2319 +2,1371 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-<title>FitLab | Rutinas, ejercicios, entrenamiento y comunidad fitness</title>
+<title>FitLab Social | Comunidad Fitness</title>
 
-<meta name="description" content="FitLab: crea rutinas personalizadas, descubre ejercicios, sigue programas de entrenamiento y entra a una comunidad fitness donde puedes compartir fotos, videos y progreso.">
-<meta name="keywords" content="FitLab, rutinas de ejercicio, rutinas personalizadas, ejercicios, entrenamiento, gimnasio, ejercicio en casa, fitness, ganar músculo, perder grasa, fuerza, movilidad, programas de entrenamiento, comunidad fitness, videos fitness">
-<meta name="author" content="FitLab">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="description" content="FitLab Social: comparte entrenamientos, fotos y videos, sigue perfiles fitness y descubre contenido de la comunidad.">
+<meta name="theme-color" content="#07110d">
 
-<meta name="theme-color" content="#050807">
-<meta name="color-scheme" content="dark">
-
-<link rel="canonical" href="https://cberroteran400-spec.github.io/fitlab/">
-<link rel="icon" href="favicon.png">
-
-<link rel="preconnect" href="https://images.unsplash.com">
-<link rel="dns-prefetch" href="//images.unsplash.com">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="FitLab">
-<meta property="og:title" content="FitLab | Entrena, comparte y evoluciona">
-<meta property="og:description" content="Crea rutinas, descubre ejercicios, sigue programas y forma parte de la comunidad FitLab.">
-<meta property="og:url" content="https://cberroteran400-spec.github.io/fitlab/">
-<meta property="og:image" content="https://cberroteran400-spec.github.io/fitlab/favicon.png">
-<meta property="og:locale" content="es_MX">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FitLab | Entrena, comparte y evoluciona">
-<meta name="twitter:description" content="Rutinas, ejercicios, programas y comunidad fitness en un solo lugar.">
-<meta name="twitter:image" content="https://cberroteran400-spec.github.io/fitlab/favicon.png">
-
-<!--
-  IMPORTANTE:
-  Si ya tienes una etiqueta de verificación de Google Search Console
-  en tu index.html actual, conserva ESA misma línea dentro de <head>.
--->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-:root{
-    --bg:#030605;
-    --bg2:#07100c;
-    --card:#0a1510;
-    --card2:#0e1d15;
-    --green:#65ff9a;
-    --green2:#20e66c;
-    --white:#f5fff8;
-    --text:#d8e7de;
-    --muted:#91a399;
-    --border:rgba(101,255,154,.16);
-    --shadow:0 25px 80px rgba(0,0,0,.5);
-}
-
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html{
-    scroll-behavior:smooth;
-    scroll-padding-top:85px;
+  scroll-behavior:smooth;
 }
 
 body{
-    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    background:
-        radial-gradient(circle at 50% -10%,rgba(101,255,154,.12),transparent 32%),
-        linear-gradient(180deg,#030605 0%,#07100c 45%,#030605 100%);
-    color:var(--text);
-    line-height:1.6;
-    overflow-x:hidden;
-}
-
-body::selection{
-    background:var(--green);
-    color:#031007;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  color:#f5fff8;
+  background:
+    radial-gradient(circle at top right,rgba(101,255,154,.09),transparent 30%),
+    radial-gradient(circle at bottom left,rgba(0,255,150,.05),transparent 35%),
+    #050907;
+  min-height:100vh;
 }
 
 button,
-select{
-    font:inherit;
+input,
+textarea{
+  font:inherit;
 }
 
 button{
-    cursor:pointer;
+  cursor:pointer;
+}
+
+img,
+video{
+  max-width:100%;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   ICONOS
+========================= */
+
+.icon{
+  width:22px;
+  height:22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+}
+
+.icon svg{
+  width:100%;
+  height:100%;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:linear-gradient(145deg,#72ff9f,#25d979);
+  color:#031108;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 28px rgba(101,255,154,.2);
+}
+
+.brand-mark svg{
+  width:27px;
+  height:27px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 
 /* =========================
    HEADER
 ========================= */
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index:1000;
-    background:rgba(3,6,5,.78);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(101,255,154,.09);
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 15px;
+  background:rgba(4,9,7,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 
-.nav{
-    max-width:1250px;
-    min-height:72px;
-    margin:auto;
-    padding:0 18px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:1.35rem;
-    font-weight:950;
-    letter-spacing:-.6px;
-    color:white;
+.brand-text{
+  line-height:1;
 }
 
-.logo-img{
-    width:40px;
-    height:40px;
-    border-radius:12px;
-    object-fit:cover;
-    box-shadow:
-        0 0 0 1px rgba(101,255,154,.25),
-        0 0 30px rgba(101,255,154,.18);
+.brand-name{
+  font-size:20px;
+  font-weight:950;
+  letter-spacing:-.8px;
 }
 
-.logo-text span{
-    color:var(--green);
+.brand-name span{
+  color:#65ff9a;
 }
 
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:5px;
+.brand-sub{
+  font-size:9px;
+  color:#7f9589;
+  margin-top:4px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
 }
 
-.nav-links a{
-    padding:9px 11px;
-    color:#aebdb4;
-    font-size:.86rem;
-    font-weight:800;
-    border-radius:10px;
-    transition:.22s ease;
+.header-actions{
+  display:flex;
+  gap:7px;
 }
 
-.nav-links a:hover{
-    color:var(--green);
-    background:rgba(101,255,154,.07);
+.circle-btn{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.09);
+  background:#0d1611;
+  color:#dfffea;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.nav-community{
-    color:#031007!important;
-    background:var(--green)!important;
-    box-shadow:0 7px 25px rgba(101,255,154,.12);
-}
-
-.nav-community:hover{
-    color:#031007!important;
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(101,255,154,.25);
-}
-
-.menu-btn{
-    display:none;
-    width:43px;
-    height:43px;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;
-    background:rgba(255,255,255,.05);
-    color:white;
+.circle-btn:hover{
+  border-color:#65ff9a;
+  color:#65ff9a;
 }
 
 /* =========================
-   HERO
+   LAYOUT
 ========================= */
 
-.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    padding:115px 20px 70px;
-    overflow:hidden;
+.page{
+  width:min(680px,100%);
+  margin:auto;
+  padding:16px 13px 105px;
 }
 
-.hero-image{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
-    z-index:0;
-    filter:saturate(.85) contrast(1.08);
-    transform:scale(1.02);
+.section{
+  display:none;
 }
 
-.hero-overlay{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background:
-        linear-gradient(90deg,
-            rgba(2,6,4,.98) 0%,
-            rgba(2,6,4,.83) 38%,
-            rgba(2,6,4,.48) 68%,
-            rgba(2,6,4,.72) 100%),
-        linear-gradient(180deg,
-            rgba(2,6,4,.5) 0%,
-            rgba(2,6,4,.1) 50%,
-            rgba(2,6,4,.98) 100%);
+.section.active{
+  display:block;
+  animation:fadeIn .18s ease;
 }
 
-.hero-grid{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    opacity:.12;
-    background-image:
-        linear-gradient(rgba(101,255,154,.12) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(101,255,154,.12) 1px,transparent 1px);
-    background-size:45px 45px;
-    mask-image:linear-gradient(to bottom,black,transparent 90%);
-    pointer-events:none;
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
 }
 
-.hero-glow{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    background:rgba(101,255,154,.11);
-    filter:blur(100px);
-    right:-120px;
-    top:20%;
-    z-index:2;
-    pointer-events:none;
+.section-title{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:-1px;
+  margin:5px 0 4px;
 }
 
-.hero-content{
-    width:100%;
-    max-width:1200px;
-    margin:auto;
-    position:relative;
-    z-index:3;
-}
-
-.hero-copy{
-    max-width:760px;
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 14px;
-    border:1px solid rgba(101,255,154,.25);
-    background:rgba(5,18,11,.65);
-    backdrop-filter:blur(10px);
-    color:var(--green);
-    border-radius:999px;
-    font-size:.76rem;
-    font-weight:900;
-    letter-spacing:.3px;
-    margin-bottom:22px;
-}
-
-.badge-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 15px var(--green);
-}
-
-.hero h1{
-    color:white;
-    font-size:clamp(3.4rem,8vw,7.8rem);
-    line-height:.88;
-    letter-spacing:-6px;
-    font-weight:950;
-    text-shadow:0 15px 50px rgba(0,0,0,.5);
-}
-
-.hero h1 .green{
-    color:var(--green);
-    text-shadow:
-        0 0 35px rgba(101,255,154,.2),
-        0 10px 40px rgba(0,0,0,.4);
-}
-
-.hero-text{
-    max-width:680px;
-    margin-top:27px;
-    color:#c1d0c7;
-    font-size:clamp(1rem,2vw,1.18rem);
-}
-
-.hero-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:30px;
-}
-
-.btn{
-    min-height:52px;
-    padding:0 22px;
-    border-radius:14px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-    border:1px solid transparent;
-    font-weight:950;
-    transition:.25s ease;
-}
-
-.btn-primary{
-    background:var(--green);
-    color:#031007;
-    box-shadow:0 14px 35px rgba(101,255,154,.2);
-}
-
-.btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 20px 50px rgba(101,255,154,.3);
-}
-
-.btn-secondary{
-    background:rgba(255,255,255,.06);
-    border-color:rgba(255,255,255,.16);
-    color:white;
-    backdrop-filter:blur(12px);
-}
-
-.btn-secondary:hover{
-    background:rgba(101,255,154,.09);
-    border-color:rgba(101,255,154,.35);
-    transform:translateY(-3px);
-}
-
-.hero-mini{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:35px;
-}
-
-.hero-mini span{
-    padding:9px 13px;
-    border-radius:999px;
-    color:#d5e2da;
-    font-size:.78rem;
-    font-weight:800;
-    background:rgba(4,12,8,.65);
-    border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(12px);
-}
-
-/* =========================
-   VISUAL STRIP
-========================= */
-
-.visual-section{
-    padding:35px 20px 90px;
-    position:relative;
-}
-
-.visual-grid{
-    max-width:1250px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1.35fr .8fr .8fr;
-    grid-template-rows:250px 250px;
-    gap:14px;
-}
-
-.visual-card{
-    position:relative;
-    overflow:hidden;
-    border-radius:22px;
-    border:1px solid rgba(101,255,154,.13);
-    background:#08100c;
-}
-
-.visual-card.large{
-    grid-row:1/3;
-}
-
-.visual-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.5s ease;
-}
-
-.visual-card:hover img{
-    transform:scale(1.07);
-}
-
-.visual-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        180deg,
-        transparent 35%,
-        rgba(0,0,0,.82) 100%
-    );
-}
-
-.visual-label{
-    position:absolute;
-    left:20px;
-    bottom:18px;
-    z-index:2;
-}
-
-.visual-label strong{
-    display:block;
-    color:white;
-    font-size:1.15rem;
-}
-
-.visual-label span{
-    color:#aebdb4;
-    font-size:.8rem;
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-section{
-    padding:95px 20px;
-}
-
-.container{
-    max-width:1150px;
-    margin:auto;
-}
-
-.section-head{
-    max-width:760px;
-    margin:0 auto 45px;
-    text-align:center;
-}
-
-.eyebrow{
-    color:var(--green);
-    text-transform:uppercase;
-    letter-spacing:2px;
-    font-size:.72rem;
-    font-weight:950;
-    margin-bottom:10px;
-}
-
-.section-head h2{
-    color:white;
-    font-size:clamp(2rem,5vw,3.7rem);
-    line-height:1;
-    letter-spacing:-2.5px;
-}
-
-.section-head p{
-    color:var(--muted);
-    margin-top:16px;
-}
-
-/* =========================
-   ROUTINE
-========================= */
-
-.routine-section{
-    background:
-        radial-gradient(circle at 10% 50%,rgba(101,255,154,.06),transparent 25%),
-        linear-gradient(180deg,transparent,rgba(101,255,154,.025),transparent);
-}
-
-.routine-box{
-    position:relative;
-    overflow:hidden;
-    background:
-        linear-gradient(90deg,rgba(10,22,15,.96),rgba(7,15,11,.93)),
-        url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1400&q=80") center/cover;
-    border:1px solid var(--border);
-    border-radius:30px;
-    padding:32px;
-    box-shadow:var(--shadow);
-}
-
-.routine-box::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg,rgba(5,12,8,.96),rgba(5,12,8,.72));
-    pointer-events:none;
-}
-
-.routine-inner{
-    position:relative;
-    z-index:2;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.field label{
-    display:block;
-    color:#d2ded7;
-    font-size:.83rem;
-    font-weight:850;
-    margin-bottom:7px;
-}
-
-.field select{
-    width:100%;
-    min-height:51px;
-    border-radius:13px;
-    border:1px solid rgba(255,255,255,.1);
-    background:#07100c;
-    color:white;
-    padding:0 14px;
-    outline:none;
-}
-
-.field select:focus{
-    border-color:rgba(101,255,154,.5);
-    box-shadow:0 0 0 3px rgba(101,255,154,.05);
-}
-
-.full{
-    grid-column:1/-1;
-}
-
-#routineResult{
-    display:none;
-    margin-top:22px;
-    padding:22px;
-    background:rgba(101,255,154,.06);
-    border:1px solid rgba(101,255,154,.2);
-    border-radius:20px;
-}
-
-#routineResult h3{
-    color:var(--green);
-    margin-bottom:10px;
-}
-
-#routineResult ul{
-    padding-left:22px;
-    margin:10px 0 20px;
-}
-
-#routineResult li{
-    margin:4px 0;
-}
-
-/* =========================
-   GOALS
-========================= */
-
-.goal-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
-
-.goal-card{
-    position:relative;
-    min-height:270px;
-    overflow:hidden;
-    border-radius:22px;
-    border:1px solid var(--border);
-    background:#08100c;
-    cursor:pointer;
-}
-
-.goal-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.5s ease;
-}
-
-.goal-card:hover img{
-    transform:scale(1.08);
-}
-
-.goal-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg,transparent 25%,rgba(0,0,0,.9));
-}
-
-.goal-info{
-    position:absolute;
-    left:18px;
-    right:18px;
-    bottom:17px;
-    z-index:2;
-}
-
-.goal-info strong{
-    display:block;
-    color:white;
-    font-size:1.15rem;
-}
-
-.goal-info span{
-    display:block;
-    color:#aebdb4;
-    font-size:.78rem;
-    margin-top:3px;
+.section-subtitle{
+  color:#82958a;
+  font-size:13px;
+  margin-bottom:17px;
 }
 
 /* =========================
    CARDS
 ========================= */
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
 .card{
-    overflow:hidden;
-    background:linear-gradient(180deg,var(--card2),var(--card));
-    border:1px solid var(--border);
-    border-radius:22px;
-    transition:.25s ease;
+  background:linear-gradient(145deg,#0d1711,#09100c);
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:21px;
+  padding:15px;
+  margin-bottom:13px;
+  box-shadow:0 14px 45px rgba(0,0,0,.18);
 }
 
-.card:hover{
-    transform:translateY(-6px);
-    border-color:rgba(101,255,154,.35);
-    box-shadow:0 22px 50px rgba(0,0,0,.35);
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.card-image{
-    width:100%;
-    height:190px;
-    object-fit:cover;
-    display:block;
+.user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
 }
 
-.card-content{
-    padding:24px;
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:15px;
+  object-fit:cover;
+  background:linear-gradient(145deg,#18251c,#0a100c);
+  border:1px solid rgba(101,255,154,.18);
+  flex:none;
 }
 
-.card-icon{
-    width:50px;
-    height:50px;
-    display:grid;
-    place-items:center;
-    border-radius:15px;
-    background:rgba(101,255,154,.08);
-    font-size:1.4rem;
-    margin-bottom:16px;
+.avatar.big{
+  width:82px;
+  height:82px;
+  border-radius:25px;
 }
 
-.card h3{
-    color:white;
-    font-size:1.15rem;
+.user-name{
+  font-weight:850;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.card p{
-    color:var(--muted);
-    font-size:.9rem;
-    margin-top:8px;
+.user-meta{
+  color:#728278;
+  font-size:11px;
+  margin-top:3px;
 }
 
-.card-link{
-    display:inline-block;
-    margin-top:17px;
-    color:var(--green);
-    font-size:.86rem;
-    font-weight:950;
-}
-
-/* =========================
-   PROGRAMS
-========================= */
-
-.program-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.program-card{
-    min-height:340px;
-    position:relative;
-    overflow:hidden;
-    border-radius:24px;
-    border:1px solid var(--border);
-}
-
-.program-card img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.5s ease;
-}
-
-.program-card:hover img{
-    transform:scale(1.06);
-}
-
-.program-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.92));
-}
-
-.program-info{
-    position:absolute;
-    left:22px;
-    right:22px;
-    bottom:21px;
-    z-index:2;
-}
-
-.program-info span{
-    color:var(--green);
-    font-size:.75rem;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.program-info h3{
-    color:white;
-    font-size:1.45rem;
-    margin:5px 0;
-}
-
-.program-info p{
-    color:#b3c0b8;
-    font-size:.82rem;
+.more-btn{
+  border:0;
+  background:transparent;
+  color:#85968b;
+  font-size:23px;
+  width:35px;
+  height:35px;
 }
 
 /* =========================
-   COMMUNITY
+   BUTTONS
 ========================= */
 
-.community{
-    position:relative;
+.btn{
+  border:0;
+  border-radius:13px;
+  min-height:43px;
+  padding:0 16px;
+  font-weight:850;
+  color:#061009;
+  background:#65ff9a;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
 }
 
-.community-box{
-    position:relative;
-    overflow:hidden;
-    min-height:430px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:55px 25px;
-    border-radius:32px;
-    border:1px solid rgba(101,255,154,.23);
-    background:
-        linear-gradient(90deg,rgba(4,10,7,.96),rgba(4,10,7,.65)),
-        url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1500&q=85") center/cover;
+.btn:hover{
+  filter:brightness(1.05);
 }
 
-.community-content{
-    position:relative;
-    z-index:2;
-    max-width:720px;
+.btn.dark{
+  background:#142019;
+  color:#dcffe8;
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.community-box h2{
-    color:white;
-    font-size:clamp(2.2rem,5vw,4rem);
-    line-height:1;
-    letter-spacing:-3px;
+.btn.outline{
+  background:transparent;
+  color:#65ff9a;
+  border:1px solid rgba(101,255,154,.4);
 }
 
-.community-box p{
-    margin:16px auto 25px;
-    color:#bdcbc2;
+.btn.small{
+  min-height:36px;
+  padding:0 12px;
+  font-size:12px;
 }
 
-.community-features{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:9px;
-    margin-bottom:25px;
-}
-
-.community-feature{
-    padding:8px 12px;
-    border-radius:999px;
-    background:rgba(5,13,9,.7);
-    border:1px solid rgba(255,255,255,.1);
-    color:#d1ded6;
-    font-size:.78rem;
-    font-weight:800;
+.btn.full{
+  width:100%;
 }
 
 /* =========================
-   SHOP
+   HOME / FEED
 ========================= */
 
-.shop-card{
-    text-align:center;
+.hero{
+  padding:8px 2px 14px;
 }
 
-.shop-card .card-icon{
-    margin-left:auto;
-    margin-right:auto;
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border-radius:100px;
+  color:#65ff9a;
+  background:rgba(101,255,154,.07);
+  border:1px solid rgba(101,255,154,.13);
+  font-size:11px;
+  font-weight:800;
+}
+
+.hero h1{
+  margin:12px 0 6px;
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-1.5px;
+}
+
+.hero p{
+  margin:0;
+  color:#87988e;
+  line-height:1.5;
+  font-size:13px;
+}
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:14px 0;
+}
+
+.quick{
+  border:1px solid rgba(255,255,255,.07);
+  background:#0b140f;
+  border-radius:17px;
+  padding:14px;
+  color:white;
+  text-align:left;
+}
+
+.quick .q-icon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#65ff9a;
+  background:rgba(101,255,154,.08);
+  margin-bottom:10px;
+}
+
+.quick strong{
+  display:block;
+  font-size:13px;
+}
+
+.quick small{
+  display:block;
+  color:#718077;
+  margin-top:3px;
+  font-size:10px;
 }
 
 /* =========================
-   FINAL CTA
+   POST
 ========================= */
 
-.final-cta{
-    padding-top:70px;
-    padding-bottom:100px;
+.post-text{
+  white-space:pre-wrap;
+  color:#e8f2eb;
+  font-size:14px;
+  line-height:1.55;
+  margin:13px 2px;
 }
 
-.final-box{
-    position:relative;
-    overflow:hidden;
-    text-align:center;
-    padding:65px 25px;
-    border-radius:32px;
-    background:
-        linear-gradient(90deg,rgba(5,14,9,.93),rgba(5,14,9,.8)),
-        url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1500&q=80") center/cover;
-    border:1px solid var(--border);
+.post-media{
+  width:100%;
+  max-height:570px;
+  object-fit:cover;
+  border-radius:17px;
+  background:#020403;
+  display:block;
 }
 
-.final-box h2{
-    color:white;
-    font-size:clamp(2rem,5vw,3.7rem);
-    line-height:1;
-    letter-spacing:-2.5px;
+.post-actions{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  margin-top:8px;
+  border-top:1px solid rgba(255,255,255,.055);
+  padding-top:8px;
 }
 
-.final-box p{
-    max-width:650px;
-    margin:15px auto 25px;
-    color:#aebdb4;
+.post-action{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#84938a;
+  min-height:38px;
+  border-radius:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:750;
 }
 
-.final-box .hero-buttons{
-    justify-content:center;
+.post-action:hover{
+  background:#101a14;
+  color:#dfffea;
+}
+
+.post-action.liked{
+  color:#65ff9a;
+}
+
+.post-action.delete{
+  color:#ff7474;
 }
 
 /* =========================
-   FOOTER
+   PROFILE
 ========================= */
 
-footer{
-    border-top:1px solid rgba(255,255,255,.07);
-    padding:40px 20px;
-    background:#020403;
+.profile-cover{
+  height:125px;
+  border-radius:24px 24px 0 0;
+  background:
+    radial-gradient(circle at 75% 25%,rgba(101,255,154,.35),transparent 25%),
+    linear-gradient(135deg,#102219,#07100b);
+  border:1px solid rgba(255,255,255,.07);
 }
 
-.footer-inner{
-    max-width:1150px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:25px;
+.profile-card{
+  margin-top:-1px;
+  background:#0b130f;
+  border:1px solid rgba(255,255,255,.07);
+  border-top:0;
+  border-radius:0 0 24px 24px;
+  padding:0 16px 17px;
 }
 
-.footer-copy{
-    color:#718077;
-    font-size:.8rem;
+.profile-top{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  margin-top:-42px;
+  gap:10px;
 }
 
-.footer-links{
-    display:flex;
-    flex-wrap:wrap;
-    gap:15px;
+.profile-name{
+  font-size:22px;
+  font-weight:950;
+  margin-top:10px;
 }
 
-.footer-links a{
-    color:#8c9b92;
-    font-size:.8rem;
+.profile-bio{
+  color:#87978d;
+  font-size:13px;
+  line-height:1.45;
+  margin-top:6px;
 }
 
-.footer-links a:hover{
-    color:var(--green);
+.profile-stats{
+  display:flex;
+  gap:8px;
+  margin-top:17px;
+}
+
+.stat{
+  flex:1;
+  background:#101a14;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.stat strong{
+  display:block;
+  font-size:18px;
+}
+
+.stat span{
+  display:block;
+  color:#738279;
+  font-size:10px;
+  margin-top:2px;
 }
 
 /* =========================
-   ANIMACIONES
+   SEARCH
 ========================= */
 
-@keyframes pulseGreen{
-    0%,100%{
-        box-shadow:0 0 0 0 rgba(101,255,154,.25);
-    }
-    50%{
-        box-shadow:0 0 0 8px rgba(101,255,154,0);
-    }
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:#0b140f;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  padding:0 12px;
+  height:49px;
+  margin-bottom:12px;
 }
 
-.badge-dot{
-    animation:pulseGreen 2s infinite;
+.search-box input{
+  flex:1;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:white;
+  min-width:0;
+}
+
+.search-box input::placeholder{
+  color:#637269;
 }
 
 /* =========================
-   MOBILE
+   DISCOVER
 ========================= */
 
-@media(max-width:950px){
-
-    .nav-links{
-        display:none;
-        position:absolute;
-        top:72px;
-        left:12px;
-        right:12px;
-        padding:12px;
-        flex-direction:column;
-        align-items:stretch;
-        background:rgba(3,6,5,.97);
-        border:1px solid rgba(101,255,154,.13);
-        border-radius:17px;
-        box-shadow:var(--shadow);
-    }
-
-    .nav-links.show{
-        display:flex;
-    }
-
-    .nav-links a{
-        padding:13px;
-        text-align:center;
-    }
-
-    .menu-btn{
-        display:block;
-    }
-
-    .goal-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .cards,
-    .program-grid{
-        grid-template-columns:1fr 1fr;
-    }
+.profile-result{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.055);
 }
 
-@media(max-width:700px){
-
-    .hero{
-        min-height:820px;
-        padding-top:125px;
-    }
-
-    .hero-overlay{
-        background:
-            linear-gradient(180deg,
-                rgba(2,6,4,.78) 0%,
-                rgba(2,6,4,.48) 38%,
-                rgba(2,6,4,.97) 88%);
-    }
-
-    .hero-image{
-        object-position:58% center;
-    }
-
-    .hero h1{
-        font-size:clamp(3.1rem,16vw,5.5rem);
-        letter-spacing:-4px;
-    }
-
-    .hero-copy{
-        text-align:center;
-    }
-
-    .badge{
-        font-size:.68rem;
-    }
-
-    .hero-text{
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    .hero-buttons{
-        flex-direction:column;
-    }
-
-    .hero-buttons .btn{
-        width:100%;
-    }
-
-    .hero-mini{
-        justify-content:center;
-    }
-
-    .visual-grid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:220px 180px;
-    }
-
-    .visual-card.large{
-        grid-row:auto;
-        grid-column:1/3;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .full{
-        grid-column:auto;
-    }
-
-    .routine-box{
-        padding:20px;
-    }
-
-    .cards,
-    .program-grid{
-        grid-template-columns:1fr;
-    }
-
-    .goal-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    section{
-        padding:75px 16px;
-    }
-
-    .community-box{
-        min-height:500px;
-    }
-
-    .footer-inner{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .footer-links{
-        justify-content:center;
-    }
+.profile-result:last-child{
+  border-bottom:0;
 }
 
-@media(max-width:430px){
-
-    .nav{
-        padding:0 13px;
-    }
-
-    .logo{
-        font-size:1.15rem;
-    }
-
-    .logo-img{
-        width:36px;
-        height:36px;
-    }
-
-    .hero{
-        min-height:790px;
-    }
-
-    .hero h1{
-        font-size:3.3rem;
-    }
-
-    .hero-mini span{
-        font-size:.7rem;
-    }
-
-    .visual-grid{
-        grid-template-columns:1fr;
-        grid-template-rows:220px 180px 180px;
-    }
-
-    .visual-card.large{
-        grid-column:auto;
-    }
-
-    .goal-grid{
-        grid-template-columns:1fr;
-    }
-
-    .goal-card{
-        min-height:230px;
-    }
+.profile-result-info{
+  flex:1;
+  min-width:0;
 }
 
+.profile-result-name{
+  font-weight:850;
+  font-size:13px;
+}
+
+.profile-result-bio{
+  color:#738279;
+  font-size:11px;
+  margin-top:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* =========================
+   YOUTUBE
+========================= */
+
+.youtube-search{
+  display:flex;
+  gap:8px;
+  margin:13px 0;
+}
+
+.youtube-search input{
+  flex:1;
+  height:48px;
+  min-width:0;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#0b140f;
+  color:white;
+  outline:0;
+  padding:0 13px;
+}
+
+.youtube-search button{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  border:0;
+  background:#65ff9a;
+  color:#051009;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.categories{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.category-btn{
+  flex:none;
+  border:1px solid rgba(255,255,255,.08);
+  background:#0c1510;
+  color:#829189;
+  border-radius:100px;
+  padding:9px 12px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.category-btn.active,
+.category-btn:hover{
+  background:rgba(101,255,154,.1);
+  color:#65ff9a;
+  border-color:rgba(101,255,154,.3);
+}
+
+.youtube-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.youtube-card{
+  overflow:hidden;
+  border-radius:16px;
+  background:#0b130f;
+  border:1px solid rgba(255,255,255,.06);
+  cursor:pointer;
+}
+
+.youtube-thumb-wrap{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#020403;
+}
+
+.youtube-thumb{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.youtube-play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(101,255,154,.94);
+  color:#041008;
+  font-size:15px;
+  padding-left:2px;
+}
+
+.youtube-info{
+  padding:9px;
+}
+
+.youtube-title{
+  font-size:12px;
+  font-weight:850;
+  line-height:1.35;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.youtube-channel{
+  color:#728078;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.youtube-source{
+  color:#65ff9a;
+  font-size:9px;
+  margin-top:4px;
+}
+
+.video-loading,
+.video-error{
+  padding:45px 15px;
+  text-align:center;
+  color:#7e8f85;
+}
+
+/* =========================
+   CREATE
+========================= */
+
+.create-type{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:13px;
+}
+
+.type-option{
+  border:1px solid rgba(255,255,255,.08);
+  background:#0b140f;
+  color:#829087;
+  padding:15px 8px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:800;
+  font-size:12px;
+}
+
+.type-option.active{
+  color:#65ff9a;
+  border-color:rgba(101,255,154,.4);
+  background:rgba(101,255,154,.07);
+}
+
+textarea,
+.input{
+  width:100%;
+  border:1px solid rgba(255,255,255,.08);
+  background:#07100b;
+  color:white;
+  border-radius:14px;
+  outline:0;
+  padding:13px;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.file-box{
+  border:1px dashed rgba(101,255,154,.3);
+  background:rgba(101,255,154,.035);
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+  margin:10px 0;
+}
+
+.file-box input{
+  width:100%;
+  margin-top:10px;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  z-index:200;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(680px,100%);
+  height:72px;
+  background:rgba(5,10,7,.95);
+  backdrop-filter:blur(18px);
+  border-top:1px solid rgba(255,255,255,.07);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:7px 7px 9px;
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:#65746b;
+  border-radius:13px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.nav-btn .icon{
+  width:21px;
+  height:21px;
+}
+
+.nav-btn.active{
+  color:#65ff9a;
+  background:rgba(101,255,154,.06);
+}
+
+/* =========================
+   MODALES
+========================= */
+
+.modal{
+  position:fixed;
+  z-index:500;
+  inset:0;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(5px);
+}
+
+.modal.open{
+  display:flex;
+}
+
+.modal-box{
+  width:min(680px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#0a120e;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:25px 25px 0 0;
+  padding:18px;
+  animation:up .18s ease;
+}
+
+@keyframes up{
+  from{transform:translateY(30px);opacity:0}
+  to{transform:none;opacity:1}
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.modal-title{
+  font-size:19px;
+  font-weight:950;
+}
+
+.close{
+  border:0;
+  background:#131d17;
+  color:#9aaa9f;
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  font-size:20px;
+}
+
+.form-group{
+  margin-bottom:12px;
+}
+
+.form-label{
+  display:block;
+  color:#87978d;
+  font-size:11px;
+  margin:0 0 6px 2px;
+  font-weight:800;
+}
+
+.form-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.form-actions>*{
+  flex:1;
+}
+
+.auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-bottom:14px;
+}
+
+.auth-tab{
+  border:0;
+  border-radius:12px;
+  padding:11px;
+  background:#101a14;
+  color:#74837a;
+  font-weight:800;
+}
+
+.auth-tab.active{
+  background:rgba(101,255,154,.1);
+  color:#65ff9a;
+}
+
+.comment-row{
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+
+.comment-row input{
+  flex:1;
+  min-width:0;
+}
+
+.comment{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.comment-body{
+  background:#101913;
+  border-radius:12px;
+  padding:8px 10px;
+  flex:1;
+  font-size:12px;
+}
+
+.comment-body strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.follow-list{
+  max-height:60vh;
+  overflow:auto;
+}
+
+.empty{
+  padding:35px 12px;
+  text-align:center;
+  color:#68786e;
+  font-size:13px;
+}
+
+.toast{
+  position:fixed;
+  z-index:1000;
+  left:50%;
+  bottom:86px;
+  transform:translateX(-50%) translateY(15px);
+  opacity:0;
+  pointer-events:none;
+  background:#dfffea;
+  color:#071009;
+  border-radius:13px;
+  padding:11px 15px;
+  font-size:12px;
+  font-weight:850;
+  transition:.2s;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:440px){
+  .youtube-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .hero h1{
+    font-size:27px;
+  }
+}
+
+@media(min-width:681px){
+  .bottom-nav{
+    border-left:1px solid rgba(255,255,255,.07);
+    border-right:1px solid rgba(255,255,255,.07);
+  }
+}
 </style>
-
-
-<!-- SEO ESTRUCTURADO -->
-
-<script type="application/ld+json">
-{
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"FitLab",
-    "url":"https://cberroteran400-spec.github.io/fitlab/",
-    "description":"Plataforma fitness para crear rutinas, descubrir ejercicios, seguir programas y formar parte de una comunidad fitness.",
-    "inLanguage":"es-MX"
-}
-</script>
-
-<script type="application/ld+json">
-{
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"FitLab",
-    "url":"https://cberroteran400-spec.github.io/fitlab/",
-    "logo":"https://cberroteran400-spec.github.io/fitlab/favicon.png"
-}
-</script>
-
-<script type="application/ld+json">
-{
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-        {
-            "@type":"Question",
-            "name":"¿FitLab permite crear rutinas personalizadas?",
-            "acceptedAnswer":{
-                "@type":"Answer",
-                "text":"Sí. FitLab permite seleccionar objetivo, nivel, lugar de entrenamiento y duración para generar una propuesta de rutina."
-            }
-        },
-        {
-            "@type":"Question",
-            "name":"¿Puedo entrenar en casa con FitLab?",
-            "acceptedAnswer":{
-                "@type":"Answer",
-                "text":"Sí. FitLab incluye opciones para entrenamientos en casa, gimnasio y exterior."
-            }
-        },
-        {
-            "@type":"Question",
-            "name":"¿FitLab tiene una comunidad fitness?",
-            "acceptedAnswer":{
-                "@type":"Answer",
-                "text":"Sí. La sección FitLab Social permite crear un perfil y participar con fotos, videos, publicaciones, likes, comentarios y seguidores."
-            }
-        }
-    ]
-}
-</script>
-
 </head>
 
 <body>
 
-<header>
+<!-- =========================
+     HEADER
+========================= -->
 
-<nav class="nav">
+<header class="topbar">
 
-    <a href="index.html" class="logo" aria-label="FitLab inicio">
-
-        <img
-            src="favicon.png"
-            alt="Logotipo FitLab"
-            class="logo-img"
-        >
-
-        <div class="logo-text">
-            Fit<span>Lab</span>
-        </div>
-
-    </a>
-
-    <div class="nav-links" id="navLinks">
-
-        <a href="#rutinas">Rutinas</a>
-
-        <a href="#ejercicios">Ejercicios</a>
-
-        <a href="#programas">Programas</a>
-
-        <a href="#tienda">🛍️ Tienda</a>
-
-        <a href="social.html" class="nav-community">
-            👥 Comunidad
-        </a>
-
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24">
+        <path d="M7 4v16"/>
+        <path d="M17 4v16"/>
+        <path d="M4 8h6"/>
+        <path d="M14 8h6"/>
+        <path d="M4 16h6"/>
+        <path d="M14 16h6"/>
+      </svg>
     </div>
 
-    <button
-        type="button"
-        class="menu-btn"
-        id="menuBtn"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-        onclick="toggleMenu()"
-    >
-        ☰
+    <div class="brand-text">
+      <div class="brand-name">Fit<span>Lab</span></div>
+      <div class="brand-sub">Social Fitness</div>
+    </div>
+  </div>
+
+  <div class="header-actions">
+
+    <button class="circle-btn" onclick="goHome()" title="Crear rutina">
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 10.5 12 3l9 7.5"/>
+          <path d="M5 9.5V21h14V9.5"/>
+          <path d="M9 21v-6h6v6"/>
+        </svg>
+      </span>
     </button>
 
-</nav>
+    <button class="circle-btn" onclick="openAuth()" title="Cuenta">
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/>
+        </svg>
+      </span>
+    </button>
+
+  </div>
 
 </header>
 
 
-<main>
+<main class="page">
 
 <!-- =========================
-     HERO
+     INICIO
 ========================= -->
 
-<section class="hero" id="inicio">
+<section id="feedSection" class="section active">
 
-    <img
-        class="hero-image"
-        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=90"
-        alt="Persona entrenando en un gimnasio"
-        fetchpriority="high"
+  <div class="hero">
+
+    <div class="hero-badge">
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v18"/>
+          <path d="M3 12h18"/>
+          <path d="M5 5l14 14"/>
+          <path d="M19 5 5 19"/>
+        </svg>
+      </span>
+      COMUNIDAD FITLAB
+    </div>
+
+    <h1>Entrena.<br>Comparte. Conecta.</h1>
+
+    <p>
+      Comparte tus progresos, descubre atletas y encuentra
+      contenido para llevar tu entrenamiento al siguiente nivel.
+    </p>
+
+  </div>
+
+
+  <div class="quick-actions">
+
+    <button class="quick" onclick="openCreate()">
+      <div class="q-icon">
+        <span class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+          </svg>
+        </span>
+      </div>
+      <strong>Crear publicación</strong>
+      <small>Foto, video o texto</small>
+    </button>
+
+    <button class="quick" onclick="showSection('videos')">
+      <div class="q-icon">
+        <span class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="m9 7 8 5-8 5z"/>
+            <rect x="3" y="4" width="18" height="16" rx="3"/>
+          </svg>
+        </span>
+      </div>
+      <strong>Videos fitness</strong>
+      <small>Descubre entrenamientos</small>
+    </button>
+
+  </div>
+
+
+  <div id="feedList"></div>
+
+</section>
+
+
+<!-- =========================
+     DESCUBRIR
+========================= -->
+
+<section id="discoverSection" class="section">
+
+  <div class="section-title">Descubrir</div>
+
+  <div class="section-subtitle">
+    Encuentra personas y atletas dentro de FitLab.
+  </div>
+
+  <div class="search-box">
+
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5"/>
+        <path d="m16 16 5 5"/>
+      </svg>
+    </span>
+
+    <input
+      id="profileSearch"
+      placeholder="Buscar perfiles..."
+      oninput="searchProfiles()"
     >
 
-    <div class="hero-overlay"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
+  </div>
 
-    <div class="hero-content">
-
-        <div class="hero-copy">
-
-            <div class="badge">
-                <span class="badge-dot"></span>
-                TU NUEVA ERA FITNESS COMIENZA AQUÍ
-            </div>
-
-            <h1>
-                Entrena.<br>
-                <span class="green">Comparte.</span><br>
-                Evoluciona.
-            </h1>
-
-            <p class="hero-text">
-                Crea tu rutina, descubre ejercicios, sigue programas
-                y lleva tu progreso a una comunidad fitness creada
-                para personas que quieren mejorar cada día.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#rutinas" class="btn btn-primary">
-                    🏋️ Crear mi rutina
-                </a>
-
-                <a href="social.html" class="btn btn-secondary">
-                    👥 Entrar a la Comunidad
-                </a>
-
-            </div>
-
-            <div class="hero-mini">
-
-                <span>⚡ 15–60 minutos</span>
-                <span>🏠 Casa + Gym</span>
-                <span>📸 Fotos y videos</span>
-                <span>🟢 Empieza gratis</span>
-
-            </div>
-
-        </div>
-
-    </div>
+  <div class="card">
+    <div id="profilesList"></div>
+  </div>
 
 </section>
 
 
 <!-- =========================
-     IMÁGENES INICIALES
+     CREAR
 ========================= -->
 
-<section class="visual-section">
+<section id="createSection" class="section">
 
-    <div class="visual-grid">
+  <div class="section-title">Crear</div>
 
-        <article class="visual-card large">
+  <div class="section-subtitle">
+    Comparte algo con la comunidad FitLab.
+  </div>
 
-            <img
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1200&q=85"
-                alt="Entrenamiento de fuerza con pesas"
-                loading="lazy"
-            >
+  <div class="card">
 
-            <div class="visual-label">
-                <strong>Fuerza y rendimiento</strong>
-                <span>Construye una versión más fuerte de ti.</span>
-            </div>
+    <div class="create-type">
 
-        </article>
+      <button
+        id="typeText"
+        class="type-option active"
+        onclick="selectCreateType('text')">
+        Texto
+      </button>
 
-
-        <article class="visual-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80"
-                alt="Mujer realizando entrenamiento fitness"
-                loading="lazy"
-            >
-
-            <div class="visual-label">
-                <strong>Constancia</strong>
-                <span>Cada entrenamiento cuenta.</span>
-            </div>
-
-        </article>
-
-
-        <article class="visual-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento fitness"
-                loading="lazy"
-            >
-
-            <div class="visual-label">
-                <strong>Entrena donde quieras</strong>
-                <span>Casa, gimnasio o exterior.</span>
-            </div>
-
-        </article>
-
-
-        <article class="visual-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
-                alt="Persona entrenando con pesas"
-                loading="lazy"
-            >
-
-            <div class="visual-label">
-                <strong>Mejora cada día</strong>
-                <span>Tu progreso empieza hoy.</span>
-            </div>
-
-        </article>
-
-
-        <article class="visual-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento cardiovascular"
-                loading="lazy"
-            >
-
-            <div class="visual-label">
-                <strong>Condición física</strong>
-                <span>Más energía para tu día.</span>
-            </div>
-
-        </article>
+      <button
+        id="typeMedia"
+        class="type-option"
+        onclick="selectCreateType('media')">
+        Foto / Video
+      </button>
 
     </div>
+
+    <textarea
+      id="postContent"
+      placeholder="¿Qué estás entrenando hoy?"
+    ></textarea>
+
+    <div id="mediaArea" class="file-box" style="display:none">
+
+      <strong>Agregar contenido</strong>
+
+      <div style="font-size:11px;color:#708077;margin-top:4px">
+        Selecciona una foto o video desde tu teléfono.
+      </div>
+
+      <input
+        id="postFile"
+        type="file"
+        accept="image/*,video/*"
+        onchange="previewPostFile()"
+      >
+
+      <div id="filePreview"></div>
+
+    </div>
+
+    <button class="btn full" onclick="createPost()">
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M22 2 11 13"/>
+          <path d="m22 2-7 20-4-9-9-4z"/>
+        </svg>
+      </span>
+      Publicar
+    </button>
+
+  </div>
 
 </section>
 
 
 <!-- =========================
-     RUTINAS
+     VIDEOS
 ========================= -->
 
-<section id="rutinas" class="routine-section">
+<section id="videosSection" class="section">
 
-<div class="container">
+  <div class="section-title">Videos fitness</div>
 
-    <div class="section-head">
+  <div class="section-subtitle">
+    Encuentra videos de entrenamiento directamente desde YouTube.
+  </div>
 
-        <div class="eyebrow">
-            Entrenamiento personalizado
-        </div>
+  <div class="youtube-search">
 
-        <h2>
-            Tu rutina.<br>
-            Tu objetivo. Tu ritmo.
-        </h2>
+    <input
+      id="youtubeSearch"
+      type="search"
+      placeholder="Buscar entrenamiento, pecho, pierna..."
+      onkeydown="if(event.key==='Enter') searchYouTube()"
+    >
 
-        <p>
-            Elige tus preferencias y genera una propuesta
-            de entrenamiento en segundos.
-        </p>
+    <button onclick="searchYouTube()">
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="6.5"/>
+          <path d="m16 16 5 5"/>
+        </svg>
+      </span>
+    </button>
 
-    </div>
+  </div>
 
+  <div class="categories">
 
-    <div class="routine-box">
+    <button class="category-btn active"
+      onclick="searchYouTube('fitness entrenamiento gimnasio ejercicios')">
+      Fitness
+    </button>
 
-        <div class="routine-inner">
+    <button class="category-btn"
+      onclick="searchYouTube('pecho gimnasio entrenamiento')">
+      Pecho
+    </button>
 
-            <div class="form-grid">
+    <button class="category-btn"
+      onclick="searchYouTube('pierna gimnasio entrenamiento')">
+      Pierna
+    </button>
 
-                <div class="field">
+    <button class="category-btn"
+      onclick="searchYouTube('espalda gimnasio entrenamiento')">
+      Espalda
+    </button>
 
-                    <label for="goal">
-                        ¿Cuál es tu objetivo?
-                    </label>
+    <button class="category-btn"
+      onclick="searchYouTube('abdomen ejercicios')">
+      Abdomen
+    </button>
 
-                    <select id="goal">
+    <button class="category-btn"
+      onclick="searchYouTube('perder grasa cardio')">
+      Cardio
+    </button>
 
-                        <option value="fuerza">
-                            💪 Ganar fuerza
-                        </option>
+  </div>
 
-                        <option value="musculo">
-                            🏋️ Ganar músculo
-                        </option>
-
-                        <option value="condicion">
-                            🔥 Mejorar condición
-                        </option>
-
-                        <option value="grasa">
-                            ⚡ Trabajar pérdida de grasa
-                        </option>
-
-                        <option value="movilidad">
-                            🧘 Mejorar movilidad
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="level">
-                        Nivel
-                    </label>
-
-                    <select id="level">
-
-                        <option value="principiante">
-                            Principiante
-                        </option>
-
-                        <option value="intermedio">
-                            Intermedio
-                        </option>
-
-                        <option value="avanzado">
-                            Avanzado
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="place">
-                        ¿Dónde entrenas?
-                    </label>
-
-                    <select id="place">
-
-                        <option value="casa">
-                            🏠 Casa
-                        </option>
-
-                        <option value="gimnasio">
-                            🏋️ Gimnasio
-                        </option>
-
-                        <option value="exterior">
-                            🌳 Exterior
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="duration">
-                        Duración
-                    </label>
-
-                    <select id="duration">
-
-                        <option value="15">
-                            15 minutos
-                        </option>
-
-                        <option value="20">
-                            20 minutos
-                        </option>
-
-                        <option value="30" selected>
-                            30 minutos
-                        </option>
-
-                        <option value="45">
-                            45 minutos
-                        </option>
-
-                        <option value="60">
-                            60 minutos
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="full">
-
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        style="width:100%;"
-                        onclick="createRoutine()"
-                    >
-                        ⚡ Crear mi rutina
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div id="routineResult"></div>
-
-        </div>
-
-    </div>
-
-</div>
+  <div id="youtubeContent" class="youtube-grid" style="margin-top:12px"></div>
 
 </section>
 
 
 <!-- =========================
-     OBJETIVOS VISUALES
+     PERFIL
 ========================= -->
 
-<section id="objetivos">
+<section id="profileSection" class="section">
 
-<div class="container">
+  <div class="profile-cover"></div>
 
-    <div class="section-head">
+  <div class="profile-card">
 
-        <div class="eyebrow">
-            Elige tu enfoque
-        </div>
+    <div class="profile-top">
 
-        <h2>
-            Entrena para lo que quieres conseguir
-        </h2>
+      <img
+        id="profileAvatar"
+        class="avatar big"
+        alt="Perfil"
+      >
 
-        <p>
-            Diferentes objetivos. Una misma misión:
-            seguir avanzando.
-        </p>
-
-    </div>
-
-
-    <div class="goal-grid">
-
-
-        <article
-            class="goal-card"
-            onclick="selectGoal('fuerza')"
-        >
-
-            <img
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento para ganar fuerza"
-                loading="lazy"
-            >
-
-            <div class="goal-info">
-
-                <strong>💪 Fuerza</strong>
-
-                <span>
-                    Construye rendimiento y potencia.
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article
-            class="goal-card"
-            onclick="selectGoal('musculo')"
-        >
-
-            <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento para ganar músculo"
-                loading="lazy"
-            >
-
-            <div class="goal-info">
-
-                <strong>🏋️ Músculo</strong>
-
-                <span>
-                    Trabaja tus grupos musculares.
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article
-            class="goal-card"
-            onclick="selectGoal('condicion')"
-        >
-
-            <img
-                src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento cardiovascular"
-                loading="lazy"
-            >
-
-            <div class="goal-info">
-
-                <strong>🔥 Condición</strong>
-
-                <span>
-                    Mejora resistencia y energía.
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article
-            class="goal-card"
-            onclick="selectGoal('movilidad')"
-        >
-
-            <img
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80"
-                alt="Ejercicios de movilidad y flexibilidad"
-                loading="lazy"
-            >
-
-            <div class="goal-info">
-
-                <strong>🧘 Movilidad</strong>
-
-                <span>
-                    Muévete mejor cada día.
-                </span>
-
-            </div>
-
-        </article>
+      <button class="btn small" onclick="openEditProfile()">
+        Editar perfil
+      </button>
 
     </div>
 
-</div>
+    <div id="profileName" class="profile-name">
+      Usuario FitLab
+    </div>
 
-</section>
+    <div id="profileBio" class="profile-bio">
+      Tu perfil fitness.
+    </div>
 
+    <div class="profile-stats">
 
-<!-- =========================
-     EJERCICIOS
-========================= -->
+      <div class="stat" onclick="openFollowList('followers')">
+        <strong id="profileFollowers">0</strong>
+        <span>Seguidores</span>
+      </div>
 
-<section id="ejercicios">
+      <div class="stat" onclick="openFollowList('following')">
+        <strong id="profileFollowing">0</strong>
+        <span>Siguiendo</span>
+      </div>
 
-<div class="container">
-
-    <div class="section-head">
-
-        <div class="eyebrow">
-            Explora
-        </div>
-
-        <h2>
-            Descubre ejercicios para mejorar cada día
-        </h2>
-
-        <p>
-            Encuentra diferentes formas de entrenar
-            según tus objetivos y disponibilidad.
-        </p>
+      <div class="stat">
+        <strong id="profilePosts">0</strong>
+        <span>Publicaciones</span>
+      </div>
 
     </div>
 
+  </div>
 
-    <div class="cards">
+  <div style="height:15px"></div>
 
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80"
-                alt="Ejercicios de fuerza"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    💪
-                </div>
-
-                <h3>
-                    Fuerza
-                </h3>
-
-                <p>
-                    Ejercicios enfocados en desarrollar
-                    fuerza y mejorar tu rendimiento.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Crear rutina →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento de gimnasio"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🏋️
-                </div>
-
-                <h3>
-                    Músculo
-                </h3>
-
-                <p>
-                    Entrenamientos para trabajar diferentes
-                    grupos musculares.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Entrenar →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento cardiovascular"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🔥
-                </div>
-
-                <h3>
-                    Condición
-                </h3>
-
-                <p>
-                    Mejora tu resistencia, energía y capacidad
-                    cardiovascular.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Comenzar →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento fitness en casa"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🏠
-                </div>
-
-                <h3>
-                    Entrena en casa
-                </h3>
-
-                <p>
-                    Opciones de entrenamiento para cuando
-                    no puedes ir al gimnasio.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Entrenar en casa →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80"
-                alt="Ejercicios de movilidad"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🧘
-                </div>
-
-                <h3>
-                    Movilidad
-                </h3>
-
-                <p>
-                    Trabaja movilidad y flexibilidad para
-                    complementar tu entrenamiento.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Explorar →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
-                alt="Entrenamiento fitness rápido"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Entrenamiento rápido
-                </h3>
-
-                <p>
-                    Aprovecha al máximo incluso cuando
-                    tienes poco tiempo.
-                </p>
-
-                <a
-                    href="#rutinas"
-                    class="card-link"
-                >
-                    Empezar →
-                </a>
-
-            </div>
-
-        </article>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     PROGRAMAS
-========================= -->
-
-<section id="programas">
-
-<div class="container">
-
-    <div class="section-head">
-
-        <div class="eyebrow">
-            Programas FitLab
-        </div>
-
-        <h2>
-            Convierte tus objetivos en hábitos
-        </h2>
-
-        <p>
-            Elige una duración y mantén el enfoque
-            en tu progreso.
-        </p>
-
-    </div>
-
-
-    <div class="program-grid">
-
-
-        <article class="program-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=1000&q=80"
-                alt="Programa de entrenamiento de 7 días"
-                loading="lazy"
-            >
-
-            <div class="program-info">
-
-                <span>
-                    7 días
-                </span>
-
-                <h3>
-                    Empieza fuerte
-                </h3>
-
-                <p>
-                    Una semana para comenzar y crear impulso.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <article class="program-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=80"
-                alt="Programa de entrenamiento de 14 días"
-                loading="lazy"
-            >
-
-            <div class="program-info">
-
-                <span>
-                    14 días
-                </span>
-
-                <h3>
-                    Mantén el ritmo
-                </h3>
-
-                <p>
-                    Dos semanas enfocadas en constancia.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <article class="program-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=80"
-                alt="Programa fitness de 30 días"
-                loading="lazy"
-            >
-
-            <div class="program-info">
-
-                <span>
-                    30 días
-                </span>
-
-                <h3>
-                    Reto FitLab
-                </h3>
-
-                <p>
-                    Un mes para construir disciplina.
-                </p>
-
-            </div>
-
-        </article>
-
-    </div>
-
-
-    <div style="text-align:center;margin-top:28px;">
-
-        <a
-            href="#rutinas"
-            class="btn btn-primary"
-        >
-            🚀 Crear mi programa
-        </a>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     COMUNIDAD
-========================= -->
-
-<section class="community" id="comunidad">
-
-<div class="container">
-
-    <div class="community-box">
-
-        <div class="community-content">
-
-            <div class="eyebrow">
-                FitLab Social
-            </div>
-
-            <h2>
-                Tu progreso merece ser visto.
-            </h2>
-
-            <p>
-                Entra a la comunidad FitLab, crea tu perfil,
-                comparte fotos y videos, sigue a otros usuarios,
-                comenta publicaciones y descubre contenido fitness.
-            </p>
-
-
-            <div class="community-features">
-
-                <span class="community-feature">
-                    👤 Perfiles
-                </span>
-
-                <span class="community-feature">
-                    📸 Fotos
-                </span>
-
-                <span class="community-feature">
-                    🎥 Videos
-                </span>
-
-                <span class="community-feature">
-                    ❤️ Likes
-                </span>
-
-                <span class="community-feature">
-                    💬 Comentarios
-                </span>
-
-                <span class="community-feature">
-                    👥 Seguidores
-                </span>
-
-            </div>
-
-
-            <a
-                href="social.html"
-                class="btn btn-primary"
-            >
-                👥 Explorar Comunidad FitLab
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     TIENDA
-========================= -->
-
-<section id="tienda">
-
-<div class="container">
-
-    <div class="section-head">
-
-        <div class="eyebrow">
-            FitLab Shop
-        </div>
-
-        <h2>
-            Todo lo que necesitas para entrenar
-        </h2>
-
-        <p>
-            Descubre productos y accesorios relacionados
-            con tu entrenamiento.
-        </p>
-
-    </div>
-
-
-    <div class="cards">
-
-
-        <article class="card shop-card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=900&q=80"
-                alt="Proteína y productos deportivos"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🥤
-                </div>
-
-                <h3>
-                    Proteína
-                </h3>
-
-                <p>
-                    Productos y opciones para complementar
-                    tu estilo de vida fitness.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <article class="card shop-card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=80"
-                alt="Mancuernas para entrenamiento"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🏋️
-                </div>
-
-                <h3>
-                    Mancuernas
-                </h3>
-
-                <p>
-                    Equipo para entrenar en casa o complementar
-                    tu entrenamiento.
-                </p>
-
-            </div>
-
-        </article>
-
-
-        <article class="card shop-card">
-
-            <img
-                class="card-image"
-                src="https://images.unsplash.com/photo-1598289431512-b97b0917affc?auto=format&fit=crop&w=900&q=80"
-                alt="Accesorios deportivos"
-                loading="lazy"
-            >
-
-            <div class="card-content">
-
-                <div class="card-icon">
-                    🎒
-                </div>
-
-                <h3>
-                    Accesorios
-                </h3>
-
-                <p>
-                    Accesorios fitness para acompañarte
-                    durante tus entrenamientos.
-                </p>
-
-            </div>
-
-        </article>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     CTA FINAL
-========================= -->
-
-<section class="final-cta">
-
-<div class="container">
-
-    <div class="final-box">
-
-        <h2>
-            ¿Listo para comenzar tu nueva etapa?
-        </h2>
-
-        <p>
-            Crea tu rutina, entrena, comparte tu progreso
-            y forma parte de FitLab.
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <a
-                href="#rutinas"
-                class="btn btn-primary"
-            >
-                🏋️ Crear mi rutina
-            </a>
-
-            <a
-                href="social.html"
-                class="btn btn-secondary"
-            >
-                👥 Entrar a FitLab Social
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
+  <div id="myPosts"></div>
 
 </section>
 
@@ -2322,310 +1374,3206 @@ footer{
 
 
 <!-- =========================
-     FOOTER
+     BOTTOM NAV
 ========================= -->
 
-<footer>
+<nav class="bottom-nav">
 
-<div class="footer-inner">
+  <button id="navFeed" class="nav-btn active"
+    onclick="showSection('feed')">
 
-    <div class="footer-copy">
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 11 12 3l9 8"/>
+        <path d="M5 10v11h14V10"/>
+        <path d="M9 21v-6h6v6"/>
+      </svg>
+    </span>
 
-        © 2026 FitLab.
-        Entrena. Comparte. Evoluciona.
+    Inicio
+  </button>
+
+
+  <button id="navDiscover" class="nav-btn"
+    onclick="showSection('discover')">
+
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5"/>
+        <path d="m16 16 5 5"/>
+      </svg>
+    </span>
+
+    Descubrir
+  </button>
+
+
+  <button id="navCreate" class="nav-btn"
+    onclick="showSection('create')">
+
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 8v8"/>
+        <path d="M8 12h8"/>
+      </svg>
+    </span>
+
+    Crear
+  </button>
+
+
+  <button id="navVideos" class="nav-btn"
+    onclick="showSection('videos')">
+
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="3"/>
+        <path d="m10 9 5 3-5 3z"/>
+      </svg>
+    </span>
+
+    Videos
+  </button>
+
+
+  <button id="navProfile" class="nav-btn"
+    onclick="showSection('profile')">
+
+    <span class="icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/>
+      </svg>
+    </span>
+
+    Perfil
+  </button>
+
+</nav>
+
+
+<!-- =========================
+     AUTH
+========================= -->
+
+<div id="authModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <div class="modal-title">Tu cuenta FitLab</div>
+
+      <button class="close" onclick="closeModal('authModal')">×</button>
+    </div>
+
+    <div class="auth-tabs">
+
+      <button id="loginTab"
+        class="auth-tab active"
+        onclick="setAuthMode('login')">
+        Iniciar sesión
+      </button>
+
+      <button id="registerTab"
+        class="auth-tab"
+        onclick="setAuthMode('register')">
+        Crear cuenta
+      </button>
 
     </div>
 
+    <div class="form-group">
 
-    <div class="footer-links">
+      <label class="form-label">Correo</label>
 
-        <a href="#inicio">
-            Inicio
-        </a>
-
-        <a href="#rutinas">
-            Rutinas
-        </a>
-
-        <a href="#ejercicios">
-            Ejercicios
-        </a>
-
-        <a href="#programas">
-            Programas
-        </a>
-
-        <a href="#tienda">
-            Tienda
-        </a>
-
-        <a href="social.html">
-            Comunidad
-        </a>
+      <input
+        id="authEmail"
+        class="input"
+        type="email"
+        placeholder="correo@ejemplo.com"
+      >
 
     </div>
+
+    <div class="form-group">
+
+      <label class="form-label">Contraseña</label>
+
+      <input
+        id="authPassword"
+        class="input"
+        type="password"
+        placeholder="••••••••"
+      >
+
+    </div>
+
+    <div id="registerNameGroup"
+         class="form-group"
+         style="display:none">
+
+      <label class="form-label">Nombre</label>
+
+      <input
+        id="authName"
+        class="input"
+        placeholder="Tu nombre"
+      >
+
+    </div>
+
+    <button class="btn full" onclick="submitAuth()">
+      Continuar
+    </button>
+
+    <div id="authStatus"
+         style="text-align:center;color:#718078;font-size:11px;margin-top:12px">
+    </div>
+
+  </div>
 
 </div>
 
-</footer>
+
+<!-- =========================
+     EDIT PROFILE
+========================= -->
+
+<div id="editProfileModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title">
+        Editar perfil
+      </div>
+
+      <button class="close"
+        onclick="closeModal('editProfileModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Nombre
+      </label>
+
+      <input id="editName"
+        class="input"
+        placeholder="Tu nombre">
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Biografía
+      </label>
+
+      <textarea id="editBio"
+        placeholder="Cuéntale algo a la comunidad..."></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Foto de perfil
+      </label>
+
+      <input id="editAvatar"
+        class="input"
+        type="file"
+        accept="image/*">
+
+    </div>
+
+    <button class="btn full"
+      onclick="saveProfile()">
+      Guardar cambios
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     COMMENTS
+========================= -->
+
+<div id="commentsModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title">
+        Comentarios
+      </div>
+
+      <button class="close"
+        onclick="closeModal('commentsModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div id="commentsList"></div>
+
+    <div class="comment-row">
+
+      <input id="commentInput"
+        class="input"
+        placeholder="Escribe un comentario..."
+        onkeydown="if(event.key==='Enter') addComment()">
+
+      <button class="btn"
+        onclick="addComment()">
+        Enviar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     FOLLOW LIST
+========================= -->
+
+<div id="followListModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div id="followListTitle"
+           class="modal-title">
+        Seguidores
+      </div>
+
+      <button class="close"
+        onclick="closeModal('followListModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div id="followList"
+         class="follow-list"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     USER PROFILE
+========================= -->
+
+<div id="userProfileModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title">
+        Perfil
+      </div>
+
+      <button class="close"
+        onclick="closeModal('userProfileModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div id="userProfileContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     YOUTUBE PLAYER
+========================= -->
+
+<div id="youtubePlayerModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div id="youtubePlayerTitle"
+           class="modal-title">
+        Video FitLab
+      </div>
+
+      <button class="close"
+        onclick="closeYouTubePlayer()">
+        ×
+      </button>
+
+    </div>
+
+    <div style="aspect-ratio:16/9;background:#000;border-radius:15px;overflow:hidden">
+
+      <iframe
+        id="youtubePlayer"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
 
 
 <script>
+/* =========================================================
+   CONFIGURACIÓN SUPABASE
+========================================================= */
 
-/* =====================================
-   MENÚ MÓVIL
-===================================== */
+const SUPABASE_URL =
+  "https://ouunfknxeiouwuzyhsqr.supabase.co";
 
-function toggleMenu(){
+const SUPABASE_KEY =
+  "sb_publishable_rOCiKFhZioX9z2BAk-jw8Q_5wRjQvrd";
 
-    const nav = document.getElementById("navLinks");
-    const btn = document.getElementById("menuBtn");
+const SUPABASE_PUBLISHABLE_KEY =
+  SUPABASE_KEY;
 
-    nav.classList.toggle("show");
+const EDGE_FUNCTION =
+  "https://ouunfknxeiouwuzyhsqr.supabase.co/functions/v1/hyper-worker";
 
-    const abierto = nav.classList.contains("show");
+const HYPER_WORKER_URL =
+  EDGE_FUNCTION;
 
-    btn.setAttribute(
-        "aria-expanded",
-        abierto ? "true" : "false"
-    );
+const STORAGE_BUCKET =
+  "post-media";
 
-    btn.textContent = abierto ? "✕" : "☰";
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let currentUser = null;
+let currentProfile = null;
+let authMode = "login";
+let createType = "text";
+let selectedPostFile = null;
+let currentCommentPost = null;
+let youtubeLoading = false;
+let youtubeLastQuery = "";
+let currentFollowListType = "";
+
+
+/* =========================================================
+   ICONO AVATAR
+========================================================= */
+
+function defaultAvatar(name="FitLab"){
+
+  const letter =
+    String(name || "F")
+      .trim()
+      .charAt(0)
+      .toUpperCase() || "F";
+
+  return "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="200"
+           height="200"
+           viewBox="0 0 200 200">
+        <rect width="200" height="200" rx="50"
+              fill="#101b14"/>
+        <circle cx="100" cy="100" r="70"
+                fill="#17251b"/>
+        <text x="100"
+              y="122"
+              text-anchor="middle"
+              font-family="Arial"
+              font-size="70"
+              font-weight="900"
+              fill="#65ff9a">${letter}</text>
+      </svg>
+    `);
 }
 
 
-/* CERRAR MENÚ AL SELECCIONAR */
+/* =========================================================
+   UTILIDADES
+========================================================= */
 
-document.querySelectorAll(".nav-links a").forEach(function(link){
+function escapeHTML(value){
 
-    link.addEventListener("click",function(){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-        const nav = document.getElementById("navLinks");
-        const btn = document.getElementById("menuBtn");
 
-        nav.classList.remove("show");
+function toast(message){
 
-        btn.setAttribute("aria-expanded","false");
+  const el =
+    document.getElementById("toast");
 
-        btn.textContent = "☰";
+  if(!el) return;
 
-    });
+  el.textContent = message;
+  el.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer =
+    setTimeout(()=>{
+      el.classList.remove("show");
+    },2600);
+}
+
+
+function openModal(id){
+
+  const el =
+    document.getElementById(id);
+
+  if(el){
+    el.classList.add("open");
+  }
+}
+
+
+function closeModal(id){
+
+  const el =
+    document.getElementById(id);
+
+  if(el){
+    el.classList.remove("open");
+  }
+}
+
+
+document.querySelectorAll(".modal").forEach(modal=>{
+
+  modal.addEventListener("click",e=>{
+
+    if(e.target === modal){
+      modal.classList.remove("open");
+    }
+
+  });
 
 });
 
 
-/* =====================================
-   GENERADOR DE RUTINAS
-===================================== */
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
 
-function createRoutine(){
+function showSection(name){
 
-    const goal = document.getElementById("goal").value;
-    const level = document.getElementById("level").value;
-    const place = document.getElementById("place").value;
-    const duration = document.getElementById("duration").value;
+  const sections = {
+    feed:"feedSection",
+    discover:"discoverSection",
+    create:"createSection",
+    videos:"videosSection",
+    profile:"profileSection"
+  };
 
-    const result = document.getElementById("routineResult");
+  Object.values(sections).forEach(id=>{
 
+    const el =
+      document.getElementById(id);
 
-    const goals = {
+    if(el){
+      el.classList.remove("active");
+    }
 
-        fuerza:"ganar fuerza",
+  });
 
-        musculo:"ganar músculo",
+  const target =
+    document.getElementById(sections[name]);
 
-        condicion:"mejorar tu condición física",
+  if(target){
+    target.classList.add("active");
+  }
 
-        grasa:"trabajar hacia la pérdida de grasa",
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>btn.classList.remove("active"));
 
-        movilidad:"mejorar tu movilidad"
+  const navMap = {
+    feed:"navFeed",
+    discover:"navDiscover",
+    create:"navCreate",
+    videos:"navVideos",
+    profile:"navProfile"
+  };
 
-    };
+  const nav =
+    document.getElementById(navMap[name]);
 
+  if(nav){
+    nav.classList.add("active");
+  }
 
-    const places = {
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
-        casa:"entrenamiento en casa",
+  if(name === "feed"){
+    loadFeed();
+  }
 
-        gimnasio:"entrenamiento en gimnasio",
+  if(name === "discover"){
+    searchProfiles();
+  }
 
-        exterior:"entrenamiento al aire libre"
+  if(name === "profile"){
+    loadMyProfile();
+  }
 
-    };
+  if(name === "videos"){
 
+    setTimeout(()=>{
 
-    const routines = {
+      if(
+        !youtubeLoading &&
+        document.getElementById("youtubeContent") &&
+        !document.getElementById("youtubeContent").dataset.loaded
+      ){
 
-        fuerza:[
-            "Sentadillas",
-            "Flexiones",
-            "Remo",
-            "Press",
-            "Plancha"
-        ],
-
-        musculo:[
-            "Sentadillas",
-            "Press de pecho",
-            "Remo",
-            "Curl de bíceps",
-            "Extensiones de tríceps"
-        ],
-
-        condicion:[
-            "Jumping jacks",
-            "Mountain climbers",
-            "Burpees",
-            "Sentadillas",
-            "Rodillas al pecho"
-        ],
-
-        grasa:[
-            "Jumping jacks",
-            "Burpees",
-            "Mountain climbers",
-            "Sentadillas",
-            "High knees"
-        ],
-
-        movilidad:[
-            "Movilidad de cadera",
-            "Rotaciones de hombros",
-            "Estiramiento dinámico",
-            "Movilidad de columna",
-            "Movilidad de tobillos"
-        ]
-
-    };
-
-
-    const exercises = routines[goal];
-
-
-    result.style.display = "block";
-
-
-    result.innerHTML = `
-
-        <h3>
-            🔥 Tu entrenamiento FitLab
-        </h3>
-
-        <p>
-
-            Objetivo:
-            <strong>
-                ${goals[goal]}
-            </strong>
-
-            <br>
-
-            Nivel:
-            <strong>
-                ${level}
-            </strong>
-
-            <br>
-
-            Lugar:
-            <strong>
-                ${places[place]}
-            </strong>
-
-            <br>
-
-            Duración:
-            <strong>
-                ${duration} minutos
-            </strong>
-
-        </p>
-
-
-        <br>
-
-
-        <strong>
-            Ejercicios sugeridos:
-        </strong>
-
-
-        <ul>
-
-            ${exercises
-                .map(function(exercise){
-                    return `<li>${exercise}</li>`;
-                })
-                .join("")
-            }
-
-        </ul>
-
-
-        <a
-            href="social.html"
-            class="btn btn-secondary"
-        >
-            👥 Compartir en FitLab Social
-        </a>
-
-    `;
-
-
-    result.scrollIntoView({
-        behavior:"smooth",
-        block:"nearest"
-    });
-
-}
-
-
-/* =====================================
-   SELECCIONAR OBJETIVO DESDE LAS IMÁGENES
-===================================== */
-
-function selectGoal(goal){
-
-    const selector = document.getElementById("goal");
-
-    selector.value = goal;
-
-    document
-        .getElementById("rutinas")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
-
-}
-
-
-/* =====================================
-   CERRAR MENÚ AL TOCAR FUERA
-===================================== */
-
-document.addEventListener("click",function(event){
-
-    const nav = document.getElementById("navLinks");
-    const btn = document.getElementById("menuBtn");
-
-    if(
-        nav.classList.contains("show") &&
-        !nav.contains(event.target) &&
-        !btn.contains(event.target)
-    ){
-
-        nav.classList.remove("show");
-
-        btn.setAttribute(
-            "aria-expanded",
-            "false"
+        searchYouTube(
+          "fitness entrenamiento gimnasio ejercicios"
         );
 
-        btn.textContent = "☰";
+      }
+
+    },100);
+
+  }
+
+}
+
+
+function goHome(){
+
+  window.location.href =
+    "index.html";
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+function openAuth(){
+
+  if(currentUser){
+
+    showSection("profile");
+    return;
+
+  }
+
+  openModal("authModal");
+
+}
+
+
+function setAuthMode(mode){
+
+  authMode = mode;
+
+  document.getElementById("loginTab")
+    .classList.toggle("active",mode==="login");
+
+  document.getElementById("registerTab")
+    .classList.toggle("active",mode==="register");
+
+  document.getElementById("registerNameGroup")
+    .style.display =
+      mode==="register"
+      ? "block"
+      : "none";
+
+  document.getElementById("authStatus")
+    .textContent = "";
+
+}
+
+
+async function submitAuth(){
+
+  const email =
+    document.getElementById("authEmail")
+      .value.trim();
+
+  const password =
+    document.getElementById("authPassword")
+      .value;
+
+  const name =
+    document.getElementById("authName")
+      .value.trim();
+
+  if(!email || !password){
+
+    toast("Escribe tu correo y contraseña.");
+    return;
+
+  }
+
+  const status =
+    document.getElementById("authStatus");
+
+  status.textContent =
+    "Conectando...";
+
+  try{
+
+    if(authMode === "login"){
+
+      const {data,error} =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if(error) throw error;
+
+      currentUser =
+        data.user;
+
+      await ensureProfile();
+
+      closeModal("authModal");
+
+      toast("Sesión iniciada.");
+
+      await loadEverything();
+
+    }else{
+
+      const {data,error} =
+        await supabaseClient.auth.signUp({
+          email,
+          password,
+          options:{
+            data:{
+              full_name:
+                name || email.split("@")[0]
+            }
+          }
+        });
+
+      if(error) throw error;
+
+      if(data.user){
+
+        currentUser =
+          data.user;
+
+        await ensureProfile();
+
+        closeModal("authModal");
+
+        toast(
+          "Cuenta creada correctamente."
+        );
+
+        await loadEverything();
+
+      }
 
     }
 
-});
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent =
+      error.message ||
+      "No se pudo completar la operación.";
+
+  }
+
+}
+
+
+/* =========================================================
+   PERFIL SUPABASE
+========================================================= */
+
+async function ensureProfile(){
+
+  if(!currentUser){
+    return null;
+  }
+
+  try{
+
+    let {data,error} =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("user_id",currentUser.id)
+        .maybeSingle();
+
+    if(error){
+      console.warn(error);
+    }
+
+    if(!data){
+
+      const fullName =
+        currentUser.user_metadata?.full_name ||
+        currentUser.email?.split("@")[0] ||
+        "Usuario FitLab";
+
+      const insertData = {
+        user_id:currentUser.id,
+        full_name:fullName,
+        Email:currentUser.email || "",
+        avatar_url:defaultAvatar(fullName),
+        Bio:"",
+        user_type:"user",
+        is_verified:false
+      };
+
+      const result =
+        await supabaseClient
+          .from("profiles")
+          .insert(insertData)
+          .select()
+          .single();
+
+      if(!result.error){
+        data = result.data;
+      }
+
+    }
+
+    currentProfile =
+      data || null;
+
+    return currentProfile;
+
+  }catch(error){
+
+    console.warn(
+      "No se pudo cargar profile:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* =========================================================
+   CREAR PERFIL
+========================================================= */
+
+function openEditProfile(){
+
+  if(!currentUser){
+
+    openAuth();
+    return;
+
+  }
+
+  document.getElementById("editName")
+    .value =
+      currentProfile?.full_name ||
+      currentUser.user_metadata?.full_name ||
+      "";
+
+  document.getElementById("editBio")
+    .value =
+      currentProfile?.Bio ||
+      "";
+
+  document.getElementById("editAvatar")
+    .value = "";
+
+  openModal("editProfileModal");
+
+}
+
+
+async function saveProfile(){
+
+  if(!currentUser){
+
+    toast("Inicia sesión primero.");
+    return;
+
+  }
+
+  const name =
+    document.getElementById("editName")
+      .value.trim() ||
+      "Usuario FitLab";
+
+  const bio =
+    document.getElementById("editBio")
+      .value.trim();
+
+  const file =
+    document.getElementById("editAvatar")
+      .files[0];
+
+  let avatarUrl =
+    currentProfile?.avatar_url ||
+    defaultAvatar(name);
+
+  try{
+
+    if(file){
+
+      const ext =
+        file.name.split(".").pop() || "jpg";
+
+      const path =
+        `${currentUser.id}/avatar_${Date.now()}.${ext}`;
+
+      const upload =
+        await supabaseClient
+          .storage
+          .from(STORAGE_BUCKET)
+          .upload(
+            path,
+            file,
+            {
+              upsert:true,
+              contentType:file.type
+            }
+          );
+
+      if(upload.error){
+        throw upload.error;
+      }
+
+      const publicData =
+        supabaseClient
+          .storage
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(path);
+
+      avatarUrl =
+        publicData.data.publicUrl;
+
+    }
+
+    const update =
+      await supabaseClient
+        .from("profiles")
+        .update({
+          full_name:name,
+          Bio:bio,
+          avatar_url:avatarUrl,
+          updated_at:new Date().toISOString()
+        })
+        .eq("user_id",currentUser.id);
+
+    if(update.error){
+      throw update.error;
+    }
+
+    await ensureProfile();
+
+    closeModal("editProfileModal");
+
+    toast("Perfil actualizado.");
+
+    await loadMyProfile();
+    await loadFeed();
+
+  }catch(error){
+
+    console.error(error);
+
+    toast(
+      "No se pudo guardar el perfil: " +
+      (error.message || "")
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CREAR PUBLICACIÓN
+========================================================= */
+
+function openCreate(){
+
+  showSection("create");
+
+}
+
+
+function selectCreateType(type){
+
+  createType = type;
+
+  document.getElementById("typeText")
+    .classList.toggle(
+      "active",
+      type==="text"
+    );
+
+  document.getElementById("typeMedia")
+    .classList.toggle(
+      "active",
+      type==="media"
+    );
+
+  document.getElementById("mediaArea")
+    .style.display =
+      type==="media"
+      ? "block"
+      : "none";
+
+}
+
+
+function previewPostFile(){
+
+  const file =
+    document.getElementById("postFile")
+      .files[0];
+
+  selectedPostFile =
+    file || null;
+
+  const preview =
+    document.getElementById("filePreview");
+
+  preview.innerHTML = "";
+
+  if(!file){
+    return;
+  }
+
+  const url =
+    URL.createObjectURL(file);
+
+  if(file.type.startsWith("image/")){
+
+    preview.innerHTML =
+      `<img
+        src="${url}"
+        style="width:100%;max-height:300px;object-fit:cover;border-radius:14px;margin-top:10px"
+      >`;
+
+  }else if(file.type.startsWith("video/")){
+
+    preview.innerHTML =
+      `<video
+        src="${url}"
+        controls
+        style="width:100%;max-height:300px;border-radius:14px;margin-top:10px"
+      ></video>`;
+
+  }
+
+}
+
+
+async function uploadPostMedia(file){
+
+  if(!currentUser){
+    throw new Error("Debes iniciar sesión.");
+  }
+
+  const ext =
+    file.name.split(".").pop() || "bin";
+
+  const path =
+    `${currentUser.id}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const result =
+    await supabaseClient
+      .storage
+      .from(STORAGE_BUCKET)
+      .upload(
+        path,
+        file,
+        {
+          upsert:false,
+          contentType:file.type
+        }
+      );
+
+  if(result.error){
+    throw result.error;
+  }
+
+  const publicData =
+    supabaseClient
+      .storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(path);
+
+  return publicData.data.publicUrl;
+
+}
+
+
+async function createPost(){
+
+  if(!currentUser){
+
+    toast("Inicia sesión para publicar.");
+    openAuth();
+    return;
+
+  }
+
+  const content =
+    document.getElementById("postContent")
+      .value.trim();
+
+  if(!content && !selectedPostFile){
+
+    toast(
+      "Escribe algo o selecciona una foto/video."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    let mediaUrl = null;
+    let mediaType = null;
+
+    if(selectedPostFile){
+
+      toast("Subiendo publicación...");
+
+      mediaUrl =
+        await uploadPostMedia(
+          selectedPostFile
+        );
+
+      mediaType =
+        selectedPostFile.type.startsWith("video/")
+          ? "video"
+          : "image";
+
+    }
+
+    const result =
+      await supabaseClient
+        .from("posts")
+        .insert({
+          user_id:currentUser.id,
+          content:content,
+          media_url:mediaUrl,
+          media_type:mediaType,
+          is_private:false
+        });
+
+    if(result.error){
+      throw result.error;
+    }
+
+    document.getElementById("postContent")
+      .value = "";
+
+    document.getElementById("postFile")
+      .value = "";
+
+    document.getElementById("filePreview")
+      .innerHTML = "";
+
+    selectedPostFile = null;
+
+    selectCreateType("text");
+
+    toast("Publicación creada.");
+
+    showSection("feed");
+
+    await loadFeed();
+
+  }catch(error){
+
+    console.error(error);
+
+    toast(
+      "No se pudo publicar: " +
+      (error.message || "")
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   POSTS
+========================================================= */
+
+async function getPosts(){
+
+  const result =
+    await supabaseClient
+      .from("posts")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(100);
+
+  if(result.error){
+    console.error(result.error);
+    return [];
+  }
+
+  return result.data || [];
+
+}
+
+
+async function getProfilesMap(ids){
+
+  const unique =
+    [...new Set(
+      ids.filter(Boolean)
+    )];
+
+  if(!unique.length){
+    return {};
+  }
+
+  const result =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .in("user_id",unique);
+
+  const map = {};
+
+  (result.data || [])
+    .forEach(profile=>{
+      map[profile.user_id] =
+        profile;
+    });
+
+  return map;
+
+}
+
+
+function getLikes(){
+
+  try{
+    return JSON.parse(
+      localStorage.getItem("fitlab_likes") || "{}"
+    );
+  }catch{
+    return {};
+  }
+
+}
+
+
+function saveLikes(data){
+
+  localStorage.setItem(
+    "fitlab_likes",
+    JSON.stringify(data)
+  );
+
+}
+
+
+function getComments(){
+
+  try{
+    return JSON.parse(
+      localStorage.getItem("fitlab_comments") || "{}"
+    );
+  }catch{
+    return {};
+  }
+
+}
+
+
+function saveComments(data){
+
+  localStorage.setItem(
+    "fitlab_comments",
+    JSON.stringify(data)
+  );
+
+}
+
+
+function postLiked(id){
+
+  const likes =
+    getLikes();
+
+  return !!likes[id];
+
+}
+
+
+function toggleLike(id){
+
+  if(!currentUser){
+
+    toast("Inicia sesión para dar Me gusta.");
+    openAuth();
+    return;
+
+  }
+
+  const likes =
+    getLikes();
+
+  likes[id] =
+    !likes[id];
+
+  saveLikes(likes);
+
+  loadFeed();
+
+}
+
+
+function renderPost(post,profileMap){
+
+  const profile =
+    profileMap[post.user_id] || {};
+
+  const name =
+    profile.full_name ||
+    "Usuario FitLab";
+
+  const avatar =
+    profile.avatar_url ||
+    defaultAvatar(name);
+
+  const liked =
+    postLiked(post.id);
+
+  const comments =
+    getComments()[post.id] || [];
+
+  const isOwner =
+    currentUser &&
+    currentUser.id === post.user_id;
+
+  const date =
+    post.created_at
+      ? new Date(post.created_at)
+          .toLocaleDateString(
+            "es-MX",
+            {
+              day:"numeric",
+              month:"short"
+            }
+          )
+      : "";
+
+  let media = "";
+
+  if(post.media_url){
+
+    if(post.media_type === "video"){
+
+      media =
+        `<video
+          class="post-media"
+          src="${escapeHTML(post.media_url)}"
+          controls
+          playsinline
+        ></video>`;
+
+    }else{
+
+      media =
+        `<img
+          class="post-media"
+          src="${escapeHTML(post.media_url)}"
+          loading="lazy"
+          alt="Publicación FitLab"
+        >`;
+
+    }
+
+  }
+
+  const commentsCount =
+    comments.length;
+
+  return `
+
+    <article class="card">
+
+      <div class="card-head">
+
+        <div
+          class="user"
+          onclick="openUserProfile('${escapeHTML(post.user_id)}')"
+          style="cursor:pointer"
+        >
+
+          <img
+            class="avatar"
+            src="${escapeHTML(avatar)}"
+            alt=""
+          >
+
+          <div>
+
+            <div class="user-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <div class="user-meta">
+              ${date}
+              ${post.is_private ? " · 🔒 Privada" : ""}
+            </div>
+
+          </div>
+
+        </div>
+
+        ${
+          isOwner
+          ? `
+            <button
+              class="more-btn"
+              onclick="postMenu('${post.id}',${post.is_private ? "true":"false"})">
+              ⋮
+            </button>
+          `
+          : ""
+        }
+
+      </div>
+
+      ${
+        post.content
+        ? `
+          <div class="post-text">
+            ${escapeHTML(post.content)}
+          </div>
+        `
+        : ""
+      }
+
+      ${media}
+
+      <div class="post-actions">
+
+        <button
+          class="post-action ${liked ? "liked":""}"
+          onclick="toggleLike('${post.id}')">
+
+          <span class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.4z"/>
+            </svg>
+          </span>
+
+          ${liked ? "Te gusta" : "Me gusta"}
+
+        </button>
+
+        <button
+          class="post-action"
+          onclick="openComments('${post.id}')">
+
+          <span class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 11.5a7.5 7.5 0 0 1-7.8 7.5H7l-4 2v-9.5A7.5 7.5 0 0 1 10.5 4h1A7.5 7.5 0 0 1 20 11.5z"/>
+            </svg>
+          </span>
+
+          ${commentsCount}
+
+        </button>
+
+        <button
+          class="post-action"
+          onclick="sharePost('${post.id}')">
+
+          <span class="icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="18" cy="5" r="2.5"/>
+              <circle cx="6" cy="12" r="2.5"/>
+              <circle cx="18" cy="19" r="2.5"/>
+              <path d="m8.2 10.8 7.6-4.6"/>
+              <path d="m8.2 13.2 7.6 4.6"/>
+            </svg>
+          </span>
+
+          Compartir
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+async function loadFeed(){
+
+  const container =
+    document.getElementById("feedList");
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML =
+    `<div class="empty">Cargando publicaciones...</div>`;
+
+  const posts =
+    await getPosts();
+
+  if(!posts.length){
+
+    container.innerHTML =
+      `
+      <div class="card empty">
+        <div style="font-size:30px;margin-bottom:8px">
+          ✦
+        </div>
+        Todavía no hay publicaciones.<br>
+        Sé el primero en compartir algo.
+      </div>
+      `;
+
+    return;
+
+  }
+
+  const profileMap =
+    await getProfilesMap(
+      posts.map(p=>p.user_id)
+    );
+
+  container.innerHTML =
+    posts
+      .map(post=>
+        renderPost(post,profileMap)
+      )
+      .join("");
+
+}
+
+
+async function loadMyPosts(){
+
+  const container =
+    document.getElementById("myPosts");
+
+  if(!container || !currentUser){
+    return;
+  }
+
+  const result =
+    await supabaseClient
+      .from("posts")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("created_at",{ascending:false});
+
+  if(result.error){
+
+    container.innerHTML =
+      `<div class="card empty">No se pudieron cargar tus publicaciones.</div>`;
+
+    return;
+
+  }
+
+  const posts =
+    result.data || [];
+
+  document.getElementById("profilePosts")
+    .textContent =
+      posts.length;
+
+  if(!posts.length){
+
+    container.innerHTML =
+      `<div class="card empty">
+        Todavía no has publicado nada.
+      </div>`;
+
+    return;
+
+  }
+
+  const map =
+    await getProfilesMap(
+      posts.map(p=>p.user_id)
+    );
+
+  container.innerHTML =
+    posts
+      .map(post=>
+        renderPost(post,map)
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   MENÚ DE PUBLICACIÓN
+========================================================= */
+
+async function postMenu(id,isPrivate){
+
+  if(!currentUser){
+    return;
+  }
+
+  const action =
+    prompt(
+      isPrivate
+      ? "Escribe:\n1 = Hacer pública\n2 = Eliminar"
+      : "Escribe:\n1 = Poner privada\n2 = Eliminar"
+    );
+
+  if(action === "1"){
+
+    if(isPrivate){
+
+      if(confirm("¿Quieres volver pública esta publicación?")){
+        await makePostPublic(id);
+      }
+
+    }else{
+
+      if(confirm("¿Quieres poner privada esta publicación?")){
+        await makePostPrivate(id);
+      }
+
+    }
+
+  }else if(action === "2"){
+
+    if(
+      confirm(
+        "¿Seguro que quieres eliminar esta publicación?"
+      )
+    ){
+
+      await deletePost(id);
+
+    }
+
+  }
+
+}
+
+
+async function makePostPrivate(id){
+
+  const result =
+    await supabaseClient
+      .from("posts")
+      .update({
+        is_private:true
+      })
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(result.error){
+
+    toast(
+      "No se pudo hacer privada."
+    );
+
+    return;
+
+  }
+
+  toast("Publicación privada.");
+
+  await loadFeed();
+  await loadMyPosts();
+
+}
+
+
+async function makePostPublic(id){
+
+  const result =
+    await supabaseClient
+      .from("posts")
+      .update({
+        is_private:false
+      })
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(result.error){
+
+    toast(
+      "No se pudo hacer pública."
+    );
+
+    return;
+
+  }
+
+  toast("Publicación pública.");
+
+  await loadFeed();
+  await loadMyPosts();
+
+}
+
+
+async function deletePost(id){
+
+  const result =
+    await supabaseClient
+      .from("posts")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(result.error){
+
+    toast(
+      "No se pudo eliminar."
+    );
+
+    return;
+
+  }
+
+  toast("Publicación eliminada.");
+
+  await loadFeed();
+  await loadMyPosts();
+
+}
+
+
+/* =========================================================
+   COMENTARIOS
+========================================================= */
+
+function openComments(postId){
+
+  currentCommentPost =
+    postId;
+
+  renderComments();
+
+  openModal("commentsModal");
+
+}
+
+
+function renderComments(){
+
+  const container =
+    document.getElementById("commentsList");
+
+  const all =
+    getComments();
+
+  const list =
+    all[currentCommentPost] || [];
+
+  if(!list.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        Todavía no hay comentarios.
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    list.map(comment=>`
+
+      <div class="comment">
+
+        <img
+          class="avatar"
+          style="width:34px;height:34px;border-radius:11px"
+          src="${escapeHTML(comment.avatar || defaultAvatar(comment.name))}"
+        >
+
+        <div class="comment-body">
+
+          <strong>
+            ${escapeHTML(comment.name)}
+          </strong>
+
+          ${escapeHTML(comment.text)}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function addComment(){
+
+  if(!currentUser){
+
+    toast("Inicia sesión para comentar.");
+    openAuth();
+    return;
+
+  }
+
+  const input =
+    document.getElementById("commentInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+    return;
+  }
+
+  const all =
+    getComments();
+
+  if(!all[currentCommentPost]){
+    all[currentCommentPost] = [];
+  }
+
+  all[currentCommentPost].push({
+    name:
+      currentProfile?.full_name ||
+      "Usuario FitLab",
+    avatar:
+      currentProfile?.avatar_url ||
+      defaultAvatar(
+        currentProfile?.full_name
+      ),
+    text,
+    created_at:
+      new Date().toISOString()
+  });
+
+  saveComments(all);
+
+  input.value = "";
+
+  renderComments();
+
+  loadFeed();
+
+}
+
+
+/* =========================================================
+   COMPARTIR
+========================================================= */
+
+async function sharePost(id){
+
+  const url =
+    location.origin +
+    location.pathname +
+    "?post=" +
+    encodeURIComponent(id);
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share({
+        title:"FitLab Social",
+        text:"Mira esta publicación en FitLab.",
+        url
+      });
+
+    }else{
+
+      await navigator.clipboard.writeText(url);
+
+      toast("Enlace copiado.");
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* =========================================================
+   FOLLOW
+========================================================= */
+
+function getLocalFollowing(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "fitlab_following"
+      ) || "[]"
+    );
+
+  }catch{
+    return [];
+  }
+
+}
+
+
+function saveLocalFollowing(list){
+
+  localStorage.setItem(
+    "fitlab_following",
+    JSON.stringify(list)
+  );
+
+}
+
+
+async function getFollowingIds(){
+
+  if(!currentUser){
+    return [];
+  }
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("follows")
+        .select("following_id")
+        .eq("follower_id",currentUser.id);
+
+    if(!result.error){
+
+      return (result.data || [])
+        .map(row=>row.following_id);
+
+    }
+
+  }catch(error){
+
+    console.warn(error);
+
+  }
+
+  return getLocalFollowing();
+
+}
+
+
+async function isFollowing(targetId){
+
+  if(!currentUser){
+    return false;
+  }
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("follows")
+        .select("id")
+        .eq("follower_id",currentUser.id)
+        .eq("following_id",targetId)
+        .maybeSingle();
+
+    if(!result.error){
+      return !!result.data;
+    }
+
+  }catch(error){
+
+    console.warn(error);
+
+  }
+
+  return getLocalFollowing()
+    .includes(targetId);
+
+}
+
+
+async function toggleFollow(targetId){
+
+  if(!currentUser){
+
+    toast("Inicia sesión para seguir perfiles.");
+    openAuth();
+    return;
+
+  }
+
+  if(targetId === currentUser.id){
+
+    toast("No puedes seguirte a ti mismo.");
+    return;
+
+  }
+
+  try{
+
+    const check =
+      await supabaseClient
+        .from("follows")
+        .select("id")
+        .eq("follower_id",currentUser.id)
+        .eq("following_id",targetId)
+        .maybeSingle();
+
+    if(!check.error){
+
+      if(check.data){
+
+        const del =
+          await supabaseClient
+            .from("follows")
+            .delete()
+            .eq("id",check.data.id);
+
+        if(del.error){
+          throw del.error;
+        }
+
+        toast("Dejaste de seguir.");
+
+      }else{
+
+        const ins =
+          await supabaseClient
+            .from("follows")
+            .insert({
+              follower_id:currentUser.id,
+              following_id:targetId
+            });
+
+        if(ins.error){
+          throw ins.error;
+        }
+
+        toast("Ahora sigues este perfil.");
+
+      }
+
+      await loadMyProfile();
+      await searchProfiles();
+
+      return;
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Usando seguimiento local:",
+      error
+    );
+
+  }
+
+  let list =
+    getLocalFollowing();
+
+  if(list.includes(targetId)){
+
+    list =
+      list.filter(id=>id!==targetId);
+
+    toast("Dejaste de seguir.");
+
+  }else{
+
+    list.push(targetId);
+
+    toast("Ahora sigues este perfil.");
+
+  }
+
+  saveLocalFollowing(list);
+
+  await searchProfiles();
+  await loadMyProfile();
+
+}
+
+
+/* =========================================================
+   BUSCAR PERFILES
+========================================================= */
+
+async function searchProfiles(){
+
+  const container =
+    document.getElementById("profilesList");
+
+  if(!container){
+    return;
+  }
+
+  const query =
+    document.getElementById("profileSearch")
+      ?.value
+      .trim()
+      .toLowerCase() || "";
+
+  container.innerHTML =
+    `<div class="empty">Buscando perfiles...</div>`;
+
+  let result =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .limit(60);
+
+  if(result.error){
+
+    container.innerHTML =
+      `<div class="empty">
+        No se pudieron cargar los perfiles.
+      </div>`;
+
+    return;
+
+  }
+
+  let profiles =
+    result.data || [];
+
+  if(currentUser){
+
+    profiles =
+      profiles.filter(
+        profile =>
+          profile.user_id !== currentUser.id
+      );
+
+  }
+
+  if(query){
+
+    profiles =
+      profiles.filter(profile=>
+        String(profile.full_name || "")
+          .toLowerCase()
+          .includes(query)
+        ||
+        String(profile.Bio || "")
+          .toLowerCase()
+          .includes(query)
+      );
+
+  }
+
+  if(!profiles.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        No encontramos perfiles.
+      </div>`;
+
+    return;
+
+  }
+
+  const following =
+    new Set(
+      await getFollowingIds()
+    );
+
+  container.innerHTML =
+    profiles.map(profile=>`
+
+      <div class="profile-result">
+
+        <img
+          class="avatar"
+          src="${escapeHTML(
+            profile.avatar_url ||
+            defaultAvatar(profile.full_name)
+          )}"
+        >
+
+        <div
+          class="profile-result-info"
+          onclick="openUserProfile('${escapeHTML(profile.user_id)}')"
+          style="cursor:pointer"
+        >
+
+          <div class="profile-result-name">
+            ${escapeHTML(
+              profile.full_name ||
+              "Usuario FitLab"
+            )}
+          </div>
+
+          <div class="profile-result-bio">
+            ${escapeHTML(
+              profile.Bio ||
+              "Perfil fitness"
+            )}
+          </div>
+
+        </div>
+
+        <button
+          class="btn small ${following.has(profile.user_id) ? "dark":""}"
+          onclick="toggleFollow('${escapeHTML(profile.user_id)}')">
+
+          ${
+            following.has(profile.user_id)
+            ? "Siguiendo"
+            : "Seguir"
+          }
+
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   LISTA DE SEGUIDORES / SIGUIENDO
+========================================================= */
+
+async function openFollowList(type){
+
+  if(!currentUser){
+
+    toast("Inicia sesión para ver tus conexiones.");
+    openAuth();
+    return;
+
+  }
+
+  currentFollowListType =
+    type;
+
+  document.getElementById("followListTitle")
+    .textContent =
+      type === "followers"
+      ? "Tus seguidores"
+      : "Personas que sigues";
+
+  openModal("followListModal");
+
+  await loadFollowList(type);
+
+}
+
+
+async function loadFollowList(type){
+
+  const container =
+    document.getElementById("followList");
+
+  container.innerHTML =
+    `<div class="empty">Cargando...</div>`;
+
+  let rows = [];
+
+  try{
+
+    if(type === "followers"){
+
+      const result =
+        await supabaseClient
+          .from("follows")
+          .select("follower_id")
+          .eq("following_id",currentUser.id);
+
+      if(result.error){
+        throw result.error;
+      }
+
+      rows =
+        (result.data || [])
+          .map(row=>row.follower_id);
+
+    }else{
+
+      const result =
+        await supabaseClient
+          .from("follows")
+          .select("following_id")
+          .eq("follower_id",currentUser.id);
+
+      if(result.error){
+        throw result.error;
+      }
+
+      rows =
+        (result.data || [])
+          .map(row=>row.following_id);
+
+    }
+
+  }catch(error){
+
+    rows =
+      type === "following"
+      ? getLocalFollowing()
+      : [];
+
+  }
+
+  if(!rows.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        ${
+          type === "followers"
+          ? "Todavía no tienes seguidores."
+          : "Todavía no sigues a nadie."
+        }
+      </div>`;
+
+    return;
+
+  }
+
+  const result =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .in("user_id",rows);
+
+  const profiles =
+    result.data || [];
+
+  container.innerHTML =
+    profiles.map(profile=>`
+
+      <div class="profile-result">
+
+        <img
+          class="avatar"
+          src="${escapeHTML(
+            profile.avatar_url ||
+            defaultAvatar(profile.full_name)
+          )}"
+        >
+
+        <div
+          class="profile-result-info"
+          onclick="openUserProfile('${escapeHTML(profile.user_id)}')"
+        >
+
+          <div class="profile-result-name">
+            ${escapeHTML(
+              profile.full_name ||
+              "Usuario FitLab"
+            )}
+          </div>
+
+          <div class="profile-result-bio">
+            ${escapeHTML(
+              profile.Bio ||
+              "Perfil fitness"
+            )}
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   PERFIL PROPIO
+========================================================= */
+
+async function loadMyProfile(){
+
+  if(!currentUser){
+
+    document.getElementById("profileName")
+      .textContent =
+        "Inicia sesión";
+
+    document.getElementById("profileBio")
+      .textContent =
+        "Crea tu cuenta para tener tu perfil FitLab.";
+
+    document.getElementById("profileAvatar")
+      .src =
+        defaultAvatar("F");
+
+    return;
+
+  }
+
+  await ensureProfile();
+
+  const name =
+    currentProfile?.full_name ||
+    "Usuario FitLab";
+
+  document.getElementById("profileName")
+    .textContent =
+      name;
+
+  document.getElementById("profileBio")
+    .textContent =
+      currentProfile?.Bio ||
+      "Perfil fitness de FitLab.";
+
+  document.getElementById("profileAvatar")
+    .src =
+      currentProfile?.avatar_url ||
+      defaultAvatar(name);
+
+  let followers = 0;
+  let following = 0;
+
+  try{
+
+    const followerResult =
+      await supabaseClient
+        .from("follows")
+        .select("id",{count:"exact",head:true})
+        .eq("following_id",currentUser.id);
+
+    const followingResult =
+      await supabaseClient
+        .from("follows")
+        .select("id",{count:"exact",head:true})
+        .eq("follower_id",currentUser.id);
+
+    if(!followerResult.error){
+      followers =
+        followerResult.count || 0;
+    }
+
+    if(!followingResult.error){
+      following =
+        followingResult.count || 0;
+    }
+
+  }catch(error){
+
+    following =
+      getLocalFollowing().length;
+
+  }
+
+  document.getElementById("profileFollowers")
+    .textContent =
+      followers;
+
+  document.getElementById("profileFollowing")
+    .textContent =
+      following;
+
+  await loadMyPosts();
+
+}
+
+
+/* =========================================================
+   PERFIL DE OTRO USUARIO
+========================================================= */
+
+async function openUserProfile(userId){
+
+  const container =
+    document.getElementById(
+      "userProfileContent"
+    );
+
+  container.innerHTML =
+    `<div class="empty">Cargando perfil...</div>`;
+
+  openModal("userProfileModal");
+
+  const profileResult =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("user_id",userId)
+      .maybeSingle();
+
+  if(profileResult.error ||
+     !profileResult.data){
+
+    container.innerHTML =
+      `<div class="empty">
+        No encontramos este perfil.
+      </div>`;
+
+    return;
+
+  }
+
+  const profile =
+    profileResult.data;
+
+  const following =
+    await isFollowing(userId);
+
+  const postsResult =
+    await supabaseClient
+      .from("posts")
+      .select("*")
+      .eq("user_id",userId)
+      .eq("is_private",false)
+      .order("created_at",{ascending:false});
+
+  const posts =
+    postsResult.data || [];
+
+  const map = {};
+  map[userId] = profile;
+
+  container.innerHTML = `
+
+    <div style="text-align:center">
+
+      <img
+        class="avatar big"
+        style="margin:auto"
+        src="${escapeHTML(
+          profile.avatar_url ||
+          defaultAvatar(profile.full_name)
+        )}"
+      >
+
+      <div class="profile-name">
+        ${escapeHTML(
+          profile.full_name ||
+          "Usuario FitLab"
+        )}
+      </div>
+
+      <div class="profile-bio">
+        ${escapeHTML(
+          profile.Bio ||
+          "Perfil fitness"
+        )}
+      </div>
+
+      ${
+        currentUser &&
+        currentUser.id !== userId
+        ? `
+          <button
+            class="btn"
+            style="margin-top:13px"
+            onclick="toggleFollow('${escapeHTML(userId)}');setTimeout(()=>openUserProfile('${escapeHTML(userId)}'),400)">
+
+            ${
+              following
+              ? "Siguiendo"
+              : "Seguir"
+            }
+
+          </button>
+        `
+        : ""
+      }
+
+    </div>
+
+    <div style="margin-top:20px">
+
+      ${
+        posts.length
+        ? posts
+            .map(post=>
+              renderPost(post,map)
+            )
+            .join("")
+        : `
+          <div class="empty">
+            Este perfil todavía no tiene publicaciones públicas.
+          </div>
+        `
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   YOUTUBE
+========================================================= */
+
+/* =========================================================  
+   YOUTUBE  
+========================================================= */  
+  
+/*  
+  IMPORTANTE:  
+  Esta página NO contiene la API Key de YouTube.  
+  
+  La página llama a:  
+  Supabase Edge Function  
+          ↓  
+      hyper-worker  
+          ↓  
+      YouTube API  
+          ↓  
+        videos  
+          ↓  
+      FitLab Social  
+*/  
+  
+  
+window.searchYouTube = async function(categoryQuery){  
+  
+  const input =  
+    document.getElementById(  
+      "youtubeSearch"  
+    );  
+  
+  let query =  
+    categoryQuery ||  
+    input?.value.trim() ||  
+    "";  
+  
+  if(!query){  
+  
+    query =  
+      "fitness entrenamiento gimnasio ejercicios";  
+  }  
+  
+  if(input){  
+  
+    input.value =  
+      categoryQuery || input.value;  
+  }  
+  
+  document  
+    .querySelectorAll(".category-btn")  
+    .forEach(btn=>{  
+      btn.classList.remove("active");  
+    });  
+  
+  if(categoryQuery){  
+  
+    const buttons =  
+      document.querySelectorAll(  
+        ".category-btn"  
+      );  
+  
+    buttons.forEach(btn=>{  
+  
+      if(  
+        btn.textContent  
+          .toLowerCase()  
+          .includes(  
+            categoryQuery  
+              .split(" ")[0]  
+              .toLowerCase()  
+          )  
+      ){  
+        btn.classList.add("active");  
+      }  
+    });  
+  }  
+  
+  await loadYouTubeVideos(  
+    query  
+  );  
+};  
+  
+  
+async function loadYouTubeVideos(query){  
+  
+  if(youtubeLoading){  
+    return;  
+  }  
+  
+  youtubeLoading = true;  
+  
+  youtubeLastQuery =  
+    query ||  
+    "fitness entrenamiento gimnasio ejercicios";  
+  
+  const content =  
+    document.getElementById(  
+      "youtubeContent"  
+    );  
+  
+  if(!content){  
+    youtubeLoading = false;  
+    return;  
+  }  
+  
+  content.dataset.loaded =  
+    "loading";  
+  
+  content.innerHTML = `  
+    <div class="video-loading">  
+      <div style="font-size:30px;margin-bottom:8px;">  
+        🎥  
+      </div>  
+      Buscando videos...  
+    </div>  
+  `;  
+  
+  try{  
+  
+    const url =  
+      HYPER_WORKER_URL +  
+      "?q=" +  
+      encodeURIComponent(  
+        youtubeLastQuery  
+      ) +  
+      "&maxResults=12";  
+  
+    const response =  
+      await fetch(  
+        url,  
+        {  
+          method:"GET",  
+          headers:{  
+            "apikey":  
+              SUPABASE_PUBLISHABLE_KEY,  
+  
+            "Authorization":  
+              "Bearer " +  
+              SUPABASE_PUBLISHABLE_KEY,  
+  
+            "Content-Type":  
+              "application/json"  
+          }  
+        }  
+      );  
+  
+    const rawText =  
+      await response.text();  
+  
+    let data = null;  
+  
+    try{  
+  
+      data =  
+        JSON.parse(rawText);  
+  
+    }catch{  
+  
+      data = {  
+        raw:rawText  
+      };  
+    }  
+  
+    if(!response.ok){  
+  
+      console.error(  
+        "hyper-worker:",  
+        response.status,  
+        data  
+      );  
+  
+      throw new Error(  
+        data?.error ||  
+        data?.message ||  
+        `Error ${response.status}`  
+      );  
+    }  
+  
+    /*  
+      Permitimos varias estructuras de respuesta  
+      para que el frontend sea compatible con  
+      diferentes versiones del worker.  
+    */  
+  
+    let videos = [];  
+  
+    if(Array.isArray(data)){  
+      videos = data;  
+    }  
+    else if(Array.isArray(data?.videos)){  
+      videos = data.videos;  
+    }  
+    else if(Array.isArray(data?.items)){  
+      videos = data.items;  
+    }  
+    else if(Array.isArray(data?.results)){  
+      videos = data.results;  
+    }  
+  
+    videos =  
+      videos  
+        .map(normalizeYouTubeVideo)  
+        .filter(video=>video.id);  
+  
+    if(!videos.length){  
+  
+      content.innerHTML = `  
+        <div class="video-loading">  
+          <div style="font-size:35px;margin-bottom:8px;">  
+            🔎  
+          </div>  
+  
+          <div style="font-weight:900;margin-bottom:5px;">  
+            No encontramos videos  
+          </div>  
+  
+          <div>  
+            Prueba con otra búsqueda.  
+          </div>  
+        </div>  
+      `;  
+  
+      content.dataset.loaded =  
+        "true";  
+  
+      return;  
+    }  
+  
+    renderYouTubeVideos(  
+      videos  
+    );  
+  
+    content.dataset.loaded =  
+      "true";  
+  
+  }catch(error){  
+  
+    console.error(  
+      "Error YouTube:",  
+      error  
+    );  
+  
+    content.innerHTML = `  
+      <div class="video-error">  
+  
+        <div style="font-size:30px;">  
+          ⚠️  
+        </div>  
+  
+        <div style="font-weight:900;margin-top:8px;">  
+          No se pudieron cargar los videos  
+        </div>  
+  
+        <div style="font-size:12px;margin-top:7px;">  
+          ${escapeHTML(  
+            error?.message ||  
+            "Error de conexión"  
+          )}  
+        </div>  
+  
+        <button  
+          class="secondary"  
+          onclick="loadYouTubeVideos(youtubeLastQuery)">  
+          🔄 Intentar nuevamente  
+        </button>  
+  
+      </div>  
+    `;  
+  
+    content.dataset.loaded =  
+      "error";  
+  
+  }finally{  
+  
+    youtubeLoading = false;  
+  }  
+}  
+  
+  
+function normalizeYouTubeVideo(item){  
+  
+  /*  
+    Formato 1:  
+    {  
+      id,  
+      title,  
+      channel,  
+      thumbnail  
+    }  
+  
+    Formato 2:  
+    YouTube Data API:  
+    {  
+      id:{videoId},  
+      snippet:{title,channelTitle,thumbnails}  
+    }  
+  */  
+  
+  let id = "";  
+  let title = "";  
+  let channel = "";  
+  let thumbnail = "";  
+  
+  if(typeof item === "string"){  
+  
+    id =  
+      extractYouTubeId(  
+        item  
+      );  
+  
+  }else if(item){  
+  
+    if(typeof item.id === "string"){  
+  
+      id = item.id;  
+  
+    }else if(  
+      item.id &&  
+      typeof item.id.videoId === "string"  
+    ){  
+  
+      id =  
+        item.id.videoId;  
+    }  
+  
+    title =  
+      item.title ||  
+      item.name ||  
+      item.snippet?.title ||  
+      "";  
+  
+    channel =  
+      item.channel ||  
+      item.channelTitle ||  
+      item.snippet?.channelTitle ||  
+      "";  
+  
+    thumbnail =  
+      item.thumbnail ||  
+      item.thumbnail_url ||  
+      item.snippet?.thumbnails?.high?.url ||  
+      item.snippet?.thumbnails?.medium?.url ||  
+      item.snippet?.thumbnails?.default?.url ||  
+      "";  
+  }  
+  
+  if(!thumbnail && id){  
+  
+    thumbnail =  
+      `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;  
+  }  
+  
+  return {  
+    id,  
+    title:  
+      title ||  
+      "Video de YouTube",  
+  
+    channel:  
+      channel ||  
+      "YouTube",  
+  
+    thumbnail  
+  };  
+}  
+  
+  
+function extractYouTubeId(value){  
+  
+  if(!value){  
+    return "";  
+  }  
+  
+  const text =  
+    String(value).trim();  
+  
+  if(  
+    /^[a-zA-Z0-9_-]{11}$/.test(text)  
+  ){  
+    return text;  
+  }  
+  
+  const patterns = [  
+  
+    /youtube\.com\/watch\?v=([^&]+)/i,  
+  
+    /youtu\.be\/([^?&/]+)/i,  
+  
+    /youtube\.com\/embed\/([^?&/]+)/i,  
+  
+    /youtube\.com\/shorts\/([^?&/]+)/i  
+  
+  ];  
+  
+  for(const pattern of patterns){  
+  
+    const match =  
+      text.match(pattern);  
+  
+    if(match){  
+      return match[1];  
+    }  
+  }  
+  
+  return "";  
+}  
+  
+  
+function renderYouTubeVideos(videos){  
+  
+  const content =  
+    document.getElementById(  
+      "youtubeContent"  
+    );  
+  
+  if(!content){  
+    return;  
+  }  
+  
+  content.innerHTML =  
+    videos  
+      .map(video=>`  
+  
+        <article  
+          class="youtube-card"  
+          onclick="  
+            playYouTubeVideo(  
+              '${escapeHTML(video.id)}',  
+              '${escapeHTML(video.title)}'  
+            )  
+          ">  
+  
+          <div class="youtube-thumb-wrap">  
+  
+            <img  
+              class="youtube-thumb"  
+              loading="lazy"  
+              src="${escapeHTML(video.thumbnail)}"  
+              alt="${escapeHTML(video.title)}"  
+              onerror="  
+                this.src='https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg'  
+              ">  
+  
+            <div class="youtube-play">  
+              ▶  
+            </div>  
+  
+          </div>  
+  
+          <div class="youtube-info">  
+  
+            <div class="youtube-title">  
+              ${escapeHTML(video.title)}  
+            </div>  
+  
+            <div class="youtube-channel">  
+              ${escapeHTML(video.channel)}  
+            </div>  
+  
+            <div class="youtube-source">  
+              YouTube  
+            </div>  
+  
+          </div>  
+  
+        </article>  
+  
+      `)  
+      .join("");  
+}  
+  
+  
+window.playYouTubeVideo = function(videoId,title){  
+  
+  if(!videoId){  
+    return;  
+  }  
+  
+  const iframe =  
+    document.getElementById(  
+      "youtubePlayer"  
+    );  
+  
+  const titleElement =  
+    document.getElementById(  
+      "youtubePlayerTitle"  
+    );  
+  
+  /*  
+    El video se reproduce mediante  
+    el reproductor oficial de YouTube.  
+  */  
+  
+  iframe.src =  
+    "https://www.youtube.com/embed/" +  
+    encodeURIComponent(videoId) +  
+    "?autoplay=1&rel=0&playsinline=1";  
+  
+  titleElement.textContent =  
+    title || "Video FitLab";  
+  
+  openModal(  
+    "youtubePlayerModal"  
+  );  
+};  
+  
+  
+window.closeYouTubePlayer = function(){  
+  
+  const iframe =  
+    document.getElementById(  
+      "youtubePlayer"  
+    );  
+  
+  iframe.src = "";  
+  
+  closeModal(  
+    "youtubePlayerModal"  
+  );  
+};  
+
+
+/* =========================================================
+   CARGA INICIAL
+========================================================= */
+
+async function loadEverything(){
+
+  try{
+
+    await ensureProfile();
+
+    await loadFeed();
+
+    await loadMyProfile();
+
+    await searchProfiles();
+
+  }catch(error){
+
+    console.error(
+      "Error cargando FitLab:",
+      error
+    );
+
+  }
+
+}
+
+
+async function init(){
+
+  try{
+
+    const sessionResult =
+      await supabaseClient.auth.getSession();
+
+    currentUser =
+      sessionResult.data?.session?.user ||
+      null;
+
+    if(currentUser){
+
+      await ensureProfile();
+
+    }
+
+    await loadFeed();
+
+    if(currentUser){
+
+      await loadMyProfile();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Error inicial:",
+      error
+    );
+
+  }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  async(event,session)=>{
+
+    currentUser =
+      session?.user || null;
+
+    if(currentUser){
+
+      await ensureProfile();
+
+      await loadEverything();
+
+    }else{
+
+      currentProfile = null;
+
+      await loadFeed();
+
+    }
+
+  }
+);
+
+
+init();
 
 </script>
 
