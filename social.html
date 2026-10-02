@@ -28,9 +28,7 @@ body{
   padding-bottom:85px;
 }
 
-button,
-input,
-textarea{
+button,input,textarea{
   font:inherit;
 }
 
@@ -72,12 +70,38 @@ button{
   color:#65ff9a;
 }
 
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
 .status{
   width:10px;
   height:10px;
   background:#65ff9a;
   border-radius:50%;
   box-shadow:0 0 12px #65ff9a;
+}
+
+.login-header-btn{
+  background:#65ff9a;
+  color:#041008;
+  border:0;
+  padding:8px 12px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.account-btn{
+  background:#101b15;
+  color:#65ff9a;
+  border:1px solid #294233;
+  padding:8px 11px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:800;
 }
 
 /* APP */
@@ -233,6 +257,7 @@ button{
   gap:10px;
   padding:11px 14px;
   border-top:1px solid #16251d;
+  flex-wrap:wrap;
 }
 
 .action-btn{
@@ -321,6 +346,75 @@ button{
   border:1px solid #452323;
   padding:10px 15px;
   border-radius:12px;
+}
+
+/* AUTH */
+
+.auth-status{
+  background:#09100c;
+  border:1px solid #1a2b21;
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.auth-status-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.auth-status-text{
+  min-width:0;
+}
+
+.auth-status-name{
+  font-weight:800;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.auth-status-email{
+  color:#7f8c84;
+  font-size:12px;
+  margin-top:3px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.auth-dot{
+  width:10px;
+  height:10px;
+  background:#65ff9a;
+  border-radius:50%;
+  flex-shrink:0;
+  box-shadow:0 0 10px #65ff9a;
+}
+
+.auth-login-card{
+  background:#09100c;
+  border:1px solid #1a2b21;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
+  text-align:center;
+}
+
+.auth-login-card h3{
+  margin-bottom:7px;
+}
+
+.auth-login-card p{
+  color:#8e9a93;
+  font-size:13px;
+  line-height:1.4;
 }
 
 /* DISCOVER USERS */
@@ -515,7 +609,7 @@ button{
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.78);
   backdrop-filter:blur(8px);
   z-index:500;
   display:none;
@@ -580,6 +674,34 @@ button{
 .field textarea{
   min-height:100px;
   resize:vertical;
+}
+
+.auth-switch{
+  text-align:center;
+  margin-top:15px;
+  color:#8e9a93;
+  font-size:13px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:#65ff9a;
+  font-weight:800;
+}
+
+.auth-message{
+  margin-top:10px;
+  padding:10px;
+  border-radius:10px;
+  background:#101b15;
+  color:#ffcc66;
+  font-size:12px;
+  display:none;
+}
+
+.auth-message.show{
+  display:block;
 }
 
 /* LOADING */
@@ -682,12 +804,21 @@ button{
 /* RESPONSIVE */
 
 @media(max-width:480px){
+
   .section-title{
     font-size:25px;
   }
 
   .profile-stats{
     gap:23px;
+  }
+
+  .auth-status{
+    align-items:flex-start;
+  }
+
+  .auth-status .secondary-btn{
+    white-space:nowrap;
   }
 }
 </style>
@@ -697,8 +828,29 @@ button{
 
 <header class="header">
   <div class="header-inner">
-    <div class="logo">Fit<span>Lab</span></div>
-    <div class="status" title="Conectado"></div>
+
+    <div class="logo">
+      Fit<span>Lab</span>
+    </div>
+
+    <div class="header-actions">
+
+      <div
+        id="headerStatus"
+        class="status"
+        title="Conectado"
+      ></div>
+
+      <button
+        id="headerAuthBtn"
+        class="login-header-btn"
+        onclick="openAuthModal()"
+      >
+        Iniciar sesión
+      </button>
+
+    </div>
+
   </div>
 </header>
 
@@ -706,46 +858,88 @@ button{
 
   <!-- FEED -->
   <section id="feed" class="section active">
-    <h1 class="section-title">Para ti</h1>
-    <p class="section-subtitle">Descubre contenido de la comunidad FitLab.</p>
+
+    <h1 class="section-title">
+      Para ti
+    </h1>
+
+    <p class="section-subtitle">
+      Descubre contenido de la comunidad FitLab.
+    </p>
+
+    <div id="authStatusBox"></div>
 
     <div id="feedContainer">
+
       <div class="loading">
+
         <div class="spinner"></div>
+
         Cargando publicaciones...
+
       </div>
+
     </div>
+
   </section>
+
 
   <!-- DISCOVER -->
   <section id="discover" class="section">
-    <h1 class="section-title">Descubrir</h1>
-    <p class="section-subtitle">Encuentra personas de la comunidad.</p>
+
+    <h1 class="section-title">
+      Descubrir
+    </h1>
+
+    <p class="section-subtitle">
+      Encuentra personas de la comunidad.
+    </p>
 
     <div class="search-box">
+
       <span>🔎</span>
+
       <input
         id="userSearch"
         type="search"
         placeholder="Buscar personas..."
         oninput="searchUsers()"
       >
+
     </div>
 
     <div id="usersContainer">
+
       <div class="loading">
+
         <div class="spinner"></div>
+
         Cargando usuarios...
+
       </div>
+
     </div>
+
   </section>
+
 
   <!-- CREATE -->
   <section id="create" class="section">
-    <h1 class="section-title">Crear</h1>
-    <p class="section-subtitle">Comparte tu entrenamiento con la comunidad.</p>
 
-    <div class="create-card">
+    <h1 class="section-title">
+      Crear
+    </h1>
+
+    <p class="section-subtitle">
+      Comparte tu entrenamiento con la comunidad FitLab.
+    </p>
+
+    <div id="createLoginBox"></div>
+
+    <div
+      id="createCard"
+      class="create-card"
+    >
 
       <textarea
         id="postText"
@@ -753,30 +947,49 @@ button{
       ></textarea>
 
       <div class="media-picker">
-        <div>📸 Selecciona una imagen o video</div>
+
+        <div>
+          📸 Selecciona una imagen o video
+        </div>
+
         <input
           id="mediaInput"
           type="file"
           accept="image/*,video/*"
           onchange="previewMedia()"
         >
+
       </div>
 
-      <div id="mediaPreview" class="preview"></div>
+      <div
+        id="mediaPreview"
+        class="preview"
+      ></div>
 
-      <button class="primary-btn" onclick="publishPost()">
+      <button
+        class="primary-btn"
+        onclick="publishPost()"
+      >
         Publicar
       </button>
 
     </div>
+
   </section>
+
 
   <!-- PROFILE -->
   <section id="profile" class="section">
 
-    <div class="profile-head">
+    <div id="profileLoginBox"></div>
+
+    <div
+      id="profileContent"
+      class="profile-head"
+    >
 
       <div class="profile-photo-wrap">
+
         <img
           id="profileAvatar"
           class="avatar big"
@@ -798,69 +1011,160 @@ button{
           style="display:none"
           onchange="changeProfilePhoto()"
         >
+
       </div>
 
-      <div id="profileName" class="profile-name">
+      <div
+        id="profileName"
+        class="profile-name"
+      >
         Carlos Berroteran
       </div>
 
-      <div id="profileUsername" class="username">
+      <div
+        id="profileUsername"
+        class="username"
+      >
         @carlosfit
       </div>
 
-      <div id="profileBio" class="profile-bio">
+      <div
+        id="profileBio"
+        class="profile-bio"
+      >
         Fitness • Entrenamiento
       </div>
 
-      <button class="secondary-btn" onclick="openEditProfile()">
+      <button
+        class="secondary-btn"
+        onclick="openEditProfile()"
+      >
         Editar perfil
       </button>
 
       <div class="profile-stats">
+
         <div class="stat">
-          <strong id="postsCount">0</strong>
-          <span>Publicaciones</span>
+
+          <strong id="postsCount">
+            0
+          </strong>
+
+          <span>
+            Publicaciones
+          </span>
+
         </div>
 
         <div class="stat">
-          <strong id="followersCount">0</strong>
-          <span>Seguidores</span>
+
+          <strong id="followersCount">
+            0
+          </strong>
+
+          <span>
+            Seguidores
+          </span>
+
         </div>
 
         <div class="stat">
-          <strong id="followingCount">0</strong>
-          <span>Siguiendo</span>
+
+          <strong id="followingCount">
+            0
+          </strong>
+
+          <span>
+            Siguiendo
+          </span>
+
         </div>
+
       </div>
+
+      <button
+        id="logoutProfileBtn"
+        class="danger-btn"
+        onclick="logout()"
+        style="margin-top:5px"
+      >
+        Cerrar sesión
+      </button>
 
     </div>
 
-    <div id="profileGrid" class="profile-grid"></div>
+    <div
+      id="profileGrid"
+      class="profile-grid"
+    ></div>
 
   </section>
+
 
   <!-- COMMUNITY -->
   <section id="recommend" class="section">
 
-    <h1 class="section-title">Comunidad</h1>
+    <h1 class="section-title">
+      Comunidad
+    </h1>
+
     <p class="section-subtitle">
       Conoce personas y recomienda perfiles.
     </p>
 
     <div class="rating-card">
-      <div style="font-size:40px">⭐</div>
-      <h3>Recomienda a la comunidad</h3>
+
+      <div style="font-size:40px">
+        ⭐
+      </div>
+
+      <h3>
+        Recomienda a la comunidad
+      </h3>
+
       <p style="color:#8d9992;margin-top:7px">
         Próximamente podrás valorar perfiles y entrenadores.
       </p>
 
       <div class="stars">
-        <button class="star" onclick="rate(1)">★</button>
-        <button class="star" onclick="rate(2)">★</button>
-        <button class="star" onclick="rate(3)">★</button>
-        <button class="star" onclick="rate(4)">★</button>
-        <button class="star" onclick="rate(5)">★</button>
+
+        <button
+          class="star"
+          onclick="rate(1)"
+        >
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(2)"
+        >
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(3)"
+        >
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(4)"
+        >
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(5)"
+        >
+          ★
+        </button>
+
       </div>
+
     </div>
 
     <div id="communityUsers"></div>
@@ -869,33 +1173,178 @@ button{
 
 </main>
 
-<!-- EDIT PROFILE MODAL -->
 
-<div id="editModal" class="modal">
+<!-- AUTH MODAL -->
+
+<div
+  id="authModal"
+  class="modal"
+>
 
   <div class="modal-box">
 
     <div class="modal-head">
-      <h2>Editar perfil</h2>
-      <button class="close-btn" onclick="closeEditProfile()">×</button>
+
+      <h2 id="authTitle">
+        Iniciar sesión
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeAuthModal()"
+      >
+        ×
+      </button>
+
     </div>
 
     <div class="field">
-      <label>Nombre</label>
-      <input id="editName" type="text">
+
+      <label>
+        Correo electrónico
+      </label>
+
+      <input
+        id="authEmail"
+        type="email"
+        placeholder="tu@email.com"
+        autocomplete="email"
+      >
+
     </div>
 
     <div class="field">
-      <label>Nombre de usuario</label>
-      <input id="editUsername" type="text">
+
+      <label>
+        Contraseña
+      </label>
+
+      <input
+        id="authPassword"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="current-password"
+      >
+
+    </div>
+
+    <div
+      id="registerNameField"
+      class="field hidden"
+    >
+
+      <label>
+        Nombre
+      </label>
+
+      <input
+        id="authName"
+        type="text"
+        placeholder="Tu nombre"
+        autocomplete="name"
+      >
+
+    </div>
+
+    <div
+      id="authMessage"
+      class="auth-message"
+    ></div>
+
+    <button
+      id="authSubmitBtn"
+      class="primary-btn"
+      onclick="submitAuth()"
+    >
+      Iniciar sesión
+    </button>
+
+    <div class="auth-switch">
+
+      <span id="authSwitchText">
+        ¿No tienes cuenta?
+      </span>
+
+      <button
+        id="authSwitchBtn"
+        onclick="toggleAuthMode()"
+      >
+        Crear cuenta
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- EDIT PROFILE MODAL -->
+
+<div
+  id="editModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>
+        Editar perfil
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeEditProfile()"
+      >
+        ×
+      </button>
+
     </div>
 
     <div class="field">
-      <label>Biografía</label>
-      <textarea id="editBio"></textarea>
+
+      <label>
+        Nombre
+      </label>
+
+      <input
+        id="editName"
+        type="text"
+      >
+
     </div>
 
-    <button class="primary-btn" onclick="saveProfile()">
+    <div class="field">
+
+      <label>
+        Nombre de usuario
+      </label>
+
+      <input
+        id="editUsername"
+        type="text"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Biografía
+      </label>
+
+      <textarea
+        id="editBio"
+      ></textarea>
+
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="saveProfile()"
+    >
       Guardar cambios
     </button>
 
@@ -903,9 +1352,14 @@ button{
 
 </div>
 
+
 <!-- TOAST -->
 
-<div id="toast" class="toast"></div>
+<div
+  id="toast"
+  class="toast"
+></div>
+
 
 <!-- BOTTOM NAV -->
 
@@ -913,34 +1367,75 @@ button{
 
   <div class="nav-inner">
 
-    <button class="nav-btn active" onclick="showSection('feed',this)">
-      <span class="nav-icon">⌂</span>
+    <button
+      class="nav-btn active"
+      onclick="showSection('feed',this)"
+    >
+
+      <span class="nav-icon">
+        ⌂
+      </span>
+
       Inicio
+
     </button>
 
-    <button class="nav-btn" onclick="showSection('discover',this)">
-      <span class="nav-icon">🔎</span>
+    <button
+      class="nav-btn"
+      onclick="showSection('discover',this)"
+    >
+
+      <span class="nav-icon">
+        🔎
+      </span>
+
       Descubrir
+
     </button>
 
-    <button class="nav-btn" onclick="showSection('create',this)">
-      <span class="nav-icon">＋</span>
+    <button
+      class="nav-btn"
+      onclick="showSection('create',this)"
+    >
+
+      <span class="nav-icon">
+        ＋
+      </span>
+
       Crear
+
     </button>
 
-    <button class="nav-btn" onclick="showSection('recommend',this)">
-      <span class="nav-icon">👥</span>
+    <button
+      class="nav-btn"
+      onclick="showSection('recommend',this)"
+    >
+
+      <span class="nav-icon">
+        👥
+      </span>
+
       Comunidad
+
     </button>
 
-    <button class="nav-btn" onclick="showSection('profile',this)">
-      <span class="nav-icon">👤</span>
+    <button
+      class="nav-btn"
+      onclick="showSection('profile',this)"
+    >
+
+      <span class="nav-icon">
+        👤
+      </span>
+
       Perfil
+
     </button>
 
   </div>
 
 </nav>
+
 
 <script>
 
@@ -969,15 +1464,22 @@ let currentUser = null;
 let currentProfile = null;
 let allUsers = [];
 let allPosts = [];
+let authMode = "login";
 
 const localLikes =
-  JSON.parse(localStorage.getItem("fitlab_likes") || "{}");
+  JSON.parse(
+    localStorage.getItem("fitlab_likes") || "{}"
+  );
 
 const localComments =
-  JSON.parse(localStorage.getItem("fitlab_comments") || "{}");
+  JSON.parse(
+    localStorage.getItem("fitlab_comments") || "{}"
+  );
 
 const localFollows =
-  JSON.parse(localStorage.getItem("fitlab_follows") || "{}");
+  JSON.parse(
+    localStorage.getItem("fitlab_follows") || "{}"
+  );
 
 
 /* =========================================================
@@ -986,7 +1488,10 @@ const localFollows =
 
 function escapeHTML(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
     return "";
   }
 
@@ -1004,14 +1509,22 @@ function showToast(message){
   const toast =
     document.getElementById("toast");
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
+
   toast.classList.add("show");
 
-  clearTimeout(window.toastTimer);
+  clearTimeout(
+    window.toastTimer
+  );
 
   window.toastTimer =
     setTimeout(() => {
-      toast.classList.remove("show");
+
+      toast.classList.remove(
+        "show"
+      );
+
     },3000);
 }
 
@@ -1022,22 +1535,33 @@ function formatDate(date){
     return "";
   }
 
-  const d = new Date(date);
+  const d =
+    new Date(date);
 
-  if(Number.isNaN(d.getTime())){
+  if(
+    Number.isNaN(
+      d.getTime()
+    )
+  ){
     return "";
   }
 
-  return d.toLocaleDateString("es-MX",{
-    day:"numeric",
-    month:"short"
-  });
+  return d.toLocaleDateString(
+    "es-MX",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
 }
 
 
 function getAvatar(profile){
 
-  if(profile && profile.avatar_url){
+  if(
+    profile &&
+    profile.avatar_url
+  ){
     return profile.avatar_url;
   }
 
@@ -1051,9 +1575,11 @@ function getDisplayName(profile){
     return "Usuario FitLab";
   }
 
-  return profile.full_name ||
-         profile.Email ||
-         "Usuario FitLab";
+  return (
+    profile.full_name ||
+    profile.Email ||
+    "Usuario FitLab"
+  );
 }
 
 
@@ -1064,6 +1590,7 @@ function getUsername(profile){
   }
 
   if(profile.username){
+
     return profile.username.startsWith("@")
       ? profile.username
       : "@" + profile.username;
@@ -1076,8 +1603,640 @@ function getUsername(profile){
   return "@" +
     name
       .toLowerCase()
-      .replace(/[^a-z0-9áéíóúñü]/gi,"")
+      .replace(
+        /[^a-z0-9áéíóúñü]/gi,
+        ""
+      )
       .slice(0,20);
+}
+
+
+/* =========================================================
+   AUTENTICACIÓN UI
+========================================================= */
+
+function openAuthModal(){
+
+  document
+    .getElementById("authModal")
+    .classList.add("show");
+
+  document
+    .getElementById("authEmail")
+    .focus();
+}
+
+
+function closeAuthModal(){
+
+  document
+    .getElementById("authModal")
+    .classList.remove("show");
+
+  clearAuthMessage();
+}
+
+
+function clearAuthMessage(){
+
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
+
+  box.textContent = "";
+  box.classList.remove("show");
+}
+
+
+function showAuthMessage(message){
+
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
+
+  box.textContent =
+    message;
+
+  box.classList.add("show");
+}
+
+
+function toggleAuthMode(){
+
+  authMode =
+    authMode === "login"
+      ? "register"
+      : "login";
+
+  const title =
+    document.getElementById(
+      "authTitle"
+    );
+
+  const button =
+    document.getElementById(
+      "authSubmitBtn"
+    );
+
+  const switchText =
+    document.getElementById(
+      "authSwitchText"
+    );
+
+  const switchButton =
+    document.getElementById(
+      "authSwitchBtn"
+    );
+
+  const nameField =
+    document.getElementById(
+      "registerNameField"
+    );
+
+  clearAuthMessage();
+
+  if(authMode === "register"){
+
+    title.textContent =
+      "Crear cuenta";
+
+    button.textContent =
+      "Crear cuenta";
+
+    switchText.textContent =
+      "¿Ya tienes cuenta?";
+
+    switchButton.textContent =
+      "Iniciar sesión";
+
+    nameField.classList.remove(
+      "hidden"
+    );
+
+  }else{
+
+    title.textContent =
+      "Iniciar sesión";
+
+    button.textContent =
+      "Iniciar sesión";
+
+    switchText.textContent =
+      "¿No tienes cuenta?";
+
+    switchButton.textContent =
+      "Crear cuenta";
+
+    nameField.classList.add(
+      "hidden"
+    );
+  }
+}
+
+
+async function submitAuth(){
+
+  const email =
+    document
+      .getElementById("authEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("authPassword")
+      .value;
+
+  const name =
+    document
+      .getElementById("authName")
+      .value
+      .trim();
+
+  if(!email){
+
+    showAuthMessage(
+      "Escribe tu correo electrónico."
+    );
+
+    return;
+  }
+
+  if(!password){
+
+    showAuthMessage(
+      "Escribe tu contraseña."
+    );
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    showAuthMessage(
+      "La contraseña debe tener al menos 6 caracteres."
+    );
+
+    return;
+  }
+
+  const button =
+    document.getElementById(
+      "authSubmitBtn"
+    );
+
+  button.disabled = true;
+
+  button.textContent =
+    authMode === "login"
+      ? "Entrando..."
+      : "Creando cuenta...";
+
+  clearAuthMessage();
+
+  try{
+
+    if(authMode === "login"){
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+      if(error){
+        throw error;
+      }
+
+      currentUser =
+        data.user;
+
+      await afterLogin();
+
+      closeAuthModal();
+
+      showToast(
+        "¡Sesión iniciada correctamente!"
+      );
+
+    }else{
+
+      if(!name){
+
+        showAuthMessage(
+          "Escribe tu nombre."
+        );
+
+        return;
+      }
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth
+          .signUp({
+            email,
+            password,
+            options:{
+              data:{
+                full_name:name
+              }
+            }
+          });
+
+      if(error){
+        throw error;
+      }
+
+      if(
+        data.user &&
+        data.session
+      ){
+
+        currentUser =
+          data.user;
+
+        await createProfileIfNeeded(
+          data.user,
+          name
+        );
+
+        await afterLogin();
+
+        closeAuthModal();
+
+        showToast(
+          "¡Cuenta creada correctamente!"
+        );
+
+      }else{
+
+        showAuthMessage(
+          "Cuenta creada. Revisa tu correo si Supabase solicita confirmar el email."
+        );
+      }
+    }
+
+  }catch(error){
+
+    console.error(
+      "Error de autenticación:",
+      error
+    );
+
+    let message =
+      error.message ||
+      "No se pudo completar la operación.";
+
+    if(
+      message
+        .toLowerCase()
+        .includes("invalid login credentials")
+    ){
+
+      message =
+        "Correo o contraseña incorrectos.";
+    }
+
+    if(
+      message
+        .toLowerCase()
+        .includes("email not confirmed")
+    ){
+
+      message =
+        "Tu correo todavía no está confirmado.";
+    }
+
+    showAuthMessage(
+      message
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      authMode === "login"
+        ? "Iniciar sesión"
+        : "Crear cuenta";
+  }
+}
+
+
+async function createProfileIfNeeded(
+  user,
+  name
+){
+
+  if(!user){
+    return;
+  }
+
+  const {
+    data:existing
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("user_id",user.id)
+      .maybeSingle();
+
+  if(existing){
+
+    currentProfile =
+      existing;
+
+    return;
+  }
+
+  const profileData = {
+    user_id:user.id,
+    full_name:name,
+    Email:user.email || "",
+    user_type:"user",
+    created_at:new Date().toISOString(),
+    updated_at:new Date().toISOString()
+  };
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .insert(profileData)
+      .select()
+      .maybeSingle();
+
+  if(error){
+
+    console.error(
+      "No se pudo crear perfil:",
+      error
+    );
+
+    return;
+  }
+
+  currentProfile =
+    data;
+}
+
+
+async function afterLogin(){
+
+  updateAuthUI();
+
+  await createProfileIfNeeded(
+    currentUser,
+    currentUser?.user_metadata?.full_name ||
+    currentUser?.email?.split("@")[0] ||
+    "Usuario FitLab"
+  );
+
+  await loadProfile();
+  await loadPosts();
+  await loadUsers();
+  await loadProfilePosts();
+
+  updateFollowingCount();
+}
+
+
+async function logout(){
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .auth
+      .signOut();
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      "No se pudo cerrar sesión."
+    );
+
+    return;
+  }
+
+  currentUser = null;
+  currentProfile = null;
+
+  updateAuthUI();
+
+  showToast(
+    "Sesión cerrada."
+  );
+
+  showSection(
+    "feed",
+    document.querySelector(".nav-btn")
+  );
+
+  await loadPosts();
+}
+
+
+function updateAuthUI(){
+
+  const headerButton =
+    document.getElementById(
+      "headerAuthBtn"
+    );
+
+  const status =
+    document.getElementById(
+      "headerStatus"
+    );
+
+  const authStatusBox =
+    document.getElementById(
+      "authStatusBox"
+    );
+
+  const createLoginBox =
+    document.getElementById(
+      "createLoginBox"
+    );
+
+  const profileLoginBox =
+    document.getElementById(
+      "profileLoginBox"
+    );
+
+  const createCard =
+    document.getElementById(
+      "createCard"
+    );
+
+  const profileContent =
+    document.getElementById(
+      "profileContent"
+    );
+
+  if(currentUser){
+
+    headerButton.textContent =
+      "Mi cuenta";
+
+    headerButton.onclick =
+      () => showSection(
+        "profile",
+        document.querySelectorAll(".nav-btn")[4]
+      );
+
+    status.style.background =
+      "#65ff9a";
+
+    status.style.boxShadow =
+      "0 0 12px #65ff9a";
+
+    const name =
+      currentProfile
+        ? getDisplayName(currentProfile)
+        : currentUser.email;
+
+    authStatusBox.innerHTML = `
+      <div class="auth-status">
+
+        <div class="auth-status-left">
+
+          <div class="auth-dot"></div>
+
+          <div class="auth-status-text">
+
+            <div class="auth-status-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <div class="auth-status-email">
+              ${escapeHTML(currentUser.email || "")}
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          class="secondary-btn"
+          onclick="logout()"
+        >
+          Salir
+        </button>
+
+      </div>
+    `;
+
+    createLoginBox.innerHTML = "";
+
+    createCard.classList.remove(
+      "hidden"
+    );
+
+    profileLoginBox.innerHTML = "";
+
+    profileContent.classList.remove(
+      "hidden"
+    );
+
+  }else{
+
+    headerButton.textContent =
+      "Iniciar sesión";
+
+    headerButton.onclick =
+      openAuthModal;
+
+    status.style.background =
+      "#56635b";
+
+    status.style.boxShadow =
+      "none";
+
+    authStatusBox.innerHTML = `
+      <div class="auth-login-card">
+
+        <h3>
+          Únete a FitLab
+        </h3>
+
+        <p>
+          Inicia sesión para publicar fotos,
+          videos, comentar y seguir a otros usuarios.
+        </p>
+
+        <button
+          class="primary-btn"
+          onclick="openAuthModal()"
+        >
+          🔐 Iniciar sesión
+        </button>
+
+      </div>
+    `;
+
+    createLoginBox.innerHTML = `
+      <div class="auth-login-card">
+
+        <h3>
+          🔐 Inicia sesión para publicar
+        </h3>
+
+        <p>
+          Necesitas una cuenta de FitLab para compartir fotos y videos.
+        </p>
+
+        <button
+          class="primary-btn"
+          onclick="openAuthModal()"
+        >
+          Iniciar sesión
+        </button>
+
+      </div>
+    `;
+
+    createCard.classList.add(
+      "hidden"
+    );
+
+    profileLoginBox.innerHTML = `
+      <div class="auth-login-card">
+
+        <h3>
+          👤 Tu perfil FitLab
+        </h3>
+
+        <p>
+          Inicia sesión para ver y editar tu perfil.
+        </p>
+
+        <button
+          class="primary-btn"
+          onclick="openAuthModal()"
+        >
+          Iniciar sesión
+        </button>
+
+      </div>
+    `;
+
+    profileContent.classList.add(
+      "hidden"
+    );
+  }
 }
 
 
@@ -1085,29 +2244,44 @@ function getUsername(profile){
    NAVEGACIÓN
 ========================================================= */
 
-function showSection(id,button){
+function showSection(
+  id,
+  button
+){
 
   document
     .querySelectorAll(".section")
     .forEach(section => {
-      section.classList.remove("active");
+
+      section.classList.remove(
+        "active"
+      );
+
     });
 
   const section =
     document.getElementById(id);
 
   if(section){
-    section.classList.add("active");
+    section.classList.add(
+      "active"
+    );
   }
 
   document
     .querySelectorAll(".nav-btn")
     .forEach(btn => {
-      btn.classList.remove("active");
+
+      btn.classList.remove(
+        "active"
+      );
+
     });
 
   if(button){
-    button.classList.add("active");
+    button.classList.add(
+      "active"
+    );
   }
 
   window.scrollTo({
@@ -1128,13 +2302,16 @@ function showSection(id,button){
   }
 
   if(id === "profile"){
-    loadProfilePosts();
+
+    if(currentUser){
+      loadProfilePosts();
+    }
   }
 }
 
 
 /* =========================================================
-   AUTENTICACIÓN
+   PERFIL
 ========================================================= */
 
 async function getCurrentUser(){
@@ -1142,7 +2319,9 @@ async function getCurrentUser(){
   const {
     data,
     error
-  } = await supabaseClient.auth.getUser();
+  } =
+    await supabaseClient.auth
+      .getUser();
 
   if(error){
 
@@ -1155,10 +2334,6 @@ async function getCurrentUser(){
 }
 
 
-/* =========================================================
-   CARGAR PERFIL
-========================================================= */
-
 async function loadProfile(){
 
   if(!currentUser){
@@ -1168,11 +2343,15 @@ async function loadProfile(){
   const {
     data,
     error
-  } = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("user_id",currentUser.id)
-    .maybeSingle();
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .maybeSingle();
 
   if(error){
 
@@ -1188,12 +2367,15 @@ async function loadProfile(){
     return;
   }
 
-  currentProfile = data;
+  currentProfile =
+    data;
 
   if(!data){
 
-    showToast(
-      "No encontramos tu perfil en Supabase."
+    await createProfileIfNeeded(
+      currentUser,
+      currentUser.email?.split("@")[0] ||
+      "Usuario FitLab"
     );
 
     return;
@@ -1210,25 +2392,37 @@ function updateProfileUI(){
   }
 
   const avatar =
-    document.getElementById("profileAvatar");
+    document.getElementById(
+      "profileAvatar"
+    );
 
   const name =
-    document.getElementById("profileName");
+    document.getElementById(
+      "profileName"
+    );
 
   const username =
-    document.getElementById("profileUsername");
+    document.getElementById(
+      "profileUsername"
+    );
 
   const bio =
-    document.getElementById("profileBio");
+    document.getElementById(
+      "profileBio"
+    );
 
   avatar.src =
     getAvatar(currentProfile);
 
   name.textContent =
-    getDisplayName(currentProfile);
+    getDisplayName(
+      currentProfile
+    );
 
   username.textContent =
-    getUsername(currentProfile);
+    getUsername(
+      currentProfile
+    );
 
   bio.textContent =
     currentProfile.Bio ||
@@ -1245,32 +2439,41 @@ function updateProfileUI(){
 async function loadPosts(){
 
   const container =
-    document.getElementById("feedContainer");
+    document.getElementById(
+      "feedContainer"
+    );
 
   container.innerHTML = `
     <div class="loading">
+
       <div class="spinner"></div>
+
       Cargando publicaciones...
+
     </div>
   `;
 
   const {
     data,
     error
-  } = await supabaseClient
-    .from("posts")
-    .select(`
-      id,
-      user_id,
-      content,
-      media_url,
-      media_type,
-      created_at,
-      updated_at
-    `)
-    .order("created_at",{
-      ascending:false
-    });
+  } =
+    await supabaseClient
+      .from("posts")
+      .select(`
+        id,
+        user_id,
+        content,
+        media_url,
+        media_type,
+        created_at,
+        updated_at
+      `)
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
 
   if(error){
 
@@ -1281,25 +2484,44 @@ async function loadPosts(){
 
     container.innerHTML = `
       <div class="empty">
+
         No se pudieron cargar las publicaciones.
+
         <br><br>
+
         ${escapeHTML(error.message)}
+
       </div>
     `;
 
     return;
   }
 
-  allPosts = data || [];
+  allPosts =
+    data || [];
 
-  if(allPosts.length === 0){
+  if(
+    allPosts.length === 0
+  ){
 
     container.innerHTML = `
       <div class="empty">
-        <div style="font-size:40px;margin-bottom:10px">📱</div>
+
+        <div
+          style="
+            font-size:40px;
+            margin-bottom:10px
+          "
+        >
+          📱
+        </div>
+
         Todavía no hay publicaciones.
+
         <br>
+
         Sé el primero en publicar.
+
       </div>
     `;
 
@@ -1308,7 +2530,9 @@ async function loadPosts(){
 
   const userIds = [
     ...new Set(
-      allPosts.map(post => post.user_id)
+      allPosts.map(
+        post => post.user_id
+      )
     )
   ];
 
@@ -1320,25 +2544,37 @@ async function loadPosts(){
       await supabaseClient
         .from("profiles")
         .select("*")
-        .in("user_id",userIds);
+        .in(
+          "user_id",
+          userIds
+        );
 
     if(!result.error){
-      profiles = result.data || [];
+      profiles =
+        result.data || [];
     }
   }
 
   const profileMap = {};
 
-  profiles.forEach(profile => {
-    profileMap[profile.user_id] = profile;
-  });
+  profiles.forEach(
+    profile => {
+
+      profileMap[
+        profile.user_id
+      ] = profile;
+
+    }
+  );
 
   container.innerHTML =
     allPosts
       .map(post => {
 
         const profile =
-          profileMap[post.user_id] || {};
+          profileMap[
+            post.user_id
+          ] || {};
 
         return renderPost(
           post,
@@ -1350,21 +2586,33 @@ async function loadPosts(){
 }
 
 
-function renderPost(post,profile){
+function renderPost(
+  post,
+  profile
+){
 
   const liked =
-    !!localLikes[post.id];
+    !!localLikes[
+      post.id
+    ];
 
   const comments =
-    localComments[post.id] || [];
+    localComments[
+      post.id
+    ] || [];
 
   const likeClass =
-    liked ? " liked" : "";
+    liked
+      ? " liked"
+      : "";
 
   const likeText =
-    liked ? "♥" : "♡";
+    liked
+      ? "♥"
+      : "♡";
 
-  let mediaHTML = "";
+  let mediaHTML =
+    "";
 
   if(post.media_url){
 
@@ -1401,16 +2649,26 @@ function renderPost(post,profile){
     comments
       .map(comment => `
         <div class="comment">
+
           <strong>
-            ${escapeHTML(comment.name)}
+            ${escapeHTML(
+              comment.name
+            )}
           </strong>
-          ${escapeHTML(comment.text)}
+
+          ${escapeHTML(
+            comment.text
+          )}
+
         </div>
       `)
       .join("");
 
   return `
-    <article class="post">
+    <article
+      id="post-${post.id}"
+      class="post"
+    >
 
       <div class="post-header">
 
@@ -1418,23 +2676,36 @@ function renderPost(post,profile){
 
           <img
             class="avatar small"
-            src="${escapeHTML(getAvatar(profile))}"
-            alt="">
+            src="${escapeHTML(
+              getAvatar(profile)
+            )}"
+            alt=""
+          >
 
           <div>
+
             <div class="user-name">
-              ${escapeHTML(getDisplayName(profile))}
+              ${escapeHTML(
+                getDisplayName(profile)
+              )}
             </div>
 
             <div class="username">
-              ${escapeHTML(getUsername(profile))}
+              ${escapeHTML(
+                getUsername(profile)
+              )}
             </div>
+
           </div>
 
         </div>
 
         <div class="post-time">
-          ${formatDate(post.created_at)}
+
+          ${formatDate(
+            post.created_at
+          )}
+
         </div>
 
       </div>
@@ -1443,7 +2714,9 @@ function renderPost(post,profile){
         post.content
         ? `
           <div class="post-content">
-            ${escapeHTML(post.content)}
+            ${escapeHTML(
+              post.content
+            )}
           </div>
         `
         : ""
@@ -1455,19 +2728,23 @@ function renderPost(post,profile){
 
         <button
           class="action-btn${likeClass}"
-          onclick="toggleLike('${post.id}')">
-          ${likeText} Me gusta
+          onclick="toggleLike('${post.id}')"
+        >
+          ${likeText}
+          Me gusta
         </button>
 
         <button
           class="action-btn"
-          onclick="focusComment('${post.id}')">
+          onclick="focusComment('${post.id}')"
+        >
           💬 Comentar
         </button>
 
         <button
           class="action-btn"
-          onclick="sharePost('${post.id}')">
+          onclick="sharePost('${post.id}')"
+        >
           ↗ Compartir
         </button>
 
@@ -1484,10 +2761,12 @@ function renderPost(post,profile){
 
           <input
             id="comment-${post.id}"
-            placeholder="Escribe un comentario...">
+            placeholder="Escribe un comentario..."
+          >
 
           <button
-            onclick="addComment('${post.id}')">
+            onclick="addComment('${post.id}')"
+          >
             Enviar
           </button>
 
@@ -1504,14 +2783,25 @@ function renderPost(post,profile){
    LIKES
 ========================================================= */
 
-function toggleLike(postId){
+function toggleLike(
+  postId
+){
+
+  if(!currentUser){
+
+    openAuthModal();
+
+    return;
+  }
 
   localLikes[postId] =
     !localLikes[postId];
 
   localStorage.setItem(
     "fitlab_likes",
-    JSON.stringify(localLikes)
+    JSON.stringify(
+      localLikes
+    )
   );
 
   loadPosts();
@@ -1522,7 +2812,16 @@ function toggleLike(postId){
    COMENTARIOS
 ========================================================= */
 
-function focusComment(postId){
+function focusComment(
+  postId
+){
+
+  if(!currentUser){
+
+    openAuthModal();
+
+    return;
+  }
 
   const input =
     document.getElementById(
@@ -1541,7 +2840,16 @@ function focusComment(postId){
 }
 
 
-function addComment(postId){
+function addComment(
+  postId
+){
+
+  if(!currentUser){
+
+    openAuthModal();
+
+    return;
+  }
 
   const input =
     document.getElementById(
@@ -1559,28 +2867,43 @@ function addComment(postId){
     return;
   }
 
-  if(!localComments[postId]){
-    localComments[postId] = [];
+  if(
+    !localComments[postId]
+  ){
+
+    localComments[postId] =
+      [];
   }
 
-  localComments[postId].push({
+  localComments[
+    postId
+  ].push({
+
     name:
       currentProfile
-        ? getDisplayName(currentProfile)
+        ? getDisplayName(
+            currentProfile
+          )
         : "Tú",
+
     text:text
+
   });
 
   localStorage.setItem(
     "fitlab_comments",
-    JSON.stringify(localComments)
+    JSON.stringify(
+      localComments
+    )
   );
 
   input.value = "";
 
   loadPosts();
 
-  showToast("Comentario agregado.");
+  showToast(
+    "Comentario agregado."
+  );
 }
 
 
@@ -1588,10 +2911,13 @@ function addComment(postId){
    COMPARTIR
 ========================================================= */
 
-async function sharePost(postId){
+async function sharePost(
+  postId
+){
 
   const url =
-    window.location.href.split("#")[0] +
+    window.location.href
+      .split("#")[0] +
     "#post-" +
     postId;
 
@@ -1602,14 +2928,20 @@ async function sharePost(postId){
     ){
 
       await navigator.share({
+
         title:"FitLab",
-        text:"Mira esta publicación en FitLab",
+
+        text:
+          "Mira esta publicación en FitLab",
+
         url:url
+
       });
 
     }else{
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard
+        .writeText(url);
 
       showToast(
         "Enlace copiado."
@@ -1636,20 +2968,27 @@ async function loadUsers(){
 
   container.innerHTML = `
     <div class="loading">
+
       <div class="spinner"></div>
+
       Cargando usuarios...
+
     </div>
   `;
 
   const {
     data,
     error
-  } = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .order("created_at",{
-      ascending:false
-    });
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
 
   if(error){
 
@@ -1658,19 +2997,28 @@ async function loadUsers(){
     container.innerHTML = `
       <div class="empty">
         No se pudieron cargar los perfiles.
+        <br><br>
+        ${escapeHTML(
+          error.message
+        )}
       </div>
     `;
 
     return;
   }
 
-  allUsers = data || [];
+  allUsers =
+    data || [];
 
-  renderUsers(allUsers);
+  renderUsers(
+    allUsers
+  );
 }
 
 
-function renderUsers(users){
+function renderUsers(
+  users
+){
 
   const container =
     document.getElementById(
@@ -1680,10 +3028,13 @@ function renderUsers(users){
   const filtered =
     users.filter(user =>
       !currentUser ||
-      user.user_id !== currentUser.id
+      user.user_id !==
+      currentUser.id
     );
 
-  if(filtered.length === 0){
+  if(
+    filtered.length === 0
+  ){
 
     container.innerHTML = `
       <div class="empty">
@@ -1699,24 +3050,33 @@ function renderUsers(users){
       .map(user => {
 
         const following =
-          !!localFollows[user.user_id];
+          !!localFollows[
+            user.user_id
+          ];
 
         return `
           <div class="user-card">
 
             <img
               class="avatar"
-              src="${escapeHTML(getAvatar(user))}"
-              alt="">
+              src="${escapeHTML(
+                getAvatar(user)
+              )}"
+              alt=""
+            >
 
             <div class="user-card-info">
 
               <div class="user-name">
-                ${escapeHTML(getDisplayName(user))}
+                ${escapeHTML(
+                  getDisplayName(user)
+                )}
               </div>
 
               <div class="username">
-                ${escapeHTML(getUsername(user))}
+                ${escapeHTML(
+                  getUsername(user)
+                )}
               </div>
 
               <div class="user-desc">
@@ -1730,13 +3090,21 @@ function renderUsers(users){
             </div>
 
             <button
-              class="follow-btn${following ? " following" : ""}"
-              onclick="toggleFollow('${user.user_id}',this)">
+              class="follow-btn${
+                following
+                  ? " following"
+                  : ""
+              }"
+              onclick="toggleFollow(
+                '${user.user_id}',
+                this
+              )"
+            >
 
               ${
                 following
-                ? "Siguiendo"
-                : "Seguir"
+                  ? "Siguiendo"
+                  : "Seguir"
               }
 
             </button>
@@ -1762,48 +3130,69 @@ function searchUsers(){
 
   if(!query){
 
-    renderUsers(allUsers);
+    renderUsers(
+      allUsers
+    );
 
     return;
   }
 
   const filtered =
-    allUsers.filter(user => {
+    allUsers.filter(
+      user => {
 
-      const name =
-        (
-          user.full_name || ""
-        ).toLowerCase();
+        const name =
+          (
+            user.full_name ||
+            ""
+          ).toLowerCase();
 
-      const email =
-        (
-          user.Email || ""
-        ).toLowerCase();
+        const email =
+          (
+            user.Email ||
+            ""
+          ).toLowerCase();
 
-      const bio =
-        (
-          user.Bio || ""
-        ).toLowerCase();
+        const bio =
+          (
+            user.Bio ||
+            ""
+          ).toLowerCase();
 
-      return (
-        name.includes(query) ||
-        email.includes(query) ||
-        bio.includes(query)
-      );
-    });
+        return (
+          name.includes(query) ||
+          email.includes(query) ||
+          bio.includes(query)
+        );
+      }
+    );
 
-  renderUsers(filtered);
+  renderUsers(
+    filtered
+  );
 }
 
 
-function toggleFollow(userId,button){
+function toggleFollow(
+  userId,
+  button
+){
+
+  if(!currentUser){
+
+    openAuthModal();
+
+    return;
+  }
 
   localFollows[userId] =
     !localFollows[userId];
 
   localStorage.setItem(
     "fitlab_follows",
-    JSON.stringify(localFollows)
+    JSON.stringify(
+      localFollows
+    )
   );
 
   const following =
@@ -1826,13 +3215,16 @@ function toggleFollow(userId,button){
 function updateFollowingCount(){
 
   const count =
-    Object.values(localFollows)
-      .filter(Boolean)
-      .length;
+    Object.values(
+      localFollows
+    )
+    .filter(Boolean)
+    .length;
 
   document.getElementById(
     "followingCount"
-  ).textContent = count;
+  ).textContent =
+    count;
 }
 
 
@@ -1864,7 +3256,11 @@ function previewMedia(){
   const url =
     URL.createObjectURL(file);
 
-  if(file.type.startsWith("video/")){
+  if(
+    file.type.startsWith(
+      "video/"
+    )
+  ){
 
     preview.innerHTML = `
       <video
@@ -1879,7 +3275,8 @@ function previewMedia(){
     preview.innerHTML = `
       <img
         src="${url}"
-        alt="Vista previa">
+        alt="Vista previa"
+      >
     `;
   }
 }
@@ -1889,17 +3286,18 @@ async function publishPost(){
 
   if(!currentUser){
 
-    showToast(
-      "Debes iniciar sesión para publicar."
-    );
+    openAuthModal();
 
     return;
   }
 
   const text =
-    document.getElementById(
-      "postText"
-    ).value.trim();
+    document
+      .getElementById(
+        "postText"
+      )
+      .value
+      .trim();
 
   const input =
     document.getElementById(
@@ -1909,7 +3307,10 @@ async function publishPost(){
   const file =
     input.files[0];
 
-  if(!text && !file){
+  if(
+    !text &&
+    !file
+  ){
 
     showToast(
       "Escribe algo o selecciona una imagen/video."
@@ -1924,10 +3325,6 @@ async function publishPost(){
 
   let mediaUrl = null;
   let mediaType = null;
-
-  /* -------------------------
-     SUBIR MEDIA
-  ------------------------- */
 
   if(file){
 
@@ -1972,7 +3369,8 @@ async function publishPost(){
       );
 
       showToast(
-        "No se pudo subir el archivo. Revisa que exista el bucket post-media."
+        "No se pudo subir el archivo: " +
+        uploadError.message
       );
 
       return;
@@ -1984,20 +3382,20 @@ async function publishPost(){
       supabaseClient
         .storage
         .from("post-media")
-        .getPublicUrl(fileName);
+        .getPublicUrl(
+          fileName
+        );
 
     mediaUrl =
       publicData.publicUrl;
 
     mediaType =
-      file.type.startsWith("video/")
+      file.type.startsWith(
+        "video/"
+      )
         ? "video"
         : "image";
   }
-
-  /* -------------------------
-     GUARDAR POST
-  ------------------------- */
 
   const {
     error
@@ -2005,10 +3403,19 @@ async function publishPost(){
     await supabaseClient
       .from("posts")
       .insert({
-        user_id:currentUser.id,
-        content:text || null,
-        media_url:mediaUrl,
-        media_type:mediaType
+
+        user_id:
+          currentUser.id,
+
+        content:
+          text || null,
+
+        media_url:
+          mediaUrl,
+
+        media_type:
+          mediaType
+
       });
 
   if(error){
@@ -2046,7 +3453,9 @@ async function publishPost(){
 
   showSection(
     "feed",
-    document.querySelector(".nav-btn")
+    document.querySelector(
+      ".nav-btn"
+    )
   );
 }
 
@@ -2056,6 +3465,13 @@ async function publishPost(){
 ========================================================= */
 
 function openEditProfile(){
+
+  if(!currentUser){
+
+    openAuthModal();
+
+    return;
+  }
 
   if(!currentProfile){
 
@@ -2069,14 +3485,17 @@ function openEditProfile(){
   document.getElementById(
     "editName"
   ).value =
-    currentProfile.full_name || "";
+    currentProfile.full_name ||
+    "";
 
   document.getElementById(
     "editUsername"
   ).value =
     (
       currentProfile.username ||
-      getUsername(currentProfile).replace("@","")
+      getUsername(
+        currentProfile
+      ).replace("@","")
     );
 
   document.getElementById(
@@ -2087,16 +3506,24 @@ function openEditProfile(){
     "";
 
   document
-    .getElementById("editModal")
-    .classList.add("show");
+    .getElementById(
+      "editModal"
+    )
+    .classList.add(
+      "show"
+    );
 }
 
 
 function closeEditProfile(){
 
   document
-    .getElementById("editModal")
-    .classList.remove("show");
+    .getElementById(
+      "editModal"
+    )
+    .classList.remove(
+      "show"
+    );
 }
 
 
@@ -2104,29 +3531,36 @@ async function saveProfile(){
 
   if(!currentUser){
 
-    showToast(
-      "No hay sesión iniciada."
-    );
+    openAuthModal();
 
     return;
   }
 
   const name =
     document
-      .getElementById("editName")
+      .getElementById(
+        "editName"
+      )
       .value
       .trim();
 
   const username =
     document
-      .getElementById("editUsername")
+      .getElementById(
+        "editUsername"
+      )
       .value
       .trim()
-      .replace(/^@/,"");
+      .replace(
+        /^@/,
+        ""
+      );
 
   const bio =
     document
-      .getElementById("editBio")
+      .getElementById(
+        "editBio"
+      )
       .value
       .trim();
 
@@ -2140,15 +3574,16 @@ async function saveProfile(){
   }
 
   const updateData = {
-    full_name:name,
-    Bio:bio,
-    updated_at:new Date().toISOString()
-  };
 
-  /*
-    Si tu tabla profiles tiene una columna username,
-    también se actualiza.
-  */
+    full_name:name,
+
+    Bio:bio,
+
+    updated_at:
+      new Date()
+        .toISOString()
+
+  };
 
   if(
     currentProfile &&
@@ -2168,8 +3603,13 @@ async function saveProfile(){
   } =
     await supabaseClient
       .from("profiles")
-      .update(updateData)
-      .eq("user_id",currentUser.id)
+      .update(
+        updateData
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
       .select()
       .maybeSingle();
 
@@ -2186,7 +3626,10 @@ async function saveProfile(){
   }
 
   if(data){
-    currentProfile = data;
+
+    currentProfile =
+      data;
+
   }else{
 
     currentProfile = {
@@ -2198,6 +3641,8 @@ async function saveProfile(){
   updateProfileUI();
 
   closeEditProfile();
+
+  updateAuthUI();
 
   showToast(
     "Perfil actualizado."
@@ -2212,9 +3657,9 @@ async function saveProfile(){
 async function changeProfilePhoto(){
 
   if(!currentUser){
-    showToast(
-      "Debes iniciar sesión."
-    );
+
+    openAuthModal();
+
     return;
   }
 
@@ -2265,10 +3710,13 @@ async function changeProfilePhoto(){
 
   if(uploadError){
 
-    console.error(uploadError);
+    console.error(
+      uploadError
+    );
 
     showToast(
-      "No se pudo subir la foto. Revisa el bucket post-media."
+      "No se pudo subir la foto: " +
+      uploadError.message
     );
 
     return;
@@ -2280,7 +3728,9 @@ async function changeProfilePhoto(){
     supabaseClient
       .storage
       .from("post-media")
-      .getPublicUrl(fileName);
+      .getPublicUrl(
+        fileName
+      );
 
   const avatarUrl =
     data.publicUrl;
@@ -2291,14 +3741,25 @@ async function changeProfilePhoto(){
     await supabaseClient
       .from("profiles")
       .update({
-        avatar_url:avatarUrl,
-        updated_at:new Date().toISOString()
+
+        avatar_url:
+          avatarUrl,
+
+        updated_at:
+          new Date()
+            .toISOString()
+
       })
-      .eq("user_id",currentUser.id);
+      .eq(
+        "user_id",
+        currentUser.id
+      );
 
   if(updateError){
 
-    console.error(updateError);
+    console.error(
+      updateError
+    );
 
     showToast(
       "La foto se subió, pero no se pudo guardar en el perfil."
@@ -2330,6 +3791,9 @@ async function loadProfilePosts(){
     );
 
   if(!currentUser){
+
+    grid.innerHTML = "";
+
     return;
   }
 
@@ -2340,10 +3804,16 @@ async function loadProfilePosts(){
     await supabaseClient
       .from("posts")
       .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{
-        ascending:false
-      });
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
 
   if(error){
 
@@ -2360,7 +3830,9 @@ async function loadProfilePosts(){
   ).textContent =
     posts.length;
 
-  if(posts.length === 0){
+  if(
+    posts.length === 0
+  ){
 
     grid.innerHTML = `
       <div
@@ -2397,33 +3869,47 @@ async function loadProfilePosts(){
               "
             >
               ${escapeHTML(
-                post.content || "FitLab"
+                post.content ||
+                "FitLab"
               )}
             </div>
           `;
         }
 
-        if(post.media_type === "video"){
+        if(
+          post.media_type ===
+          "video"
+        ){
 
           return `
             <div class="grid-item">
+
               <video
-                src="${escapeHTML(post.media_url)}"
+                src="${escapeHTML(
+                  post.media_url
+                )}"
                 muted
                 playsinline>
               </video>
+
             </div>
           `;
         }
 
         return `
           <div class="grid-item">
+
             <img
-              src="${escapeHTML(post.media_url)}"
+              src="${escapeHTML(
+                post.media_url
+              )}"
               alt="Publicación"
-              loading="lazy">
+              loading="lazy"
+            >
+
           </div>
         `;
+
       })
       .join("");
 }
@@ -2452,7 +3938,9 @@ async function loadCommunity(){
         .limit(10);
 
     if(!error){
-      allUsers = data || [];
+
+      allUsers =
+        data || [];
     }
   }
 
@@ -2460,10 +3948,13 @@ async function loadCommunity(){
     allUsers.filter(
       user =>
         !currentUser ||
-        user.user_id !== currentUser.id
+        user.user_id !==
+        currentUser.id
     );
 
-  if(users.length === 0){
+  if(
+    users.length === 0
+  ){
 
     container.innerHTML = `
       <div class="empty">
@@ -2484,20 +3975,27 @@ async function loadCommunity(){
 
             <img
               class="avatar"
-              src="${escapeHTML(getAvatar(user))}"
-              alt="">
+              src="${escapeHTML(
+                getAvatar(user)
+              )}"
+              alt=""
+            >
 
             <div class="user-card-info">
 
               <div class="user-name">
                 ${escapeHTML(
-                  getDisplayName(user)
+                  getDisplayName(
+                    user
+                  )
                 )}
               </div>
 
               <div class="username">
                 ${escapeHTML(
-                  getUsername(user)
+                  getUsername(
+                    user
+                  )
                 )}
               </div>
 
@@ -2505,7 +4003,9 @@ async function loadCommunity(){
 
             <button
               class="follow-btn${
-                localFollows[user.user_id]
+                localFollows[
+                  user.user_id
+                ]
                   ? " following"
                   : ""
               }"
@@ -2516,11 +4016,15 @@ async function loadCommunity(){
                 )
               "
             >
+
               ${
-                localFollows[user.user_id]
+                localFollows[
+                  user.user_id
+                ]
                   ? "Siguiendo"
                   : "Seguir"
               }
+
             </button>
 
           </div>
@@ -2537,14 +4041,19 @@ async function loadCommunity(){
 function rate(number){
 
   document
-    .querySelectorAll(".star")
-    .forEach((star,index) => {
+    .querySelectorAll(
+      ".star"
+    )
+    .forEach(
+      (star,index) => {
 
-      star.classList.toggle(
-        "active",
-        index < number
-      );
-    });
+        star.classList.toggle(
+          "active",
+          index < number
+        );
+
+      }
+    );
 
   showToast(
     "Valoración seleccionada: " +
@@ -2565,27 +4074,33 @@ async function init(){
     currentUser =
       await getCurrentUser();
 
-    if(!currentUser){
+    if(currentUser){
 
-      showToast(
-        "No hay una sesión de Supabase activa."
+      await createProfileIfNeeded(
+        currentUser,
+        currentUser
+          .user_metadata
+          ?.full_name ||
+        currentUser.email
+          ?.split("@")[0] ||
+        "Usuario FitLab"
       );
+
+      await loadProfile();
+      await loadPosts();
+      await loadUsers();
+      await loadProfilePosts();
+
+      updateFollowingCount();
+
+    }else{
 
       await loadPosts();
       await loadUsers();
 
-      return;
     }
 
-    await loadProfile();
-
-    await loadPosts();
-
-    await loadUsers();
-
-    await loadProfilePosts();
-
-    updateFollowingCount();
+    updateAuthUI();
 
   }catch(error){
 
@@ -2597,6 +4112,8 @@ async function init(){
     showToast(
       "Ocurrió un error al conectar con Supabase."
     );
+
+    updateAuthUI();
   }
 }
 
@@ -2606,17 +4123,87 @@ async function init(){
 ========================================================= */
 
 document
-  .getElementById("editModal")
+  .getElementById(
+    "editModal"
+  )
   .addEventListener(
     "click",
     function(event){
 
-      if(event.target === this){
+      if(
+        event.target === this
+      ){
+
         closeEditProfile();
+
       }
 
     }
   );
+
+
+document
+  .getElementById(
+    "authModal"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeAuthModal();
+
+      }
+
+    }
+  );
+
+
+/* Detectar login/logout automáticamente */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event,session) => {
+
+    console.log(
+      "Auth:",
+      event
+    );
+
+    currentUser =
+      session?.user || null;
+
+    if(currentUser){
+
+      await createProfileIfNeeded(
+        currentUser,
+        currentUser
+          .user_metadata
+          ?.full_name ||
+        currentUser.email
+          ?.split("@")[0] ||
+        "Usuario FitLab"
+      );
+
+      await loadProfile();
+      await loadPosts();
+      await loadUsers();
+      await loadProfilePosts();
+
+    }else{
+
+      currentProfile =
+        null;
+
+      await loadPosts();
+    }
+
+    updateAuthUI();
+
+  }
+);
 
 
 /* =========================================================
