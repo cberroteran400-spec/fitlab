@@ -15,20 +15,31 @@
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
+:root{
+  --green:#65ff9a;
+  --green2:#20d96b;
+  --bg:#050709;
+  --card:#0d1216;
+  --card2:#11181d;
+  --border:#1e292f;
+  --text:#f4f7f5;
+  --muted:#8d9994;
+  --danger:#ff5d68;
 }
 
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at top,#10251b 0%,#050807 42%,#020303 100%);
-  color:#fff;
+    radial-gradient(circle at top,#102219 0,#050709 38%);
+  color:var(--text);
   min-height:100vh;
-  padding-bottom:85px;
+  padding-bottom:90px;
 }
 
-button,input,textarea{
+button,
+input,
+textarea,
+select{
   font:inherit;
 }
 
@@ -36,80 +47,78 @@ button{
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
-}
-
-/* HEADER */
-
 .header{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(3,7,5,.92);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid rgba(101,255,154,.12);
-  padding:15px 18px;
+  background:rgba(5,7,9,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
 }
 
 .header-inner{
-  max-width:760px;
+  max-width:850px;
   margin:auto;
+  min-height:64px;
+  padding:0 16px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
 .logo{
-  font-size:23px;
+  font-size:25px;
   font-weight:900;
   letter-spacing:-1px;
 }
 
 .logo span{
-  color:#65ff9a;
+  color:var(--green);
 }
 
 .header-actions{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:7px;
 }
 
 .status{
-  width:10px;
-  height:10px;
-  background:#65ff9a;
+  width:9px;
+  height:9px;
   border-radius:50%;
-  box-shadow:0 0 12px #65ff9a;
+  background:#777;
 }
 
-.login-header-btn{
-  background:#65ff9a;
-  color:#041008;
-  border:0;
-  padding:8px 12px;
-  border-radius:10px;
+.status.online{
+  background:var(--green);
+  box-shadow:0 0 10px rgba(101,255,154,.8);
+}
+
+.header-btn{
+  border:1px solid var(--border);
+  background:#0d1316;
+  color:#fff;
+  border-radius:999px;
+  padding:9px 12px;
   font-size:12px;
-  font-weight:900;
+  font-weight:700;
 }
 
-.account-btn{
-  background:#101b15;
-  color:#65ff9a;
-  border:1px solid #294233;
-  padding:8px 11px;
-  border-radius:10px;
-  font-size:12px;
-  font-weight:800;
+.header-btn:hover{
+  border-color:var(--green);
 }
 
-/* APP */
+.verify-top{
+  border-color:rgba(101,255,154,.4);
+  color:var(--green);
+}
 
-.app{
-  max-width:760px;
+.container{
+  width:100%;
+  max-width:850px;
   margin:auto;
-  padding:18px 14px 30px;
+  padding:16px;
 }
 
 .section{
@@ -120,50 +129,28 @@ button{
   display:block;
 }
 
-/* TITLES */
+.hero{
+  padding:10px 0 18px;
+}
 
-.section-title{
+.hero h1{
   font-size:28px;
-  font-weight:900;
-  margin:7px 0 20px;
+  margin-bottom:7px;
 }
 
-.section-subtitle{
-  color:#9ca8a1;
-  margin-top:-12px;
-  margin-bottom:20px;
+.hero p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
 }
 
-/* SEARCH */
-
-.search-box{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#0b120f;
-  border:1px solid #1c3025;
-  border-radius:15px;
-  padding:12px 14px;
-  margin-bottom:18px;
+.card{
+  background:linear-gradient(145deg,#0e1418,#090d10);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:14px;
 }
-
-.search-box span{
-  font-size:18px;
-}
-
-.search-box input{
-  width:100%;
-  background:none;
-  border:none;
-  outline:none;
-  color:#fff;
-}
-
-.search-box input::placeholder{
-  color:#718078;
-}
-
-/* PROFILE MINI */
 
 .profile-mini{
   display:flex;
@@ -172,450 +159,383 @@ button{
 }
 
 .avatar{
-  width:48px;
-  height:48px;
+  width:46px;
+  height:46px;
   border-radius:50%;
   object-fit:cover;
-  background:#16241c;
-  border:2px solid rgba(101,255,154,.35);
-}
-
-.avatar.small{
-  width:42px;
-  height:42px;
+  background:#18201d;
+  border:1px solid #26332d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--green);
+  font-weight:900;
+  flex:none;
 }
 
 .avatar.big{
-  width:100px;
-  height:100px;
-  border-width:3px;
+  width:90px;
+  height:90px;
 }
 
-.user-name{
+.avatar.xbig{
+  width:105px;
+  height:105px;
+}
+
+.name-line{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.name{
   font-weight:800;
 }
 
 .username{
-  color:#839189;
-  font-size:13px;
-  margin-top:3px;
+  color:var(--muted);
+  font-size:12px;
 }
 
-.user-desc{
-  color:#aab4ae;
-  font-size:13px;
-  margin-top:4px;
+.verified{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--green);
+  color:#041008;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:900;
 }
-
-/* POST */
 
 .post{
-  background:rgba(9,15,12,.94);
-  border:1px solid #1b2d23;
-  border-radius:20px;
   overflow:hidden;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .post-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px;
+  gap:10px;
 }
 
-.post-author{
+.post-user{
   display:flex;
   align-items:center;
   gap:10px;
 }
 
-.post-time{
-  color:#69756e;
+.post-date{
+  color:var(--muted);
   font-size:11px;
 }
 
 .post-content{
-  padding:0 15px 13px;
-  color:#e9eee9;
-  line-height:1.45;
+  padding:13px 0;
   white-space:pre-wrap;
+  line-height:1.5;
+  font-size:15px;
 }
 
 .post-media{
   width:100%;
-  display:block;
-  max-height:650px;
+  max-height:620px;
   object-fit:cover;
-  background:#020403;
+  border-radius:14px;
+  display:block;
+  background:#000;
 }
 
 .post-actions{
   display:flex;
-  align-items:center;
-  gap:10px;
-  padding:11px 14px;
-  border-top:1px solid #16251d;
-  flex-wrap:wrap;
+  gap:7px;
+  padding-top:12px;
 }
 
 .action-btn{
-  border:0;
-  background:#101a15;
-  color:#c8d1cc;
-  border-radius:12px;
-  padding:8px 11px;
-  transition:.2s;
+  border:1px solid var(--border);
+  background:#0b1013;
+  color:#dbe3df;
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:13px;
 }
 
 .action-btn:hover{
-  background:#16271e;
+  border-color:var(--green);
 }
 
 .action-btn.liked{
-  color:#65ff9a;
+  color:var(--green);
+  border-color:rgba(101,255,154,.45);
 }
 
-.comments{
-  border-top:1px solid #16251d;
-  padding:10px 14px;
+.comment-box{
+  display:none;
+  margin-top:10px;
+  gap:7px;
 }
 
-.comment{
-  padding:6px 0;
-  color:#c8d0cb;
-  font-size:13px;
-}
-
-.comment strong{
-  color:#fff;
-}
-
-.comment-form{
+.comment-box.show{
   display:flex;
-  gap:8px;
-  margin-top:8px;
 }
 
-.comment-form input{
+.comment-box input{
   flex:1;
-  min-width:0;
-  background:#0a110d;
-  color:#fff;
-  border:1px solid #203329;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  background:#080d10;
+  border:1px solid var(--border);
   border-radius:11px;
-  padding:9px;
+  color:#fff;
+  padding:12px;
   outline:none;
 }
 
-.comment-form button{
-  background:#65ff9a;
-  border:0;
-  color:#061008;
-  border-radius:11px;
-  padding:0 13px;
-  font-weight:800;
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--green);
 }
 
-/* BUTTONS */
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
 
-.primary-btn{
-  width:100%;
-  background:#65ff9a;
-  color:#041008;
-  border:0;
-  padding:13px 16px;
-  border-radius:14px;
+.primary{
+  background:var(--green);
+  color:#061009;
+  border:none;
   font-weight:900;
-  margin-top:12px;
+  border-radius:11px;
+  padding:12px 16px;
 }
 
-.secondary-btn{
-  background:#101b15;
-  color:#65ff9a;
-  border:1px solid #294233;
-  padding:10px 15px;
-  border-radius:12px;
-  font-weight:800;
+.primary:hover{
+  background:#82ffac;
 }
 
-.danger-btn{
-  background:#241313;
-  color:#ff7777;
-  border:1px solid #452323;
-  padding:10px 15px;
-  border-radius:12px;
+.secondary{
+  background:#11181b;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:12px 16px;
 }
 
-/* AUTH */
-
-.auth-status{
-  background:#09100c;
-  border:1px solid #1a2b21;
-  border-radius:18px;
-  padding:15px;
-  margin-bottom:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+.full{
+  width:100%;
 }
 
-.auth-status-left{
-  display:flex;
-  align-items:center;
+.search{
+  margin-bottom:14px;
+}
+
+.users-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
-  min-width:0;
 }
-
-.auth-status-text{
-  min-width:0;
-}
-
-.auth-status-name{
-  font-weight:800;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.auth-status-email{
-  color:#7f8c84;
-  font-size:12px;
-  margin-top:3px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.auth-dot{
-  width:10px;
-  height:10px;
-  background:#65ff9a;
-  border-radius:50%;
-  flex-shrink:0;
-  box-shadow:0 0 10px #65ff9a;
-}
-
-.auth-login-card{
-  background:#09100c;
-  border:1px solid #1a2b21;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:18px;
-  text-align:center;
-}
-
-.auth-login-card h3{
-  margin-bottom:7px;
-}
-
-.auth-login-card p{
-  color:#8e9a93;
-  font-size:13px;
-  line-height:1.4;
-}
-
-/* DISCOVER USERS */
 
 .user-card{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:#0a110d;
-  border:1px solid #1a2b21;
-  padding:13px;
+  background:#0d1316;
+  border:1px solid var(--border);
   border-radius:16px;
-  margin-bottom:10px;
+  padding:13px;
 }
 
-.user-card-info{
-  flex:1;
-  min-width:0;
+.user-card-top{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
 }
 
 .follow-btn{
-  border:1px solid #65ff9a;
-  color:#65ff9a;
-  background:transparent;
-  border-radius:11px;
-  padding:8px 12px;
+  width:100%;
+  border:1px solid rgba(101,255,154,.4);
+  background:rgba(101,255,154,.08);
+  color:var(--green);
+  border-radius:10px;
+  padding:9px;
   font-weight:800;
 }
 
 .follow-btn.following{
-  background:#65ff9a;
-  color:#041008;
+  background:var(--green);
+  color:#061009;
 }
 
-/* CREATE */
-
-.create-card{
-  background:#09100c;
-  border:1px solid #1a2b21;
-  border-radius:20px;
-  padding:16px;
+.create-title{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:5px;
 }
 
-.create-card textarea{
-  width:100%;
-  min-height:130px;
-  resize:vertical;
-  background:#050a07;
-  color:#fff;
-  border:1px solid #22362a;
-  border-radius:14px;
-  padding:13px;
-  outline:none;
+.create-sub{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:16px;
 }
 
-.media-picker{
-  margin-top:13px;
-  border:1px dashed #355441;
-  border-radius:15px;
+.file-label{
+  display:block;
+  border:1px dashed #34433b;
+  border-radius:13px;
   padding:18px;
   text-align:center;
-  color:#91a099;
+  color:var(--muted);
+  margin:10px 0;
+  cursor:pointer;
 }
 
-.media-picker input{
-  width:100%;
-  margin-top:10px;
+.file-label:hover{
+  border-color:var(--green);
+  color:var(--green);
+}
+
+#mediaInput{
+  display:none;
 }
 
 .preview{
-  margin-top:15px;
+  display:none;
+  margin-top:12px;
 }
 
 .preview img,
 .preview video{
   width:100%;
   max-height:420px;
-  border-radius:15px;
   object-fit:cover;
+  border-radius:14px;
 }
-
-/* PROFILE */
 
 .profile-head{
-  background:#09100c;
-  border:1px solid #1a2b21;
-  border-radius:22px;
-  padding:22px;
   text-align:center;
+  padding:18px 0;
 }
 
-.profile-photo-wrap{
-  position:relative;
-  display:inline-block;
-}
-
-.camera-btn{
-  position:absolute;
-  right:-3px;
-  bottom:3px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:2px solid #061008;
-  background:#65ff9a;
-  color:#041008;
-  font-weight:900;
-}
-
-.profile-name{
-  font-size:23px;
-  font-weight:900;
-  margin-top:12px;
-}
-
-.profile-bio{
-  color:#9daaa2;
-  margin:7px auto 16px;
-  max-width:500px;
-  line-height:1.4;
+.profile-actions{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:15px 0;
+  flex-wrap:wrap;
 }
 
 .profile-stats{
   display:flex;
   justify-content:center;
   gap:35px;
-  margin:20px 0;
+  margin-top:14px;
 }
 
 .stat strong{
   display:block;
-  font-size:20px;
+  font-size:19px;
 }
 
 .stat span{
-  color:#76827b;
+  color:var(--muted);
   font-size:12px;
 }
 
-.profile-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:5px;
-  margin-top:18px;
+.bio{
+  color:#c5ceca;
+  font-size:14px;
+  line-height:1.5;
+  margin-top:10px;
 }
-
-.grid-item{
-  aspect-ratio:1/1;
-  background:#101914;
-  overflow:hidden;
-  border-radius:7px;
-}
-
-.grid-item img,
-.grid-item video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* RECOMMEND */
 
 .rating-card{
-  background:#09100c;
-  border:1px solid #1a2b21;
-  border-radius:18px;
-  padding:18px;
   text-align:center;
-  margin-bottom:12px;
 }
 
 .stars{
   display:flex;
   justify-content:center;
-  gap:6px;
-  margin:15px 0;
+  gap:5px;
+  margin:12px 0;
 }
 
 .star{
-  border:0;
   background:none;
-  color:#4e5b53;
-  font-size:28px;
+  border:none;
+  color:#65716b;
+  font-size:30px;
 }
 
 .star.active{
-  color:#65ff9a;
+  color:#ffd34e;
 }
 
-/* MODAL */
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:35px 15px;
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:90;
+  background:rgba(5,7,9,.96);
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(14px);
+}
+
+.nav-inner{
+  max-width:850px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+}
+
+.nav-btn{
+  border:none;
+  background:transparent;
+  color:#69756f;
+  padding:11px 4px 9px;
+  font-size:11px;
+}
+
+.nav-btn span{
+  display:block;
+  font-size:19px;
+  margin-bottom:3px;
+}
+
+.nav-btn.active{
+  color:var(--green);
+}
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.78);
-  backdrop-filter:blur(8px);
-  z-index:500;
+  z-index:200;
   display:none;
   align-items:center;
   justify-content:center;
   padding:15px;
+  background:rgba(0,0,0,.78);
 }
 
 .modal.show{
@@ -624,135 +544,147 @@ button{
 
 .modal-box{
   width:100%;
-  max-width:520px;
-  background:#09100c;
-  border:1px solid #284132;
-  border-radius:22px;
-  padding:20px;
+  max-width:470px;
   max-height:90vh;
   overflow:auto;
+  background:#0c1215;
+  border:1px solid #26332d;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 20px 80px rgba(0,0,0,.6);
 }
 
 .modal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:18px;
+  margin-bottom:16px;
 }
 
-.close-btn{
-  background:#162119;
-  color:#fff;
-  border:0;
-  width:34px;
-  height:34px;
+.modal-head h2{
+  font-size:20px;
+}
+
+.close{
+  width:35px;
+  height:35px;
   border-radius:50%;
+  border:1px solid var(--border);
+  background:#11181b;
+  color:#fff;
 }
 
-.field{
+.form-group{
   margin-bottom:13px;
 }
 
-.field label{
+.form-group label{
   display:block;
-  color:#a4afa9;
-  font-size:13px;
+  font-size:12px;
+  color:#aeb9b4;
   margin-bottom:6px;
 }
 
-.field input,
-.field textarea{
-  width:100%;
-  background:#050a07;
-  border:1px solid #23382b;
-  color:#fff;
+.auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  background:#080d0f;
+  padding:4px;
   border-radius:12px;
-  padding:11px;
-  outline:none;
+  margin-bottom:15px;
 }
 
-.field textarea{
-  min-height:100px;
-  resize:vertical;
+.auth-tab{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  border-radius:9px;
+  padding:10px;
 }
 
-.auth-switch{
-  text-align:center;
-  margin-top:15px;
-  color:#8e9a93;
-  font-size:13px;
-}
-
-.auth-switch button{
-  border:0;
-  background:none;
-  color:#65ff9a;
+.auth-tab.active{
+  background:#17211c;
+  color:var(--green);
   font-weight:800;
 }
 
-.auth-message{
-  margin-top:10px;
-  padding:10px;
-  border-radius:10px;
-  background:#101b15;
-  color:#ffcc66;
-  font-size:12px;
+.auth-mode{
   display:none;
 }
 
-.auth-message.show{
+.auth-mode.active{
   display:block;
 }
 
-/* LOADING */
-
-.loading{
-  padding:40px 10px;
+.verify-box{
   text-align:center;
-  color:#8e9a93;
 }
 
-.spinner{
-  width:28px;
-  height:28px;
-  border:3px solid #1c3024;
-  border-top-color:#65ff9a;
+.verify-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 14px;
   border-radius:50%;
-  margin:0 auto 12px;
-  animation:spin .8s linear infinite;
+  background:rgba(101,255,154,.12);
+  border:1px solid rgba(101,255,154,.35);
+  color:var(--green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  font-weight:900;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg)}
+.verify-box h2{
+  font-size:24px;
+  margin-bottom:8px;
 }
 
-/* EMPTY */
-
-.empty{
-  padding:35px 15px;
-  text-align:center;
-  color:#79857e;
-  background:#09100c;
-  border:1px dashed #22372a;
-  border-radius:17px;
+.verify-box p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+  margin-bottom:15px;
 }
 
-/* TOAST */
+.verify-list{
+  text-align:left;
+  background:#080d10;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.verify-list div{
+  padding:7px 0;
+  color:#cbd5d0;
+  font-size:13px;
+}
+
+.verify-list div::before{
+  content:"✓";
+  color:var(--green);
+  font-weight:900;
+  margin-right:8px;
+}
 
 .toast{
   position:fixed;
   left:50%;
-  bottom:90px;
+  bottom:92px;
   transform:translateX(-50%) translateY(20px);
-  background:#65ff9a;
-  color:#041008;
-  padding:12px 17px;
-  border-radius:13px;
-  font-weight:800;
+  background:#eafdf0;
+  color:#061009;
+  border-radius:12px;
+  padding:11px 15px;
+  font-size:13px;
+  font-weight:700;
   opacity:0;
   pointer-events:none;
   transition:.25s;
-  z-index:1000;
+  z-index:500;
   max-width:90%;
   text-align:center;
 }
@@ -762,63 +694,18 @@ button{
   transform:translateX(-50%) translateY(0);
 }
 
-/* BOTTOM NAV */
-
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:200;
-  background:rgba(4,8,6,.96);
-  backdrop-filter:blur(15px);
-  border-top:1px solid #17271e;
-  padding:8px 5px calc(8px + env(safe-area-inset-bottom));
+.hidden{
+  display:none!important;
 }
 
-.nav-inner{
-  max-width:760px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-}
-
-.nav-btn{
-  background:none;
-  border:0;
-  color:#77827c;
-  font-size:11px;
-  padding:5px 2px;
-}
-
-.nav-icon{
-  display:block;
-  font-size:20px;
-  margin-bottom:3px;
-}
-
-.nav-btn.active{
-  color:#65ff9a;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:480px){
-
-  .section-title{
-    font-size:25px;
+@media(max-width:560px){
+  .users-grid{
+    grid-template-columns:1fr;
   }
 
-  .profile-stats{
-    gap:23px;
-  }
-
-  .auth-status{
-    align-items:flex-start;
-  }
-
-  .auth-status .secondary-btn{
-    white-space:nowrap;
+  .header-btn{
+    padding:8px 9px;
+    font-size:11px;
   }
 }
 </style>
@@ -835,17 +722,18 @@ button{
 
     <div class="header-actions">
 
-      <div
-        id="headerStatus"
-        class="status"
-        title="Conectado"
-      ></div>
+      <button
+        class="header-btn verify-top"
+        onclick="openVerification()">
+        ✓ Verificación
+      </button>
+
+      <div id="onlineStatus" class="status"></div>
 
       <button
-        id="headerAuthBtn"
-        class="login-header-btn"
-        onclick="openAuthModal()"
-      >
+        id="authHeaderBtn"
+        class="header-btn"
+        onclick="handleAuthButton()">
         Iniciar sesión
       </button>
 
@@ -854,122 +742,94 @@ button{
   </div>
 </header>
 
-<main class="app">
+
+<main class="container">
 
   <!-- FEED -->
   <section id="feed" class="section active">
 
-    <h1 class="section-title">
-      Para ti
-    </h1>
+    <div class="hero">
+      <h1>Comunidad FitLab</h1>
+      <p>
+        Comparte tus entrenamientos, progreso, consejos y contenido fitness.
+      </p>
+    </div>
 
-    <p class="section-subtitle">
-      Descubre contenido de la comunidad FitLab.
-    </p>
-
-    <div id="authStatusBox"></div>
-
-    <div id="feedContainer">
-
+    <div id="feedContent">
       <div class="loading">
-
-        <div class="spinner"></div>
-
         Cargando publicaciones...
-
       </div>
-
     </div>
 
   </section>
 
 
-  <!-- DISCOVER -->
+  <!-- DESCUBRIR -->
   <section id="discover" class="section">
 
-    <h1 class="section-title">
-      Descubrir
-    </h1>
+    <div class="hero">
+      <h1>Descubrir</h1>
+      <p>
+        Encuentra personas y profesionales dentro de FitLab.
+      </p>
+    </div>
 
-    <p class="section-subtitle">
-      Encuentra personas de la comunidad.
-    </p>
-
-    <div class="search-box">
-
-      <span>🔎</span>
-
+    <div class="search">
       <input
         id="userSearch"
         type="search"
         placeholder="Buscar personas..."
-        oninput="searchUsers()"
-      >
-
+        oninput="searchUsers()">
     </div>
 
-    <div id="usersContainer">
-
+    <div id="usersGrid" class="users-grid">
       <div class="loading">
-
-        <div class="spinner"></div>
-
         Cargando usuarios...
-
       </div>
-
     </div>
 
   </section>
 
 
-  <!-- CREATE -->
+  <!-- CREAR -->
   <section id="create" class="section">
 
-    <h1 class="section-title">
-      Crear
-    </h1>
+    <div class="hero">
+      <h1>Crear publicación</h1>
+      <p>
+        Comparte una foto, video o mensaje con la comunidad.
+      </p>
+    </div>
 
-    <p class="section-subtitle">
-      Comparte tu entrenamiento con la comunidad FitLab.
-    </p>
+    <div class="card">
 
-    <div id="createLoginBox"></div>
+      <div class="create-title">
+        Nueva publicación
+      </div>
 
-    <div
-      id="createCard"
-      class="create-card"
-    >
+      <div class="create-sub">
+        Tu publicación aparecerá en el feed de FitLab.
+      </div>
 
       <textarea
         id="postText"
-        placeholder="¿Qué estás entrenando hoy?"
-      ></textarea>
+        placeholder="¿Qué estás haciendo hoy?"></textarea>
 
-      <div class="media-picker">
+      <label class="file-label" for="mediaInput">
+        📷 Seleccionar imagen o video
+      </label>
 
-        <div>
-          📸 Selecciona una imagen o video
-        </div>
+      <input
+        id="mediaInput"
+        type="file"
+        accept="image/*,video/*"
+        onchange="previewMedia(event)">
 
-        <input
-          id="mediaInput"
-          type="file"
-          accept="image/*,video/*"
-          onchange="previewMedia()"
-        >
-
-      </div>
-
-      <div
-        id="mediaPreview"
-        class="preview"
-      ></div>
+      <div id="mediaPreview" class="preview"></div>
 
       <button
-        class="primary-btn"
-        onclick="publishPost()"
-      >
+        class="primary full"
+        onclick="publishPost()">
         Publicar
       </button>
 
@@ -978,297 +838,182 @@ button{
   </section>
 
 
-  <!-- PROFILE -->
-  <section id="profile" class="section">
+  <!-- RECOMENDACIONES -->
+  <section id="recommend" class="section">
 
-    <div id="profileLoginBox"></div>
-
-    <div
-      id="profileContent"
-      class="profile-head"
-    >
-
-      <div class="profile-photo-wrap">
-
-        <img
-          id="profileAvatar"
-          class="avatar big"
-          src="https://i.pravatar.cc/300?img=12"
-          alt="Foto de perfil"
-        >
-
-        <button
-          class="camera-btn"
-          onclick="document.getElementById('avatarInput').click()"
-        >
-          ✎
-        </button>
-
-        <input
-          id="avatarInput"
-          type="file"
-          accept="image/*"
-          style="display:none"
-          onchange="changeProfilePhoto()"
-        >
-
-      </div>
-
-      <div
-        id="profileName"
-        class="profile-name"
-      >
-        Carlos Berroteran
-      </div>
-
-      <div
-        id="profileUsername"
-        class="username"
-      >
-        @carlosfit
-      </div>
-
-      <div
-        id="profileBio"
-        class="profile-bio"
-      >
-        Fitness • Entrenamiento
-      </div>
-
-      <button
-        class="secondary-btn"
-        onclick="openEditProfile()"
-      >
-        Editar perfil
-      </button>
-
-      <div class="profile-stats">
-
-        <div class="stat">
-
-          <strong id="postsCount">
-            0
-          </strong>
-
-          <span>
-            Publicaciones
-          </span>
-
-        </div>
-
-        <div class="stat">
-
-          <strong id="followersCount">
-            0
-          </strong>
-
-          <span>
-            Seguidores
-          </span>
-
-        </div>
-
-        <div class="stat">
-
-          <strong id="followingCount">
-            0
-          </strong>
-
-          <span>
-            Siguiendo
-          </span>
-
-        </div>
-
-      </div>
-
-      <button
-        id="logoutProfileBtn"
-        class="danger-btn"
-        onclick="logout()"
-        style="margin-top:5px"
-      >
-        Cerrar sesión
-      </button>
-
+    <div class="hero">
+      <h1>Comunidad</h1>
+      <p>
+        Conoce perfiles y descubre nuevos contactos fitness.
+      </p>
     </div>
 
-    <div
-      id="profileGrid"
-      class="profile-grid"
-    ></div>
+    <div id="communityContent">
+      <div class="loading">
+        Cargando comunidad...
+      </div>
+    </div>
 
   </section>
 
 
-  <!-- COMMUNITY -->
-  <section id="recommend" class="section">
+  <!-- PERFIL -->
+  <section id="profile" class="section">
 
-    <h1 class="section-title">
-      Comunidad
-    </h1>
-
-    <p class="section-subtitle">
-      Conoce personas y recomienda perfiles.
-    </p>
-
-    <div class="rating-card">
-
-      <div style="font-size:40px">
-        ⭐
+    <div id="profileContent">
+      <div class="loading">
+        Cargando perfil...
       </div>
-
-      <h3>
-        Recomienda a la comunidad
-      </h3>
-
-      <p style="color:#8d9992;margin-top:7px">
-        Próximamente podrás valorar perfiles y entrenadores.
-      </p>
-
-      <div class="stars">
-
-        <button
-          class="star"
-          onclick="rate(1)"
-        >
-          ★
-        </button>
-
-        <button
-          class="star"
-          onclick="rate(2)"
-        >
-          ★
-        </button>
-
-        <button
-          class="star"
-          onclick="rate(3)"
-        >
-          ★
-        </button>
-
-        <button
-          class="star"
-          onclick="rate(4)"
-        >
-          ★
-        </button>
-
-        <button
-          class="star"
-          onclick="rate(5)"
-        >
-          ★
-        </button>
-
-      </div>
-
     </div>
-
-    <div id="communityUsers"></div>
 
   </section>
 
 </main>
 
 
-<!-- AUTH MODAL -->
+<nav class="bottom-nav">
 
-<div
-  id="authModal"
-  class="modal"
->
+  <div class="nav-inner">
+
+    <button
+      class="nav-btn active"
+      onclick="showSection('feed',this)">
+      <span>⌂</span>
+      Inicio
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="showSection('discover',this)">
+      <span>⌕</span>
+      Descubrir
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="showSection('create',this)">
+      <span>＋</span>
+      Crear
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="showSection('recommend',this)">
+      <span>★</span>
+      Comunidad
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="showSection('profile',this)">
+      <span>●</span>
+      Perfil
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- MODAL AUTENTICACIÓN -->
+<div id="authModal" class="modal">
 
   <div class="modal-box">
 
     <div class="modal-head">
-
-      <h2 id="authTitle">
-        Iniciar sesión
-      </h2>
+      <h2>FitLab</h2>
 
       <button
-        class="close-btn"
-        onclick="closeAuthModal()"
-      >
+        class="close"
+        onclick="closeAuth()">
         ×
+      </button>
+    </div>
+
+    <div class="auth-tabs">
+
+      <button
+        id="loginTab"
+        class="auth-tab active"
+        onclick="switchAuth('login')">
+        Iniciar sesión
+      </button>
+
+      <button
+        id="registerTab"
+        class="auth-tab"
+        onclick="switchAuth('register')">
+        Crear cuenta
       </button>
 
     </div>
 
-    <div class="field">
-
-      <label>
-        Correo electrónico
-      </label>
-
-      <input
-        id="authEmail"
-        type="email"
-        placeholder="tu@email.com"
-        autocomplete="email"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Contraseña
-      </label>
-
-      <input
-        id="authPassword"
-        type="password"
-        placeholder="••••••••"
-        autocomplete="current-password"
-      >
-
-    </div>
 
     <div
-      id="registerNameField"
-      class="field hidden"
-    >
+      id="loginMode"
+      class="auth-mode active">
 
-      <label>
-        Nombre
-      </label>
+      <div class="form-group">
+        <label>Correo electrónico</label>
 
-      <input
-        id="authName"
-        type="text"
-        placeholder="Tu nombre"
-        autocomplete="name"
-      >
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="tu@email.com">
+      </div>
 
-    </div>
+      <div class="form-group">
+        <label>Contraseña</label>
 
-    <div
-      id="authMessage"
-      class="auth-message"
-    ></div>
-
-    <button
-      id="authSubmitBtn"
-      class="primary-btn"
-      onclick="submitAuth()"
-    >
-      Iniciar sesión
-    </button>
-
-    <div class="auth-switch">
-
-      <span id="authSwitchText">
-        ¿No tienes cuenta?
-      </span>
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Tu contraseña">
+      </div>
 
       <button
-        id="authSwitchBtn"
-        onclick="toggleAuthMode()"
-      >
+        class="primary full"
+        onclick="loginUser()">
+        Entrar
+      </button>
+
+    </div>
+
+
+    <div
+      id="registerMode"
+      class="auth-mode">
+
+      <div class="form-group">
+        <label>Nombre</label>
+
+        <input
+          id="registerName"
+          type="text"
+          placeholder="Tu nombre">
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+
+        <input
+          id="registerEmail"
+          type="email"
+          placeholder="tu@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+
+        <input
+          id="registerPassword"
+          type="password"
+          placeholder="Mínimo 6 caracteres">
+      </div>
+
+      <button
+        class="primary full"
+        onclick="registerUser()">
         Crear cuenta
       </button>
 
@@ -1279,72 +1024,147 @@ button{
 </div>
 
 
-<!-- EDIT PROFILE MODAL -->
-
-<div
-  id="editModal"
-  class="modal"
->
+<!-- MODAL VERIFICACIÓN -->
+<div id="verificationModal" class="modal">
 
   <div class="modal-box">
 
     <div class="modal-head">
 
-      <h2>
-        Editar perfil
-      </h2>
+      <h2>Verificación</h2>
 
       <button
-        class="close-btn"
-        onclick="closeEditProfile()"
-      >
+        class="close"
+        onclick="closeVerification()">
         ×
       </button>
 
     </div>
 
-    <div class="field">
+    <div class="verify-box">
 
-      <label>
-        Nombre
-      </label>
+      <div class="verify-icon">
+        ✓
+      </div>
+
+      <h2>Obtén tu insignia</h2>
+
+      <p>
+        La verificación ayuda a identificar perfiles auténticos
+        dentro de la comunidad FitLab.
+      </p>
+
+      <div class="verify-list">
+
+        <div>
+          Perfil auténtico
+        </div>
+
+        <div>
+          Insignia de verificación
+        </div>
+
+        <div>
+          Mayor confianza para la comunidad
+        </div>
+
+        <div>
+          Perfil profesional o creador
+        </div>
+
+      </div>
+
+      <div id="verificationLoggedOut">
+
+        <button
+          class="primary full"
+          onclick="openAuthFromVerification()">
+          Iniciar sesión para solicitar
+        </button>
+
+      </div>
+
+      <div id="verificationLoggedIn" class="hidden">
+
+        <div class="form-group">
+
+          <label>
+            ¿Por qué quieres verificar tu perfil?
+          </label>
+
+          <textarea
+            id="verificationReason"
+            placeholder="Cuéntanos sobre tu perfil, actividad o profesión..."></textarea>
+
+        </div>
+
+        <button
+          class="primary full"
+          onclick="requestVerification()">
+          Solicitar verificación
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL EDITAR PERFIL -->
+<div id="editProfileModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Editar perfil</h2>
+
+      <button
+        class="close"
+        onclick="closeEditProfile()">
+        ×
+      </button>
+
+    </div>
+
+    <div class="form-group">
+      <label>Nombre</label>
 
       <input
         id="editName"
-        type="text"
-      >
-
+        type="text">
     </div>
 
-    <div class="field">
-
-      <label>
-        Nombre de usuario
-      </label>
+    <div class="form-group">
+      <label>Teléfono</label>
 
       <input
-        id="editUsername"
-        type="text"
-      >
-
+        id="editPhone"
+        type="text">
     </div>
 
-    <div class="field">
+    <div class="form-group">
+      <label>Ubicación</label>
 
-      <label>
-        Biografía
-      </label>
+      <input
+        id="editLocation"
+        type="text">
+    </div>
+
+    <div class="form-group">
+      <label>Biografía</label>
 
       <textarea
         id="editBio"
-      ></textarea>
-
+        placeholder="Cuéntale a la comunidad quién eres..."></textarea>
     </div>
 
     <button
-      class="primary-btn"
-      onclick="saveProfile()"
-    >
+      class="primary full"
+      onclick="saveProfile()">
       Guardar cambios
     </button>
 
@@ -1353,92 +1173,10 @@ button{
 </div>
 
 
-<!-- TOAST -->
-
-<div
-  id="toast"
-  class="toast"
-></div>
-
-
-<!-- BOTTOM NAV -->
-
-<nav class="bottom-nav">
-
-  <div class="nav-inner">
-
-    <button
-      class="nav-btn active"
-      onclick="showSection('feed',this)"
-    >
-
-      <span class="nav-icon">
-        ⌂
-      </span>
-
-      Inicio
-
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="showSection('discover',this)"
-    >
-
-      <span class="nav-icon">
-        🔎
-      </span>
-
-      Descubrir
-
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="showSection('create',this)"
-    >
-
-      <span class="nav-icon">
-        ＋
-      </span>
-
-      Crear
-
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="showSection('recommend',this)"
-    >
-
-      <span class="nav-icon">
-        👥
-      </span>
-
-      Comunidad
-
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="showSection('profile',this)"
-    >
-
-      <span class="nav-icon">
-        👤
-      </span>
-
-      Perfil
-
-    </button>
-
-  </div>
-
-</nav>
+<div id="toast" class="toast"></div>
 
 
 <script>
-
 /* =========================================================
    SUPABASE
 ========================================================= */
@@ -1463,23 +1201,7 @@ const supabaseClient =
 let currentUser = null;
 let currentProfile = null;
 let allUsers = [];
-let allPosts = [];
-let authMode = "login";
-
-const localLikes =
-  JSON.parse(
-    localStorage.getItem("fitlab_likes") || "{}"
-  );
-
-const localComments =
-  JSON.parse(
-    localStorage.getItem("fitlab_comments") || "{}"
-  );
-
-const localFollows =
-  JSON.parse(
-    localStorage.getItem("fitlab_follows") || "{}"
-  );
+let selectedMedia = null;
 
 
 /* =========================================================
@@ -1487,11 +1209,7 @@ const localFollows =
 ========================================================= */
 
 function escapeHTML(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
+  if(value === null || value === undefined){
     return "";
   }
 
@@ -1509,23 +1227,13 @@ function showToast(message){
   const toast =
     document.getElementById("toast");
 
-  toast.textContent =
-    message;
+  toast.textContent = message;
 
   toast.classList.add("show");
 
-  clearTimeout(
-    window.toastTimer
-  );
-
-  window.toastTimer =
-    setTimeout(() => {
-
-      toast.classList.remove(
-        "show"
-      );
-
-    },3000);
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },3000);
 }
 
 
@@ -1535,37 +1243,13 @@ function formatDate(date){
     return "";
   }
 
-  const d =
-    new Date(date);
+  const d = new Date(date);
 
-  if(
-    Number.isNaN(
-      d.getTime()
-    )
-  ){
-    return "";
-  }
-
-  return d.toLocaleDateString(
-    "es-MX",
-    {
-      day:"numeric",
-      month:"short"
-    }
-  );
-}
-
-
-function getAvatar(profile){
-
-  if(
-    profile &&
-    profile.avatar_url
-  ){
-    return profile.avatar_url;
-  }
-
-  return "https://i.pravatar.cc/300?img=12";
+  return d.toLocaleDateString("es-MX",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric"
+  });
 }
 
 
@@ -1586,657 +1270,71 @@ function getDisplayName(profile){
 function getUsername(profile){
 
   if(!profile){
-    return "@usuario";
-  }
-
-  if(profile.username){
-
-    return profile.username.startsWith("@")
-      ? profile.username
-      : "@" + profile.username;
+    return "usuario";
   }
 
   const name =
     profile.full_name ||
+    profile.Email ||
     "usuario";
 
-  return "@" +
-    name
-      .toLowerCase()
-      .replace(
-        /[^a-z0-9áéíóúñü]/gi,
-        ""
-      )
-      .slice(0,20);
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9áéíóúñ]+/gi,"")
+    .substring(0,20);
 }
 
 
-/* =========================================================
-   AUTENTICACIÓN UI
-========================================================= */
+function getAvatar(profile){
 
-function openAuthModal(){
-
-  document
-    .getElementById("authModal")
-    .classList.add("show");
-
-  document
-    .getElementById("authEmail")
-    .focus();
-}
-
-
-function closeAuthModal(){
-
-  document
-    .getElementById("authModal")
-    .classList.remove("show");
-
-  clearAuthMessage();
-}
-
-
-function clearAuthMessage(){
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  box.textContent = "";
-  box.classList.remove("show");
-}
-
-
-function showAuthMessage(message){
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  box.textContent =
-    message;
-
-  box.classList.add("show");
-}
-
-
-function toggleAuthMode(){
-
-  authMode =
-    authMode === "login"
-      ? "register"
-      : "login";
-
-  const title =
-    document.getElementById(
-      "authTitle"
-    );
-
-  const button =
-    document.getElementById(
-      "authSubmitBtn"
-    );
-
-  const switchText =
-    document.getElementById(
-      "authSwitchText"
-    );
-
-  const switchButton =
-    document.getElementById(
-      "authSwitchBtn"
-    );
-
-  const nameField =
-    document.getElementById(
-      "registerNameField"
-    );
-
-  clearAuthMessage();
-
-  if(authMode === "register"){
-
-    title.textContent =
-      "Crear cuenta";
-
-    button.textContent =
-      "Crear cuenta";
-
-    switchText.textContent =
-      "¿Ya tienes cuenta?";
-
-    switchButton.textContent =
-      "Iniciar sesión";
-
-    nameField.classList.remove(
-      "hidden"
-    );
-
-  }else{
-
-    title.textContent =
-      "Iniciar sesión";
-
-    button.textContent =
-      "Iniciar sesión";
-
-    switchText.textContent =
-      "¿No tienes cuenta?";
-
-    switchButton.textContent =
-      "Crear cuenta";
-
-    nameField.classList.add(
-      "hidden"
-    );
+  if(
+    profile &&
+    profile.avatar_url
+  ){
+    return `
+      <img
+        class="avatar"
+        src="${escapeHTML(profile.avatar_url)}"
+        alt="Avatar"
+        onerror="this.style.display='none'">
+    `;
   }
-}
-
-
-async function submitAuth(){
-
-  const email =
-    document
-      .getElementById("authEmail")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("authPassword")
-      .value;
 
   const name =
-    document
-      .getElementById("authName")
-      .value
-      .trim();
+    getDisplayName(profile);
 
-  if(!email){
-
-    showAuthMessage(
-      "Escribe tu correo electrónico."
-    );
-
-    return;
-  }
-
-  if(!password){
-
-    showAuthMessage(
-      "Escribe tu contraseña."
-    );
-
-    return;
-  }
-
-  if(password.length < 6){
-
-    showAuthMessage(
-      "La contraseña debe tener al menos 6 caracteres."
-    );
-
-    return;
-  }
-
-  const button =
-    document.getElementById(
-      "authSubmitBtn"
-    );
-
-  button.disabled = true;
-
-  button.textContent =
-    authMode === "login"
-      ? "Entrando..."
-      : "Creando cuenta...";
-
-  clearAuthMessage();
-
-  try{
-
-    if(authMode === "login"){
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth
-          .signInWithPassword({
-            email,
-            password
-          });
-
-      if(error){
-        throw error;
-      }
-
-      currentUser =
-        data.user;
-
-      await afterLogin();
-
-      closeAuthModal();
-
-      showToast(
-        "¡Sesión iniciada correctamente!"
-      );
-
-    }else{
-
-      if(!name){
-
-        showAuthMessage(
-          "Escribe tu nombre."
-        );
-
-        return;
-      }
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth
-          .signUp({
-            email,
-            password,
-            options:{
-              data:{
-                full_name:name
-              }
-            }
-          });
-
-      if(error){
-        throw error;
-      }
-
-      if(
-        data.user &&
-        data.session
-      ){
-
-        currentUser =
-          data.user;
-
-        await createProfileIfNeeded(
-          data.user,
-          name
-        );
-
-        await afterLogin();
-
-        closeAuthModal();
-
-        showToast(
-          "¡Cuenta creada correctamente!"
-        );
-
-      }else{
-
-        showAuthMessage(
-          "Cuenta creada. Revisa tu correo si Supabase solicita confirmar el email."
-        );
-      }
-    }
-
-  }catch(error){
-
-    console.error(
-      "Error de autenticación:",
-      error
-    );
-
-    let message =
-      error.message ||
-      "No se pudo completar la operación.";
-
-    if(
-      message
-        .toLowerCase()
-        .includes("invalid login credentials")
-    ){
-
-      message =
-        "Correo o contraseña incorrectos.";
-    }
-
-    if(
-      message
-        .toLowerCase()
-        .includes("email not confirmed")
-    ){
-
-      message =
-        "Tu correo todavía no está confirmado.";
-    }
-
-    showAuthMessage(
-      message
-    );
-
-  }finally{
-
-    button.disabled = false;
-
-    button.textContent =
-      authMode === "login"
-        ? "Iniciar sesión"
-        : "Crear cuenta";
-  }
+  return `
+    <div class="avatar">
+      ${escapeHTML(
+        name.charAt(0).toUpperCase()
+      )}
+    </div>
+  `;
 }
 
 
-async function createProfileIfNeeded(
-  user,
-  name
-){
+function isVerified(profile){
 
-  if(!user){
-    return;
-  }
-
-  const {
-    data:existing
-  } =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .eq("user_id",user.id)
-      .maybeSingle();
-
-  if(existing){
-
-    currentProfile =
-      existing;
-
-    return;
-  }
-
-  const profileData = {
-    user_id:user.id,
-    full_name:name,
-    Email:user.email || "",
-    user_type:"user",
-    created_at:new Date().toISOString(),
-    updated_at:new Date().toISOString()
-  };
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("profiles")
-      .insert(profileData)
-      .select()
-      .maybeSingle();
-
-  if(error){
-
-    console.error(
-      "No se pudo crear perfil:",
-      error
-    );
-
-    return;
-  }
-
-  currentProfile =
-    data;
-}
-
-
-async function afterLogin(){
-
-  updateAuthUI();
-
-  await createProfileIfNeeded(
-    currentUser,
-    currentUser?.user_metadata?.full_name ||
-    currentUser?.email?.split("@")[0] ||
-    "Usuario FitLab"
+  return !!(
+    profile &&
+    profile.is_verified === true
   );
-
-  await loadProfile();
-  await loadPosts();
-  await loadUsers();
-  await loadProfilePosts();
-
-  updateFollowingCount();
 }
 
 
-async function logout(){
+function verifiedBadge(profile){
 
-  const {
-    error
-  } =
-    await supabaseClient
-      .auth
-      .signOut();
-
-  if(error){
-
-    console.error(error);
-
-    showToast(
-      "No se pudo cerrar sesión."
-    );
-
-    return;
+  if(!isVerified(profile)){
+    return "";
   }
 
-  currentUser = null;
-  currentProfile = null;
-
-  updateAuthUI();
-
-  showToast(
-    "Sesión cerrada."
-  );
-
-  showSection(
-    "feed",
-    document.querySelector(".nav-btn")
-  );
-
-  await loadPosts();
-}
-
-
-function updateAuthUI(){
-
-  const headerButton =
-    document.getElementById(
-      "headerAuthBtn"
-    );
-
-  const status =
-    document.getElementById(
-      "headerStatus"
-    );
-
-  const authStatusBox =
-    document.getElementById(
-      "authStatusBox"
-    );
-
-  const createLoginBox =
-    document.getElementById(
-      "createLoginBox"
-    );
-
-  const profileLoginBox =
-    document.getElementById(
-      "profileLoginBox"
-    );
-
-  const createCard =
-    document.getElementById(
-      "createCard"
-    );
-
-  const profileContent =
-    document.getElementById(
-      "profileContent"
-    );
-
-  if(currentUser){
-
-    headerButton.textContent =
-      "Mi cuenta";
-
-    headerButton.onclick =
-      () => showSection(
-        "profile",
-        document.querySelectorAll(".nav-btn")[4]
-      );
-
-    status.style.background =
-      "#65ff9a";
-
-    status.style.boxShadow =
-      "0 0 12px #65ff9a";
-
-    const name =
-      currentProfile
-        ? getDisplayName(currentProfile)
-        : currentUser.email;
-
-    authStatusBox.innerHTML = `
-      <div class="auth-status">
-
-        <div class="auth-status-left">
-
-          <div class="auth-dot"></div>
-
-          <div class="auth-status-text">
-
-            <div class="auth-status-name">
-              ${escapeHTML(name)}
-            </div>
-
-            <div class="auth-status-email">
-              ${escapeHTML(currentUser.email || "")}
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="secondary-btn"
-          onclick="logout()"
-        >
-          Salir
-        </button>
-
-      </div>
-    `;
-
-    createLoginBox.innerHTML = "";
-
-    createCard.classList.remove(
-      "hidden"
-    );
-
-    profileLoginBox.innerHTML = "";
-
-    profileContent.classList.remove(
-      "hidden"
-    );
-
-  }else{
-
-    headerButton.textContent =
-      "Iniciar sesión";
-
-    headerButton.onclick =
-      openAuthModal;
-
-    status.style.background =
-      "#56635b";
-
-    status.style.boxShadow =
-      "none";
-
-    authStatusBox.innerHTML = `
-      <div class="auth-login-card">
-
-        <h3>
-          Únete a FitLab
-        </h3>
-
-        <p>
-          Inicia sesión para publicar fotos,
-          videos, comentar y seguir a otros usuarios.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="openAuthModal()"
-        >
-          🔐 Iniciar sesión
-        </button>
-
-      </div>
-    `;
-
-    createLoginBox.innerHTML = `
-      <div class="auth-login-card">
-
-        <h3>
-          🔐 Inicia sesión para publicar
-        </h3>
-
-        <p>
-          Necesitas una cuenta de FitLab para compartir fotos y videos.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="openAuthModal()"
-        >
-          Iniciar sesión
-        </button>
-
-      </div>
-    `;
-
-    createCard.classList.add(
-      "hidden"
-    );
-
-    profileLoginBox.innerHTML = `
-      <div class="auth-login-card">
-
-        <h3>
-          👤 Tu perfil FitLab
-        </h3>
-
-        <p>
-          Inicia sesión para ver y editar tu perfil.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="openAuthModal()"
-        >
-          Iniciar sesión
-        </button>
-
-      </div>
-    `;
-
-    profileContent.classList.add(
-      "hidden"
-    );
-  }
+  return `
+    <span
+      class="verified"
+      title="Perfil verificado">
+      ✓
+    </span>
+  `;
 }
 
 
@@ -2244,68 +1342,414 @@ function updateAuthUI(){
    NAVEGACIÓN
 ========================================================= */
 
-function showSection(
-  id,
-  button
-){
+function showSection(sectionId,button){
 
   document
     .querySelectorAll(".section")
-    .forEach(section => {
-
-      section.classList.remove(
-        "active"
-      );
-
+    .forEach(section=>{
+      section.classList.remove("active");
     });
 
-  const section =
-    document.getElementById(id);
+  const target =
+    document.getElementById(sectionId);
 
-  if(section){
-    section.classList.add(
-      "active"
-    );
+  if(target){
+    target.classList.add("active");
   }
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-
-      btn.classList.remove(
-        "active"
-      );
-
+    .forEach(btn=>{
+      btn.classList.remove("active");
     });
 
   if(button){
-    button.classList.add(
-      "active"
-    );
+    button.classList.add("active");
   }
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  if(id === "feed"){
+  if(sectionId === "feed"){
     loadPosts();
   }
 
-  if(id === "discover"){
+  if(sectionId === "discover"){
     loadUsers();
   }
 
-  if(id === "recommend"){
-    loadCommunity();
+  if(sectionId === "profile"){
+    loadProfile();
+    loadProfilePosts();
   }
 
-  if(id === "profile"){
+  if(sectionId === "recommend"){
+    loadCommunity();
+  }
+}
 
-    if(currentUser){
-      loadProfilePosts();
+
+/* =========================================================
+   AUTENTICACIÓN
+========================================================= */
+
+async function getCurrentUser(){
+
+  const {
+    data,
+    error
+  } = await supabaseClient.auth.getUser();
+
+  if(error){
+    console.error(error);
+    return null;
+  }
+
+  return data.user || null;
+}
+
+
+function openAuth(){
+
+  document
+    .getElementById("authModal")
+    .classList.add("show");
+}
+
+
+function closeAuth(){
+
+  document
+    .getElementById("authModal")
+    .classList.remove("show");
+}
+
+
+function switchAuth(mode){
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const registerTab =
+    document.getElementById("registerTab");
+
+  const loginMode =
+    document.getElementById("loginMode");
+
+  const registerMode =
+    document.getElementById("registerMode");
+
+  if(mode === "login"){
+
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+
+    loginMode.classList.add("active");
+    registerMode.classList.remove("active");
+
+  }else{
+
+    loginTab.classList.remove("active");
+    registerTab.classList.add("active");
+
+    loginMode.classList.remove("active");
+    registerMode.classList.add("active");
+  }
+}
+
+
+function handleAuthButton(){
+
+  if(currentUser){
+
+    logoutUser();
+
+  }else{
+
+    openAuth();
+
+  }
+}
+
+
+async function loginUser(){
+
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
+
+  if(!email || !password){
+
+    showToast(
+      "Escribe tu correo y contraseña."
+    );
+
+    return;
+  }
+
+  showToast("Iniciando sesión...");
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "No se pudo iniciar sesión."
+    );
+
+    return;
+  }
+
+  currentUser = data.user;
+
+  closeAuth();
+
+  await afterLogin();
+
+  showToast("Sesión iniciada correctamente.");
+}
+
+
+async function registerUser(){
+
+  const name =
+    document
+      .getElementById("registerName")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("registerPassword")
+      .value;
+
+  if(!name || !email || !password){
+
+    showToast(
+      "Completa todos los campos."
+    );
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    showToast(
+      "La contraseña debe tener al menos 6 caracteres."
+    );
+
+    return;
+  }
+
+  showToast("Creando cuenta...");
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.signUp({
+      email,
+      password,
+      options:{
+        data:{
+          full_name:name
+        }
+      }
+    });
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "No se pudo crear la cuenta."
+    );
+
+    return;
+  }
+
+  if(data.user){
+
+    currentUser = data.user;
+
+    if(data.session){
+
+      await createOrUpdateProfile(
+        data.user,
+        name,
+        email
+      );
+
+      closeAuth();
+
+      await afterLogin();
+
+      showToast(
+        "Cuenta creada correctamente."
+      );
+
+    }else{
+
+      showToast(
+        "Cuenta creada. Revisa tu correo si Supabase solicita confirmación."
+      );
+
+      switchAuth("login");
     }
+  }
+}
+
+
+async function createOrUpdateProfile(
+  user,
+  name,
+  email
+){
+
+  if(!user){
+    return;
+  }
+
+  const {
+    data:existing,
+    error:findError
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("user_id",user.id)
+      .maybeSingle();
+
+  if(findError){
+
+    console.error(
+      "Error buscando perfil:",
+      findError
+    );
+
+    return;
+  }
+
+  if(existing){
+
+    currentProfile = existing;
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .insert({
+        user_id:user.id,
+        full_name:name || "Usuario FitLab",
+        Email:email || user.email,
+        user_type:"user",
+        is_verified:false
+      })
+      .select()
+      .single();
+
+  if(error){
+
+    console.error(
+      "Error creando perfil:",
+      error
+    );
+
+    return;
+  }
+
+  currentProfile = data;
+}
+
+
+async function afterLogin(){
+
+  if(!currentUser){
+    return;
+  }
+
+  await loadProfile();
+
+  updateAuthHeader();
+
+  updateVerificationUI();
+
+  await loadPosts();
+
+  await loadUsers();
+
+  await loadProfilePosts();
+
+  await loadCommunity();
+}
+
+
+async function logoutUser(){
+
+  await supabaseClient.auth.signOut();
+
+  currentUser = null;
+  currentProfile = null;
+
+  updateAuthHeader();
+
+  updateVerificationUI();
+
+  showToast("Sesión cerrada.");
+
+  loadPosts();
+}
+
+
+function updateAuthHeader(){
+
+  const button =
+    document.getElementById(
+      "authHeaderBtn"
+    );
+
+  const status =
+    document.getElementById(
+      "onlineStatus"
+    );
+
+  if(currentUser){
+
+    button.textContent = "Salir";
+
+    status.classList.add("online");
+
+  }else{
+
+    button.textContent = "Iniciar sesión";
+
+    status.classList.remove("online");
   }
 }
 
@@ -2314,29 +1758,10 @@ function showSection(
    PERFIL
 ========================================================= */
 
-async function getCurrentUser(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth
-      .getUser();
-
-  if(error){
-
-    console.error(error);
-
-    return null;
-  }
-
-  return data?.user || null;
-}
-
-
 async function loadProfile(){
 
   if(!currentUser){
+    renderLoggedOutProfile();
     return;
   }
 
@@ -2347,10 +1772,7 @@ async function loadProfile(){
     await supabaseClient
       .from("profiles")
       .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
+      .eq("user_id",currentUser.id)
       .maybeSingle();
 
   if(error){
@@ -2360,28 +1782,51 @@ async function loadProfile(){
       error
     );
 
-    showToast(
-      "No se pudo cargar tu perfil."
-    );
-
     return;
   }
-
-  currentProfile =
-    data;
 
   if(!data){
 
-    await createProfileIfNeeded(
+    await createOrUpdateProfile(
       currentUser,
-      currentUser.email?.split("@")[0] ||
-      "Usuario FitLab"
+      currentUser.user_metadata?.full_name ||
+      "Usuario FitLab",
+      currentUser.email
     );
 
     return;
   }
 
+  currentProfile = data;
+
   updateProfileUI();
+}
+
+
+function renderLoggedOutProfile(){
+
+  const box =
+    document.getElementById(
+      "profileContent"
+    );
+
+  box.innerHTML = `
+    <div class="card empty">
+
+      <h2>Tu perfil FitLab</h2>
+
+      <p style="margin:10px 0 18px">
+        Inicia sesión para ver y editar tu perfil.
+      </p>
+
+      <button
+        class="primary"
+        onclick="openAuth()">
+        Iniciar sesión
+      </button>
+
+    </div>
+  `;
 }
 
 
@@ -2391,89 +1836,426 @@ function updateProfileUI(){
     return;
   }
 
-  const avatar =
+  const box =
     document.getElementById(
-      "profileAvatar"
+      "profileContent"
     );
+
+  const verified =
+    isVerified(currentProfile);
 
   const name =
-    document.getElementById(
-      "profileName"
-    );
+    getDisplayName(currentProfile);
 
   const username =
-    document.getElementById(
-      "profileUsername"
-    );
+    getUsername(currentProfile);
 
-  const bio =
-    document.getElementById(
-      "profileBio"
-    );
+  box.innerHTML = `
 
-  avatar.src =
-    getAvatar(currentProfile);
+    <div class="card profile-head">
 
-  name.textContent =
-    getDisplayName(
-      currentProfile
-    );
+      ${getAvatar(currentProfile)}
 
-  username.textContent =
-    getUsername(
-      currentProfile
-    );
+      <div
+        class="name-line"
+        style="justify-content:center;margin-top:12px">
 
-  bio.textContent =
-    currentProfile.Bio ||
-    currentProfile.bio ||
-    currentProfile.category ||
-    "Fitness • Entrenamiento";
-}
+        <span class="name">
+          ${escapeHTML(name)}
+        </span>
 
+        ${verifiedBadge(currentProfile)}
 
-/* =========================================================
-   POSTS
-========================================================= */
+      </div>
 
-async function loadPosts(){
+      <div class="username">
+        @${escapeHTML(username)}
+      </div>
 
-  const container =
-    document.getElementById(
-      "feedContainer"
-    );
+      ${
+        currentProfile.Bio
+        ?
+        `<div class="bio">
+          ${escapeHTML(currentProfile.Bio)}
+        </div>`
+        :
+        ""
+      }
 
-  container.innerHTML = `
-    <div class="loading">
+      <div class="profile-actions">
 
-      <div class="spinner"></div>
+        <button
+          class="secondary"
+          onclick="openEditProfile()">
+          Editar perfil
+        </button>
 
-      Cargando publicaciones...
+        <button
+          class="secondary"
+          onclick="changeProfilePhoto()">
+          Cambiar foto
+        </button>
+
+        <button
+          class="secondary"
+          onclick="openVerification()">
+          ${verified ? "✓ Verificado" : "✓ Verificación"}
+        </button>
+
+      </div>
+
+      <div class="profile-stats">
+
+        <div class="stat">
+          <strong id="profilePostsCount">0</strong>
+          <span>Publicaciones</span>
+        </div>
+
+        <div class="stat">
+          <strong id="followingCount">0</strong>
+          <span>Siguiendo</span>
+        </div>
+
+        <div class="stat">
+          <strong id="followersCount">0</strong>
+          <span>Seguidores</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <h3 style="margin-bottom:10px">
+        Mis publicaciones
+      </h3>
+
+      <div id="profilePosts">
+        <div class="loading">
+          Cargando...
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card rating-card">
+
+      <h3>
+        Mi reputación
+      </h3>
+
+      <div class="stars">
+
+        <button
+          class="star"
+          onclick="rate(1)">
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(2)">
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(3)">
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(4)">
+          ★
+        </button>
+
+        <button
+          class="star"
+          onclick="rate(5)">
+          ★
+        </button>
+
+      </div>
+
+      <p style="color:var(--muted);font-size:12px">
+        Sistema de valoración de FitLab.
+      </p>
 
     </div>
   `;
+}
+
+
+function openEditProfile(){
+
+  if(!currentUser){
+
+    openAuth();
+
+    return;
+  }
+
+  if(!currentProfile){
+    return;
+  }
+
+  document.getElementById("editName").value =
+    currentProfile.full_name || "";
+
+  document.getElementById("editPhone").value =
+    currentProfile.Phone || "";
+
+  document.getElementById("editLocation").value =
+    currentProfile.Location || "";
+
+  document.getElementById("editBio").value =
+    currentProfile.Bio || "";
+
+  document
+    .getElementById("editProfileModal")
+    .classList.add("show");
+}
+
+
+function closeEditProfile(){
+
+  document
+    .getElementById("editProfileModal")
+    .classList.remove("show");
+}
+
+
+async function saveProfile(){
+
+  if(!currentUser){
+
+    showToast(
+      "Debes iniciar sesión."
+    );
+
+    return;
+  }
+
+  const full_name =
+    document
+      .getElementById("editName")
+      .value
+      .trim();
+
+  const Phone =
+    document
+      .getElementById("editPhone")
+      .value
+      .trim();
+
+  const Location =
+    document
+      .getElementById("editLocation")
+      .value
+      .trim();
+
+  const Bio =
+    document
+      .getElementById("editBio")
+      .value
+      .trim();
 
   const {
     data,
     error
   } =
     await supabaseClient
-      .from("posts")
-      .select(`
-        id,
-        user_id,
-        content,
-        media_url,
-        media_type,
-        created_at,
-        updated_at
-      `)
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
+      .from("profiles")
+      .update({
+        full_name,
+        Phone,
+        Location,
+        Bio,
+        updated_at:new Date().toISOString()
+      })
+      .eq("user_id",currentUser.id)
+      .select()
+      .single();
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      "No se pudo actualizar el perfil."
+    );
+
+    return;
+  }
+
+  currentProfile = data;
+
+  closeEditProfile();
+
+  updateProfileUI();
+
+  showToast(
+    "Perfil actualizado."
+  );
+}
+
+
+/* =========================================================
+   FOTO DE PERFIL
+========================================================= */
+
+async function changeProfilePhoto(){
+
+  if(!currentUser){
+
+    openAuth();
+
+    return;
+  }
+
+  const input =
+    document.createElement("input");
+
+  input.type = "file";
+  input.accept = "image/*";
+
+  input.onchange = async function(){
+
+    const file =
+      input.files[0];
+
+    if(!file){
+      return;
+    }
+
+    showToast(
+      "Subiendo foto..."
+    );
+
+    const extension =
+      file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+    const fileName =
+      currentUser.id +
+      "/avatar_" +
+      Date.now() +
+      "." +
+      extension;
+
+    const {
+      error:uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("post-media")
+        .upload(
+          fileName,
+          file,
+          {
+            cacheControl:"3600",
+            upsert:false,
+            contentType:file.type
+          }
+        );
+
+    if(uploadError){
+
+      console.error(
+        uploadError
       );
+
+      showToast(
+        "No se pudo subir la foto."
+      );
+
+      return;
+    }
+
+    const {
+      data:publicData
+    } =
+      supabaseClient
+        .storage
+        .from("post-media")
+        .getPublicUrl(fileName);
+
+    const avatar_url =
+      publicData.publicUrl;
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .update({
+          avatar_url,
+          updated_at:new Date().toISOString()
+        })
+        .eq("user_id",currentUser.id)
+        .select()
+        .single();
+
+    if(error){
+
+      console.error(error);
+
+      showToast(
+        "La foto se subió pero no se pudo guardar el perfil."
+      );
+
+      return;
+    }
+
+    currentProfile = data;
+
+    updateProfileUI();
+
+    showToast(
+      "Foto de perfil actualizada."
+    );
+  };
+
+  input.click();
+}
+
+
+/* =========================================================
+   PUBLICACIONES
+========================================================= */
+
+async function loadPosts(){
+
+  const container =
+    document.getElementById(
+      "feedContent"
+    );
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="loading">
+      Cargando publicaciones...
+    </div>
+  `;
+
+  const {
+    data:posts,
+    error
+  } =
+    await supabaseClient
+      .from("posts")
+      .select("*")
+      .order("created_at",{
+        ascending:false
+      });
 
   if(error){
 
@@ -2483,215 +2265,147 @@ async function loadPosts(){
     );
 
     container.innerHTML = `
-      <div class="empty">
-
+      <div class="card empty">
         No se pudieron cargar las publicaciones.
-
-        <br><br>
-
-        ${escapeHTML(error.message)}
-
       </div>
     `;
 
     return;
   }
 
-  allPosts =
-    data || [];
-
-  if(
-    allPosts.length === 0
-  ){
+  if(!posts || posts.length === 0){
 
     container.innerHTML = `
-      <div class="empty">
-
-        <div
-          style="
-            font-size:40px;
-            margin-bottom:10px
-          "
-        >
-          📱
-        </div>
-
+      <div class="card empty">
         Todavía no hay publicaciones.
-
-        <br>
-
+        <br><br>
         Sé el primero en publicar.
-
       </div>
     `;
 
     return;
   }
 
-  const userIds = [
-    ...new Set(
-      allPosts.map(
-        post => post.user_id
+  const userIds =
+    [
+      ...new Set(
+        posts.map(post=>post.user_id)
       )
-    )
-  ];
+    ];
 
-  let profiles = [];
-
-  if(userIds.length){
-
-    const result =
-      await supabaseClient
-        .from("profiles")
-        .select("*")
-        .in(
-          "user_id",
-          userIds
-        );
-
-    if(!result.error){
-      profiles =
-        result.data || [];
-    }
-  }
+  const {
+    data:profiles
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .in("user_id",userIds);
 
   const profileMap = {};
 
-  profiles.forEach(
-    profile => {
-
-      profileMap[
-        profile.user_id
-      ] = profile;
-
-    }
-  );
+  (profiles || []).forEach(profile=>{
+    profileMap[profile.user_id] =
+      profile;
+  });
 
   container.innerHTML =
-    allPosts
-      .map(post => {
-
-        const profile =
-          profileMap[
-            post.user_id
-          ] || {};
-
+    posts
+      .map(post=>{
         return renderPost(
           post,
-          profile
+          profileMap[post.user_id]
         );
-
       })
       .join("");
 }
 
 
-function renderPost(
-  post,
-  profile
-){
+function renderPost(post,profile){
 
   const liked =
-    !!localLikes[
-      post.id
-    ];
+    localStorage.getItem(
+      "fitlab_like_" + post.id
+    ) === "1";
 
   const comments =
-    localComments[
-      post.id
-    ] || [];
+    JSON.parse(
+      localStorage.getItem(
+        "fitlab_comments_" + post.id
+      ) || "[]"
+    );
 
-  const likeClass =
-    liked
-      ? " liked"
-      : "";
+  let media = "";
 
-  const likeText =
-    liked
-      ? "♥"
-      : "♡";
+  if(
+    post.media_url &&
+    post.media_type === "video"
+  ){
 
-  let mediaHTML =
-    "";
+    media = `
+      <video
+        class="post-media"
+        src="${escapeHTML(post.media_url)}"
+        controls
+        playsinline>
+      </video>
+    `;
 
-  if(post.media_url){
+  }else if(post.media_url){
 
-    if(
-      post.media_type === "video" ||
-      post.media_url.match(
-        /\.(mp4|webm|mov|ogg)(\?.*)?$/i
-      )
-    ){
-
-      mediaHTML = `
-        <video
-          class="post-media"
-          src="${escapeHTML(post.media_url)}"
-          controls
-          playsinline
-          preload="metadata">
-        </video>
-      `;
-
-    }else{
-
-      mediaHTML = `
-        <img
-          class="post-media"
-          src="${escapeHTML(post.media_url)}"
-          alt="Publicación FitLab"
-          loading="lazy">
-      `;
-    }
+    media = `
+      <img
+        class="post-media"
+        src="${escapeHTML(post.media_url)}"
+        alt="Publicación FitLab"
+        loading="lazy">
+    `;
   }
 
-  const commentsHTML =
-    comments
-      .map(comment => `
-        <div class="comment">
-
-          <strong>
-            ${escapeHTML(
-              comment.name
-            )}
-          </strong>
-
-          ${escapeHTML(
-            comment.text
-          )}
-
-        </div>
-      `)
-      .join("");
+  const commentHTML =
+    comments.length
+    ?
+    comments.map(comment=>`
+      <div style="
+        padding:7px 0;
+        border-top:1px solid var(--border);
+        font-size:13px;">
+        <strong>
+          ${escapeHTML(comment.name)}
+        </strong>
+        <span style="color:#c5ceca">
+          ${escapeHTML(comment.text)}
+        </span>
+      </div>
+    `).join("")
+    :
+    "";
 
   return `
-    <article
-      id="post-${post.id}"
-      class="post"
-    >
+
+    <article class="card post">
 
       <div class="post-header">
 
-        <div class="post-author">
+        <div class="post-user">
 
-          <img
-            class="avatar small"
-            src="${escapeHTML(
-              getAvatar(profile)
-            )}"
-            alt=""
-          >
+          ${getAvatar(profile)}
 
           <div>
 
-            <div class="user-name">
-              ${escapeHTML(
-                getDisplayName(profile)
-              )}
+            <div class="name-line">
+
+              <span class="name">
+                ${escapeHTML(
+                  getDisplayName(profile)
+                )}
+              </span>
+
+              ${verifiedBadge(profile)}
+
             </div>
 
             <div class="username">
-              ${escapeHTML(
+              @${escapeHTML(
                 getUsername(profile)
               )}
             </div>
@@ -2700,160 +2414,143 @@ function renderPost(
 
         </div>
 
-        <div class="post-time">
-
-          ${formatDate(
-            post.created_at
-          )}
-
+        <div class="post-date">
+          ${formatDate(post.created_at)}
         </div>
 
       </div>
 
       ${
         post.content
-        ? `
-          <div class="post-content">
-            ${escapeHTML(
-              post.content
-            )}
-          </div>
-        `
-        : ""
+        ?
+        `<div class="post-content">
+          ${escapeHTML(post.content)}
+        </div>`
+        :
+        ""
       }
 
-      ${mediaHTML}
+      ${media}
 
       <div class="post-actions">
 
         <button
-          class="action-btn${likeClass}"
-          onclick="toggleLike('${post.id}')"
-        >
-          ${likeText}
-          Me gusta
+          class="action-btn ${liked ? "liked" : ""}"
+          onclick="toggleLike('${post.id}',this)">
+          ${liked ? "♥" : "♡"} Me gusta
         </button>
 
         <button
           class="action-btn"
-          onclick="focusComment('${post.id}')"
-        >
+          onclick="focusComment('${post.id}')">
           💬 Comentar
         </button>
 
         <button
           class="action-btn"
-          onclick="sharePost('${post.id}')"
-        >
+          onclick="sharePost('${post.id}')">
           ↗ Compartir
         </button>
 
       </div>
 
-      <div class="comments">
+      <div
+        id="commentBox_${post.id}"
+        class="comment-box">
 
-        ${
-          commentsHTML ||
-          '<div style="color:#657169;font-size:12px">Sin comentarios todavía.</div>'
-        }
+        <input
+          id="commentInput_${post.id}"
+          type="text"
+          placeholder="Escribe un comentario...">
 
-        <div class="comment-form">
-
-          <input
-            id="comment-${post.id}"
-            placeholder="Escribe un comentario..."
-          >
-
-          <button
-            onclick="addComment('${post.id}')"
-          >
-            Enviar
-          </button>
-
-        </div>
+        <button
+          class="primary"
+          onclick="addComment('${post.id}')">
+          Enviar
+        </button>
 
       </div>
+
+      ${
+        commentHTML
+        ?
+        `<div style="margin-top:12px">
+          ${commentHTML}
+        </div>`
+        :
+        ""
+      }
 
     </article>
   `;
 }
 
 
-/* =========================================================
-   LIKES
-========================================================= */
+function toggleLike(postId,button){
 
-function toggleLike(
-  postId
-){
+  const key =
+    "fitlab_like_" + postId;
 
-  if(!currentUser){
-
-    openAuthModal();
-
-    return;
-  }
-
-  localLikes[postId] =
-    !localLikes[postId];
+  const current =
+    localStorage.getItem(key) === "1";
 
   localStorage.setItem(
-    "fitlab_likes",
-    JSON.stringify(
-      localLikes
-    )
+    key,
+    current ? "0" : "1"
   );
 
-  loadPosts();
+  button.classList.toggle(
+    "liked",
+    !current
+  );
+
+  button.textContent =
+    !current
+    ?
+    "♥ Me gusta"
+    :
+    "♡ Me gusta";
 }
 
 
-/* =========================================================
-   COMENTARIOS
-========================================================= */
+function focusComment(postId){
 
-function focusComment(
-  postId
-){
-
-  if(!currentUser){
-
-    openAuthModal();
-
-    return;
-  }
-
-  const input =
+  const box =
     document.getElementById(
-      "comment-" + postId
+      "commentBox_" + postId
     );
 
-  if(input){
+  if(box){
+    box.classList.add("show");
 
-    input.focus();
+    const input =
+      document.getElementById(
+        "commentInput_" + postId
+      );
 
-    input.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
+    if(input){
+      input.focus();
+    }
   }
 }
 
 
-function addComment(
-  postId
-){
+function addComment(postId){
 
   if(!currentUser){
 
-    openAuthModal();
+    openAuth();
+
+    showToast(
+      "Inicia sesión para comentar."
+    );
 
     return;
   }
 
   const input =
     document.getElementById(
-      "comment-" + postId
+      "commentInput_" + postId
     );
 
   if(!input){
@@ -2867,34 +2564,23 @@ function addComment(
     return;
   }
 
-  if(
-    !localComments[postId]
-  ){
+  const key =
+    "fitlab_comments_" + postId;
 
-    localComments[postId] =
-      [];
-  }
+  const comments =
+    JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
 
-  localComments[
-    postId
-  ].push({
-
-    name:
-      currentProfile
-        ? getDisplayName(
-            currentProfile
-          )
-        : "Tú",
-
-    text:text
-
+  comments.push({
+    name:getDisplayName(currentProfile),
+    text,
+    date:new Date().toISOString()
   });
 
   localStorage.setItem(
-    "fitlab_comments",
-    JSON.stringify(
-      localComments
-    )
+    key,
+    JSON.stringify(comments)
   );
 
   input.value = "";
@@ -2907,324 +2593,44 @@ function addComment(
 }
 
 
-/* =========================================================
-   COMPARTIR
-========================================================= */
-
-async function sharePost(
-  postId
-){
+async function sharePost(postId){
 
   const url =
-    window.location.href
-      .split("#")[0] +
-    "#post-" +
-    postId;
+    window.location.href;
 
-  try{
+  if(
+    navigator.share
+  ){
 
-    if(
-      navigator.share
-    ){
+    try{
 
       await navigator.share({
-
         title:"FitLab",
-
-        text:
-          "Mira esta publicación en FitLab",
-
-        url:url
-
+        text:"Mira esta publicación en FitLab",
+        url
       });
 
-    }else{
+    }catch(error){}
 
-      await navigator.clipboard
-        .writeText(url);
+  }else{
+
+    try{
+
+      await navigator.clipboard.writeText(
+        url
+      );
 
       showToast(
         "Enlace copiado."
       );
-    }
 
-  }catch(error){
+    }catch(error){
 
-    console.log(error);
-  }
-}
-
-
-/* =========================================================
-   USUARIOS
-========================================================= */
-
-async function loadUsers(){
-
-  const container =
-    document.getElementById(
-      "usersContainer"
-    );
-
-  container.innerHTML = `
-    <div class="loading">
-
-      <div class="spinner"></div>
-
-      Cargando usuarios...
-
-    </div>
-  `;
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
+      showToast(
+        "No se pudo copiar el enlace."
       );
-
-  if(error){
-
-    console.error(error);
-
-    container.innerHTML = `
-      <div class="empty">
-        No se pudieron cargar los perfiles.
-        <br><br>
-        ${escapeHTML(
-          error.message
-        )}
-      </div>
-    `;
-
-    return;
+    }
   }
-
-  allUsers =
-    data || [];
-
-  renderUsers(
-    allUsers
-  );
-}
-
-
-function renderUsers(
-  users
-){
-
-  const container =
-    document.getElementById(
-      "usersContainer"
-    );
-
-  const filtered =
-    users.filter(user =>
-      !currentUser ||
-      user.user_id !==
-      currentUser.id
-    );
-
-  if(
-    filtered.length === 0
-  ){
-
-    container.innerHTML = `
-      <div class="empty">
-        No hay otros perfiles para mostrar.
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML =
-    filtered
-      .map(user => {
-
-        const following =
-          !!localFollows[
-            user.user_id
-          ];
-
-        return `
-          <div class="user-card">
-
-            <img
-              class="avatar"
-              src="${escapeHTML(
-                getAvatar(user)
-              )}"
-              alt=""
-            >
-
-            <div class="user-card-info">
-
-              <div class="user-name">
-                ${escapeHTML(
-                  getDisplayName(user)
-                )}
-              </div>
-
-              <div class="username">
-                ${escapeHTML(
-                  getUsername(user)
-                )}
-              </div>
-
-              <div class="user-desc">
-                ${escapeHTML(
-                  user.Bio ||
-                  user.category ||
-                  "Miembro de FitLab"
-                )}
-              </div>
-
-            </div>
-
-            <button
-              class="follow-btn${
-                following
-                  ? " following"
-                  : ""
-              }"
-              onclick="toggleFollow(
-                '${user.user_id}',
-                this
-              )"
-            >
-
-              ${
-                following
-                  ? "Siguiendo"
-                  : "Seguir"
-              }
-
-            </button>
-
-          </div>
-        `;
-      })
-      .join("");
-}
-
-
-function searchUsers(){
-
-  const input =
-    document.getElementById(
-      "userSearch"
-    );
-
-  const query =
-    input.value
-      .trim()
-      .toLowerCase();
-
-  if(!query){
-
-    renderUsers(
-      allUsers
-    );
-
-    return;
-  }
-
-  const filtered =
-    allUsers.filter(
-      user => {
-
-        const name =
-          (
-            user.full_name ||
-            ""
-          ).toLowerCase();
-
-        const email =
-          (
-            user.Email ||
-            ""
-          ).toLowerCase();
-
-        const bio =
-          (
-            user.Bio ||
-            ""
-          ).toLowerCase();
-
-        return (
-          name.includes(query) ||
-          email.includes(query) ||
-          bio.includes(query)
-        );
-      }
-    );
-
-  renderUsers(
-    filtered
-  );
-}
-
-
-function toggleFollow(
-  userId,
-  button
-){
-
-  if(!currentUser){
-
-    openAuthModal();
-
-    return;
-  }
-
-  localFollows[userId] =
-    !localFollows[userId];
-
-  localStorage.setItem(
-    "fitlab_follows",
-    JSON.stringify(
-      localFollows
-    )
-  );
-
-  const following =
-    localFollows[userId];
-
-  button.classList.toggle(
-    "following",
-    following
-  );
-
-  button.textContent =
-    following
-      ? "Siguiendo"
-      : "Seguir";
-
-  updateFollowingCount();
-}
-
-
-function updateFollowingCount(){
-
-  const count =
-    Object.values(
-      localFollows
-    )
-    .filter(Boolean)
-    .length;
-
-  document.getElementById(
-    "followingCount"
-  ).textContent =
-    count;
 }
 
 
@@ -3232,35 +2638,31 @@ function updateFollowingCount(){
    CREAR PUBLICACIÓN
 ========================================================= */
 
-function previewMedia(){
+function previewMedia(event){
 
-  const input =
-    document.getElementById(
-      "mediaInput"
-    );
+  const file =
+    event.target.files[0];
 
   const preview =
     document.getElementById(
       "mediaPreview"
     );
 
+  selectedMedia = file || null;
+
   preview.innerHTML = "";
 
-  const file =
-    input.files[0];
-
   if(!file){
+
+    preview.style.display = "none";
+
     return;
   }
 
   const url =
     URL.createObjectURL(file);
 
-  if(
-    file.type.startsWith(
-      "video/"
-    )
-  ){
+  if(file.type.startsWith("video/")){
 
     preview.innerHTML = `
       <video
@@ -3275,10 +2677,11 @@ function previewMedia(){
     preview.innerHTML = `
       <img
         src="${url}"
-        alt="Vista previa"
-      >
+        alt="Vista previa">
     `;
   }
+
+  preview.style.display = "block";
 }
 
 
@@ -3286,31 +2689,27 @@ async function publishPost(){
 
   if(!currentUser){
 
-    openAuthModal();
+    openAuth();
+
+    showToast(
+      "Inicia sesión para publicar."
+    );
 
     return;
   }
 
   const text =
     document
-      .getElementById(
-        "postText"
-      )
+      .getElementById("postText")
       .value
       .trim();
 
-  const input =
-    document.getElementById(
-      "mediaInput"
-    );
-
   const file =
-    input.files[0];
+    document
+      .getElementById("mediaInput")
+      .files[0];
 
-  if(
-    !text &&
-    !file
-  ){
+  if(!text && !file){
 
     showToast(
       "Escribe algo o selecciona una imagen/video."
@@ -3364,7 +2763,6 @@ async function publishPost(){
     if(uploadError){
 
       console.error(
-        "Error Storage:",
         uploadError
       );
 
@@ -3382,19 +2780,17 @@ async function publishPost(){
       supabaseClient
         .storage
         .from("post-media")
-        .getPublicUrl(
-          fileName
-        );
+        .getPublicUrl(fileName);
 
     mediaUrl =
       publicData.publicUrl;
 
     mediaType =
-      file.type.startsWith(
-        "video/"
-      )
-        ? "video"
-        : "image";
+      file.type.startsWith("video/")
+      ?
+      "video"
+      :
+      "image";
   }
 
   const {
@@ -3403,25 +2799,15 @@ async function publishPost(){
     await supabaseClient
       .from("posts")
       .insert({
-
-        user_id:
-          currentUser.id,
-
-        content:
-          text || null,
-
-        media_url:
-          mediaUrl,
-
-        media_type:
-          mediaType
-
+        user_id:currentUser.id,
+        content:text || null,
+        media_url:mediaUrl,
+        media_type:mediaType
       });
 
   if(error){
 
     console.error(
-      "Error guardando post:",
       error
     );
 
@@ -3433,168 +2819,51 @@ async function publishPost(){
     return;
   }
 
-  document.getElementById(
-    "postText"
-  ).value = "";
+  document
+    .getElementById("postText")
+    .value = "";
 
-  document.getElementById(
-    "mediaInput"
-  ).value = "";
+  document
+    .getElementById("mediaInput")
+    .value = "";
 
-  document.getElementById(
-    "mediaPreview"
-  ).innerHTML = "";
+  selectedMedia = null;
 
-  showToast(
-    "¡Publicación creada!"
+  const preview =
+    document.getElementById(
+      "mediaPreview"
+    );
+
+  preview.innerHTML = "";
+
+  preview.style.display = "none";
+
+  showSection(
+    "feed",
+    document.querySelector(".nav-btn")
   );
 
   await loadPosts();
 
-  showSection(
-    "feed",
-    document.querySelector(
-      ".nav-btn"
-    )
+  showToast(
+    "Publicación creada."
   );
 }
 
 
 /* =========================================================
-   PERFIL / EDITAR
+   DESCUBRIR USUARIOS
 ========================================================= */
 
-function openEditProfile(){
+async function loadUsers(){
 
-  if(!currentUser){
+  const grid =
+    document.getElementById(
+      "usersGrid"
+    );
 
-    openAuthModal();
-
+  if(!grid){
     return;
-  }
-
-  if(!currentProfile){
-
-    showToast(
-      "Primero carga tu perfil."
-    );
-
-    return;
-  }
-
-  document.getElementById(
-    "editName"
-  ).value =
-    currentProfile.full_name ||
-    "";
-
-  document.getElementById(
-    "editUsername"
-  ).value =
-    (
-      currentProfile.username ||
-      getUsername(
-        currentProfile
-      ).replace("@","")
-    );
-
-  document.getElementById(
-    "editBio"
-  ).value =
-    currentProfile.Bio ||
-    currentProfile.bio ||
-    "";
-
-  document
-    .getElementById(
-      "editModal"
-    )
-    .classList.add(
-      "show"
-    );
-}
-
-
-function closeEditProfile(){
-
-  document
-    .getElementById(
-      "editModal"
-    )
-    .classList.remove(
-      "show"
-    );
-}
-
-
-async function saveProfile(){
-
-  if(!currentUser){
-
-    openAuthModal();
-
-    return;
-  }
-
-  const name =
-    document
-      .getElementById(
-        "editName"
-      )
-      .value
-      .trim();
-
-  const username =
-    document
-      .getElementById(
-        "editUsername"
-      )
-      .value
-      .trim()
-      .replace(
-        /^@/,
-        ""
-      );
-
-  const bio =
-    document
-      .getElementById(
-        "editBio"
-      )
-      .value
-      .trim();
-
-  if(!name){
-
-    showToast(
-      "Escribe tu nombre."
-    );
-
-    return;
-  }
-
-  const updateData = {
-
-    full_name:name,
-
-    Bio:bio,
-
-    updated_at:
-      new Date()
-        .toISOString()
-
-  };
-
-  if(
-    currentProfile &&
-    Object.prototype.hasOwnProperty.call(
-      currentProfile,
-      "username"
-    )
-  ){
-
-    updateData.username =
-      username;
   }
 
   const {
@@ -3603,179 +2872,214 @@ async function saveProfile(){
   } =
     await supabaseClient
       .from("profiles")
-      .update(
-        updateData
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .select()
-      .maybeSingle();
+      .select("*")
+      .order("created_at",{
+        ascending:false
+      });
 
   if(error){
 
     console.error(error);
 
-    showToast(
-      "No se pudo actualizar: " +
-      error.message
-    );
+    grid.innerHTML = `
+      <div class="card empty">
+        No se pudieron cargar los usuarios.
+      </div>
+    `;
 
     return;
   }
 
-  if(data){
+  allUsers = data || [];
 
-    currentProfile =
-      data;
-
-  }else{
-
-    currentProfile = {
-      ...currentProfile,
-      ...updateData
-    };
-  }
-
-  updateProfileUI();
-
-  closeEditProfile();
-
-  updateAuthUI();
-
-  showToast(
-    "Perfil actualizado."
-  );
+  renderUsers(allUsers);
 }
 
 
-/* =========================================================
-   FOTO DE PERFIL
-========================================================= */
+function renderUsers(users){
 
-async function changeProfilePhoto(){
+  const grid =
+    document.getElementById(
+      "usersGrid"
+    );
+
+  if(!users.length){
+
+    grid.innerHTML = `
+      <div class="card empty">
+        No encontramos usuarios.
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML =
+    users.map(profile=>{
+
+      const isMe =
+        currentUser &&
+        profile.user_id === currentUser.id;
+
+      const following =
+        localStorage.getItem(
+          "fitlab_follow_" +
+          profile.user_id
+        ) === "1";
+
+      return `
+
+        <div class="user-card">
+
+          <div class="user-card-top">
+
+            ${getAvatar(profile)}
+
+            <div style="min-width:0">
+
+              <div class="name-line">
+
+                <span class="name">
+                  ${escapeHTML(
+                    getDisplayName(profile)
+                  )}
+                </span>
+
+                ${verifiedBadge(profile)}
+
+              </div>
+
+              <div class="username">
+                @${escapeHTML(
+                  getUsername(profile)
+                )}
+              </div>
+
+            </div>
+
+          </div>
+
+          ${
+            isMe
+            ?
+            `<button
+              class="follow-btn"
+              disabled>
+              Tu perfil
+            </button>`
+            :
+            `<button
+              class="follow-btn ${following ? "following" : ""}"
+              onclick="toggleFollow('${profile.user_id}',this)">
+              ${following ? "Siguiendo" : "Seguir"}
+            </button>`
+          }
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+function searchUsers(){
+
+  const query =
+    document
+      .getElementById("userSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const filtered =
+    allUsers.filter(profile=>{
+
+      const name =
+        getDisplayName(profile)
+          .toLowerCase();
+
+      const email =
+        (
+          profile.Email || ""
+        ).toLowerCase();
+
+      return (
+        name.includes(query) ||
+        email.includes(query)
+      );
+
+    });
+
+  renderUsers(filtered);
+}
+
+
+function toggleFollow(userId,button){
 
   if(!currentUser){
 
-    openAuthModal();
+    openAuth();
 
     return;
   }
 
-  const input =
+  const key =
+    "fitlab_follow_" + userId;
+
+  const following =
+    localStorage.getItem(key) === "1";
+
+  localStorage.setItem(
+    key,
+    following ? "0" : "1"
+  );
+
+  button.classList.toggle(
+    "following",
+    !following
+  );
+
+  button.textContent =
+    !following
+    ?
+    "Siguiendo"
+    :
+    "Seguir";
+
+  updateFollowingCount();
+}
+
+
+function updateFollowingCount(){
+
+  if(!currentUser){
+    return;
+  }
+
+  let count = 0;
+
+  for(let i=0;i<localStorage.length;i++){
+
+    const key =
+      localStorage.key(i);
+
+    if(
+      key &&
+      key.startsWith("fitlab_follow_") &&
+      localStorage.getItem(key) === "1"
+    ){
+      count++;
+    }
+  }
+
+  const element =
     document.getElementById(
-      "avatarInput"
+      "followingCount"
     );
 
-  const file =
-    input.files[0];
-
-  if(!file){
-    return;
+  if(element){
+    element.textContent = count;
   }
-
-  showToast(
-    "Subiendo foto..."
-  );
-
-  const extension =
-    file.name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  const fileName =
-    currentUser.id +
-    "/avatar_" +
-    Date.now() +
-    "." +
-    extension;
-
-  const {
-    error:uploadError
-  } =
-    await supabaseClient
-      .storage
-      .from("post-media")
-      .upload(
-        fileName,
-        file,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:file.type
-        }
-      );
-
-  if(uploadError){
-
-    console.error(
-      uploadError
-    );
-
-    showToast(
-      "No se pudo subir la foto: " +
-      uploadError.message
-    );
-
-    return;
-  }
-
-  const {
-    data
-  } =
-    supabaseClient
-      .storage
-      .from("post-media")
-      .getPublicUrl(
-        fileName
-      );
-
-  const avatarUrl =
-    data.publicUrl;
-
-  const {
-    error:updateError
-  } =
-    await supabaseClient
-      .from("profiles")
-      .update({
-
-        avatar_url:
-          avatarUrl,
-
-        updated_at:
-          new Date()
-            .toISOString()
-
-      })
-      .eq(
-        "user_id",
-        currentUser.id
-      );
-
-  if(updateError){
-
-    console.error(
-      updateError
-    );
-
-    showToast(
-      "La foto se subió, pero no se pudo guardar en el perfil."
-    );
-
-    return;
-  }
-
-  currentProfile.avatar_url =
-    avatarUrl;
-
-  updateProfileUI();
-
-  showToast(
-    "Foto de perfil actualizada."
-  );
 }
 
 
@@ -3785,15 +3089,12 @@ async function changeProfilePhoto(){
 
 async function loadProfilePosts(){
 
-  const grid =
+  const container =
     document.getElementById(
-      "profileGrid"
+      "profilePosts"
     );
 
-  if(!currentUser){
-
-    grid.innerHTML = "";
-
+  if(!container || !currentUser){
     return;
   }
 
@@ -3804,114 +3105,104 @@ async function loadProfilePosts(){
     await supabaseClient
       .from("posts")
       .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+      .eq("user_id",currentUser.id)
+      .order("created_at",{
+        ascending:false
+      });
 
   if(error){
 
     console.error(error);
 
-    return;
-  }
-
-  const posts =
-    data || [];
-
-  document.getElementById(
-    "postsCount"
-  ).textContent =
-    posts.length;
-
-  if(
-    posts.length === 0
-  ){
-
-    grid.innerHTML = `
-      <div
-        style="
-          grid-column:1/-1;
-          text-align:center;
-          padding:30px;
-          color:#69766e;
-        "
-      >
-        Aún no tienes publicaciones.
+    container.innerHTML = `
+      <div class="empty">
+        No se pudieron cargar tus publicaciones.
       </div>
     `;
 
     return;
   }
 
-  grid.innerHTML =
-    posts
-      .map(post => {
+  const countElement =
+    document.getElementById(
+      "profilePostsCount"
+    );
 
-        if(!post.media_url){
+  if(countElement){
+    countElement.textContent =
+      (data || []).length;
+  }
 
-          return `
-            <div
-              class="grid-item"
-              style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                padding:15px;
-                text-align:center;
-                color:#8c9891;
-              "
-            >
-              ${escapeHTML(
-                post.content ||
-                "FitLab"
-              )}
-            </div>
+  if(!data || data.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        Todavía no tienes publicaciones.
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    data.map(post=>{
+
+      let media = "";
+
+      if(post.media_url){
+
+        if(post.media_type === "video"){
+
+          media = `
+            <video
+              class="post-media"
+              src="${escapeHTML(post.media_url)}"
+              controls
+              playsinline>
+            </video>
           `;
-        }
 
-        if(
-          post.media_type ===
-          "video"
-        ){
+        }else{
 
-          return `
-            <div class="grid-item">
-
-              <video
-                src="${escapeHTML(
-                  post.media_url
-                )}"
-                muted
-                playsinline>
-              </video>
-
-            </div>
-          `;
-        }
-
-        return `
-          <div class="grid-item">
-
+          media = `
             <img
-              src="${escapeHTML(
-                post.media_url
-              )}"
-              alt="Publicación"
-              loading="lazy"
-            >
+              class="post-media"
+              src="${escapeHTML(post.media_url)}"
+              alt="Publicación">
+          `;
+        }
+      }
 
+      return `
+
+        <div style="
+          padding:12px 0;
+          border-top:1px solid var(--border);">
+
+          ${
+            post.content
+            ?
+            `<div class="post-content">
+              ${escapeHTML(post.content)}
+            </div>`
+            :
+            ""
+          }
+
+          ${media}
+
+          <div
+            style="
+              color:var(--muted);
+              font-size:11px;
+              margin-top:7px">
+            ${formatDate(post.created_at)}
           </div>
-        `;
 
-      })
-      .join("");
+        </div>
+      `;
+
+    }).join("");
 }
 
 
@@ -3921,146 +3212,322 @@ async function loadProfilePosts(){
 
 async function loadCommunity(){
 
-  const container =
+  const box =
     document.getElementById(
-      "communityUsers"
+      "communityContent"
     );
+
+  if(!box){
+    return;
+  }
 
   if(!allUsers.length){
 
     const {
-      data,
-      error
+      data
     } =
       await supabaseClient
         .from("profiles")
         .select("*")
-        .limit(10);
+        .limit(20);
 
-    if(!error){
-
-      allUsers =
-        data || [];
-    }
+    allUsers =
+      data || [];
   }
 
-  const users =
-    allUsers.filter(
-      user =>
-        !currentUser ||
-        user.user_id !==
-        currentUser.id
-    );
+  const suggestions =
+    allUsers
+      .filter(profile=>{
+        return !currentUser ||
+          profile.user_id !== currentUser.id;
+      })
+      .slice(0,8);
 
-  if(
-    users.length === 0
-  ){
+  if(!suggestions.length){
 
-    container.innerHTML = `
-      <div class="empty">
-        Todavía no hay otros perfiles.
+    box.innerHTML = `
+      <div class="card empty">
+        Todavía no hay perfiles para mostrar.
       </div>
     `;
 
     return;
   }
 
-  container.innerHTML =
-    users
-      .slice(0,8)
-      .map(user => {
+  box.innerHTML =
+    suggestions.map(profile=>{
 
-        return `
-          <div class="user-card">
+      const following =
+        localStorage.getItem(
+          "fitlab_follow_" +
+          profile.user_id
+        ) === "1";
 
-            <img
-              class="avatar"
-              src="${escapeHTML(
-                getAvatar(user)
-              )}"
-              alt=""
-            >
+      return `
 
-            <div class="user-card-info">
+        <div class="card">
 
-              <div class="user-name">
-                ${escapeHTML(
-                  getDisplayName(
-                    user
-                  )
-                )}
+          <div
+            style="
+              display:flex;
+              align-items:center;
+              gap:12px;">
+
+            ${getAvatar(profile)}
+
+            <div style="flex:1">
+
+              <div class="name-line">
+
+                <span class="name">
+                  ${escapeHTML(
+                    getDisplayName(profile)
+                  )}
+                </span>
+
+                ${verifiedBadge(profile)}
+
               </div>
 
               <div class="username">
-                ${escapeHTML(
-                  getUsername(
-                    user
-                  )
+                @${escapeHTML(
+                  getUsername(profile)
                 )}
               </div>
 
             </div>
 
             <button
-              class="follow-btn${
-                localFollows[
-                  user.user_id
-                ]
-                  ? " following"
-                  : ""
-              }"
-              onclick="
-                toggleFollow(
-                  '${user.user_id}',
-                  this
-                )
-              "
-            >
-
-              ${
-                localFollows[
-                  user.user_id
-                ]
-                  ? "Siguiendo"
-                  : "Seguir"
-              }
-
+              class="follow-btn"
+              style="width:auto;padding:9px 13px"
+              onclick="toggleFollow('${profile.user_id}',this)">
+              ${following ? "Siguiendo" : "Seguir"}
             </button>
 
           </div>
-        `;
-      })
-      .join("");
+
+        </div>
+      `;
+
+    }).join("");
 }
 
 
 /* =========================================================
-   ESTRELLAS
+   VERIFICACIÓN
+========================================================= */
+
+function openVerification(){
+
+  updateVerificationUI();
+
+  document
+    .getElementById(
+      "verificationModal"
+    )
+    .classList.add("show");
+}
+
+
+function closeVerification(){
+
+  document
+    .getElementById(
+      "verificationModal"
+    )
+    .classList.remove("show");
+}
+
+
+function updateVerificationUI(){
+
+  const loggedOut =
+    document.getElementById(
+      "verificationLoggedOut"
+    );
+
+  const loggedIn =
+    document.getElementById(
+      "verificationLoggedIn"
+    );
+
+  if(currentUser){
+
+    loggedOut.classList.add("hidden");
+    loggedIn.classList.remove("hidden");
+
+  }else{
+
+    loggedOut.classList.remove("hidden");
+    loggedIn.classList.add("hidden");
+  }
+}
+
+
+function openAuthFromVerification(){
+
+  closeVerification();
+
+  openAuth();
+}
+
+
+function requestVerification(){
+
+  if(!currentUser){
+
+    openAuth();
+
+    return;
+  }
+
+  const reason =
+    document
+      .getElementById(
+        "verificationReason"
+      )
+      .value
+      .trim();
+
+  if(!reason){
+
+    showToast(
+      "Escribe el motivo de tu solicitud."
+    );
+
+    return;
+  }
+
+  /*
+    En este momento mostramos la solicitud
+    y la dejamos preparada.
+
+    La tabla verification_requests se conectará
+    después para que las solicitudes lleguen
+    directamente al administrador.
+  */
+
+  localStorage.setItem(
+    "fitlab_verification_request_" +
+    currentUser.id,
+    JSON.stringify({
+      user_id:currentUser.id,
+      reason,
+      created_at:new Date().toISOString()
+    })
+  );
+
+  document
+    .getElementById(
+      "verificationReason"
+    )
+    .value = "";
+
+  closeVerification();
+
+  showToast(
+    "Solicitud de verificación enviada."
+  );
+}
+
+
+/* =========================================================
+   VALORACIÓN
 ========================================================= */
 
 function rate(number){
 
-  document
-    .querySelectorAll(
-      ".star"
-    )
-    .forEach(
-      (star,index) => {
+  if(!currentUser){
 
-        star.classList.toggle(
-          "active",
-          index < number
-        );
+    openAuth();
+
+    showToast(
+      "Inicia sesión para valorar."
+    );
+
+    return;
+  }
+
+  document
+    .querySelectorAll(".star")
+    .forEach((star,index)=>{
+
+      star.classList.toggle(
+        "active",
+        index < number
+      );
+
+    });
+
+  showToast(
+    "Valoración registrada."
+  );
+}
+
+
+/* =========================================================
+   CERRAR MODALES AL TOCAR FUERA
+========================================================= */
+
+document
+  .querySelectorAll(".modal")
+  .forEach(modal=>{
+
+    modal.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === modal){
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
 
       }
     );
 
-  showToast(
-    "Valoración seleccionada: " +
-    number +
-    " estrellas."
-  );
-}
+  });
+
+
+/* =========================================================
+   SESIÓN SUPABASE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event,session)=>{
+
+    currentUser =
+      session?.user || null;
+
+    updateAuthHeader();
+
+    updateVerificationUI();
+
+    if(currentUser){
+
+      await loadProfile();
+
+      await loadPosts();
+
+      await loadUsers();
+
+      await loadProfilePosts();
+
+      await loadCommunity();
+
+    }else{
+
+      currentProfile = null;
+
+      loadPosts();
+
+      renderLoggedOutProfile();
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -4074,33 +3541,30 @@ async function init(){
     currentUser =
       await getCurrentUser();
 
+    updateAuthHeader();
+
+    updateVerificationUI();
+
     if(currentUser){
 
-      await createProfileIfNeeded(
-        currentUser,
-        currentUser
-          .user_metadata
-          ?.full_name ||
-        currentUser.email
-          ?.split("@")[0] ||
-        "Usuario FitLab"
-      );
-
       await loadProfile();
+
       await loadPosts();
+
       await loadUsers();
+
       await loadProfilePosts();
 
-      updateFollowingCount();
+      await loadCommunity();
 
     }else{
 
       await loadPosts();
+
       await loadUsers();
 
+      renderLoggedOutProfile();
     }
-
-    updateAuthUI();
 
   }catch(error){
 
@@ -4112,103 +3576,9 @@ async function init(){
     showToast(
       "Ocurrió un error al conectar con Supabase."
     );
-
-    updateAuthUI();
   }
 }
 
-
-/* =========================================================
-   EVENTOS
-========================================================= */
-
-document
-  .getElementById(
-    "editModal"
-  )
-  .addEventListener(
-    "click",
-    function(event){
-
-      if(
-        event.target === this
-      ){
-
-        closeEditProfile();
-
-      }
-
-    }
-  );
-
-
-document
-  .getElementById(
-    "authModal"
-  )
-  .addEventListener(
-    "click",
-    function(event){
-
-      if(
-        event.target === this
-      ){
-
-        closeAuthModal();
-
-      }
-
-    }
-  );
-
-
-/* Detectar login/logout automáticamente */
-
-supabaseClient.auth.onAuthStateChange(
-  async (event,session) => {
-
-    console.log(
-      "Auth:",
-      event
-    );
-
-    currentUser =
-      session?.user || null;
-
-    if(currentUser){
-
-      await createProfileIfNeeded(
-        currentUser,
-        currentUser
-          .user_metadata
-          ?.full_name ||
-        currentUser.email
-          ?.split("@")[0] ||
-        "Usuario FitLab"
-      );
-
-      await loadProfile();
-      await loadPosts();
-      await loadUsers();
-      await loadProfilePosts();
-
-    }else{
-
-      currentProfile =
-        null;
-
-      await loadPosts();
-    }
-
-    updateAuthUI();
-
-  }
-);
-
-
-/* =========================================================
-   EJECUTAR
-========================================================= */
 
 init();
 
