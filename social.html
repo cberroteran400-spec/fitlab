@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#050b12">
 <meta name="description" content="FitLab Social: comunidad fitness, perfiles, publicaciones, videos, rutinas y entrenamiento.">
+<link rel="canonical" href="https://cberroteran400-spec.github.io/fitlab/social.html">
 <title>FitLab Social</title>
 
 <style>
@@ -252,7 +253,8 @@ a{
 /* FEED */
 
 .post{
-  overflow:hidden;
+  overflow:visible;
+  position:relative;
 }
 
 .post-head{
@@ -260,6 +262,7 @@ a{
   align-items:center;
   gap:11px;
   margin-bottom:13px;
+  position:relative;
 }
 
 .avatar{
@@ -283,6 +286,7 @@ a{
 
 .post-user{
   flex:1;
+  min-width:0;
 }
 
 .post-name{
@@ -322,6 +326,7 @@ a{
   align-items:center;
   gap:7px;
   padding-top:12px;
+  flex-wrap:wrap;
 }
 
 .action-btn{
@@ -337,6 +342,77 @@ a{
   color:var(--green);
   border-color:rgba(101,255,154,.35);
   background:rgba(101,255,154,.07);
+}
+
+/* PRIVACIDAD Y MENÚ */
+
+.post-menu-wrap{
+  position:relative;
+  margin-left:auto;
+}
+
+.post-menu-btn{
+  width:36px;
+  height:36px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#0b1520;
+  color:var(--white);
+  font-size:21px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+}
+
+.post-menu-btn:hover{
+  border-color:var(--green);
+  color:var(--green);
+}
+
+.post-menu{
+  position:absolute;
+  top:42px;
+  right:0;
+  z-index:50;
+  min-width:190px;
+  background:#0b1520;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:6px;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.post-menu button{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:var(--white);
+  padding:11px 12px;
+  border-radius:9px;
+  font-size:13px;
+}
+
+.post-menu button:hover{
+  background:#142231;
+}
+
+.post-menu .delete-option{
+  color:#ff8792;
+}
+
+.private-label{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-bottom:12px;
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(101,255,154,.08);
+  border:1px solid rgba(101,255,154,.18);
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
 }
 
 .comments{
@@ -838,6 +914,7 @@ textarea{
 /* RESPONSIVE */
 
 @media(max-width:600px){
+
   .header-inner{
     padding-left:12px;
     padding-right:12px;
@@ -888,9 +965,14 @@ textarea{
   .nav-btn span{
     font-size:17px;
   }
+
+  .post-menu{
+    right:-3px;
+  }
 }
 
 @media(max-width:390px){
+
   .nav-btn{
     font-size:8px;
   }
@@ -909,448 +991,945 @@ textarea{
 <body>
 
 <header class="header">
+
   <div class="header-inner">
+
     <div class="logo">
-      <div class="logo-mark">F</div>
-      <div>FitLab</div>
+
+      <div class="logo-mark">
+        F
+      </div>
+
+      <div>
+        FitLab
+      </div>
+
     </div>
 
     <div class="header-actions">
+
       <div class="online">
+
         <span class="online-dot"></span>
         En línea
+
       </div>
 
-      <button class="verify-btn" onclick="openVerification()">
+      <button
+        class="verify-btn"
+        onclick="openVerification()">
+
         ✓ Verificar
+
       </button>
 
-      <button class="icon-btn" onclick="openAuthModal()" title="Cuenta">
+      <button
+        class="icon-btn"
+        onclick="openAuthModal()"
+        title="Cuenta">
+
         👤
+
       </button>
+
     </div>
+
   </div>
+
 </header>
+
 
 <main class="container">
 
-  <!-- INICIO -->
-  <section id="feed" class="section active">
 
-    <div class="hero">
-      <h1>Bienvenido a <span>FitLab</span></h1>
-      <p>
-        Comparte tus entrenamientos, descubre atletas, encuentra contenido
-        fitness y forma parte de la comunidad.
-      </p>
+<!-- =====================================================
+     INICIO
+====================================================== -->
+
+<section
+  id="feed"
+  class="section active">
+
+  <div class="hero">
+
+    <h1>
+      Bienvenido a <span>FitLab</span>
+    </h1>
+
+    <p>
+      Comparte tus entrenamientos, descubre atletas,
+      encuentra contenido fitness y forma parte de la comunidad.
+    </p>
+
+  </div>
+
+
+  <div
+    class="card"
+    id="feedCreateCard">
+
+    <div class="card-title">
+      🔥 ¿Qué estás entrenando hoy?
     </div>
 
-    <div class="card" id="feedCreateCard">
-      <div class="card-title">🔥 ¿Qué estás entrenando hoy?</div>
-      <textarea id="quickPostText" placeholder="Comparte algo con la comunidad..."></textarea>
-      <div style="margin-top:10px;display:flex;justify-content:flex-end;">
-        <button class="primary" onclick="quickPublish()">Publicar</button>
+    <textarea
+      id="quickPostText"
+      placeholder="Comparte algo con la comunidad...">
+    </textarea>
+
+    <div
+      style="margin-top:10px;display:flex;justify-content:flex-end;">
+
+      <button
+        class="primary"
+        onclick="quickPublish()">
+
+        Publicar
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="postsContainer">
+
+    <div class="loading">
+      Cargando publicaciones...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DESCUBRIR
+====================================================== -->
+
+<section
+  id="discover"
+  class="section">
+
+  <div class="hero">
+
+    <h1>
+      🔎 Descubrir
+    </h1>
+
+    <p>
+      Encuentra personas y perfiles fitness dentro de FitLab.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="field">
+
+      <label>
+        Buscar personas
+      </label>
+
+      <input
+        id="userSearch"
+        type="search"
+        placeholder="Nombre, ubicación o perfil..."
+        oninput="searchUsers()">
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="usersContainer"
+    class="user-list">
+
+    <div class="loading">
+      Cargando usuarios...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CREAR
+====================================================== -->
+
+<section
+  id="create"
+  class="section">
+
+  <div class="hero">
+
+    <h1>
+      ➕ Crear publicación
+    </h1>
+
+    <p>
+      Comparte una foto, video o mensaje con la comunidad.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="field">
+
+      <label>
+        Tu publicación
+      </label>
+
+      <textarea
+        id="postText"
+        placeholder="¿Qué quieres compartir?">
+      </textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Foto o video
+      </label>
+
+      <input
+        id="mediaInput"
+        type="file"
+        accept="image/*,video/*"
+        onchange="previewMedia(event)">
+
+    </div>
+
+
+    <div
+      id="mediaPreview"
+      class="media-preview">
+    </div>
+
+
+    <div
+      style="display:flex;justify-content:flex-end;margin-top:13px;">
+
+      <button
+        class="primary"
+        onclick="publishPost()">
+
+        🚀 Publicar
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMUNIDAD
+====================================================== -->
+
+<section
+  id="recommend"
+  class="section">
+
+  <div class="hero">
+
+    <h1>
+      ⭐ Comunidad
+    </h1>
+
+    <p>
+      Descubre recomendaciones y perfiles destacados de la comunidad.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-title">
+      Personas recomendadas
+    </div>
+
+    <div
+      id="recommendUsers"
+      class="recommend-grid">
+
+      <div class="loading">
+        Cargando...
       </div>
-    </div>
-
-    <div id="postsContainer">
-      <div class="loading">Cargando publicaciones...</div>
-    </div>
-
-  </section>
-
-  <!-- DESCUBRIR -->
-  <section id="discover" class="section">
-
-    <div class="hero">
-      <h1>🔎 Descubrir</h1>
-      <p>Encuentra personas y perfiles fitness dentro de FitLab.</p>
-    </div>
-
-    <div class="card">
-      <div class="field">
-        <label>Buscar personas</label>
-        <input id="userSearch" type="search"
-               placeholder="Nombre, ubicación o perfil..."
-               oninput="searchUsers()">
-      </div>
-    </div>
-
-    <div id="usersContainer" class="user-list">
-      <div class="loading">Cargando usuarios...</div>
-    </div>
-
-  </section>
-
-  <!-- CREAR -->
-  <section id="create" class="section">
-
-    <div class="hero">
-      <h1>➕ Crear publicación</h1>
-      <p>Comparte una foto, video o mensaje con la comunidad.</p>
-    </div>
-
-    <div class="card">
-
-      <div class="field">
-        <label>Tu publicación</label>
-        <textarea id="postText"
-                  placeholder="¿Qué quieres compartir?"></textarea>
-      </div>
-
-      <div class="field">
-        <label>Foto o video</label>
-        <input id="mediaInput"
-               type="file"
-               accept="image/*,video/*"
-               onchange="previewMedia(event)">
-      </div>
-
-      <div id="mediaPreview" class="media-preview"></div>
-
-      <div style="display:flex;justify-content:flex-end;margin-top:13px;">
-        <button class="primary" onclick="publishPost()">
-          🚀 Publicar
-        </button>
-      </div>
 
     </div>
 
-  </section>
+  </div>
 
-  <!-- COMUNIDAD -->
-  <section id="recommend" class="section">
 
-    <div class="hero">
-      <h1>⭐ Comunidad</h1>
-      <p>Descubre recomendaciones y perfiles destacados de la comunidad.</p>
+  <div class="card">
+
+    <div class="card-title">
+      ⭐ Califica FitLab
     </div>
 
-    <div class="card">
-      <div class="card-title">Personas recomendadas</div>
-      <div id="recommendUsers" class="recommend-grid">
-        <div class="loading">Cargando...</div>
-      </div>
+    <p class="muted">
+      Tu opinión puede ayudar a mejorar la comunidad.
+    </p>
+
+
+    <div
+      class="stars"
+      id="ratingStars">
+
+      <button
+        class="icon-btn"
+        onclick="rateFitlab(1)">
+        ★
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="rateFitlab(2)">
+        ★
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="rateFitlab(3)">
+        ★
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="rateFitlab(4)">
+        ★
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="rateFitlab(5)">
+        ★
+      </button>
+
     </div>
 
-    <div class="card">
-      <div class="card-title">⭐ Califica FitLab</div>
-      <p class="muted">
-        Tu opinión puede ayudar a mejorar la comunidad.
-      </p>
 
-      <div class="stars" id="ratingStars">
-        <button class="icon-btn" onclick="rateFitlab(1)">★</button>
-        <button class="icon-btn" onclick="rateFitlab(2)">★</button>
-        <button class="icon-btn" onclick="rateFitlab(3)">★</button>
-        <button class="icon-btn" onclick="rateFitlab(4)">★</button>
-        <button class="icon-btn" onclick="rateFitlab(5)">★</button>
-      </div>
-
-      <div id="ratingText" class="muted" style="font-size:12px;"></div>
+    <div
+      id="ratingText"
+      class="muted"
+      style="font-size:12px;">
     </div>
 
-  </section>
+  </div>
 
-  <!-- PERFIL -->
-  <section id="profile" class="section">
+</section>
 
-    <div id="profileContainer">
-      <div class="loading">Cargando perfil...</div>
+
+<!-- =====================================================
+     PERFIL
+====================================================== -->
+
+<section
+  id="profile"
+  class="section">
+
+  <div id="profileContainer">
+
+    <div class="loading">
+      Cargando perfil...
     </div>
 
-    <div class="card">
-      <div class="card-title">Mis publicaciones</div>
-      <div id="profilePosts">
-        <div class="loading">Cargando...</div>
-      </div>
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-title">
+      Mis publicaciones
     </div>
 
-  </section>
+    <div id="profilePosts">
 
-  <!-- VIDEOS YOUTUBE -->
-  <section id="videos" class="section">
-
-    <div class="hero videos-header">
-      <h1>🎥 Videos <span>FitLab</span></h1>
-      <p>
-        Descubre entrenamiento, ejercicios, gimnasio, nutrición,
-        motivación y contenido fitness de YouTube.
-      </p>
-    </div>
-
-    <div class="card">
-
-      <div class="video-search-row">
-        <input
-          id="youtubeSearch"
-          type="search"
-          placeholder="Buscar videos fitness..."
-          onkeydown="if(event.key==='Enter') searchYouTube()"
-        >
-
-        <button class="primary" onclick="searchYouTube()">
-          🔎 Buscar
-        </button>
-      </div>
-
-      <div class="video-categories">
-
-        <button class="category-btn active"
-                onclick="searchYouTube('entrenamiento gimnasio')">
-          🏋️ Gimnasio
-        </button>
-
-        <button class="category-btn"
-                onclick="searchYouTube('rutinas gym')">
-          💪 Rutinas
-        </button>
-
-        <button class="category-btn"
-                onclick="searchYouTube('ejercicios en casa')">
-          🏠 Casa
-        </button>
-
-        <button class="category-btn"
-                onclick="searchYouTube('nutricion fitness')">
-          🥗 Nutrición
-        </button>
-
-        <button class="category-btn"
-                onclick="searchYouTube('motivacion fitness')">
-          🔥 Motivación
-        </button>
-
-        <button class="category-btn"
-                onclick="searchYouTube('musculacion hipertrofia')">
-          💪 Músculo
-        </button>
-
+      <div class="loading">
+        Cargando...
       </div>
 
     </div>
 
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px;">
-        <div class="card-title" style="margin:0;">Videos para ti</div>
+  </div>
 
-        <button class="secondary"
-                onclick="loadYouTubeVideos(youtubeLastQuery)">
-          ↻ Actualizar
-        </button>
-      </div>
+</section>
 
-      <div id="youtubeContent" class="youtube-grid">
-        <div class="video-loading">
-          Pulsa una categoría o busca un video para comenzar.
-        </div>
-      </div>
+
+<!-- =====================================================
+     VIDEOS YOUTUBE
+====================================================== -->
+
+<section
+  id="videos"
+  class="section">
+
+  <div class="hero videos-header">
+
+    <h1>
+      🎥 Videos <span>FitLab</span>
+    </h1>
+
+    <p>
+      Descubre entrenamiento, ejercicios, gimnasio,
+      nutrición, motivación y contenido fitness de YouTube.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="video-search-row">
+
+      <input
+        id="youtubeSearch"
+        type="search"
+        placeholder="Buscar videos fitness..."
+        onkeydown="if(event.key==='Enter') searchYouTube()">
+
+
+      <button
+        class="primary"
+        onclick="searchYouTube()">
+
+        🔎 Buscar
+
+      </button>
+
     </div>
 
-  </section>
+
+    <div class="video-categories">
+
+      <button
+        class="category-btn active"
+        onclick="searchYouTube('entrenamiento gimnasio')">
+
+        🏋️ Gimnasio
+
+      </button>
+
+
+      <button
+        class="category-btn"
+        onclick="searchYouTube('rutinas gym')">
+
+        💪 Rutinas
+
+      </button>
+
+
+      <button
+        class="category-btn"
+        onclick="searchYouTube('ejercicios en casa')">
+
+        🏠 Casa
+
+      </button>
+
+
+      <button
+        class="category-btn"
+        onclick="searchYouTube('nutricion fitness')">
+
+        🥗 Nutrición
+
+      </button>
+
+
+      <button
+        class="category-btn"
+        onclick="searchYouTube('motivacion fitness')">
+
+        🔥 Motivación
+
+      </button>
+
+
+      <button
+        class="category-btn"
+        onclick="searchYouTube('musculacion hipertrofia')">
+
+        💪 Músculo
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div
+      style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px;">
+
+      <div
+        class="card-title"
+        style="margin:0;">
+
+        Videos para ti
+
+      </div>
+
+
+      <button
+        class="secondary"
+        onclick="loadYouTubeVideos(youtubeLastQuery)">
+
+        ↻ Actualizar
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="youtubeContent"
+      class="youtube-grid">
+
+      <div class="video-loading">
+        Pulsa una categoría o busca un video para comenzar.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 </main>
 
-<!-- NAVEGACIÓN -->
+
+<!-- =====================================================
+     NAVEGACIÓN
+====================================================== -->
+
 <nav class="bottom-nav">
+
   <div class="nav-inner">
 
-    <button class="nav-btn active"
-            onclick="showSection('feed',this)">
+    <button
+      class="nav-btn active"
+      onclick="showSection('feed',this)">
+
       <span>🏠</span>
       Inicio
+
     </button>
 
-    <button class="nav-btn"
-            onclick="showSection('discover',this)">
+
+    <button
+      class="nav-btn"
+      onclick="showSection('discover',this)">
+
       <span>🔎</span>
       Descubrir
+
     </button>
 
-    <button class="nav-btn"
-            onclick="showSection('create',this)">
+
+    <button
+      class="nav-btn"
+      onclick="showSection('create',this)">
+
       <span>➕</span>
       Crear
+
     </button>
 
-    <button class="nav-btn"
-            onclick="showSection('recommend',this)">
+
+    <button
+      class="nav-btn"
+      onclick="showSection('recommend',this)">
+
       <span>⭐</span>
       Comunidad
+
     </button>
 
-    <button class="nav-btn"
-            onclick="showSection('videos',this)">
+
+    <button
+      class="nav-btn"
+      onclick="showSection('videos',this)">
+
       <span>🎥</span>
       Videos
+
     </button>
 
-    <button class="nav-btn"
-            onclick="showSection('profile',this)">
+
+    <button
+      class="nav-btn"
+      onclick="showSection('profile',this)">
+
       <span>👤</span>
       Perfil
+
     </button>
 
   </div>
+
 </nav>
 
-<!-- MODAL AUTH -->
-<div id="authModal" class="modal">
+
+<!-- =====================================================
+     MODAL AUTH
+====================================================== -->
+
+<div
+  id="authModal"
+  class="modal">
+
   <div class="modal-box">
 
     <div class="modal-head">
-      <h3 id="authTitle">Iniciar sesión</h3>
-      <button class="close-btn" onclick="closeModal('authModal')">✕</button>
+
+      <h3 id="authTitle">
+        Iniciar sesión
+      </h3>
+
+      <button
+        class="close-btn"
+        onclick="closeModal('authModal')">
+
+        ✕
+
+      </button>
+
     </div>
+
 
     <div class="field">
-      <label>Email</label>
-      <input id="authEmail" type="email" placeholder="correo@ejemplo.com">
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="authEmail"
+        type="email"
+        placeholder="correo@ejemplo.com">
+
     </div>
+
 
     <div class="field">
-      <label>Contraseña</label>
-      <input id="authPassword" type="password" placeholder="••••••••">
+
+      <label>
+        Contraseña
+      </label>
+
+      <input
+        id="authPassword"
+        type="password"
+        placeholder="••••••••">
+
     </div>
 
-    <div id="registerNameField" class="field" style="display:none;">
-      <label>Nombre</label>
-      <input id="authName" type="text" placeholder="Tu nombre">
+
+    <div
+      id="registerNameField"
+      class="field"
+      style="display:none;">
+
+      <label>
+        Nombre
+      </label>
+
+      <input
+        id="authName"
+        type="text"
+        placeholder="Tu nombre">
+
     </div>
+
 
     <div class="modal-actions">
-      <button class="primary" id="authMainBtn" onclick="handleAuth()">
+
+      <button
+        class="primary"
+        id="authMainBtn"
+        onclick="handleAuth()">
+
         Iniciar sesión
+
       </button>
 
-      <button class="secondary"
-              onclick="toggleAuthMode()"
-              id="authToggleBtn">
+
+      <button
+        class="secondary"
+        onclick="toggleAuthMode()"
+        id="authToggleBtn">
+
         Crear cuenta
+
       </button>
+
     </div>
 
-    <button class="secondary"
-            style="width:100%;margin-top:8px;"
-            onclick="signOut()">
+
+    <button
+      class="secondary"
+      style="width:100%;margin-top:8px;"
+      onclick="signOut()">
+
       Cerrar sesión
+
     </button>
 
   </div>
+
 </div>
 
-<!-- MODAL EDITAR PERFIL -->
-<div id="editProfileModal" class="modal">
+
+<!-- =====================================================
+     MODAL EDITAR PERFIL
+====================================================== -->
+
+<div
+  id="editProfileModal"
+  class="modal">
+
   <div class="modal-box">
 
     <div class="modal-head">
-      <h3>Editar perfil</h3>
-      <button class="close-btn"
-              onclick="closeModal('editProfileModal')">
+
+      <h3>
+        Editar perfil
+      </h3>
+
+      <button
+        class="close-btn"
+        onclick="closeModal('editProfileModal')">
+
         ✕
+
       </button>
+
     </div>
 
-    <div style="text-align:center;margin-bottom:15px;">
-      <img id="editAvatarPreview"
-           class="avatar large"
-           src=""
-           alt="Avatar">
+
+    <div
+      style="text-align:center;margin-bottom:15px;">
+
+      <img
+        id="editAvatarPreview"
+        class="avatar large"
+        src=""
+        alt="Avatar">
+
     </div>
 
-    <div class="field">
-      <label>Foto de perfil</label>
-      <input id="avatarInput"
-             type="file"
-             accept="image/*"
-             onchange="previewAvatar(event)">
-    </div>
-
-    <div class="field">
-      <label>Nombre</label>
-      <input id="editFullName" type="text">
-    </div>
 
     <div class="field">
-      <label>Teléfono</label>
-      <input id="editPhone" type="text">
+
+      <label>
+        Foto de perfil
+      </label>
+
+      <input
+        id="avatarInput"
+        type="file"
+        accept="image/*"
+        onchange="previewAvatar(event)">
+
     </div>
 
-    <div class="field">
-      <label>Ubicación</label>
-      <input id="editLocation" type="text">
-    </div>
 
     <div class="field">
-      <label>Biografía</label>
-      <textarea id="editBio"></textarea>
+
+      <label>
+        Nombre
+      </label>
+
+      <input
+        id="editFullName"
+        type="text">
+
     </div>
+
+
+    <div class="field">
+
+      <label>
+        Teléfono
+      </label>
+
+      <input
+        id="editPhone"
+        type="text">
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Ubicación
+      </label>
+
+      <input
+        id="editLocation"
+        type="text">
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Biografía
+      </label>
+
+      <textarea
+        id="editBio">
+      </textarea>
+
+    </div>
+
 
     <div class="modal-actions">
-      <button class="secondary"
-              onclick="closeModal('editProfileModal')">
+
+      <button
+        class="secondary"
+        onclick="closeModal('editProfileModal')">
+
         Cancelar
+
       </button>
 
-      <button class="primary"
-              onclick="saveProfile()">
+
+      <button
+        class="primary"
+        onclick="saveProfile()">
+
         Guardar
+
       </button>
+
     </div>
 
   </div>
+
 </div>
 
-<!-- MODAL VERIFICACIÓN -->
-<div id="verificationModal" class="modal">
+
+<!-- =====================================================
+     MODAL VERIFICACIÓN
+====================================================== -->
+
+<div
+  id="verificationModal"
+  class="modal">
+
   <div class="modal-box">
 
     <div class="modal-head">
-      <h3>✓ Verificación FitLab</h3>
-      <button class="close-btn"
-              onclick="closeModal('verificationModal')">
+
+      <h3>
+        ✓ Verificación FitLab
+      </h3>
+
+      <button
+        class="close-btn"
+        onclick="closeModal('verificationModal')">
+
         ✕
+
       </button>
+
     </div>
 
-    <p class="muted" style="line-height:1.55;">
-      La verificación puede utilizarse para identificar perfiles
-      profesionales o cuentas que cumplan los requisitos de FitLab.
+
+    <p
+      class="muted"
+      style="line-height:1.55;">
+
+      La verificación puede utilizarse para identificar
+      perfiles profesionales o cuentas que cumplan
+      los requisitos de FitLab.
+
     </p>
 
-    <div class="card"
-         style="margin-top:14px;margin-bottom:0;background:#08121d;">
-      <strong>Estado actual</strong>
-      <p id="verificationStatus"
-         class="muted"
-         style="margin-top:7px;">
+
+    <div
+      class="card"
+      style="margin-top:14px;margin-bottom:0;background:#08121d;">
+
+      <strong>
+        Estado actual
+      </strong>
+
+      <p
+        id="verificationStatus"
+        class="muted"
+        style="margin-top:7px;">
+
         Consultando...
+
       </p>
+
     </div>
 
+
     <div class="modal-actions">
-      <button class="primary"
-              onclick="requestVerification()">
+
+      <button
+        class="primary"
+        onclick="requestVerification()">
+
         Solicitar verificación
+
       </button>
+
     </div>
 
   </div>
+
 </div>
 
-<!-- MODAL YOUTUBE -->
-<div id="youtubePlayerModal" class="modal">
 
-  <div class="modal-box youtube-modal-box">
+<!-- =====================================================
+     MODAL YOUTUBE
+====================================================== -->
+
+<div
+  id="youtubePlayerModal"
+  class="modal">
+
+  <div
+    class="modal-box youtube-modal-box">
 
     <div class="modal-head">
-      <h3>▶️ FitLab Video</h3>
 
-      <button class="close-btn"
-              onclick="closeYouTubePlayer()">
+      <h3>
+        ▶️ FitLab Video
+      </h3>
+
+      <button
+        class="close-btn"
+        onclick="closeYouTubePlayer()">
+
         ✕
+
       </button>
+
     </div>
+
 
     <iframe
       id="youtubePlayer"
@@ -1360,17 +1939,25 @@ textarea{
       allowfullscreen>
     </iframe>
 
-    <div id="youtubePlayerTitle"
-         class="youtube-player-title">
+
+    <div
+      id="youtubePlayerTitle"
+      class="youtube-player-title">
     </div>
 
   </div>
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
 
 <script type="module">
+
 
 /* =========================================================
    SUPABASE
@@ -1380,11 +1967,14 @@ import {
   createClient
 } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+
 const SUPABASE_URL =
   "https://ouunfknxeiouwuzyhsqr.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_rOCiKFhZioX9z2BAk-jw8Q_5wRjQvrd";
+
 
 const supabase =
   createClient(
@@ -1395,7 +1985,6 @@ const supabase =
 
 /* =========================================================
    HYPER WORKER
-   La API de YouTube NO está aquí.
 ========================================================= */
 
 const HYPER_WORKER_URL =
@@ -1407,9 +1996,13 @@ const HYPER_WORKER_URL =
 ========================================================= */
 
 let currentUser = null;
+
 let currentProfile = null;
+
 let allUsers = [];
+
 let selectedMedia = null;
+
 let authRegisterMode = false;
 
 let youtubeLastQuery =
@@ -1442,11 +2035,14 @@ function showToast(message){
   const toast =
     document.getElementById("toast");
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
   toast.classList.add("show");
 
-  clearTimeout(window.__toastTimer);
+  clearTimeout(
+    window.__toastTimer
+  );
 
   window.__toastTimer =
     setTimeout(()=>{
@@ -1479,9 +2075,14 @@ function formatDate(date){
     return "";
   }
 
-  const d = new Date(date);
+  const d =
+    new Date(date);
 
-  if(Number.isNaN(d.getTime())){
+  if(
+    Number.isNaN(
+      d.getTime()
+    )
+  ){
     return "";
   }
 
@@ -1524,7 +2125,8 @@ function getUsername(profile){
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
     .replace(/[^a-z0-9]+/g,"")
-    .slice(0,20) || "usuario";
+    .slice(0,20) ||
+    "usuario";
 }
 
 
@@ -1554,10 +2156,50 @@ function verifiedBadge(profile){
 
 
 /* =========================================================
+   STORAGE
+   Obtiene la ruta interna de un archivo del bucket
+   post-media a partir de su URL pública.
+========================================================= */
+
+function getPostStoragePath(url){
+
+  if(!url){
+    return null;
+  }
+
+  const marker =
+    "/storage/v1/object/public/post-media/";
+
+  const index =
+    String(url).indexOf(marker);
+
+  if(index === -1){
+    return null;
+  }
+
+  try{
+
+    return decodeURIComponent(
+      String(url).slice(
+        index + marker.length
+      )
+    );
+
+  }catch{
+
+    return String(url).slice(
+      index + marker.length
+    );
+  }
+}
+
+
+/* =========================================================
    NAVEGACIÓN
 ========================================================= */
 
-window.showSection = async function(id, button){
+window.showSection =
+async function(id,button){
 
   document
     .querySelectorAll(".section")
@@ -1565,12 +2207,15 @@ window.showSection = async function(id, button){
       section.classList.remove("active");
     });
 
+
   const target =
     document.getElementById(id);
+
 
   if(target){
     target.classList.add("active");
   }
+
 
   document
     .querySelectorAll(".nav-btn")
@@ -1578,49 +2223,59 @@ window.showSection = async function(id, button){
       btn.classList.remove("active");
     });
 
+
   if(button){
     button.classList.add("active");
   }
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
+
   if(id === "feed"){
     await loadPosts();
   }
+
 
   if(id === "discover"){
     await loadUsers();
   }
 
+
   if(id === "recommend"){
     await loadRecommendations();
   }
+
 
   if(id === "profile"){
     await loadProfilePage();
   }
 
-  /*
-    YouTube solamente se consulta cuando el usuario
-    abre Videos. Así no gastamos cuota innecesariamente.
-  */
+
   if(id === "videos"){
 
     const content =
-      document.getElementById("youtubeContent");
+      document.getElementById(
+        "youtubeContent"
+      );
+
 
     if(
       content &&
       !content.dataset.loaded
     ){
+
       await loadYouTubeVideos(
         youtubeLastQuery
       );
+
     }
+
   }
+
 };
 
 
@@ -1628,42 +2283,58 @@ window.showSection = async function(id, button){
    AUTH
 ========================================================= */
 
-window.openAuthModal = function(){
+window.openAuthModal =
+function(){
 
   if(currentUser){
+
     showSection(
       "profile",
-      document.querySelectorAll(".nav-btn")[5]
+      document.querySelectorAll(
+        ".nav-btn"
+      )[5]
     );
+
     return;
   }
 
-  openModal("authModal");
+  openModal(
+    "authModal"
+  );
+
 };
 
 
-window.toggleAuthMode = function(){
+window.toggleAuthMode =
+function(){
 
   authRegisterMode =
     !authRegisterMode;
 
+
   const title =
-    document.getElementById("authTitle");
+    document.getElementById(
+      "authTitle"
+    );
+
 
   const nameField =
     document.getElementById(
       "registerNameField"
     );
 
+
   const mainBtn =
     document.getElementById(
       "authMainBtn"
     );
 
+
   const toggleBtn =
     document.getElementById(
       "authToggleBtn"
     );
+
 
   if(authRegisterMode){
 
@@ -1692,26 +2363,32 @@ window.toggleAuthMode = function(){
 
     toggleBtn.textContent =
       "Crear cuenta";
+
   }
+
 };
 
 
-window.handleAuth = async function(){
+window.handleAuth =
+async function(){
 
   const email =
     document.getElementById(
       "authEmail"
     ).value.trim();
 
+
   const password =
     document.getElementById(
       "authPassword"
     ).value;
 
+
   const name =
     document.getElementById(
       "authName"
     ).value.trim();
+
 
   if(!email || !password){
 
@@ -1721,6 +2398,7 @@ window.handleAuth = async function(){
 
     return;
   }
+
 
   try{
 
@@ -1740,9 +2418,11 @@ window.handleAuth = async function(){
         }
       });
 
+
       if(error){
         throw error;
       }
+
 
       if(data.user){
 
@@ -1753,11 +2433,14 @@ window.handleAuth = async function(){
           data.user,
           name
         );
+
       }
+
 
       showToast(
         "Cuenta creada correctamente."
       );
+
 
     }else{
 
@@ -1770,23 +2453,33 @@ window.handleAuth = async function(){
         password
       });
 
+
       if(error){
         throw error;
       }
 
+
       currentUser =
         data.user;
 
+
       await loadCurrentProfile();
+
 
       showToast(
         "Sesión iniciada."
       );
+
     }
 
-    closeModal("authModal");
+
+    closeModal(
+      "authModal"
+    );
+
 
     await loadEverything();
+
 
   }catch(error){
 
@@ -1796,20 +2489,26 @@ window.handleAuth = async function(){
       error?.message ||
       "No se pudo completar la operación."
     );
+
   }
+
 };
 
 
-window.signOut = async function(){
+window.signOut =
+async function(){
 
   try{
 
     await supabase.auth.signOut();
 
     currentUser = null;
+
     currentProfile = null;
 
-    closeModal("authModal");
+    closeModal(
+      "authModal"
+    );
 
     showToast(
       "Sesión cerrada."
@@ -1824,7 +2523,9 @@ window.signOut = async function(){
     showToast(
       "No se pudo cerrar sesión."
     );
+
   }
+
 };
 
 
@@ -1832,11 +2533,15 @@ window.signOut = async function(){
    PERFIL
 ========================================================= */
 
-async function ensureProfile(user,name=""){
+async function ensureProfile(
+  user,
+  name=""
+){
 
   if(!user){
     return;
   }
+
 
   const {
     data,
@@ -1848,34 +2553,54 @@ async function ensureProfile(user,name=""){
     .eq("user_id",user.id)
     .maybeSingle();
 
+
   if(error){
     console.error(error);
   }
 
+
   if(data){
 
-    currentProfile = data;
+    currentProfile =
+      data;
 
     return data;
   }
 
+
   const profile = {
+
     user_id:user.id,
+
     full_name:
       name ||
       user.user_metadata?.full_name ||
       user.email?.split("@")[0] ||
       "Usuario FitLab",
-    Email:user.email || "",
+
+    Email:
+      user.email || "",
+
     Phone:"",
+
     Location:"",
+
     Bio:"",
+
     avatar_url:"",
+
     user_type:"user",
+
     is_verified:false,
-    created_at:new Date().toISOString(),
-    updated_at:new Date().toISOString()
+
+    created_at:
+      new Date().toISOString(),
+
+    updated_at:
+      new Date().toISOString()
+
   };
+
 
   const {
     data:newProfile,
@@ -1887,6 +2612,7 @@ async function ensureProfile(user,name=""){
     .select()
     .single();
 
+
   if(insertError){
 
     console.error(
@@ -1897,8 +2623,10 @@ async function ensureProfile(user,name=""){
     return null;
   }
 
+
   currentProfile =
     newProfile;
+
 
   return newProfile;
 }
@@ -1907,18 +2635,24 @@ async function ensureProfile(user,name=""){
 async function loadCurrentProfile(){
 
   if(!currentUser){
-    currentProfile = null;
+
+    currentProfile =
+      null;
+
     return;
   }
+
 
   await ensureProfile(
     currentUser,
     currentUser.user_metadata?.full_name || ""
   );
+
 }
 
 
-window.openEditProfile = function(){
+window.openEditProfile =
+function(){
 
   if(!currentUser){
 
@@ -1927,56 +2661,70 @@ window.openEditProfile = function(){
     return;
   }
 
+
   document.getElementById(
     "editFullName"
   ).value =
     currentProfile?.full_name || "";
+
 
   document.getElementById(
     "editPhone"
   ).value =
     currentProfile?.Phone || "";
 
+
   document.getElementById(
     "editLocation"
   ).value =
     currentProfile?.Location || "";
+
 
   document.getElementById(
     "editBio"
   ).value =
     currentProfile?.Bio || "";
 
+
   document.getElementById(
     "editAvatarPreview"
   ).src =
     getAvatar(currentProfile);
 
+
   openModal(
     "editProfileModal"
   );
+
 };
 
 
-window.previewAvatar = function(event){
+window.previewAvatar =
+function(event){
 
   const file =
     event.target.files?.[0];
+
 
   if(!file){
     return;
   }
 
+
   const url =
     URL.createObjectURL(file);
 
+
   document.getElementById(
     "editAvatarPreview"
-  ).src = url;
+  ).src =
+    url;
+
 };
 
 
-window.saveProfile = async function(){
+window.saveProfile =
+async function(){
 
   if(!currentUser){
 
@@ -1987,15 +2735,18 @@ window.saveProfile = async function(){
     return;
   }
 
+
   try{
 
     let avatarUrl =
       currentProfile?.avatar_url || "";
 
+
     const avatarFile =
       document.getElementById(
         "avatarInput"
       ).files?.[0];
+
 
     if(avatarFile){
 
@@ -2005,8 +2756,10 @@ window.saveProfile = async function(){
           .pop()
           .toLowerCase();
 
+
       const filePath =
         `${currentUser.id}/avatar-${Date.now()}.${extension}`;
+
 
       const {
         error:uploadError
@@ -2021,9 +2774,11 @@ window.saveProfile = async function(){
           }
         );
 
+
       if(uploadError){
         throw uploadError;
       }
+
 
       const {
         data:publicData
@@ -2034,11 +2789,15 @@ window.saveProfile = async function(){
           filePath
         );
 
+
       avatarUrl =
         publicData.publicUrl;
+
     }
 
+
     const updates = {
+
       full_name:
         document.getElementById(
           "editFullName"
@@ -2064,7 +2823,9 @@ window.saveProfile = async function(){
 
       updated_at:
         new Date().toISOString()
+
     };
+
 
     const {
       data,
@@ -2073,27 +2834,37 @@ window.saveProfile = async function(){
     await supabase
       .from("profiles")
       .update(updates)
-      .eq("user_id",currentUser.id)
+      .eq(
+        "user_id",
+        currentUser.id
+      )
       .select()
       .single();
+
 
     if(error){
       throw error;
     }
 
+
     currentProfile =
       data;
+
 
     closeModal(
       "editProfileModal"
     );
 
+
     showToast(
       "Perfil actualizado."
     );
 
+
     await loadProfilePage();
+
     await loadPosts();
+
 
   }catch(error){
 
@@ -2103,7 +2874,9 @@ window.saveProfile = async function(){
       error?.message ||
       "No se pudo actualizar el perfil."
     );
+
   }
+
 };
 
 
@@ -2114,33 +2887,55 @@ async function loadProfilePage(){
       "profileContainer"
     );
 
+
   if(!container){
     return;
   }
 
+
   if(!currentUser){
 
     container.innerHTML = `
+
       <div class="card empty">
-        <div style="font-size:40px;">👤</div>
-        <h3 style="margin:10px 0;">Inicia sesión</h3>
-        <p>Necesitas una cuenta para ver tu perfil.</p>
-        <button class="primary"
-                style="margin-top:13px;"
-                onclick="openAuthModal()">
+
+        <div style="font-size:40px;">
+          👤
+        </div>
+
+        <h3 style="margin:10px 0;">
+          Inicia sesión
+        </h3>
+
+        <p>
+          Necesitas una cuenta para ver tu perfil.
+        </p>
+
+        <button
+          class="primary"
+          style="margin-top:13px;"
+          onclick="openAuthModal()">
+
           Iniciar sesión
+
         </button>
+
       </div>
+
     `;
+
 
     document.getElementById(
       "profilePosts"
     ).innerHTML = "";
 
+
     return;
   }
 
+
   await loadCurrentProfile();
+
 
   const followers =
     Number(
@@ -2150,6 +2945,7 @@ async function loadProfilePage(){
       ) || 0
     );
 
+
   const following =
     JSON.parse(
       localStorage.getItem(
@@ -2157,78 +2953,133 @@ async function loadProfilePage(){
       ) || "[]"
     );
 
+
   container.innerHTML = `
+
     <div class="profile-cover">
 
       <div class="profile-top">
 
         <img
           class="avatar large"
-          src="${escapeHTML(getAvatar(currentProfile))}"
-          alt="Perfil"
-        >
+          src="${escapeHTML(
+            getAvatar(currentProfile)
+          )}"
+          alt="Perfil">
 
         <div class="profile-info">
 
           <div class="profile-name">
-            ${escapeHTML(getDisplayName(currentProfile))}
-            ${verifiedBadge(currentProfile)}
+
+            ${escapeHTML(
+              getDisplayName(
+                currentProfile
+              )
+            )}
+
+            ${verifiedBadge(
+              currentProfile
+            )}
+
           </div>
 
           <div class="profile-username">
-            @${escapeHTML(getUsername(currentProfile))}
+
+            @${escapeHTML(
+              getUsername(
+                currentProfile
+              )
+            )}
+
           </div>
 
           <div class="profile-bio">
+
             ${
               escapeHTML(
                 currentProfile?.Bio ||
                 "Todavía no has agregado una biografía."
               )
             }
+
           </div>
 
         </div>
 
       </div>
 
+
       <div class="profile-stats">
 
         <div class="stat">
-          <strong id="profilePostCount">0</strong>
-          <span>Publicaciones</span>
+
+          <strong id="profilePostCount">
+            0
+          </strong>
+
+          <span>
+            Publicaciones
+          </span>
+
         </div>
 
-        <div class="stat">
-          <strong>${followers}</strong>
-          <span>Seguidores</span>
-        </div>
 
         <div class="stat">
-          <strong>${following.length}</strong>
-          <span>Siguiendo</span>
+
+          <strong>
+            ${followers}
+          </strong>
+
+          <span>
+            Seguidores
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            ${following.length}
+          </strong>
+
+          <span>
+            Siguiendo
+          </span>
+
         </div>
 
       </div>
 
+
       <div class="profile-actions">
 
-        <button class="primary"
-                onclick="openEditProfile()">
+        <button
+          class="primary"
+          onclick="openEditProfile()">
+
           ✏️ Editar perfil
+
         </button>
 
-        <button class="secondary"
-                onclick="openVerification()">
+
+        <button
+          class="secondary"
+          onclick="openVerification()">
+
           ✓ Verificación
+
         </button>
 
       </div>
 
     </div>
+
   `;
 
+
   await loadProfilePosts();
+
 }
 
 
@@ -2239,9 +3090,11 @@ async function loadProfilePosts(){
       "profilePosts"
     );
 
+
   if(!container){
     return;
   }
+
 
   if(!currentUser){
 
@@ -2250,6 +3103,14 @@ async function loadProfilePosts(){
     return;
   }
 
+
+  /*
+    IMPORTANTE:
+    Aquí NO filtramos is_private.
+    Por eso el dueño puede ver también
+    sus publicaciones privadas.
+  */
+
   const {
     data,
     error
@@ -2257,52 +3118,71 @@ async function loadProfilePosts(){
   await supabase
     .from("posts")
     .select("*")
-    .eq("user_id",currentUser.id)
-    .order("created_at",{
-      ascending:false
-    });
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
 
   if(error){
 
     console.error(error);
 
     container.innerHTML = `
+
       <div class="empty">
         No se pudieron cargar tus publicaciones.
       </div>
+
     `;
 
     return;
   }
+
 
   document.getElementById(
     "profilePostCount"
   )?.replaceChildren(
     document.createTextNode(
-      String(data?.length || 0)
+      String(
+        data?.length || 0
+      )
     )
   );
+
 
   if(!data?.length){
 
     container.innerHTML = `
+
       <div class="empty">
         Todavía no tienes publicaciones.
       </div>
+
     `;
 
     return;
   }
 
+
   container.innerHTML =
     data
       .map(post=>{
+
         return renderPost(
           post,
           currentProfile
         );
+
       })
       .join("");
+
 }
 
 
@@ -2317,12 +3197,26 @@ async function loadPosts(){
       "postsContainer"
     );
 
+
   if(!container){
     return;
   }
 
+
   container.innerHTML =
-    `<div class="loading">Cargando publicaciones...</div>`;
+    `<div class="loading">
+      Cargando publicaciones...
+    </div>`;
+
+
+  /*
+    MUY IMPORTANTE:
+    El feed público SOLO solicita
+    publicaciones que no son privadas.
+
+    La política RLS de Supabase también
+    protege esta información.
+  */
 
   const {
     data:posts,
@@ -2331,47 +3225,76 @@ async function loadPosts(){
   await supabase
     .from("posts")
     .select("*")
-    .order("created_at",{
-      ascending:false
-    })
+    .eq(
+      "is_private",
+      false
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    )
     .limit(50);
+
 
   if(error){
 
     console.error(error);
 
     container.innerHTML = `
+
       <div class="card empty">
-        No se pudieron cargar las publicaciones.
+
+        No se pudieron cargar
+        las publicaciones.
+
       </div>
+
     `;
 
     return;
   }
+
 
   if(!posts?.length){
 
     container.innerHTML = `
+
       <div class="card empty">
-        <div style="font-size:42px;">📱</div>
+
+        <div style="font-size:42px;">
+          📱
+        </div>
+
         <h3 style="margin:10px 0;">
           Todavía no hay publicaciones
         </h3>
+
         <p>
           Sé el primero en compartir algo.
         </p>
+
       </div>
+
     `;
 
     return;
   }
 
+
   const userIds =
-    [...new Set(
-      posts.map(post=>post.user_id)
-    )];
+    [
+      ...new Set(
+        posts.map(
+          post=>post.user_id
+        )
+      )
+    ];
+
 
   let profiles = [];
+
 
   if(userIds.length){
 
@@ -2381,11 +3304,17 @@ async function loadPosts(){
     await supabase
       .from("profiles")
       .select("*")
-      .in("user_id",userIds);
+      .in(
+        "user_id",
+        userIds
+      );
+
 
     profiles =
       data || [];
+
   }
+
 
   const profileMap =
     new Map(
@@ -2397,149 +3326,374 @@ async function loadPosts(){
       )
     );
 
+
   container.innerHTML =
     posts
       .map(post=>{
+
         return renderPost(
           post,
-          profileMap.get(post.user_id)
+          profileMap.get(
+            post.user_id
+          )
         );
+
       })
       .join("");
+
 }
 
 
-function renderPost(post,profile){
+/* =========================================================
+   RENDER POST
+========================================================= */
+
+function renderPost(
+  post,
+  profile
+){
 
   const likes =
-    getLikes(post.id);
+    getLikes(
+      post.id
+    );
+
 
   const liked =
     currentUser
-      ? likes.includes(currentUser.id)
+      ? likes.includes(
+          currentUser.id
+        )
       : false;
 
+
   const comments =
-    getComments(post.id);
+    getComments(
+      post.id
+    );
+
+
+  const isOwner =
+    !!currentUser &&
+    currentUser.id ===
+      post.user_id;
+
 
   let mediaHTML = "";
+
 
   if(post.media_url){
 
     if(
       post.media_type === "video" ||
-      post.media_url.match(/\.(mp4|webm|mov)(\?|$)/i)
+      post.media_url.match(
+        /\.(mp4|webm|mov)(\?|$)/i
+      )
     ){
 
       mediaHTML = `
+
         <video
           class="post-media"
           controls
           playsinline
           preload="metadata"
-          src="${escapeHTML(post.media_url)}">
+          src="${escapeHTML(
+            post.media_url
+          )}">
         </video>
+
       `;
 
     }else{
 
       mediaHTML = `
+
         <img
           class="post-media"
           loading="lazy"
-          src="${escapeHTML(post.media_url)}"
+          src="${escapeHTML(
+            post.media_url
+          )}"
           alt="Publicación">
+
       `;
+
     }
+
   }
 
-  return `
-    <article class="card post">
 
-      <div class="post-head">
+  /*
+    Menú de propietario.
 
-        <img
-          class="avatar"
-          loading="lazy"
-          src="${escapeHTML(getAvatar(profile))}"
-          alt="Avatar">
+    Si ya es privada:
+    - NO mostramos "hacer pública"
+    - solamente aparece eliminar.
 
-        <div class="post-user">
+    Si es pública:
+    - aparece "Poner en privado"
+    - aparece "Eliminar"
+  */
 
-          <div class="post-name">
-            ${escapeHTML(getDisplayName(profile))}
-            ${verifiedBadge(profile)}
-          </div>
+  let ownerMenuHTML = "";
 
-          <div class="post-date">
-            @${escapeHTML(getUsername(profile))}
-            · ${formatDate(post.created_at)}
-          </div>
+
+  if(isOwner){
+
+    ownerMenuHTML = `
+
+      <div class="post-menu-wrap">
+
+        <button
+          class="post-menu-btn"
+          onclick="togglePostMenu(event,'${escapeHTML(
+            String(post.id)
+          )}')"
+          aria-label="Opciones">
+
+          ⋮
+
+        </button>
+
+
+        <div
+          id="post-menu-${escapeHTML(
+            String(post.id)
+          )}"
+          class="post-menu"
+          style="display:none;">
+
+          ${
+            post.is_private
+              ? `
+                <button
+                  type="button"
+                  disabled
+                  style="opacity:.6;cursor:default;">
+
+                  🔒 Publicación privada
+
+                </button>
+              `
+              : `
+                <button
+                  type="button"
+                  onclick="makePostPrivate('${escapeHTML(
+                    String(post.id)
+                  )}')">
+
+                  🔒 Poner en privado
+
+                </button>
+              `
+          }
+
+
+          <button
+            type="button"
+            class="delete-option"
+            onclick="deletePost('${escapeHTML(
+              String(post.id)
+            )}')">
+
+            🗑️ Eliminar publicación
+
+          </button>
 
         </div>
 
       </div>
 
-      ${
-        post.content
-          ? `<div class="post-content">${escapeHTML(post.content)}</div>`
-          : ""
-      }
+    `;
 
-      ${mediaHTML}
+  }
 
-      <div class="post-actions">
 
-        <button
-          class="action-btn ${liked ? "active" : ""}"
-          onclick="toggleLike('${post.id}')">
-          ${liked ? "❤️" : "🤍"}
-          ${likes.length}
-        </button>
+  return `
 
-        <button
-          class="action-btn"
-          onclick="toggleComments('${post.id}')">
-          💬 ${comments.length}
-        </button>
+    <article
+      class="card post"
+      data-post-id="${escapeHTML(
+        String(post.id)
+      )}">
 
-        <button
-          class="action-btn"
-          onclick="sharePost('${post.id}')">
-          ↗️ Compartir
-        </button>
+
+      <div class="post-head">
+
+
+        <img
+          class="avatar"
+          loading="lazy"
+          src="${escapeHTML(
+            getAvatar(profile)
+          )}"
+          alt="Avatar">
+
+
+        <div class="post-user">
+
+          <div class="post-name">
+
+            ${escapeHTML(
+              getDisplayName(
+                profile
+              )
+            )}
+
+            ${verifiedBadge(
+              profile
+            )}
+
+          </div>
+
+
+          <div class="post-date">
+
+            @${escapeHTML(
+              getUsername(
+                profile
+              )
+            )}
+
+            ·
+
+            ${formatDate(
+              post.created_at
+            )}
+
+          </div>
+
+        </div>
+
+
+        ${ownerMenuHTML}
 
       </div>
 
+
+      ${
+        post.is_private
+          ? `
+
+            <div class="private-label">
+              🔒 Solo tú puedes ver esta publicación
+            </div>
+
+          `
+          : ""
+      }
+
+
+      ${
+        post.content
+          ? `
+
+            <div class="post-content">
+
+              ${escapeHTML(
+                post.content
+              )}
+
+            </div>
+
+          `
+          : ""
+      }
+
+
+      ${mediaHTML}
+
+
+      <div class="post-actions">
+
+
+        <button
+          class="action-btn ${
+            liked ? "active" : ""
+          }"
+          onclick="toggleLike('${escapeHTML(
+            String(post.id)
+          )}')">
+
+          ${liked ? "❤️" : "🤍"}
+
+          ${likes.length}
+
+        </button>
+
+
+        <button
+          class="action-btn"
+          onclick="toggleComments('${escapeHTML(
+            String(post.id)
+          )}')">
+
+          💬 ${comments.length}
+
+        </button>
+
+
+        <button
+          class="action-btn"
+          onclick="sharePost('${escapeHTML(
+            String(post.id)
+          )}')">
+
+          ↗️ Compartir
+
+        </button>
+
+
+      </div>
+
+
       <div
-        id="comments-${post.id}"
+        id="comments-${escapeHTML(
+          String(post.id)
+        )}"
         class="comments"
         style="display:none;">
 
-        <div id="comment-list-${post.id}">
+
+        <div
+          id="comment-list-${escapeHTML(
+            String(post.id)
+          )}">
+
           ${
             renderComments(
               comments
             )
           }
+
         </div>
+
 
         <div class="comment-input">
 
           <input
-            id="comment-input-${post.id}"
+            id="comment-input-${escapeHTML(
+              String(post.id)
+            )}"
             type="text"
             placeholder="Escribe un comentario..."
             onkeydown="
               if(event.key==='Enter')
-              addComment('${post.id}')
-            "
-          >
+              addComment('${escapeHTML(
+                String(post.id)
+              )}')
+            ">
+
 
           <button
             class="primary"
-            onclick="addComment('${post.id}')">
+            onclick="addComment('${escapeHTML(
+              String(post.id)
+            )}')">
+
             Enviar
+
           </button>
 
         </div>
@@ -2547,9 +3701,394 @@ function renderPost(post,profile){
       </div>
 
     </article>
+
   `;
+
 }
 
+
+/* =========================================================
+   MENÚ DE PUBLICACIÓN
+========================================================= */
+
+window.togglePostMenu =
+function(event,postId){
+
+  if(event){
+    event.stopPropagation();
+  }
+
+
+  document
+    .querySelectorAll(".post-menu")
+    .forEach(menu=>{
+
+      if(
+        menu.id !==
+        "post-menu-" + postId
+      ){
+
+        menu.style.display =
+          "none";
+
+      }
+
+    });
+
+
+  const menu =
+    document.getElementById(
+      "post-menu-" + postId
+    );
+
+
+  if(!menu){
+    return;
+  }
+
+
+  menu.style.display =
+    menu.style.display === "none"
+      ? "block"
+      : "none";
+
+};
+
+
+/* =========================================================
+   PRIVATIZAR PUBLICACIÓN
+========================================================= */
+
+window.makePostPrivate =
+async function(postId){
+
+  if(!currentUser){
+
+    showToast(
+      "Inicia sesión primero."
+    );
+
+    openAuthModal();
+
+    return;
+  }
+
+
+  /*
+    Confirmación antes de cambiar
+    la publicación a privada.
+  */
+
+  const confirmed =
+    window.confirm(
+      "¿Quieres poner esta publicación en privado?\n\n" +
+      "Después de hacerlo, dejará de aparecer en el feed público. " +
+      "Solo tú podrás verla desde tu perfil."
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    const {
+      data:post,
+      error:findError
+    } =
+    await supabase
+      .from("posts")
+      .select("*")
+      .eq(
+        "id",
+        postId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .maybeSingle();
+
+
+    if(findError){
+      throw findError;
+    }
+
+
+    if(!post){
+
+      showToast(
+        "No se encontró la publicación."
+      );
+
+      return;
+    }
+
+
+    if(post.is_private){
+
+      showToast(
+        "Esta publicación ya es privada."
+      );
+
+      return;
+    }
+
+
+    const {
+      error
+    } =
+    await supabase
+      .from("posts")
+      .update({
+        is_private:true
+      })
+      .eq(
+        "id",
+        postId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+    if(error){
+      throw error;
+    }
+
+
+    showToast(
+      "🔒 Publicación puesta en privado."
+    );
+
+
+    /*
+      Recargamos ambas vistas.
+    */
+
+    await Promise.allSettled([
+      loadPosts(),
+      loadProfilePosts()
+    ]);
+
+
+  }catch(error){
+
+    console.error(
+      "Error haciendo privada la publicación:",
+      error
+    );
+
+
+    showToast(
+      error?.message ||
+      "No se pudo poner la publicación en privado."
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   ELIMINAR PUBLICACIÓN
+========================================================= */
+
+window.deletePost =
+async function(postId){
+
+  if(!currentUser){
+
+    showToast(
+      "Inicia sesión primero."
+    );
+
+    openAuthModal();
+
+    return;
+  }
+
+
+  /*
+    CONFIRMACIÓN OBLIGATORIA.
+  */
+
+  const confirmed =
+    window.confirm(
+      "¿Eliminar esta publicación?\n\n" +
+      "Esta acción no se puede deshacer."
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    /*
+      Primero obtenemos la publicación
+      verificando que pertenezca al usuario.
+    */
+
+    const {
+      data:post,
+      error:findError
+    } =
+    await supabase
+      .from("posts")
+      .select("*")
+      .eq(
+        "id",
+        postId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .maybeSingle();
+
+
+    if(findError){
+      throw findError;
+    }
+
+
+    if(!post){
+
+      showToast(
+        "No se encontró la publicación."
+      );
+
+      return;
+    }
+
+
+    /*
+      Si tiene imagen o video, intentamos
+      eliminar también el archivo del Storage.
+    */
+
+    if(post.media_url){
+
+      const storagePath =
+        getPostStoragePath(
+          post.media_url
+        );
+
+
+      if(storagePath){
+
+        const {
+          error:storageError
+        } =
+        await supabase.storage
+          .from("post-media")
+          .remove([
+            storagePath
+          ]);
+
+
+        /*
+          Si Storage no permite eliminar,
+          no detenemos el borrado de la
+          publicación de la tabla.
+        */
+
+        if(storageError){
+
+          console.warn(
+            "No se pudo eliminar el archivo de Storage:",
+            storageError
+          );
+
+        }
+
+      }
+
+    }
+
+
+    /*
+      Eliminamos la publicación
+      únicamente si pertenece al usuario.
+    */
+
+    const {
+      error:deleteError
+    } =
+    await supabase
+      .from("posts")
+      .delete()
+      .eq(
+        "id",
+        postId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+    if(deleteError){
+      throw deleteError;
+    }
+
+
+    /*
+      Limpiamos datos locales relacionados
+      con likes y comentarios.
+    */
+
+    localStorage.removeItem(
+      "fitlab_likes_" + postId
+    );
+
+    localStorage.removeItem(
+      "fitlab_comments_" + postId
+    );
+
+
+    showToast(
+      "🗑️ Publicación eliminada."
+    );
+
+
+    /*
+      Recargamos feed y perfil.
+    */
+
+    await Promise.allSettled([
+      loadPosts(),
+      loadProfilePosts()
+    ]);
+
+
+  }catch(error){
+
+    console.error(
+      "Error eliminando publicación:",
+      error
+    );
+
+
+    showToast(
+      error?.message ||
+      "No se pudo eliminar la publicación."
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   LIKES
+========================================================= */
 
 function getLikes(postId){
 
@@ -2557,14 +4096,17 @@ function getLikes(postId){
 
     return JSON.parse(
       localStorage.getItem(
-        "fitlab_likes_" + postId
+        "fitlab_likes_" +
+        postId
       ) || "[]"
     );
 
   }catch{
 
     return [];
+
   }
+
 }
 
 
@@ -2574,36 +4116,54 @@ function getComments(postId){
 
     return JSON.parse(
       localStorage.getItem(
-        "fitlab_comments_" + postId
+        "fitlab_comments_" +
+        postId
       ) || "[]"
     );
 
   }catch{
 
     return [];
+
   }
+
 }
 
 
-function saveLikes(postId,likes){
+function saveLikes(
+  postId,
+  likes
+){
 
   localStorage.setItem(
-    "fitlab_likes_" + postId,
-    JSON.stringify(likes)
+    "fitlab_likes_" +
+    postId,
+    JSON.stringify(
+      likes
+    )
   );
+
 }
 
 
-function saveComments(postId,comments){
+function saveComments(
+  postId,
+  comments
+){
 
   localStorage.setItem(
-    "fitlab_comments_" + postId,
-    JSON.stringify(comments)
+    "fitlab_comments_" +
+    postId,
+    JSON.stringify(
+      comments
+    )
   );
+
 }
 
 
-window.toggleLike = async function(postId){
+window.toggleLike =
+async function(postId){
 
   if(!currentUser){
 
@@ -2616,78 +4176,117 @@ window.toggleLike = async function(postId){
     return;
   }
 
+
   const likes =
-    getLikes(postId);
+    getLikes(
+      postId
+    );
+
 
   const index =
     likes.indexOf(
       currentUser.id
     );
 
+
   if(index >= 0){
 
-    likes.splice(index,1);
+    likes.splice(
+      index,
+      1
+    );
 
   }else{
 
     likes.push(
       currentUser.id
     );
+
   }
+
 
   saveLikes(
     postId,
     likes
   );
 
+
   await loadPosts();
+
 };
 
 
-function renderComments(comments){
+function renderComments(
+  comments
+){
 
   if(!comments.length){
 
     return `
-      <div class="muted"
-           style="font-size:12px;">
+
+      <div
+        class="muted"
+        style="font-size:12px;">
+
         Sé el primero en comentar.
+
       </div>
+
     `;
+
   }
 
+
   return comments
-    .map(comment=>`
-      <div class="comment">
-        <strong>
-          ${escapeHTML(comment.name)}
-        </strong>
-        ${escapeHTML(comment.text)}
-      </div>
-    `)
+    .map(
+      comment=>`
+
+        <div class="comment">
+
+          <strong>
+            ${escapeHTML(
+              comment.name
+            )}
+          </strong>
+
+          ${escapeHTML(
+            comment.text
+          )}
+
+        </div>
+
+      `
+    )
     .join("");
+
 }
 
 
-window.toggleComments = function(postId){
+window.toggleComments =
+function(postId){
 
   const box =
     document.getElementById(
-      "comments-" + postId
+      "comments-" +
+      postId
     );
+
 
   if(!box){
     return;
   }
 
+
   box.style.display =
     box.style.display === "none"
       ? "block"
       : "none";
+
 };
 
 
-window.addComment = async function(postId){
+window.addComment =
+async function(postId){
 
   if(!currentUser){
 
@@ -2700,79 +4299,116 @@ window.addComment = async function(postId){
     return;
   }
 
+
   const input =
     document.getElementById(
-      "comment-input-" + postId
+      "comment-input-" +
+      postId
     );
+
 
   const text =
     input?.value.trim();
+
 
   if(!text){
     return;
   }
 
+
   const comments =
-    getComments(postId);
+    getComments(
+      postId
+    );
+
 
   comments.push({
+
     id:Date.now(),
-    user_id:currentUser.id,
-    name:getDisplayName(
-      currentProfile
-    ),
+
+    user_id:
+      currentUser.id,
+
+    name:
+      getDisplayName(
+        currentProfile
+      ),
+
     text
+
   });
+
 
   saveComments(
     postId,
     comments
   );
 
+
   input.value = "";
+
 
   const list =
     document.getElementById(
-      "comment-list-" + postId
+      "comment-list-" +
+      postId
     );
 
+
   if(list){
+
     list.innerHTML =
-      renderComments(comments);
+      renderComments(
+        comments
+      );
+
   }
+
 };
 
 
-window.sharePost = async function(postId){
+window.sharePost =
+async function(postId){
 
   const url =
     location.href.split("#")[0] +
     "#post-" +
     postId;
 
+
   try{
 
     if(navigator.share){
 
       await navigator.share({
+
         title:"FitLab",
-        text:"Mira esta publicación en FitLab",
+
+        text:
+          "Mira esta publicación en FitLab",
+
         url
+
       });
 
     }else{
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(
+        url
+      );
 
       showToast(
         "Enlace copiado."
       );
+
     }
 
   }catch(error){
 
     console.log(error);
+
   }
+
 };
 
 
@@ -2780,56 +4416,81 @@ window.sharePost = async function(postId){
    CREAR PUBLICACIÓN
 ========================================================= */
 
-window.previewMedia = function(event){
+window.previewMedia =
+function(event){
 
   const file =
     event.target.files?.[0];
+
 
   const preview =
     document.getElementById(
       "mediaPreview"
     );
 
+
   if(!file){
 
-    preview.innerHTML = "";
-    preview.style.display = "none";
+    preview.innerHTML =
+      "";
 
-    selectedMedia = null;
+    preview.style.display =
+      "none";
+
+    selectedMedia =
+      null;
 
     return;
   }
 
-  selectedMedia = file;
+
+  selectedMedia =
+    file;
+
 
   const url =
-    URL.createObjectURL(file);
+    URL.createObjectURL(
+      file
+    );
+
 
   preview.style.display =
     "block";
 
-  if(file.type.startsWith("video/")){
+
+  if(
+    file.type.startsWith(
+      "video/"
+    )
+  ){
 
     preview.innerHTML = `
+
       <video
         controls
         playsinline
         src="${url}">
       </video>
+
     `;
 
   }else{
 
     preview.innerHTML = `
+
       <img
         src="${url}"
         alt="Vista previa">
+
     `;
+
   }
+
 };
 
 
-window.publishPost = async function(){
+window.publishPost =
+async function(){
 
   if(!currentUser){
 
@@ -2842,15 +4503,18 @@ window.publishPost = async function(){
     return;
   }
 
+
   const content =
     document.getElementById(
       "postText"
     ).value.trim();
 
+
   const file =
     document.getElementById(
       "mediaInput"
     ).files?.[0];
+
 
   if(!content && !file){
 
@@ -2861,10 +4525,15 @@ window.publishPost = async function(){
     return;
   }
 
+
   try{
 
-    let mediaUrl = null;
-    let mediaType = null;
+    let mediaUrl =
+      null;
+
+    let mediaType =
+      null;
+
 
     if(file){
 
@@ -2874,13 +4543,18 @@ window.publishPost = async function(){
           .pop()
           .toLowerCase();
 
+
       const mediaTypeDetected =
-        file.type.startsWith("video/")
+        file.type.startsWith(
+          "video/"
+        )
           ? "video"
           : "image";
 
+
       const filePath =
         `${currentUser.id}/post-${Date.now()}.${extension}`;
+
 
       const {
         error:uploadError
@@ -2895,9 +4569,11 @@ window.publishPost = async function(){
           }
         );
 
+
       if(uploadError){
         throw uploadError;
       }
+
 
       const {
         data:publicData
@@ -2908,12 +4584,24 @@ window.publishPost = async function(){
           filePath
         );
 
+
       mediaUrl =
         publicData.publicUrl;
 
+
       mediaType =
         mediaTypeDetected;
+
     }
+
+
+    /*
+      Las publicaciones nuevas comienzan públicas.
+      El usuario puede ponerlas privadas después
+      desde el menú ⋮.
+
+      is_private:false queda explícito.
+    */
 
     const {
       error
@@ -2921,45 +4609,76 @@ window.publishPost = async function(){
     await supabase
       .from("posts")
       .insert({
-        user_id:currentUser.id,
-        content:content || "",
-        media_url:mediaUrl,
-        media_type:mediaType,
-        created_at:new Date().toISOString()
+
+        user_id:
+          currentUser.id,
+
+        content:
+          content || "",
+
+        media_url:
+          mediaUrl,
+
+        media_type:
+          mediaType,
+
+        is_private:
+          false,
+
+        created_at:
+          new Date().toISOString()
+
       });
+
 
     if(error){
       throw error;
     }
 
+
     document.getElementById(
       "postText"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "mediaInput"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "mediaPreview"
-    ).innerHTML = "";
+    ).innerHTML =
+      "";
+
 
     document.getElementById(
       "mediaPreview"
-    ).style.display = "none";
+    ).style.display =
+      "none";
 
-    selectedMedia = null;
+
+    selectedMedia =
+      null;
+
 
     showToast(
       "Publicación creada."
     );
 
+
     showSection(
       "feed",
-      document.querySelector(".nav-btn")
+      document.querySelector(
+        ".nav-btn"
+      )
     );
 
+
     await loadPosts();
+
 
   }catch(error){
 
@@ -2969,16 +4688,20 @@ window.publishPost = async function(){
       error?.message ||
       "No se pudo publicar."
     );
+
   }
+
 };
 
 
-window.quickPublish = async function(){
+window.quickPublish =
+async function(){
 
   const text =
     document.getElementById(
       "quickPostText"
     ).value.trim();
+
 
   if(!text){
 
@@ -2988,6 +4711,7 @@ window.quickPublish = async function(){
 
     return;
   }
+
 
   if(!currentUser){
 
@@ -3000,6 +4724,7 @@ window.quickPublish = async function(){
     return;
   }
 
+
   try{
 
     const {
@@ -3008,26 +4733,46 @@ window.quickPublish = async function(){
     await supabase
       .from("posts")
       .insert({
-        user_id:currentUser.id,
-        content:text,
-        media_url:null,
-        media_type:null,
-        created_at:new Date().toISOString()
+
+        user_id:
+          currentUser.id,
+
+        content:
+          text,
+
+        media_url:
+          null,
+
+        media_type:
+          null,
+
+        is_private:
+          false,
+
+        created_at:
+          new Date().toISOString()
+
       });
+
 
     if(error){
       throw error;
     }
 
+
     document.getElementById(
       "quickPostText"
-    ).value = "";
+    ).value =
+      "";
+
 
     showToast(
       "Publicación creada."
     );
 
+
     await loadPosts();
+
 
   }catch(error){
 
@@ -3037,7 +4782,9 @@ window.quickPublish = async function(){
       error?.message ||
       "No se pudo publicar."
     );
+
   }
+
 };
 
 
@@ -3052,12 +4799,17 @@ async function loadUsers(){
       "usersContainer"
     );
 
+
   if(!container){
     return;
   }
 
+
   container.innerHTML =
-    `<div class="loading">Cargando usuarios...</div>`;
+    `<div class="loading">
+      Cargando usuarios...
+    </div>`;
+
 
   const {
     data,
@@ -3066,127 +4818,197 @@ async function loadUsers(){
   await supabase
     .from("profiles")
     .select("*")
-    .order("created_at",{
-      ascending:false
-    })
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    )
     .limit(100);
+
 
   if(error){
 
     console.error(error);
 
     container.innerHTML = `
+
       <div class="card empty">
         No se pudieron cargar los perfiles.
       </div>
+
     `;
 
     return;
   }
 
+
   allUsers =
     data || [];
+
 
   renderUsers(
     allUsers
   );
+
 }
 
 
-function renderUsers(users){
+function renderUsers(
+  users
+){
 
   const container =
     document.getElementById(
       "usersContainer"
     );
 
+
   if(!container){
     return;
   }
 
+
   if(!users.length){
 
     container.innerHTML = `
+
       <div class="card empty">
         No encontramos perfiles.
       </div>
+
     `;
 
     return;
   }
 
+
   container.innerHTML =
     users
-      .filter(user =>
-        !currentUser ||
-        user.user_id !== currentUser.id
+
+      .filter(
+        user =>
+          !currentUser ||
+          user.user_id !==
+            currentUser.id
       )
-      .map(user=>{
 
-        const following =
-          isFollowing(
-            user.user_id
-          );
+      .map(
+        user=>{
 
-        return `
-          <div class="user-card">
+          const following =
+            isFollowing(
+              user.user_id
+            );
 
-            <img
-              class="avatar"
-              src="${escapeHTML(getAvatar(user))}"
-              alt="Avatar">
 
-            <div class="user-card-info">
+          return `
 
-              <div class="user-card-name">
-                ${escapeHTML(getDisplayName(user))}
-                ${verifiedBadge(user)}
+            <div class="user-card">
+
+
+              <img
+                class="avatar"
+                src="${escapeHTML(
+                  getAvatar(user)
+                )}"
+                alt="Avatar">
+
+
+              <div class="user-card-info">
+
+                <div class="user-card-name">
+
+                  ${escapeHTML(
+                    getDisplayName(user)
+                  )}
+
+                  ${verifiedBadge(
+                    user
+                  )}
+
+                </div>
+
+
+                <div class="user-card-meta">
+
+                  @${escapeHTML(
+                    getUsername(user)
+                  )}
+
+                  ${
+                    user.Location
+                      ? " · " +
+                        escapeHTML(
+                          user.Location
+                        )
+                      : ""
+                  }
+
+                </div>
+
               </div>
 
-              <div class="user-card-meta">
-                @${escapeHTML(getUsername(user))}
+
+              <button
+                class="${
+                  following
+                    ? "secondary"
+                    : "primary"
+                }"
+                onclick="toggleFollow('${escapeHTML(
+                  user.user_id
+                )}')">
+
                 ${
-                  user.Location
-                    ? " · " + escapeHTML(user.Location)
-                    : ""
+                  following
+                    ? "Siguiendo"
+                    : "Seguir"
                 }
-              </div>
+
+              </button>
 
             </div>
 
-            <button
-              class="${following ? "secondary" : "primary"}"
-              onclick="toggleFollow('${user.user_id}')">
-              ${following ? "Siguiendo" : "Seguir"}
-            </button>
+          `;
 
-          </div>
-        `;
-      })
+        }
+      )
       .join("");
 
-  if(!container.innerHTML.trim()){
+
+  if(
+    !container.innerHTML.trim()
+  ){
 
     container.innerHTML = `
+
       <div class="card empty">
         No hay otros perfiles todavía.
       </div>
+
     `;
+
   }
+
 }
 
 
-window.searchUsers = function(){
+window.searchUsers =
+function(){
 
   const input =
     document.getElementById(
       "userSearch"
     );
 
+
   const term =
     input?.value
       .trim()
-      .toLowerCase() || "";
+      .toLowerCase() ||
+      "";
+
 
   if(!term){
 
@@ -3197,25 +5019,39 @@ window.searchUsers = function(){
     return;
   }
 
+
   const filtered =
-    allUsers.filter(user=>{
+    allUsers.filter(
+      user=>{
 
-      const text = [
-        user.full_name,
-        user.Email,
-        user.Location,
-        user.Bio
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
+        const text = [
 
-      return text.includes(term);
-    });
+          user.full_name,
+
+          user.Email,
+
+          user.Location,
+
+          user.Bio
+
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+
+        return text.includes(
+          term
+        );
+
+      }
+    );
+
 
   renderUsers(
     filtered
   );
+
 };
 
 
@@ -3232,18 +5068,26 @@ function getFollowing(){
   }catch{
 
     return [];
+
   }
+
 }
 
 
-function isFollowing(userId){
+function isFollowing(
+  userId
+){
 
   return getFollowing()
-    .includes(userId);
+    .includes(
+      userId
+    );
+
 }
 
 
-window.toggleFollow = function(userId){
+window.toggleFollow =
+function(userId){
 
   if(!currentUser){
 
@@ -3256,15 +5100,22 @@ window.toggleFollow = function(userId){
     return;
   }
 
+
   let following =
     getFollowing();
 
-  if(following.includes(userId)){
+
+  if(
+    following.includes(
+      userId
+    )
+  ){
 
     following =
       following.filter(
         id=>id !== userId
       );
+
 
     showToast(
       "Dejaste de seguir este perfil."
@@ -3276,19 +5127,26 @@ window.toggleFollow = function(userId){
       userId
     );
 
+
     showToast(
       "Ahora sigues este perfil."
     );
+
   }
+
 
   localStorage.setItem(
     "fitlab_following",
-    JSON.stringify(following)
+    JSON.stringify(
+      following
+    )
   );
+
 
   renderUsers(
     allUsers
   );
+
 };
 
 
@@ -3303,9 +5161,11 @@ async function loadRecommendations(){
       "recommendUsers"
     );
 
+
   if(!container){
     return;
   }
+
 
   const {
     data,
@@ -3316,79 +5176,134 @@ async function loadRecommendations(){
     .select("*")
     .limit(6);
 
+
   if(error){
 
     console.error(error);
 
     container.innerHTML = `
+
       <div class="empty">
         No se pudieron cargar recomendaciones.
       </div>
+
     `;
 
     return;
   }
 
+
   const users =
     (data || [])
+
       .filter(
         user =>
           !currentUser ||
-          user.user_id !== currentUser.id
+          user.user_id !==
+            currentUser.id
       )
-      .slice(0,6);
+
+      .slice(
+        0,
+        6
+      );
+
 
   if(!users.length){
 
     container.innerHTML = `
+
       <div class="empty">
         Todavía no hay recomendaciones.
       </div>
+
     `;
 
     return;
   }
 
+
   container.innerHTML =
-    users.map(user=>{
+    users
+      .map(
+        user=>{
 
-      const following =
-        isFollowing(
-          user.user_id
-        );
+          const following =
+            isFollowing(
+              user.user_id
+            );
 
-      return `
-        <div class="recommend-card">
 
-          <img
-            class="avatar"
-            src="${escapeHTML(getAvatar(user))}"
-            alt="Avatar">
+          return `
 
-          <div style="margin-top:9px;font-weight:900;">
-            ${escapeHTML(getDisplayName(user))}
-            ${verifiedBadge(user)}
-          </div>
+            <div class="recommend-card">
 
-          <div class="muted"
-               style="font-size:11px;margin-top:3px;">
-            @${escapeHTML(getUsername(user))}
-          </div>
 
-          <div class="stars">
-            ★★★★★
-          </div>
+              <img
+                class="avatar"
+                src="${escapeHTML(
+                  getAvatar(user)
+                )}"
+                alt="Avatar">
 
-          <button
-            class="${following ? "secondary" : "primary"}"
-            style="width:100%;"
-            onclick="toggleFollow('${user.user_id}')">
-            ${following ? "Siguiendo" : "Seguir"}
-          </button>
 
-        </div>
-      `;
-    }).join("");
+              <div
+                style="margin-top:9px;font-weight:900;">
+
+                ${escapeHTML(
+                  getDisplayName(user)
+                )}
+
+                ${verifiedBadge(
+                  user
+                )}
+
+              </div>
+
+
+              <div
+                class="muted"
+                style="font-size:11px;margin-top:3px;">
+
+                @${escapeHTML(
+                  getUsername(user)
+                )}
+
+              </div>
+
+
+              <div class="stars">
+                ★★★★★
+              </div>
+
+
+              <button
+                class="${
+                  following
+                    ? "secondary"
+                    : "primary"
+                }"
+                style="width:100%;"
+                onclick="toggleFollow('${escapeHTML(
+                  user.user_id
+                )}')">
+
+                ${
+                  following
+                    ? "Siguiendo"
+                    : "Seguir"
+                }
+
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
 }
 
 
@@ -3396,12 +5311,14 @@ async function loadRecommendations(){
    VERIFICACIÓN
 ========================================================= */
 
-window.openVerification = function(){
+window.openVerification =
+function(){
 
   const status =
     document.getElementById(
       "verificationStatus"
     );
+
 
   if(!currentUser){
 
@@ -3409,6 +5326,7 @@ window.openVerification = function(){
 
       status.textContent =
         "Inicia sesión para consultar tu estado.";
+
     }
 
   }else{
@@ -3416,19 +5334,28 @@ window.openVerification = function(){
     if(status){
 
       status.innerHTML =
-        isVerified(currentProfile)
+        isVerified(
+          currentProfile
+        )
+
           ? "✓ Tu perfil está verificado."
+
           : "Tu perfil todavía no está verificado.";
+
     }
+
   }
+
 
   openModal(
     "verificationModal"
   );
+
 };
 
 
-window.requestVerification = function(){
+window.requestVerification =
+function(){
 
   if(!currentUser){
 
@@ -3441,9 +5368,11 @@ window.requestVerification = function(){
     return;
   }
 
+
   showToast(
     "Solicitud registrada. Próximamente podrás gestionar la verificación."
   );
+
 };
 
 
@@ -3451,31 +5380,49 @@ window.requestVerification = function(){
    CALIFICACIÓN
 ========================================================= */
 
-window.rateFitlab = function(rating){
+window.rateFitlab =
+function(rating){
 
-  if(rating < 1 || rating > 5){
+  if(
+    rating < 1 ||
+    rating > 5
+  ){
+
     return;
+
   }
+
 
   localStorage.setItem(
     "fitlab_rating",
     String(rating)
   );
 
+
   const text =
     document.getElementById(
       "ratingText"
     );
 
+
   if(text){
 
     text.textContent =
-      `Tu calificación: ${"★".repeat(rating)}${"☆".repeat(5-rating)}`;
+      `Tu calificación: ${
+        "★".repeat(rating)
+      }${
+        "☆".repeat(
+          5-rating
+        )
+      }`;
+
   }
+
 
   showToast(
     "Gracias por tu calificación."
   );
+
 };
 
 
@@ -3488,16 +5435,29 @@ function loadSavedRating(){
       ) || 0
     );
 
+
   const text =
     document.getElementById(
       "ratingText"
     );
 
-  if(text && rating){
+
+  if(
+    text &&
+    rating
+  ){
 
     text.textContent =
-      `Tu calificación: ${"★".repeat(rating)}${"☆".repeat(5-rating)}`;
+      `Tu calificación: ${
+        "★".repeat(rating)
+      }${
+        "☆".repeat(
+          5-rating
+        )
+      }`;
+
   }
+
 }
 
 
@@ -3505,52 +5465,52 @@ function loadSavedRating(){
    YOUTUBE
 ========================================================= */
 
-/*
-  IMPORTANTE:
-  Esta página NO contiene la API Key de YouTube.
-
-  La página llama a:
-  Supabase Edge Function
-          ↓
-      hyper-worker
-          ↓
-      YouTube API
-          ↓
-        videos
-          ↓
-      FitLab Social
-*/
-
-
-window.searchYouTube = async function(categoryQuery){
+window.searchYouTube =
+async function(
+  categoryQuery
+){
 
   const input =
     document.getElementById(
       "youtubeSearch"
     );
 
+
   let query =
     categoryQuery ||
     input?.value.trim() ||
     "";
 
+
   if(!query){
 
     query =
       "fitness entrenamiento gimnasio ejercicios";
+
   }
+
 
   if(input){
 
     input.value =
-      categoryQuery || input.value;
+      categoryQuery ||
+      input.value;
+
   }
 
+
   document
-    .querySelectorAll(".category-btn")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
+    .querySelectorAll(
+      ".category-btn"
+    )
+    .forEach(
+      btn=>{
+        btn.classList.remove(
+          "active"
+        );
+      }
+    );
+
 
   if(categoryQuery){
 
@@ -3559,61 +5519,94 @@ window.searchYouTube = async function(categoryQuery){
         ".category-btn"
       );
 
-    buttons.forEach(btn=>{
 
-      if(
-        btn.textContent
-          .toLowerCase()
-          .includes(
-            categoryQuery
-              .split(" ")[0]
-              .toLowerCase()
-          )
-      ){
-        btn.classList.add("active");
+    buttons.forEach(
+      btn=>{
+
+        if(
+          btn.textContent
+            .toLowerCase()
+            .includes(
+              categoryQuery
+                .split(" ")[0]
+                .toLowerCase()
+            )
+        ){
+
+          btn.classList.add(
+            "active"
+          );
+
+        }
+
       }
-    });
+    );
+
   }
+
 
   await loadYouTubeVideos(
     query
   );
+
 };
 
 
-async function loadYouTubeVideos(query){
+async function loadYouTubeVideos(
+  query
+){
 
   if(youtubeLoading){
     return;
   }
 
-  youtubeLoading = true;
+
+  youtubeLoading =
+    true;
+
 
   youtubeLastQuery =
     query ||
     "fitness entrenamiento gimnasio ejercicios";
+
 
   const content =
     document.getElementById(
       "youtubeContent"
     );
 
+
   if(!content){
-    youtubeLoading = false;
+
+    youtubeLoading =
+      false;
+
     return;
+
   }
+
 
   content.dataset.loaded =
     "loading";
 
+
   content.innerHTML = `
+
     <div class="video-loading">
-      <div style="font-size:30px;margin-bottom:8px;">
+
+      <div
+        style="font-size:30px;margin-bottom:8px;">
+
         🎥
+
       </div>
+
       Buscando videos...
+
     </div>
+
   `;
+
 
   try{
 
@@ -3625,12 +5618,15 @@ async function loadYouTubeVideos(query){
       ) +
       "&maxResults=12";
 
+
     const response =
       await fetch(
         url,
         {
           method:"GET",
+
           headers:{
+
             "apikey":
               SUPABASE_PUBLISHABLE_KEY,
 
@@ -3640,26 +5636,36 @@ async function loadYouTubeVideos(query){
 
             "Content-Type":
               "application/json"
+
           }
         }
       );
 
+
     const rawText =
       await response.text();
 
-    let data = null;
+
+    let data =
+      null;
+
 
     try{
 
       data =
-        JSON.parse(rawText);
+        JSON.parse(
+          rawText
+        );
 
     }catch{
 
       data = {
-        raw:rawText
+        raw:
+          rawText
       };
+
     }
+
 
     if(!response.ok){
 
@@ -3669,69 +5675,119 @@ async function loadYouTubeVideos(query){
         data
       );
 
+
       throw new Error(
         data?.error ||
         data?.message ||
         `Error ${response.status}`
       );
+
     }
 
-    /*
-      Permitimos varias estructuras de respuesta
-      para que el frontend sea compatible con
-      diferentes versiones del worker.
-    */
 
-    let videos = [];
+    let videos =
+      [];
 
-    if(Array.isArray(data)){
-      videos = data;
+
+    if(
+      Array.isArray(
+        data
+      )
+    ){
+
+      videos =
+        data;
+
     }
-    else if(Array.isArray(data?.videos)){
-      videos = data.videos;
+    else if(
+      Array.isArray(
+        data?.videos
+      )
+    ){
+
+      videos =
+        data.videos;
+
     }
-    else if(Array.isArray(data?.items)){
-      videos = data.items;
+    else if(
+      Array.isArray(
+        data?.items
+      )
+    ){
+
+      videos =
+        data.items;
+
     }
-    else if(Array.isArray(data?.results)){
-      videos = data.results;
+    else if(
+      Array.isArray(
+        data?.results
+      )
+    ){
+
+      videos =
+        data.results;
+
     }
+
 
     videos =
       videos
-        .map(normalizeYouTubeVideo)
-        .filter(video=>video.id);
+        .map(
+          normalizeYouTubeVideo
+        )
+        .filter(
+          video=>video.id
+        );
+
 
     if(!videos.length){
 
       content.innerHTML = `
+
         <div class="video-loading">
-          <div style="font-size:35px;margin-bottom:8px;">
+
+          <div
+            style="font-size:35px;margin-bottom:8px;">
+
             🔎
+
           </div>
 
-          <div style="font-weight:900;margin-bottom:5px;">
+
+          <div
+            style="font-weight:900;margin-bottom:5px;">
+
             No encontramos videos
+
           </div>
+
 
           <div>
             Prueba con otra búsqueda.
           </div>
+
         </div>
+
       `;
+
 
       content.dataset.loaded =
         "true";
 
+
       return;
     }
+
 
     renderYouTubeVideos(
       videos
     );
 
+
     content.dataset.loaded =
       "true";
+
 
   }catch(error){
 
@@ -3740,68 +5796,78 @@ async function loadYouTubeVideos(query){
       error
     );
 
+
     content.innerHTML = `
+
       <div class="video-error">
 
         <div style="font-size:30px;">
           ⚠️
         </div>
 
-        <div style="font-weight:900;margin-top:8px;">
+
+        <div
+          style="font-weight:900;margin-top:8px;">
+
           No se pudieron cargar los videos
+
         </div>
 
-        <div style="font-size:12px;margin-top:7px;">
+
+        <div
+          style="font-size:12px;margin-top:7px;">
+
           ${escapeHTML(
             error?.message ||
             "Error de conexión"
           )}
+
         </div>
+
 
         <button
           class="secondary"
           onclick="loadYouTubeVideos(youtubeLastQuery)">
+
           🔄 Intentar nuevamente
+
         </button>
 
       </div>
+
     `;
+
 
     content.dataset.loaded =
       "error";
 
+
   }finally{
 
-    youtubeLoading = false;
+    youtubeLoading =
+      false;
+
   }
+
 }
 
 
-function normalizeYouTubeVideo(item){
-
-  /*
-    Formato 1:
-    {
-      id,
-      title,
-      channel,
-      thumbnail
-    }
-
-    Formato 2:
-    YouTube Data API:
-    {
-      id:{videoId},
-      snippet:{title,channelTitle,thumbnails}
-    }
-  */
+function normalizeYouTubeVideo(
+  item
+){
 
   let id = "";
+
   let title = "";
+
   let channel = "";
+
   let thumbnail = "";
 
-  if(typeof item === "string"){
+
+  if(
+    typeof item === "string"
+  ){
 
     id =
       extractYouTubeId(
@@ -3810,9 +5876,12 @@ function normalizeYouTubeVideo(item){
 
   }else if(item){
 
-    if(typeof item.id === "string"){
+    if(
+      typeof item.id === "string"
+    ){
 
-      id = item.id;
+      id =
+        item.id;
 
     }else if(
       item.id &&
@@ -3821,7 +5890,9 @@ function normalizeYouTubeVideo(item){
 
       id =
         item.id.videoId;
+
     }
+
 
     title =
       item.title ||
@@ -3829,11 +5900,13 @@ function normalizeYouTubeVideo(item){
       item.snippet?.title ||
       "";
 
+
     channel =
       item.channel ||
       item.channelTitle ||
       item.snippet?.channelTitle ||
       "";
+
 
     thumbnail =
       item.thumbnail ||
@@ -3842,16 +5915,27 @@ function normalizeYouTubeVideo(item){
       item.snippet?.thumbnails?.medium?.url ||
       item.snippet?.thumbnails?.default?.url ||
       "";
+
   }
 
-  if(!thumbnail && id){
+
+  if(
+    !thumbnail &&
+    id
+  ){
 
     thumbnail =
-      `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
+      `https://i.ytimg.com/vi/${encodeURIComponent(
+        id
+      )}/hqdefault.jpg`;
+
   }
 
+
   return {
+
     id,
+
     title:
       title ||
       "Video de YouTube",
@@ -3861,24 +5945,37 @@ function normalizeYouTubeVideo(item){
       "YouTube",
 
     thumbnail
+
   };
+
 }
 
 
-function extractYouTubeId(value){
+function extractYouTubeId(
+  value
+){
 
   if(!value){
     return "";
   }
 
+
   const text =
-    String(value).trim();
+    String(
+      value
+    ).trim();
+
 
   if(
-    /^[a-zA-Z0-9_-]{11}$/.test(text)
+    /^[a-zA-Z0-9_-]{11}$/.test(
+      text
+    )
   ){
+
     return text;
+
   }
+
 
   const patterns = [
 
@@ -3892,165 +5989,262 @@ function extractYouTubeId(value){
 
   ];
 
-  for(const pattern of patterns){
+
+  for(
+    const pattern of patterns
+  ){
 
     const match =
-      text.match(pattern);
+      text.match(
+        pattern
+      );
+
 
     if(match){
+
       return match[1];
+
     }
+
   }
 
+
   return "";
+
 }
 
 
-function renderYouTubeVideos(videos){
+function renderYouTubeVideos(
+  videos
+){
 
   const content =
     document.getElementById(
       "youtubeContent"
     );
 
+
   if(!content){
     return;
   }
 
+
   content.innerHTML =
     videos
-      .map(video=>`
+      .map(
+        video=>`
 
-        <article
-          class="youtube-card"
-          onclick="
-            playYouTubeVideo(
-              '${escapeHTML(video.id)}',
-              '${escapeHTML(video.title)}'
-            )
-          ">
+          <article
+            class="youtube-card"
+            onclick="
+              playYouTubeVideo(
+                '${escapeHTML(
+                  video.id
+                )}',
+                '${escapeHTML(
+                  video.title
+                )}'
+              )
+            ">
 
-          <div class="youtube-thumb-wrap">
 
-            <img
-              class="youtube-thumb"
-              loading="lazy"
-              src="${escapeHTML(video.thumbnail)}"
-              alt="${escapeHTML(video.title)}"
-              onerror="
-                this.src='https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg'
-              ">
+            <div
+              class="youtube-thumb-wrap">
 
-            <div class="youtube-play">
-              ▶
+
+              <img
+                class="youtube-thumb"
+                loading="lazy"
+                src="${escapeHTML(
+                  video.thumbnail
+                )}"
+                alt="${escapeHTML(
+                  video.title
+                )}"
+                onerror="
+                  this.src='https://i.ytimg.com/vi/${encodeURIComponent(
+                    video.id
+                  )}/hqdefault.jpg'
+                ">
+
+
+              <div class="youtube-play">
+                ▶
+              </div>
+
             </div>
 
-          </div>
 
-          <div class="youtube-info">
+            <div class="youtube-info">
 
-            <div class="youtube-title">
-              ${escapeHTML(video.title)}
+
+              <div class="youtube-title">
+
+                ${escapeHTML(
+                  video.title
+                )}
+
+              </div>
+
+
+              <div class="youtube-channel">
+
+                ${escapeHTML(
+                  video.channel
+                )}
+
+              </div>
+
+
+              <div class="youtube-source">
+                YouTube
+              </div>
+
+
             </div>
 
-            <div class="youtube-channel">
-              ${escapeHTML(video.channel)}
-            </div>
+          </article>
 
-            <div class="youtube-source">
-              YouTube
-            </div>
-
-          </div>
-
-        </article>
-
-      `)
+        `
+      )
       .join("");
+
 }
 
 
-window.playYouTubeVideo = function(videoId,title){
+window.playYouTubeVideo =
+function(
+  videoId,
+  title
+){
 
   if(!videoId){
     return;
   }
 
+
   const iframe =
     document.getElementById(
       "youtubePlayer"
     );
+
 
   const titleElement =
     document.getElementById(
       "youtubePlayerTitle"
     );
 
-  /*
-    El video se reproduce mediante
-    el reproductor oficial de YouTube.
-  */
 
   iframe.src =
     "https://www.youtube.com/embed/" +
-    encodeURIComponent(videoId) +
+    encodeURIComponent(
+      videoId
+    ) +
     "?autoplay=1&rel=0&playsinline=1";
 
+
   titleElement.textContent =
-    title || "Video FitLab";
+    title ||
+    "Video FitLab";
+
 
   openModal(
     "youtubePlayerModal"
   );
+
 };
 
 
-window.closeYouTubePlayer = function(){
+window.closeYouTubePlayer =
+function(){
 
   const iframe =
     document.getElementById(
       "youtubePlayer"
     );
 
-  iframe.src = "";
+
+  iframe.src =
+    "";
+
 
   closeModal(
     "youtubePlayerModal"
   );
+
 };
 
 
 /* =========================================================
-   CERRAR MODALES AL TOCAR AFUERA
+   CERRAR MENÚS Y MODALES AL TOCAR AFUERA
 ========================================================= */
 
+document.addEventListener(
+  "click",
+  event=>{
+
+    if(
+      !event.target.closest(
+        ".post-menu-wrap"
+      )
+    ){
+
+      document
+        .querySelectorAll(
+          ".post-menu"
+        )
+        .forEach(
+          menu=>{
+            menu.style.display =
+              "none";
+          }
+        );
+
+    }
+
+  }
+);
+
+
 document
-  .querySelectorAll(".modal")
-  .forEach(modal=>{
+  .querySelectorAll(
+    ".modal"
+  )
+  .forEach(
+    modal=>{
 
-    modal.addEventListener(
-      "click",
-      event=>{
-
-        if(event.target === modal){
-
-          modal.classList.remove(
-            "show"
-          );
+      modal.addEventListener(
+        "click",
+        event=>{
 
           if(
-            modal.id ===
-            "youtubePlayerModal"
+            event.target ===
+            modal
           ){
 
-            document.getElementById(
-              "youtubePlayer"
-            ).src = "";
+            modal.classList.remove(
+              "show"
+            );
+
+
+            if(
+              modal.id ===
+              "youtubePlayerModal"
+            ){
+
+              document.getElementById(
+                "youtubePlayer"
+              ).src = "";
+
+            }
+
           }
+
         }
-      }
-    );
-  });
+      );
+
+    }
+  );
 
 
 /* =========================================================
@@ -4058,10 +6252,15 @@ document
 ========================================================= */
 
 supabase.auth.onAuthStateChange(
-  async (event,session)=>{
+  async (
+    event,
+    session
+  )=>{
 
     currentUser =
-      session?.user || null;
+      session?.user ||
+      null;
+
 
     if(currentUser){
 
@@ -4069,10 +6268,14 @@ supabase.auth.onAuthStateChange(
 
     }else{
 
-      currentProfile = null;
+      currentProfile =
+        null;
+
     }
 
+
     await loadProfilePage();
+
   }
 );
 
@@ -4084,13 +6287,20 @@ supabase.auth.onAuthStateChange(
 async function loadEverything(){
 
   await Promise.allSettled([
+
     loadPosts(),
+
     loadUsers(),
+
     loadRecommendations(),
+
     loadProfilePage()
+
   ]);
 
+
   loadSavedRating();
+
 }
 
 
@@ -4107,12 +6317,16 @@ async function init(){
     } =
     await supabase.auth.getSession();
 
+
     currentUser =
-      data?.session?.user || null;
+      data?.session?.user ||
+      null;
+
 
     if(currentUser){
 
       await loadCurrentProfile();
+
     }
 
   }catch(error){
@@ -4121,9 +6335,12 @@ async function init(){
       "Error obteniendo sesión:",
       error
     );
+
   }
 
+
   await loadEverything();
+
 }
 
 
